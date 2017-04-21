@@ -38,7 +38,7 @@ public class CutWoodAction implements ManagedOperation, AnimatedAction {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int quantity = WoodPropertyUtils.calculateLumberingQuantity(performer);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), quantity);
-		target.increment(Constants.WOOD_SOURCE, - 10);
+		target.increment(Constants.WOOD_SOURCE, - 50);
 		
 		WoodPropertyUtils.checkWoodSourceExhausted(target);
 		target.setProperty(Constants.IMAGE_ID, TreeImageCalculator.getTreeImageId(target, world));

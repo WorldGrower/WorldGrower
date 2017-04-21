@@ -14,24 +14,38 @@
  *******************************************************************************/
 package org.worldgrower.terrain;
 
-public enum TerrainType {
-	WATER(0),
-	DESERT(-1),
-	GRASLAND(+1),
-	HILL(-1),
-	MOUNTAIN(-1),
-	PLAINS(+1),
-	SNOW(-1),
-	TUNDRA(-1),
-	MARSH(-1);
-	
-	private final int foodBonus;
+import java.util.EnumMap;
 
-	private TerrainType(int foodBonus) {
-		this.foodBonus = foodBonus;
+public enum TerrainType {
+	WATER(		+0, +0),
+	DESERT(		-1, -1),
+	GRASLAND(	+1, +1),
+	HILL(		-1, +1),
+	MOUNTAIN(	-1, -1),
+	PLAINS(		+1, +1),
+	SNOW(		-1, -1),
+	TUNDRA(		-1, -1),
+	MARSH(		-1, -1);
+	
+	private final EnumMap<TerrainResource, Integer> terrainResources = new EnumMap<>(TerrainResource.class);
+	
+	private TerrainType(int foodBonus, int woodBonus) {
+		terrainResources.put(TerrainResource.FOOD, foodBonus);
+		terrainResources.put(TerrainResource.WOOD, woodBonus);
 	}
 
-	public int getFoodBonus() {
-		return foodBonus;
+	public String getDescription() {
+		return name().toLowerCase();
+	}
+
+	public int getBonus(TerrainResource terrainResource) {
+		return terrainResources.get(terrainResource);
+	}
+
+	public String getPercentageBonus(TerrainResource terrainResource, int defaultResourceIncrease) {
+		int bonus = getBonus(terrainResource);
+		String sign = (bonus >= 0 ? "+" : "");
+		int bonusPercentage = (100 * bonus) / defaultResourceIncrease;
+		return sign + bonusPercentage + "%";
 	}
 }

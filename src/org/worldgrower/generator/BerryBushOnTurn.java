@@ -21,6 +21,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.FoodPropertyUtils;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.DrownUtils;
+import org.worldgrower.terrain.TerrainResource;
 import org.worldgrower.terrain.TerrainType;
 
 public class BerryBushOnTurn implements OnTurn {
@@ -55,14 +56,10 @@ public class BerryBushOnTurn implements OnTurn {
 		int x = worldObject.getProperty(Constants.X);
 		int y = worldObject.getProperty(Constants.Y);
 		TerrainType terrainType = world.getTerrain().getTerrainInfo(x, y).getTerrainType();
-		int foodBonus = terrainType.getFoodBonus();
-		return DEFAULT_FOOD_INCREASE + foodBonus;
+		return DEFAULT_FOOD_INCREASE + terrainType.getBonus(TerrainResource.FOOD);
 	}
 	
 	public static String getPercentageFoodBonus(TerrainType terrainType) {
-		int foodBonus = terrainType.getFoodBonus();
-		String sign = (foodBonus >= 0 ? "+" : "");
-		int foodBonusPercentage = (100 * foodBonus) / DEFAULT_FOOD_INCREASE;
-		return sign + foodBonusPercentage + "%";
+		return terrainType.getPercentageBonus(TerrainResource.FOOD, DEFAULT_FOOD_INCREASE);
 	}
 }

@@ -60,6 +60,7 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.generator.BerryBushOnTurn;
+import org.worldgrower.generator.TreeOnTurn;
 import org.worldgrower.gui.conversation.GuiRespondToQuestion;
 import org.worldgrower.gui.conversation.GuiShowBrawlResult;
 import org.worldgrower.gui.conversation.GuiShowDrinkingContestResult;
@@ -594,7 +595,13 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 	private String getTerrainTooltip(int x, int y) {
 		if (worldObjectIsExplored(x, y, 1, 1)) {
 			TerrainType terrainType = world.getTerrain().getTerrainInfo(x-offsetX, y-offsetY).getTerrainType();
-			return "food bonus " + BerryBushOnTurn.getPercentageFoodBonus(terrainType);
+			StringBuilder terrainTooltipBuilder = new StringBuilder();
+			terrainTooltipBuilder.append("<html>");
+			terrainTooltipBuilder.append(terrainType.getDescription()).append("<br>");
+			terrainTooltipBuilder.append("food bonus ").append(BerryBushOnTurn.getPercentageFoodBonus(terrainType)).append("<br>");
+			terrainTooltipBuilder.append("wood bonus ").append(TreeOnTurn.getPercentageWoodBonus(terrainType)).append("<br>");
+			terrainTooltipBuilder.append("</html>");
+			return terrainTooltipBuilder.toString();
 		} else {
 			return null;
 		}
