@@ -20,9 +20,13 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.DrownUtils;
+import org.worldgrower.terrain.TerrainResource;
+import org.worldgrower.terrain.TerrainType;
 
 public class GrapeVineOnTurn implements OnTurn {
 
+	private static final int DEFAULT_GRAPE_INCREASE = 4;
+	
 	@Override
 	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
 		increaseGrapeAmount(worldObject, world);
@@ -31,7 +35,8 @@ public class GrapeVineOnTurn implements OnTurn {
 	}
 
 	private static void increaseGrapeAmount(WorldObject worldObject, World world) {
-		worldObject.increment(Constants.GRAPE_SOURCE, 5);
+		int grapesProduced = calculateGrapesProduced(worldObject, world);
+		worldObject.increment(Constants.GRAPE_SOURCE, grapesProduced);
 		
 		worldObject.setProperty(Constants.IMAGE_ID, VineImageCalculator.getImageId(worldObject, world));
 	}
@@ -40,5 +45,16 @@ public class GrapeVineOnTurn implements OnTurn {
 		while (!Constants.GRAPE_SOURCE.isAtMax(worldObject)) {
 			increaseGrapeAmount(worldObject, world);
 		}
+	}
+	
+	private static int calculateGrapesProduced(WorldObject worldObject, World world) {
+		int x = worldObject.getProperty(Constants.X);
+		int y = worldObject.getProperty(Constants.Y);
+		TerrainType terrainType = world.getTerrain().getTerrainInfo(x, y).getTerrainType();
+		return DEFAULT_GRAPE_INCREASE + terrainType.getBonus(TerrainResource.GRAPES);
+	}
+	
+	public static String getPercentageGrapesBonus(TerrainType terrainType) {
+		return terrainType.getPercentageBonus(TerrainResource.COTTON, DEFAULT_GRAPE_INCREASE);
 	}
 }

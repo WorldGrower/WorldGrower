@@ -17,22 +17,23 @@ package org.worldgrower.terrain;
 import java.util.EnumMap;
 
 public enum TerrainType {
-	WATER(		+0, +0, +0),
-	DESERT(		-1, -1, -1),
-	GRASLAND(	+1, +1, +0),
-	HILL(		-1, +1, +1),
-	MOUNTAIN(	-1, -1, -1),
-	PLAINS(		+1, +1, +1),
-	SNOW(		-1, -1, -1),
-	TUNDRA(		-1, -1, -1),
-	MARSH(		-1, -1, -1);
+	WATER(		+0, +0, +0, +0),
+	DESERT(		-1, -1, -1, -1),
+	GRASLAND(	+1, +1, +0, +0),
+	HILL(		-1, +1, +1, +1),
+	MOUNTAIN(	-1, -1, -1, -1),
+	PLAINS(		+1, +1, -1, +1),
+	SNOW(		-1, -1, -1, -1),
+	TUNDRA(		-1, -1, -1, -1),
+	MARSH(		-1, -1, -1, -1);
 	
 	private final EnumMap<TerrainResource, Integer> terrainResources = new EnumMap<>(TerrainResource.class);
 	
-	private TerrainType(int foodBonus, int woodBonus, int cottonBonus) {
+	private TerrainType(int foodBonus, int woodBonus, int cottonBonus, int grapesBonus) {
 		terrainResources.put(TerrainResource.FOOD, foodBonus);
 		terrainResources.put(TerrainResource.WOOD, woodBonus);
 		terrainResources.put(TerrainResource.COTTON, cottonBonus);
+		terrainResources.put(TerrainResource.GRAPES, grapesBonus);		
 	}
 
 	public String getDescription() {

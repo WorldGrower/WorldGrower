@@ -17,5 +17,6 @@ package org.worldgrower.terrain;
 public enum TerrainResource {
 	FOOD,
 	WOOD, 
-	COTTON
+	COTTON, 
+	GRAPES
 }
