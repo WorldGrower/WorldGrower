@@ -20,9 +20,13 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.DrownUtils;
+import org.worldgrower.terrain.TerrainResource;
+import org.worldgrower.terrain.TerrainType;
 
 public class CottonPlantOnTurn implements OnTurn {
 
+	private static final int DEFAULT_COTTON_INCREASE = 10;
+	
 	@Override
 	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
 		increaseCottonAmount(worldObject, world);
@@ -31,7 +35,8 @@ public class CottonPlantOnTurn implements OnTurn {
 	}
 
 	private static void increaseCottonAmount(WorldObject worldObject, World world) {
-		worldObject.increment(Constants.COTTON_SOURCE, 10);
+		int cottonProduced = calculateCottonProduced(worldObject, world);
+		worldObject.increment(Constants.COTTON_SOURCE, cottonProduced);
 		
 		worldObject.setProperty(Constants.IMAGE_ID, CottonPlantImageCalculator.getImageId(worldObject, world));
 	}
@@ -40,5 +45,16 @@ public class CottonPlantOnTurn implements OnTurn {
 		while(!Constants.COTTON_SOURCE.isAtMax(worldObject)) {
 			increaseCottonAmount(worldObject, world);
 		}
+	}
+	
+	private static int calculateCottonProduced(WorldObject worldObject, World world) {
+		int x = worldObject.getProperty(Constants.X);
+		int y = worldObject.getProperty(Constants.Y);
+		TerrainType terrainType = world.getTerrain().getTerrainInfo(x, y).getTerrainType();
+		return DEFAULT_COTTON_INCREASE + terrainType.getBonus(TerrainResource.COTTON);
+	}
+	
+	public static String getPercentageCottonBonus(TerrainType terrainType) {
+		return terrainType.getPercentageBonus(TerrainResource.COTTON, DEFAULT_COTTON_INCREASE);
 	}
 }
