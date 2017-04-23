@@ -32,6 +32,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.event.PopupMenuEvent;
@@ -156,8 +157,9 @@ public class GuiMouseListener extends MouseAdapter {
 	
 	private void addKeyBindingsFor(Action action, char binding) {
 		String bindingValue = Character.toString(binding);
-		container.getInputMap().put(KeyStroke.getKeyStroke(bindingValue), action.getClass().getSimpleName());
-		container.getActionMap().put(action.getClass().getSimpleName(), action);
+		JRootPane rootPane = parentFrame.getRootPane();
+		rootPane.getInputMap().put(KeyStroke.getKeyStroke(bindingValue), action.getClass().getSimpleName());
+		rootPane.getActionMap().put(action.getClass().getSimpleName(), action);
 		action.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(bindingValue));
 	}
 
