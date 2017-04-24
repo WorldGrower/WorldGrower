@@ -63,7 +63,7 @@ public class UTestApothecaryGoal {
 		WorldObject performer = createCommoner(world, organization);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.STONE.generate(1f), 20);
 		
-		PlantGenerator.generateTree(5, 5, world);
+		PlantGenerator.generateOldTree(5, 5, world);
 		
 		assertEquals(Actions.CUT_WOOD_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}

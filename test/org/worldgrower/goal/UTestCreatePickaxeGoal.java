@@ -50,7 +50,7 @@ public class UTestCreatePickaxeGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		PlantGenerator.generateTree(5, 5, world);
+		PlantGenerator.generateOldTree(5, 5, world);
 		
 		addWorkbench(world, performer);
 		

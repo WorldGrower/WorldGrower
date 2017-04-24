@@ -70,7 +70,7 @@ public class UTestSecludedAction {
 	}
 
 	private WorldObject createTree(World world) {
-		int targetId = PlantGenerator.generateTree(0, 0, world);
+		int targetId = PlantGenerator.generateOldTree(0, 0, world);
 		WorldObject target = world.findWorldObjectById(targetId);
 		return target;
 	}

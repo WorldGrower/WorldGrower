@@ -49,7 +49,7 @@ public class UTestPaperGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		PlantGenerator.generateTree(5, 5, world);
+		PlantGenerator.generateOldTree(5, 5, world);
 		
 		assertEquals(Actions.CUT_WOOD_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -70,7 +70,7 @@ public class UTestPaperGoal {
 		WorldObject performer = createPerformer();
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f), 20);
-		PlantGenerator.generateTree(5, 5, world);
+		PlantGenerator.generateOldTree(5, 5, world);
 		
 		assertEquals(Actions.CUT_WOOD_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}

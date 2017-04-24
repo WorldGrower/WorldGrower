@@ -59,7 +59,7 @@ public class UTestScribeWizardSpellsGoal {
 		WorldObject performer = createPerformer();
 		
 		BuildingGenerator.generateLibrary(5, 5, world, performer);
-		PlantGenerator.generateTree(5, 5, world);
+		PlantGenerator.generateOldTree(5, 5, world);
 		
 		performer.getProperty(Constants.KNOWN_SPELLS).add(Actions.FIRE_BOLT_ATTACK_ACTION);
 		

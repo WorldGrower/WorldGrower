@@ -53,7 +53,7 @@ public class UTestCreateRepairHammerGoal {
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
 		
-		PlantGenerator.generateTree(0, 0, world);
+		PlantGenerator.generateOldTree(0, 0, world);
 		
 		assertEquals(Actions.CUT_WOOD_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}

@@ -147,6 +147,13 @@ public class PlantGenerator {
 		return generateTree(x, y, world, 1f);
 	}
 	
+	public static int generateOldTree(int x, int y, World world) {
+		int treeId = generateTree(x, y, world);
+		WorldObject tree = world.findWorldObjectById(treeId);
+		tree.setProperty(Constants.WOOD_SOURCE, 200);
+		return treeId;
+	}
+	
 	public static int generateTree(int x, int y, World world, double skillBonus) {
 		int id = world.generateUniqueId();
 		final ImageIds imageId = getTreeImageId(x, y, world);

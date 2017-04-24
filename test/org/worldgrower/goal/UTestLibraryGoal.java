@@ -48,7 +48,7 @@ public class UTestLibraryGoal {
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		
-		PlantGenerator.generateTree(5, 5, world);
+		PlantGenerator.generateOldTree(5, 5, world);
 		
 		assertEquals(Actions.CUT_WOOD_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}

@@ -40,16 +40,16 @@ public class UTestPlantGrowthAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = TestUtils.createWorldObject(0, 0, 10, 10);
 		
-		int treeId = PlantGenerator.generateTree(0, 0, world);
+		int treeId = PlantGenerator.generateOldTree(0, 0, world);
 		WorldObject tree = world.findWorldObjectById(treeId);
-		assertEquals(50, tree.getProperty(Constants.WOOD_SOURCE).intValue());
+		assertEquals(200, tree.getProperty(Constants.WOOD_SOURCE).intValue());
 		
 		action.execute(performer, target, Args.EMPTY, world);
 		
-		assertEquals(400, tree.getProperty(Constants.WOOD_SOURCE).intValue());
+		assertEquals(500, tree.getProperty(Constants.WOOD_SOURCE).intValue());
 		
 		assertEquals(5, world.getWorldObjects().size());
-		assertEquals(400, world.getWorldObjects().get(0).getProperty(Constants.WOOD_SOURCE).intValue());
+		assertEquals(500, world.getWorldObjects().get(0).getProperty(Constants.WOOD_SOURCE).intValue());
 		assertEquals(50, world.getWorldObjects().get(1).getProperty(Constants.WOOD_SOURCE).intValue());
 		assertEquals(50, world.getWorldObjects().get(2).getProperty(Constants.WOOD_SOURCE).intValue());
 		assertEquals(50, world.getWorldObjects().get(3).getProperty(Constants.WOOD_SOURCE).intValue());
@@ -62,9 +62,9 @@ public class UTestPlantGrowthAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = TestUtils.createWorldObject(0, 0, 10, 10);
 		
-		int treeId = PlantGenerator.generateTree(0, 0, world);
+		int treeId = PlantGenerator.generateOldTree(0, 0, world);
 		WorldObject tree = world.findWorldObjectById(treeId);
-		assertEquals(50, tree.getProperty(Constants.WOOD_SOURCE).intValue());
+		assertEquals(200, tree.getProperty(Constants.WOOD_SOURCE).intValue());
 		
 		int berryBushId = PlantGenerator.generateBerryBush(0, 0, world);
 		WorldObject berryBush = world.findWorldObjectById(berryBushId);
@@ -84,7 +84,7 @@ public class UTestPlantGrowthAction {
 		
 		action.execute(performer, target, Args.EMPTY, world);
 		
-		assertEquals(400, tree.getProperty(Constants.WOOD_SOURCE).intValue());
+		assertEquals(500, tree.getProperty(Constants.WOOD_SOURCE).intValue());
 		assertEquals(500, berryBush.getProperty(Constants.FOOD_SOURCE).intValue());
 		assertEquals(500, nightshade.getProperty(Constants.NIGHT_SHADE_SOURCE).intValue());
 		assertEquals(500, cottonPlant.getProperty(Constants.COTTON_SOURCE).intValue());

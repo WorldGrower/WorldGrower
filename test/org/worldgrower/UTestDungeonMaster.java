@@ -117,7 +117,7 @@ public class UTestDungeonMaster {
 		commoner.setProperty(Constants.Y, 5);
 		world.addWorldObject(commoner);
 		int wellId = BuildingGenerator.buildWell(2, 2, world, 1f);
-		PlantGenerator.generateTree(8, 8, world);
+		PlantGenerator.generateOldTree(8, 8, world);
 		
 		dungeonMaster.runWorldObject(commoner, world);
 		

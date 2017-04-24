@@ -78,8 +78,8 @@ public class UTestGoalUtils {
 		WorldObject performer = TestUtils.createWorldObject(3, 3, 1, 1, Constants.ID, 2);
 		world.addWorldObject(performer);
 		
-		world.addWorldObject(TestUtils.createWorldObject(4, 4, 1, 1, Constants.WOOD_SOURCE, 30, 3));
-		world.addWorldObject(TestUtils.createWorldObject(5, 5, 1, 1, Constants.WOOD_SOURCE, 30, 4));
+		world.addWorldObject(TestUtils.createWorldObject(4, 4, 1, 1, Constants.WOOD_SOURCE, 60, 3));
+		world.addWorldObject(TestUtils.createWorldObject(5, 5, 1, 1, Constants.WOOD_SOURCE, 60, 4));
 		
 		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.CUT_WOOD_ACTION, world);
 		
@@ -104,13 +104,13 @@ public class UTestGoalUtils {
 		WorldObject performer = TestUtils.createWorldObject(3, 3, 1, 1, Constants.ID, 2);
 		world.addWorldObject(performer);
 		
-		world.addWorldObject(TestUtils.createWorldObject(4, 4, 1, 1, Constants.WOOD_SOURCE, 30, 3));
-		world.addWorldObject(TestUtils.createWorldObject(5, 5, 1, 1, Constants.WOOD_SOURCE, 40, 4));
+		world.addWorldObject(TestUtils.createWorldObject(4, 4, 1, 1, Constants.WOOD_SOURCE, 40, 3));
+		world.addWorldObject(TestUtils.createWorldObject(5, 5, 1, 1, Constants.WOOD_SOURCE, 70, 4));
 		
 		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.CUT_WOOD_ACTION, w -> w.getProperty(Constants.WOOD_SOURCE) > 30, world);
 		
 		assertEquals(1, targets.size());
-		assertEquals(40, targets.get(0).getProperty(Constants.WOOD_SOURCE).intValue());
+		assertEquals(70, targets.get(0).getProperty(Constants.WOOD_SOURCE).intValue());
 
 	}
 	
@@ -120,13 +120,13 @@ public class UTestGoalUtils {
 		WorldObject performer = TestUtils.createWorldObject(3, 3, 1, 1, Constants.ID, 2);
 		world.addWorldObject(performer);
 		
-		world.addWorldObject(TestUtils.createWorldObject(4, 4, 1, 1, Constants.WOOD_SOURCE, 30, 3));
-		world.addWorldObject(TestUtils.createWorldObject(6, 6, 1, 1, Constants.WOOD_SOURCE, 40, 4));
+		world.addWorldObject(TestUtils.createWorldObject(4, 4, 1, 1, Constants.WOOD_SOURCE, 60, 3));
+		world.addWorldObject(TestUtils.createWorldObject(6, 6, 1, 1, Constants.WOOD_SOURCE, 70, 4));
 		
 		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.CUT_WOOD_ACTION, w -> true, world);
 		
 		assertEquals(2, targets.size());
-		assertEquals(30, targets.get(0).getProperty(Constants.WOOD_SOURCE).intValue());
+		assertEquals(60, targets.get(0).getProperty(Constants.WOOD_SOURCE).intValue());
 		assertEquals(4, targets.get(0).getProperty(Constants.X).intValue());
 	}
 	
@@ -207,7 +207,7 @@ public class UTestGoalUtils {
 	public void testCreateOperationInfoTarget() {
 		World world = createWorld();
 		WorldObject performer = TestUtils.createWorldObject(2, 2, 1, 1, Constants.ID, 7);
-		int treeId = PlantGenerator.generateTree(5, 5, world);
+		int treeId = PlantGenerator.generateOldTree(5, 5, world);
 		OperationInfo operationInfo = GoalUtils.createOperationInfo(performer, Actions.CUT_WOOD_ACTION, Args.EMPTY, world);
 		assertEquals(Actions.CUT_WOOD_ACTION, operationInfo.getManagedOperation());
 		assertEquals(treeId, operationInfo.getTarget().getProperty(Constants.ID).intValue());

@@ -34,11 +34,11 @@ public class UTestCutWoodAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createTree(world);
 		
-		assertEquals(50, target.getProperty(Constants.WOOD_SOURCE).intValue());
+		assertEquals(200, target.getProperty(Constants.WOOD_SOURCE).intValue());
 		Actions.CUT_WOOD_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD));
-		assertEquals(40, target.getProperty(Constants.WOOD_SOURCE).intValue());
+		assertEquals(150, target.getProperty(Constants.WOOD_SOURCE).intValue());
 	}
 	
 	@Test
@@ -65,7 +65,7 @@ public class UTestCutWoodAction {
 	}
 
 	private WorldObject createTree(World world) {
-		int treeId = PlantGenerator.generateTree(0, 0, world);
+		int treeId = PlantGenerator.generateOldTree(0, 0, world);
 		WorldObject target = world.findWorldObjectById(treeId);
 		return target;
 	}

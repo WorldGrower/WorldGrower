@@ -77,7 +77,7 @@ public class UTestCreateNewsPaperGoal {
 		performer.setProperty(Constants.NAME, "performer");
 		//world.addWorldObject(performer);
 		
-		PlantGenerator.generateTree(0, 0, world);
+		PlantGenerator.generateOldTree(0, 0, world);
 		
 		Integer performerId = performer.getProperty(Constants.ID);
 		performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(performer, new PropertyKnowledge(performerId, Constants.PROFESSION, Professions.FARMER_PROFESSION));
