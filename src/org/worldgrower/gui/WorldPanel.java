@@ -64,6 +64,7 @@ import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.generator.BerryBushOnTurn;
 import org.worldgrower.generator.CottonPlantOnTurn;
 import org.worldgrower.generator.GrapeVineOnTurn;
+import org.worldgrower.generator.NightShadeOnTurn;
 import org.worldgrower.generator.TreeOnTurn;
 import org.worldgrower.gui.conversation.GuiRespondToQuestion;
 import org.worldgrower.gui.conversation.GuiShowBrawlResult;
@@ -614,6 +615,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 			terrainTooltipBuilder.append(imageInfoReader.smallImageTag(ImageIds.WOOD)).append(" wood bonus ").append(TreeOnTurn.getPercentageWoodBonus(terrainType)).append("<br>");
 			terrainTooltipBuilder.append(imageInfoReader.smallImageTag(ImageIds.COTTON)).append(" cotton bonus ").append(CottonPlantOnTurn.getPercentageCottonBonus(terrainType)).append("<br>");
 			terrainTooltipBuilder.append(imageInfoReader.smallImageTag(ImageIds.GRAPES)).append(" grapes bonus ").append(GrapeVineOnTurn.getPercentageGrapesBonus(terrainType)).append("<br>");
+			terrainTooltipBuilder.append(imageInfoReader.smallImageTag(ImageIds.NIGHT_SHADE)).append(" nightshade bonus ").append(NightShadeOnTurn.getPercentageNightShadeBonus(terrainType)).append("<br>");
 			terrainTooltipBuilder.append("</html>");
 			return terrainTooltipBuilder.toString();
 		} else {

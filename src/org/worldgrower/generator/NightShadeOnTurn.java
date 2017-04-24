@@ -20,9 +20,13 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.DrownUtils;
+import org.worldgrower.terrain.TerrainResource;
+import org.worldgrower.terrain.TerrainType;
 
 public class NightShadeOnTurn implements OnTurn {
 
+	private static final int DEFAULT_NIGHTSHADE_INCREASE = 1;
+	
 	@Override
 	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
 		increaseNightShadeAmount(worldObject, world);
@@ -31,7 +35,8 @@ public class NightShadeOnTurn implements OnTurn {
 	}
 
 	private static void increaseNightShadeAmount(WorldObject worldObject, World world) {
-		worldObject.increment(Constants.NIGHT_SHADE_SOURCE, 1);
+		int nightShadeProduced = calculateNightShadeProduced(worldObject, world);
+		worldObject.increment(Constants.NIGHT_SHADE_SOURCE, nightShadeProduced);
 		
 		worldObject.setProperty(Constants.IMAGE_ID, NightShadeImageCalculator.getImageId(worldObject, world));
 	}
@@ -40,5 +45,16 @@ public class NightShadeOnTurn implements OnTurn {
 		while (!Constants.NIGHT_SHADE_SOURCE.isAtMax(worldObject)) {
 			increaseNightShadeAmount(worldObject, world);
 		}
+	}
+	
+	private static int calculateNightShadeProduced(WorldObject worldObject, World world) {
+		int x = worldObject.getProperty(Constants.X);
+		int y = worldObject.getProperty(Constants.Y);
+		TerrainType terrainType = world.getTerrain().getTerrainInfo(x, y).getTerrainType();
+		return DEFAULT_NIGHTSHADE_INCREASE + terrainType.getBonus(TerrainResource.NIGHTSHADE);
+	}
+	
+	public static String getPercentageNightShadeBonus(TerrainType terrainType) {
+		return terrainType.getPercentageBonus(TerrainResource.NIGHTSHADE, DEFAULT_NIGHTSHADE_INCREASE);
 	}
 }

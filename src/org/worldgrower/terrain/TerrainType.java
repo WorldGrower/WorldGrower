@@ -17,23 +17,24 @@ package org.worldgrower.terrain;
 import java.util.EnumMap;
 
 public enum TerrainType {
-	WATER(		+0, +0, +0, +0),
-	DESERT(		-1, -1, -1, -1),
-	GRASLAND(	+1, +1, +0, +0),
-	HILL(		-1, +1, +1, +1),
-	MOUNTAIN(	-1, -1, -1, -1),
-	PLAINS(		+1, +1, -1, +1),
-	SNOW(		-1, -1, -1, -1),
-	TUNDRA(		-1, -1, -1, -1),
-	MARSH(		-1, -1, -1, -1);
+	WATER(		+0, +0, +0, +0, +0),
+	DESERT(		-1, -1, -1, -1, +0),
+	GRASLAND(	+1, +1, +0, +0, +0),
+	HILL(		-1, +1, +1, +1, +1),
+	MOUNTAIN(	-1, -1, -1, -1, +1),
+	PLAINS(		+1, +1, -1, +1, +0),
+	SNOW(		-1, -1, -1, -1, +1),
+	TUNDRA(		-1, -1, -1, -1, +1),
+	MARSH(		-1, -1, -1, -1, +1);
 	
 	private final EnumMap<TerrainResource, Integer> terrainResources = new EnumMap<>(TerrainResource.class);
 	
-	private TerrainType(int foodBonus, int woodBonus, int cottonBonus, int grapesBonus) {
+	private TerrainType(int foodBonus, int woodBonus, int cottonBonus, int grapesBonus, int nightShadeBonus) {
 		terrainResources.put(TerrainResource.FOOD, foodBonus);
 		terrainResources.put(TerrainResource.WOOD, woodBonus);
 		terrainResources.put(TerrainResource.COTTON, cottonBonus);
-		terrainResources.put(TerrainResource.GRAPES, grapesBonus);		
+		terrainResources.put(TerrainResource.GRAPES, grapesBonus);
+		terrainResources.put(TerrainResource.NIGHTSHADE, nightShadeBonus);
 	}
 
 	public String getDescription() {

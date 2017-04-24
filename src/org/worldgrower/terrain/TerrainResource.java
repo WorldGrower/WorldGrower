@@ -18,5 +18,6 @@ public enum TerrainResource {
 	FOOD,
 	WOOD, 
 	COTTON, 
-	GRAPES
+	GRAPES,
+	NIGHTSHADE
 }
