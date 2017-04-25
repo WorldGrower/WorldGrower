@@ -25,21 +25,28 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.generator.BuildingDimensions;
+import org.worldgrower.terrain.Terrain;
+import org.worldgrower.terrain.TerrainResource;
 
 public class BuildLocationUtils {
 
 	public static WorldObject findOpenLocationNearExistingProperty(WorldObject performer, BuildingDimensions buildingDimensions, World world) {
-		return findOpenLocationNearExistingProperty(performer, buildingDimensions.getPlacementWidth(), buildingDimensions.getPlacementHeight(), world);
+		return findOpenLocationNearExistingProperty(performer, buildingDimensions.getPlacementWidth(), buildingDimensions.getPlacementHeight(), world, new DefaultZoneInitializer());
 	}
 	
-	private static WorldObject findOpenLocationNearExistingProperty(WorldObject performer, int width, int height, World world) {
+	public static WorldObject findOpenLocationNearExistingProperty(WorldObject performer, BuildingDimensions buildingDimensions, World world, TerrainResource terrainResource) {
+		TerrainResourceZoneInitializer zoneInitializer = new TerrainResourceZoneInitializer(terrainResource, world);
+		return findOpenLocationNearExistingProperty(performer, buildingDimensions.getPlacementWidth(), buildingDimensions.getPlacementHeight(), world, zoneInitializer);
+	}
+	
+	private static WorldObject findOpenLocationNearExistingProperty(WorldObject performer, int width, int height, World world, ZoneInitializer zoneInitializer) {
 		List<WorldObject> housing = getHousing(performer, world);
 		
 		// add additional free space to left and top of open space
 		width++;
 		height++;
 		
-		WorldObject target = findOpenLocationNearExistingProperty(performer, width, height, world, housing);
+		WorldObject target = findOpenLocationNearExistingProperty(performer, width, height, world, housing, zoneInitializer);
 		if (target != null) {
 			target.increment(Constants.X, 1);
 			target.increment(Constants.Y, 1);
@@ -100,10 +107,10 @@ public class BuildLocationUtils {
 	}
 	
 	public static WorldObject findOpenLocationNearPerformer(WorldObject performer, BuildingDimensions buildingDimensions, World world) {
-		return findOpenLocationNearExistingProperty(performer, buildingDimensions.getPlacementWidth(), buildingDimensions.getPlacementHeight(), world, Arrays.asList(performer));
+		return findOpenLocationNearExistingProperty(performer, buildingDimensions.getPlacementWidth(), buildingDimensions.getPlacementHeight(), world, Arrays.asList(performer), new DefaultZoneInitializer());
 	}
 	
-	static WorldObject findOpenLocationNearExistingProperty(WorldObject performer, int width, int height, World world, List<WorldObject> housing) {
+	static WorldObject findOpenLocationNearExistingProperty(WorldObject performer, int width, int height, World world, List<WorldObject> housing, ZoneInitializer zoneInitializer) {
 		Zone zone = new Zone(world.getWidth(), world.getHeight());
 		zone.addValues(housing, 6, 1);
 		
@@ -121,5 +128,37 @@ public class BuildLocationUtils {
 		}
 		
 		return createTargetWorldObject(performer, width, height, world, bestLocation);
+	}
+	
+	static class DefaultZoneInitializer implements ZoneInitializer {
+
+		@Override
+		public void initialize(int[][] zone, int worldWidth, int worldHeight) {
+		}
+	}
+	
+	private static class TerrainResourceZoneInitializer implements ZoneInitializer {
+
+		private final TerrainResource terrainResource;
+		private final Terrain terrain;
+		
+		public TerrainResourceZoneInitializer(TerrainResource terrainResource, World world) {
+			this.terrainResource = terrainResource;
+			this.terrain = world.getTerrain();
+		}
+
+		@Override
+		public void initialize(int[][] zone, int worldWidth, int worldHeight) {
+			for(int x=0; x<worldWidth; x++) {
+				for(int y=0; y<worldHeight; y++) {
+					zone[x][y] = calculateInitialValue(x, y);
+				}
+			}
+			
+		}
+
+		private int calculateInitialValue(int x, int y) {
+			return terrain.getTerrainInfo(x, y).getTerrainType().getBonus(terrainResource);
+		}		
 	}
 }

@@ -36,6 +36,11 @@ public class Zone {
 		this.worldHeight = worldHeight;
 	}
 	
+	public Zone(int worldWidth, int worldHeight, ZoneInitializer zoneInitializer) {
+		this(worldWidth, worldHeight);
+		zoneInitializer.initialize(this.zone, worldWidth, worldHeight);
+	}
+	
 	public void addValues(List<WorldObject> worldObjects, int zoneLimit, int increment) {
 		for(WorldObject target : worldObjects) {
 			int targetX = target.getProperty(Constants.X);

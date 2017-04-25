@@ -28,6 +28,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.BuildingList;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingDimensions;
+import org.worldgrower.terrain.TerrainResource;
 
 public class UTestBuildLocationUtils {
 
@@ -37,7 +38,7 @@ public class UTestBuildLocationUtils {
 		WorldObject house = TestUtils.createWorldObject(3, 3, 1, 1, Constants.ID, 2);
 		world.addWorldObject(house);
 		
-		WorldObject location = BuildLocationUtils.findOpenLocationNearExistingProperty(null, 1, 1, world, Arrays.asList(house));
+		WorldObject location = BuildLocationUtils.findOpenLocationNearExistingProperty(null, 1, 1, world, Arrays.asList(house), new BuildLocationUtils.DefaultZoneInitializer());
 		assertEquals(0, location.getProperty(Constants.X).intValue());
 		assertEquals(0, location.getProperty(Constants.Y).intValue());
 		assertEquals(1, location.getProperty(Constants.WIDTH).intValue());
@@ -67,7 +68,7 @@ public class UTestBuildLocationUtils {
 		performer.setProperty(Constants.Y, 4);
 		world.addWorldObject(performer);
 		
-		WorldObject location = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 1, 1, world, new ArrayList<>());
+		WorldObject location = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 1, 1, world, new ArrayList<>(), new BuildLocationUtils.DefaultZoneInitializer());
 		assertEquals(4, location.getProperty(Constants.X).intValue());
 		assertEquals(5, location.getProperty(Constants.Y).intValue());
 		assertEquals(1, location.getProperty(Constants.WIDTH).intValue());
@@ -82,7 +83,7 @@ public class UTestBuildLocationUtils {
 		performer.setProperty(Constants.Y, 4);
 		world.addWorldObject(performer);
 		
-		WorldObject location = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 6, 6, world, new ArrayList<>());
+		WorldObject location = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 6, 6, world, new ArrayList<>(), new BuildLocationUtils.DefaultZoneInitializer());
 		assertEquals(null, location);
 	}
 	
