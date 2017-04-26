@@ -24,6 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.generator.BuildingDimensions;
+import org.worldgrower.terrain.TerrainResource;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
@@ -36,7 +37,7 @@ public class CreateFoodSourcesGoal implements Goal {
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		
-		WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.BERRY_BUSH, world);
+		WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.BERRY_BUSH, world, TerrainResource.FOOD);
 
 		if (target != null) {
 			return new OperationInfo(performer, target, Args.EMPTY, Actions.PLANT_BERRY_BUSH_ACTION);
