@@ -762,6 +762,11 @@ public class ImageInfoReader {
 		
 		add(ImageIds.PLANT_GROWTH, tora_vx_02.getSubImage(5, 2, 1, 1));
 		createAnimation(ImageIds.PLANT_GROWTH_ANIMATON, ImageIds.PLANT_GROWTH, 10);
+		
+		add(ImageIds.IRON_DAGGER, sprites420.getSubImage(4, 6, 1, 1));
+		createAnimation(ImageIds.IRON_DAGGER_ANIMATION, ImageIds.IRON_DAGGER, 10);
+		add(ImageIds.STEEL_DAGGER, colorize(ImageIds.IRON_DAGGER, steelBlue));
+		createAnimation(ImageIds.STEEL_DAGGER_ANIMATION, ImageIds.STEEL_DAGGER, 10);
     }
 
 	private Image createTileTransition(Sprites tileMask, int posX, int posY) {
