@@ -21,6 +21,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.MockTerrain;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -29,6 +30,7 @@ import org.worldgrower.attribute.BuildingList;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.terrain.TerrainResource;
+import org.worldgrower.terrain.TerrainType;
 
 public class UTestBuildLocationUtils {
 
@@ -99,6 +101,36 @@ public class UTestBuildLocationUtils {
 		
 		WorldObject location = BuildLocationUtils.findOpenLocationAwayFromExistingProperty(performer, 3, 3, world);
 		assertEquals(4, location.getProperty(Constants.X).intValue());
+		assertEquals(4, location.getProperty(Constants.Y).intValue());
+	}
+	
+	@Test
+	public void testFindOpenLocationNearExistingPropertyAndSpecificTerrain() {
+		MockTerrain terrain = new MockTerrain(TerrainType.GRASLAND);
+		terrain.setTerrainType(0, 0, TerrainType.MOUNTAIN);
+		terrain.setTerrainType(0, 1, TerrainType.MOUNTAIN);
+		terrain.setTerrainType(1, 0, TerrainType.MOUNTAIN);
+		terrain.setTerrainType(1, 1, TerrainType.MOUNTAIN);
+		terrain.setTerrainType(1, 4, TerrainType.MOUNTAIN);
+		terrain.setTerrainType(2, 2, TerrainType.MOUNTAIN);
+		terrain.setTerrainType(2, 3, TerrainType.MOUNTAIN);
+		terrain.setTerrainType(3, 3, TerrainType.MOUNTAIN);
+		
+		World world = new WorldImpl(terrain, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, "Test");
+		performer.setProperty(Constants.X, 2);
+		performer.setProperty(Constants.Y, 2);
+		world.addWorldObject(performer);
+		
+		WorldObject location = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 1, 1, world, Arrays.asList(performer), new BuildLocationUtils.TerrainResourceZoneInitializer(TerrainResource.FOOD, world));
+		assertEquals(0, location.getProperty(Constants.X).intValue());
+		assertEquals(2, location.getProperty(Constants.Y).intValue());
+		
+		WorldObject target = TestUtils.createIntelligentWorldObject(8, "Test");
+		target.setProperty(Constants.X, 9);
+		target.setProperty(Constants.Y, 9);
+		location = BuildLocationUtils.findOpenLocationNearExistingProperty(target, 1, 1, world, Arrays.asList(target), new BuildLocationUtils.TerrainResourceZoneInitializer(TerrainResource.FOOD, world));
+		assertEquals(3, location.getProperty(Constants.X).intValue());
 		assertEquals(4, location.getProperty(Constants.Y).intValue());
 	}
 }

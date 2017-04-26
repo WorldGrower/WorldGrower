@@ -111,7 +111,7 @@ public class BuildLocationUtils {
 	}
 	
 	static WorldObject findOpenLocationNearExistingProperty(WorldObject performer, int width, int height, World world, List<WorldObject> housing, ZoneInitializer zoneInitializer) {
-		Zone zone = new Zone(world.getWidth(), world.getHeight());
+		Zone zone = new Zone(world.getWidth(), world.getHeight(), zoneInitializer);
 		zone.addValues(housing, 6, 1);
 		
 		int bestValue = 0;
@@ -137,7 +137,7 @@ public class BuildLocationUtils {
 		}
 	}
 	
-	private static class TerrainResourceZoneInitializer implements ZoneInitializer {
+	static class TerrainResourceZoneInitializer implements ZoneInitializer {
 
 		private final TerrainResource terrainResource;
 		private final Terrain terrain;
