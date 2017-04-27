@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -63,7 +64,7 @@ public class PlayerCharacterVisionPainter {
 
 	private BufferedImage createImageToDraw(WorldPanel worldPanel, int circleRadius, int playerCharacterX, int playerCharacterY) {
 		float circleDiameter = circleRadius * 2.0f;
-		Shape circle = new Ellipse2D.Float(playerCharacterX - circleRadius, playerCharacterY - circleRadius, circleDiameter-1, circleDiameter-1);
+		Shape circle = new Ellipse2D.Float(playerCharacterX - circleRadius, playerCharacterY - circleRadius, circleDiameter, circleDiameter);
 		BufferedImage image = new BufferedImage(worldPanel.getWorldViewWidth(), worldPanel.getWorldViewHeight(), BufferedImage.TYPE_INT_ARGB);
 		
 		Graphics2D ga = (Graphics2D) image.createGraphics();
@@ -112,6 +113,8 @@ public class PlayerCharacterVisionPainter {
 	    ga.setPaint(p);
 		
 		ga.fill(circle);
+		ga.setStroke(new BasicStroke(2));
+		ga.draw(circle);
 		
 		ga.dispose();
 		
