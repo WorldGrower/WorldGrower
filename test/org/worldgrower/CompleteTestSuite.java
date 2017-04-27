@@ -832,7 +832,9 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestMinePropertyUtils.class,
 	UTestOrganizationRebelsOnTurn.class,
 	UTestStartRebellionConversation.class,
-	UTestRebellionGoal.class
+	UTestRebellionGoal.class,
+	UTestCraftIronDaggerAction.class,
+	UTestCraftSteelDaggerAction.class
 })
 public class CompleteTestSuite {
 }
