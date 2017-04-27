@@ -56,6 +56,7 @@ public enum Item {
 	IRON_BOOTS(ItemType.ARMOR),
 	IRON_MACE(ItemType.WEAPON), 
 	IRON_KATAR(ItemType.WEAPON),
+	IRON_DAGGER(ItemType.WEAPON),
 	BERRIES(ItemType.FOOD), 
 	GRAPES(ItemType.INGREDIENT), 
 	LONGBOW(ItemType.WEAPON), 
@@ -126,6 +127,7 @@ public enum Item {
 	STEEL_BOOTS(ItemType.ARMOR),
 	STEEL_MACE(ItemType.WEAPON), 
 	STEEL_KATAR(ItemType.WEAPON),
+	STEEL_DAGGER(ItemType.WEAPON),
 	SHORTBOW(ItemType.WEAPON),
 	CHANGE_GENDER_POTION(ItemType.DRINK),
 	REMOVE_CURSE_POTION(ItemType.DRINK)
@@ -146,6 +148,7 @@ public enum Item {
 	private static final String IRON_SHIELD_NAME = "iron shield";
 	private static final String IRON_MACE_NAME = "iron mace";
 	private static final String IRON_KATAR_NAME = "iron katar";
+	private static final String IRON_DAGGER_NAME = "iron dagger";
 	
 	private static final String LONGBOW_NAME = "longbow";
 	private static final String SHORTBOW_NAME = "shortbow";
@@ -177,6 +180,7 @@ public enum Item {
 	private static final String STEEL_SHIELD_NAME = "steel shield";
 	private static final String STEEL_MACE_NAME = "steel mace";
 	private static final String STEEL_KATAR_NAME = "steel katar";
+	private static final String STEEL_DAGGER_NAME = "steel dagger";
 	
 	private final ItemType itemType;
 	
@@ -355,6 +359,21 @@ public enum Item {
 			properties.put(Constants.IMAGE_ID, ImageIds.IRON_BOOTS);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
 			properties.put(Constants.LONG_DESCRIPTION, "Iron boots are a piece of feet armor.");
+			return new WorldObjectImpl(properties);
+		});
+		
+		addItem(Item.IRON_DAGGER, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, IRON_DAGGER_NAME);
+			properties.put(Constants.PRICE, 40);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.DAMAGE, (int) (10 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.DAMAGE_TYPE, DamageType.SLASHING);
+			properties.put(Constants.WEIGHT, 20);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
+			properties.put(Constants.IMAGE_ID, ImageIds.IRON_DAGGER);
+			properties.put(Constants.LONG_DESCRIPTION, "An iron dagger is used as a one-handed melee weapon.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -1097,6 +1116,21 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_KATAR);
 			properties.put(Constants.LONG_DESCRIPTION, "A steel katar is a one-handed melee weapon.");
+			return new WorldObjectImpl(properties);
+		});
+		
+		addItem(Item.STEEL_DAGGER, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, STEEL_DAGGER_NAME);
+			properties.put(Constants.PRICE, 80);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.DAMAGE, (int) (12 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.DAMAGE_TYPE, DamageType.SLASHING);
+			properties.put(Constants.WEIGHT, 20);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
+			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_DAGGER);
+			properties.put(Constants.LONG_DESCRIPTION, "A steel dagger is a one-handed melee weapon.");
 			return new WorldObjectImpl(properties);
 		});
 		
