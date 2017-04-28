@@ -565,7 +565,11 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 	
 	@Override
 	public Point getToolTipLocation(MouseEvent event) {
-		return event.getPoint();
+		final int mouseCutoff = 20;
+		Point currentMouseLocation = event.getPoint();
+		int x = (currentMouseLocation.x / mouseCutoff) * mouseCutoff;
+		int y = (currentMouseLocation.y / mouseCutoff) * mouseCutoff;
+		return new Point(x, y);
 	}
 
 	@Override
