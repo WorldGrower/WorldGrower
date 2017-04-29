@@ -58,12 +58,12 @@ import org.worldgrower.gui.music.MusicPlayer;
 import org.worldgrower.gui.music.SoundException;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.music.SoundOutput;
+import org.worldgrower.gui.util.CustomPopupFactory;
 import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.MenuFactory;
-import org.worldgrower.util.CustomPopupFactory;
 
 public class StartScreen implements SaveGameHandler {
 
