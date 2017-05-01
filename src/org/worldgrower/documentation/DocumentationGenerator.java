@@ -38,10 +38,17 @@ import org.worldgrower.conversation.ConversationCategory;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.curse.Curse;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.generator.BerryBushOnTurn;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.CottonPlantOnTurn;
+import org.worldgrower.generator.GrapeVineOnTurn;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.ItemType;
+import org.worldgrower.generator.NightShadeOnTurn;
+import org.worldgrower.generator.TreeOnTurn;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.terrain.Terrain;
+import org.worldgrower.terrain.TerrainType;
 import org.worldgrower.text.ConversationDescription;
 import org.worldgrower.text.TextId;
 import org.worldgrower.util.FileUtils;
@@ -63,6 +70,7 @@ public class DocumentationGenerator {
 		generateConversationsOverview(outputDir, imageInfoReader);
 		generateResourcesOverview(outputDir, imageInfoReader);
 		generateCursesOverview(outputDir, imageInfoReader);
+		generateTerrainOverview(outputDir, imageInfoReader);
 	}
 
 	private static void generateMagicSpellOverview(File outputDir, ImageInfoReader imageInfoReader) {
@@ -331,6 +339,27 @@ public class DocumentationGenerator {
 			tableRow.add(imageTag(filename, curse.getName()));
 			tableRow.add(curse.getName());
 			tableRow.add(curse.getDescription());
+			
+			tableValues.add(tableRow);
+		}
+		createHtmlFile(title, description, outputFile, imageInfoReader, headerFields, tableValues);
+	}
+	
+	private static void generateTerrainOverview(File outputDir, ImageInfoReader imageInfoReader) {
+		String title = "WorldGrower:Terrain";
+		String description = "Terrain has an effects on the plants that grow on it.";
+		File outputFile = new File(outputDir, "gen_terrain.html");
+		List<String> headerFields = Arrays.asList("Name", "Food Bonus", "Wood Bonus", "Cotton Bonus", "Grapes Bonus", "Nightshade Bonus");
+		List<List<String>> tableValues = new ArrayList<List<String>>();
+		for(TerrainType terrainType : TerrainType.values()) {
+			List<String> tableRow = new ArrayList<>();
+			
+			tableRow.add(terrainType.getDescription());
+			tableRow.add(BerryBushOnTurn.getPercentageFoodBonus(terrainType));
+			tableRow.add(TreeOnTurn.getPercentageWoodBonus(terrainType));
+			tableRow.add(CottonPlantOnTurn.getPercentageCottonBonus(terrainType));
+			tableRow.add(GrapeVineOnTurn.getPercentageGrapesBonus(terrainType));
+			tableRow.add(NightShadeOnTurn.getPercentageNightShadeBonus(terrainType));
 			
 			tableValues.add(tableRow);
 		}
