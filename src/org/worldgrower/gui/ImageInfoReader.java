@@ -767,6 +767,12 @@ public class ImageInfoReader {
 		createAnimation(ImageIds.IRON_DAGGER_ANIMATION, ImageIds.IRON_DAGGER, 10);
 		add(ImageIds.STEEL_DAGGER, colorize(ImageIds.IRON_DAGGER, steelBlue));
 		createAnimation(ImageIds.STEEL_DAGGER_ANIMATION, ImageIds.STEEL_DAGGER, 10);
+		
+		add(ImageIds.IRON_MORNINGSTAR, sprites420.getSubImage(4, 9, 1, 1));
+		createAnimation(ImageIds.IRON_MORNINGSTAR_ANIMATION, ImageIds.IRON_MORNINGSTAR, 10);
+		add(ImageIds.STEEL_MORNINGSTAR, colorize(ImageIds.IRON_MORNINGSTAR, steelBlue));
+		createAnimation(ImageIds.STEEL_MORNINGSTAR_ANIMATION, ImageIds.STEEL_MORNINGSTAR, 10);
+
     }
 
 	private Image createTileTransition(Sprites tileMask, int posX, int posY) {
