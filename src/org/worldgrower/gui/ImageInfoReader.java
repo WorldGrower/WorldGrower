@@ -773,6 +773,8 @@ public class ImageInfoReader {
 		add(ImageIds.STEEL_MORNINGSTAR, colorize(ImageIds.IRON_MORNINGSTAR, steelBlue));
 		createAnimation(ImageIds.STEEL_MORNINGSTAR_ANIMATION, ImageIds.STEEL_MORNINGSTAR, 10);
 
+		add(ImageIds.LAMP, tileB.getSubImage(4, 10, 1, 1));
+		createAnimation(ImageIds.LAMP_ANIMATION, ImageIds.LAMP, 10);
     }
 
 	private Image createTileTransition(Sprites tileMask, int posX, int posY) {
