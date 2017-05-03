@@ -327,6 +327,7 @@ public class Actions {
 	public static final CraftSteelDaggerAction CRAFT_STEEL_DAGGER_ACTION = new CraftSteelDaggerAction();
 	public static final CraftIronMorningstarAction CRAFT_IRON_MORNINGSTAR_ACTION = new CraftIronMorningstarAction();
 	public static final CraftSteelMorningstarAction CRAFT_STEEL_MORNINGSTAR_ACTION = new CraftSteelMorningstarAction();
+	public static final ConstructLampAction CONSTRUCT_LAMP_ACTION = new ConstructLampAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -566,7 +567,8 @@ public class Actions {
 		CRAFT_IRON_DAGGER_ACTION,
 		CRAFT_STEEL_DAGGER_ACTION,
 		CRAFT_IRON_MORNINGSTAR_ACTION,
-		CRAFT_STEEL_MORNINGSTAR_ACTION
+		CRAFT_STEEL_MORNINGSTAR_ACTION,
+		CONSTRUCT_LAMP_ACTION
 	));
 	
 	static {

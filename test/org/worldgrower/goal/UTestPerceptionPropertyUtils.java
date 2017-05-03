@@ -25,6 +25,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.Skill;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.generator.Item;
 import org.worldgrower.terrain.TerrainImpl;
 import org.worldgrower.terrain.TerrainMapper;
 
@@ -53,6 +54,19 @@ public class UTestPerceptionPropertyUtils {
 		performer.setProperty(Constants.PERCEPTION_SKILL, new Skill(10));
 		Conditions.add(performer, Condition.DARK_VISION_CONDITION, 8, world);
 		
+		assertEquals(18, PerceptionPropertyUtils.calculateRadius(performer, world));
+	}
+	
+	@Test
+	public void testCalculateRadiusWithLightSource() {
+		MockWorld world = new MockWorld(new TerrainImpl(0, 0, new TerrainMapper()), new  WorldImpl(0, 0, null, null));
+		WorldObject performer = TestUtils.createSkilledWorldObject(0);
+		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, Item.LAMP.generate(1f));
+		
+		assertEquals(18, PerceptionPropertyUtils.calculateRadius(performer, world));
+		
+		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, null);
+		performer.setProperty(Constants.RIGHT_HAND_EQUIPMENT, Item.LAMP.generate(1f));
 		assertEquals(18, PerceptionPropertyUtils.calculateRadius(performer, world));
 	}
 }

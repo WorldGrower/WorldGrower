@@ -314,6 +314,8 @@ public class Constants {
 	public static final IntProperty LEATHER = new IntProperty("leather", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final StringProperty LONG_DESCRIPTION = new StringProperty("longDescription", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final BooleanProperty CHANGE_GENDER = new BooleanProperty("changeGender", NOT_NULLABLE, ALL_PROPERTIES);
+	public static final BooleanProperty LIGHT_SOURCE = new BooleanProperty("lightSource", NOT_NULLABLE, ALL_PROPERTIES);
+	
 	
 	//special property not used in WorldObject
 	public static final IntProperty DISTANCE = new IntProperty("distance", 0, null, NOT_NULLABLE, ALL_PROPERTIES);

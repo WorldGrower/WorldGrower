@@ -791,7 +791,7 @@ public class ImageInfoReader {
 	}
     
     public static BufferedImage toCompatibleImage(BufferedImage image) {
-        BufferedImage compatibleImage =new BufferedImage(image.getWidth(), image.getHeight(), Transparency.TRANSLUCENT);
+        BufferedImage compatibleImage = new BufferedImage(image.getWidth(), image.getHeight(), Transparency.TRANSLUCENT);
         Graphics g = compatibleImage.getGraphics();
         g.drawImage(image, 0, 0, null);
         g.dispose();

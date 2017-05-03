@@ -26,7 +26,7 @@ public class PerceptionPropertyUtils {
 		int perception = worldObject.getProperty(Constants.PERCEPTION_SKILL).getLevel(worldObject);
 		int perceptionRadius = (int) Math.log(perception + 1);
 		double darknessModifier = Math.sin(currentTurn * Math.PI / 100);
-		if (hasDarkVision(worldObject)) {
+		if (hasDarkVision(worldObject) || hasLightSource(worldObject)) {
 			darknessModifier = 1.0f;
 		}
 		
@@ -36,5 +36,21 @@ public class PerceptionPropertyUtils {
 	
 	private static boolean hasDarkVision(WorldObject target) {
 		return target.hasProperty(Constants.CONDITIONS) && target.getProperty(Constants.CONDITIONS).hasCondition(Condition.DARK_VISION_CONDITION);
+	}
+	
+	private static boolean hasLightSource(WorldObject target) {
+		WorldObject leftHandEquipment = target.getProperty(Constants.LEFT_HAND_EQUIPMENT);
+		if (leftHandEquipment != null) {
+			if (leftHandEquipment.hasProperty(Constants.LIGHT_SOURCE)) {
+				return true;
+			}
+		}
+		WorldObject rightHandEquipment = target.getProperty(Constants.RIGHT_HAND_EQUIPMENT);
+		if (rightHandEquipment != null) {
+			if (rightHandEquipment.hasProperty(Constants.LIGHT_SOURCE)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

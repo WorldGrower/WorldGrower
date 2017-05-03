@@ -132,7 +132,8 @@ public enum Item {
 	STEEL_MORNINGSTAR(ItemType.WEAPON),
 	SHORTBOW(ItemType.WEAPON),
 	CHANGE_GENDER_POTION(ItemType.DRINK),
-	REMOVE_CURSE_POTION(ItemType.DRINK)
+	REMOVE_CURSE_POTION(ItemType.DRINK),
+	LAMP(ItemType.MISC)
 	;
 
 	public static final int COMBAT_MULTIPLIER = 10;
@@ -1204,6 +1205,18 @@ public enum Item {
 			properties.put(Constants.PRICE, 1);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.LONG_DESCRIPTION, "Drinking a remove curse potion removes a character's curse.");
+			return new WorldObjectImpl(properties);
+		});
+		
+		addItem(Item.LAMP, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, "lamp");
+			properties.put(Constants.LIGHT_SOURCE, Boolean.TRUE);
+			properties.put(Constants.IMAGE_ID, ImageIds.LAMP);
+			properties.put(Constants.PRICE, 20);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
+			properties.put(Constants.LONG_DESCRIPTION, "Equipping a lamp generates light so that a character can look further into the dark.");
 			return new WorldObjectImpl(properties);
 		});
 		
