@@ -155,6 +155,7 @@ import org.worldgrower.conversation.leader.UTestCanAttackCriminalsConversation;
 import org.worldgrower.conversation.leader.UTestCanCollectTaxesConversation;
 import org.worldgrower.creaturetype.UTestCreatureTypeUtils;
 import org.worldgrower.curse.UTestCurseListener;
+import org.worldgrower.curse.UTestGhoulCurse;
 import org.worldgrower.curse.UTestInfertilityCurse;
 import org.worldgrower.curse.UTestPoxCurse;
 import org.worldgrower.curse.UTestVampireCurse;
@@ -837,7 +838,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestCraftSteelDaggerAction.class,
 	UTestCraftIronMorningstarAction.class,
 	UTestCraftSteelMorningstarAction.class,
-	UTestConstructLampAction.class
+	UTestConstructLampAction.class,
+	UTestGhoulCurse.class
 })
 public class CompleteTestSuite {
 }
