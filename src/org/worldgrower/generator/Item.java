@@ -133,7 +133,8 @@ public enum Item {
 	SHORTBOW(ItemType.WEAPON),
 	CHANGE_GENDER_POTION(ItemType.DRINK),
 	REMOVE_CURSE_POTION(ItemType.DRINK),
-	LAMP(ItemType.MISC)
+	LAMP(ItemType.MISC),
+	SAW(ItemType.TOOL)
 	;
 
 	public static final int COMBAT_MULTIPLIER = 10;
@@ -1217,6 +1218,22 @@ public enum Item {
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.LONG_DESCRIPTION, "Equipping a lamp generates light so that a character can look further into the dark.");
+			return new WorldObjectImpl(properties);
+		});
+		
+		addItem(Item.SAW, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, "saw");
+			properties.put(Constants.PRICE, 10);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.WEIGHT, 2);
+			properties.put(Constants.DAMAGE, 1 * COMBAT_MULTIPLIER);
+			properties.put(Constants.DAMAGE_TYPE, DamageType.SLASHING);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
+			properties.put(Constants.SAW_QUALITY, (int)(2 * skillBonus));
+			properties.put(Constants.IMAGE_ID, ImageIds.SAW);
+			properties.put(Constants.LONG_DESCRIPTION, "A saw is used by carpenters for building buildings");
 			return new WorldObjectImpl(properties);
 		});
 		

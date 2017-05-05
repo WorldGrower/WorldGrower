@@ -147,6 +147,7 @@ public class Constants {
 	public static final IntProperty WOOD_CUTTING_QUALITY = new IntProperty("wood cutting tool", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty LOCKPICK_QUALITY = new IntProperty("lockpicking tool", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty BUTCHER_QUALITY = new IntProperty("butchering tool", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty SAW_QUALITY = new IntProperty("saw", 0, null, NOT_NULLABLE, ALL_PROPERTIES);	
 	
 	public static final UnCheckedProperty<DamageType> DAMAGE_TYPE = new UnCheckedProperty<>("damageType", ALL_PROPERTIES);
 	

@@ -79,11 +79,21 @@ public class BuildingGenerator {
 	
 	public static int generateShack(int x, int y, World world, WorldObject owner) {		
 		int id = world.generateUniqueId();
-		int sleepComfortBonus = SkillUtils.getLogarithmicSkillBonus(owner, Constants.CARPENTRY_SKILL);
+		int sleepComfortBonus = getCarpentryBonus(owner);
 		WorldObject shack = generateShack(x, y, sleepComfortBonus, owner, id);
 		world.addWorldObject(shack);
 		
 		return id;
+	}
+
+	private static int getCarpentryBonus(WorldObject owner) {
+		int carpentryBonus = SkillUtils.getLogarithmicSkillBonus(owner, Constants.CARPENTRY_SKILL);
+		WorldObject leftHandEquipment = owner.getProperty(Constants.LEFT_HAND_EQUIPMENT);
+		if (leftHandEquipment != null && leftHandEquipment.hasProperty(Constants.SAW_QUALITY)) {
+			carpentryBonus += 5;
+		}
+		
+		return carpentryBonus;
 	}
 
 	public static WorldObject generateShack(int x, int y, int sleepComfortBonus, WorldObject owner, int id) {
@@ -114,7 +124,7 @@ public class BuildingGenerator {
 	
 	public static int generateHouse(int x, int y, World world, WorldObject owner) {
 		int id = world.generateUniqueId();
-		int sleepComfortBonus = SkillUtils.getLogarithmicSkillBonus(owner, Constants.CARPENTRY_SKILL);
+		int sleepComfortBonus = getCarpentryBonus(owner);
 		WorldObject house = generateHouse(x, y, sleepComfortBonus, owner, id);
 		world.addWorldObject(house);
 		
@@ -573,7 +583,7 @@ public class BuildingGenerator {
 	
 	public static int generateLibrary(int x, int y, World world, WorldObject owner) {
 		int id = world.generateUniqueId();
-		int libraryQualityBonus = SkillUtils.getLogarithmicSkillBonus(owner, Constants.CARPENTRY_SKILL);
+		int libraryQualityBonus = getCarpentryBonus(owner);
 		WorldObject library = generateLibrary(x, y, libraryQualityBonus, owner, id);
 		world.addWorldObject(library);
 		return id;
@@ -606,7 +616,7 @@ public class BuildingGenerator {
 	
 	public static int generatePaperMill(int x, int y, World world, WorldObject owner) {
 		int id = world.generateUniqueId();
-		int paperMillBonus = SkillUtils.getLogarithmicSkillBonus(owner, Constants.CARPENTRY_SKILL);
+		int paperMillBonus = getCarpentryBonus(owner);
 		WorldObject paperMill = generatePaperMill(x, y, paperMillBonus, owner, id);
 		world.addWorldObject(paperMill);
 		
@@ -638,7 +648,7 @@ public class BuildingGenerator {
 	
 	public static int generateSmith(int x, int y, World world, WorldObject owner) {
 		int id = world.generateUniqueId();
-		int smithBonus = SkillUtils.getLogarithmicSkillBonus(owner, Constants.CARPENTRY_SKILL);
+		int smithBonus = getCarpentryBonus(owner);
 		WorldObject smith = generateSmith(x, y, smithBonus, owner, id);
 		world.addWorldObject(smith);
 	
@@ -668,7 +678,7 @@ public class BuildingGenerator {
 	
 	public static int generateWorkbench(int x, int y, World world, WorldObject owner) {
 		int id = world.generateUniqueId();
-		int workBenchBonus = SkillUtils.getLogarithmicSkillBonus(owner, Constants.CARPENTRY_SKILL);
+		int workBenchBonus = getCarpentryBonus(owner);
 		WorldObject workbench = generateWorkBench(x, y, workBenchBonus, owner, id);
 		world.addWorldObject(workbench);
 	
@@ -698,7 +708,7 @@ public class BuildingGenerator {
 
 	public static int generateInn(int x, int y, World world, WorldObject owner) {
 		int id = world.generateUniqueId();
-		int sleepComfortBonus = SkillUtils.getLogarithmicSkillBonus(owner, Constants.CARPENTRY_SKILL);
+		int sleepComfortBonus = getCarpentryBonus(owner);
 		WorldObject house = generateInn(x, y, sleepComfortBonus, owner, id);
 		world.addWorldObject(house);
 		
@@ -762,7 +772,7 @@ public class BuildingGenerator {
 	
 	public static int generateWeavery(int x, int y, World world, WorldObject owner) {
 		int id = world.generateUniqueId();
-		int weaveryBonus = SkillUtils.getLogarithmicSkillBonus(owner, Constants.CARPENTRY_SKILL);
+		int weaveryBonus = getCarpentryBonus(owner);
 		WorldObject weavery = generateWeavery(x, y, weaveryBonus, owner, id);
 		world.addWorldObject(weavery);
 	
@@ -792,7 +802,7 @@ public class BuildingGenerator {
 	
 	public static int generateBrewery(int x, int y, World world, WorldObject owner) {
 		int id = world.generateUniqueId();
-		int breweryBonus = SkillUtils.getLogarithmicSkillBonus(owner, Constants.CARPENTRY_SKILL);
+		int breweryBonus = getCarpentryBonus(owner);
 		WorldObject brewery = generateBrewery(x, y, breweryBonus, owner, id);
 		world.addWorldObject(brewery);
 	
@@ -822,7 +832,7 @@ public class BuildingGenerator {
 
 	public static int generateApothecary(int x, int y, World world, WorldObject owner) {
 		int id = world.generateUniqueId();
-		int apothecaryBonus = SkillUtils.getLogarithmicSkillBonus(owner, Constants.CARPENTRY_SKILL);
+		int apothecaryBonus = getCarpentryBonus(owner);
 		WorldObject brewery = generateApothecary(x, y, apothecaryBonus, owner, id);
 		world.addWorldObject(brewery);
 	
