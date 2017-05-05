@@ -148,6 +148,8 @@ public class ImageInfoReader {
     	
     	Sprites tileMask = readSpritesTileMask();
     	
+    	Sprites tools = readTools();
+    	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
     	add(ImageIds.BUCKET, objects.getSubImage(10, 10, 1, 1));
@@ -775,6 +777,9 @@ public class ImageInfoReader {
 
 		add(ImageIds.LAMP, tileB.getSubImage(4, 10, 1, 1));
 		createAnimation(ImageIds.LAMP_ANIMATION, ImageIds.LAMP, 10);
+		
+		add(ImageIds.SAW, tools.getSubImage(0, 5, 1, 1));
+		createAnimation(ImageIds.SAW_ANIMATION, ImageIds.SAW, 10);
     }
 
 	private Image createTileTransition(Sprites tileMask, int posX, int posY) {
@@ -1326,6 +1331,10 @@ public class ImageInfoReader {
     
     private Sprites readSpritesTileMask() throws IOException {
     	return readImages("tile_mask.png", 48, 48, 1, 1);
+	}
+    
+    private Sprites readTools() throws IOException {
+    	return readImages("new_weapons_and_tools__rpg_maker_mv__by_petschko-d9x1zsq.png", 48, 48, 13, 7);
 	}
 
     private static Sprites readSpritesEmptyWell() throws IOException {

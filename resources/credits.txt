@@ -231,3 +231,6 @@ icons by Unknown Horizons at https://opengameart.org/content/250-hud-and-interfa
 unknown_horizons_mainmenu_icons_transparent.png
 load.png
 save.png
+
+tool sprites by petschko at http://petschko.deviantart.com/art/New-Weapons-and-Tools-RPG-Maker-MV-599715962
+new_weapons_and_tools__rpg_maker_mv__by_petschko-d9x1zsq.png
