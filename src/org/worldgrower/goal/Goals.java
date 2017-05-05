@@ -220,4 +220,6 @@ public class Goals {
 	public static final SellUnusedItemsGoal SELL_UNUSED_ITEMS_GOAL = new SellUnusedItemsGoal(ALL_GOALS);
 	public static final RemoveCurseGoal REMOVE_CURSE_GOAL = new RemoveCurseGoal(ALL_GOALS);
 	public static final RebellionGoal REBELLION_GOAL = new RebellionGoal(ALL_GOALS);
+	public static final CreateSawGoal CREATE_SAW_GOAL = new CreateSawGoal(ALL_GOALS);
+	public static final SawGoal SAW_GOAL = new SawGoal(ALL_GOALS);
 }

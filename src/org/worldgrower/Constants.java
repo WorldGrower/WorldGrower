@@ -374,6 +374,7 @@ public class Constants {
 		Constants.REPAIR_QUALITY,
 		Constants.PICKAXE_QUALITY,
 		Constants.SCYTHE_QUALITY,
+		Constants.SAW_QUALITY,
 		Constants.WOOD_CUTTING_QUALITY,
 		Constants.LOCKPICK_QUALITY,
 		Constants.SLEEP_COMFORT,
