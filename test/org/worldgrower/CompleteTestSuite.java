@@ -839,7 +839,10 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestCraftIronMorningstarAction.class,
 	UTestCraftSteelMorningstarAction.class,
 	UTestConstructLampAction.class,
-	UTestGhoulCurse.class
+	UTestGhoulCurse.class,
+	UTestEquipSawGoal.class,
+	UTestSawGoal.class,
+	UTestCreateSawGoal.class
 })
 public class CompleteTestSuite {
 }

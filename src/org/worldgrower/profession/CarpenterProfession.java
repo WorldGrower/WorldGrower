@@ -44,6 +44,7 @@ public class CarpenterProfession implements Profession {
 				Goals.SELL_HOUSE_GOAL,
 				Goals.CREATE_FURNITURE_GOAL,
 				Goals.SELL_FURNITURE_GOAL,
+				Goals.EQUIP_SAW_GOAL,
 				Goals.CREATE_PICKAXE_GOAL,
 				Goals.MARK_PICKAXE_AS_SELLABLE_GOAL,
 				Goals.CREATE_SCYTHE_GOAL,

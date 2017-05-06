@@ -199,6 +199,7 @@ public class Goals {
 	public static final ButcherKnifeGoal BUTCHER_KNIFE_GOAL = new ButcherKnifeGoal(ALL_GOALS);
 	public static final EquipButcherKnifeGoal EQUIP_BUTCHER_KNIFE_GOAL = new EquipButcherKnifeGoal(ALL_GOALS);
 	public static final EquipRepairHammerGoal EQUIP_REPAIR_HAMMER_GOAL = new EquipRepairHammerGoal(ALL_GOALS);
+	public static final EquipSawGoal EQUIP_SAW_GOAL = new EquipSawGoal(ALL_GOALS);
 	
 	public static final DeityBoonGoal ARES_BOON_GOAL = new DeityBoonGoal(Deity.ARES);
 	public static final DeityBoonGoal HEPHAESTUS_BOON_GOAL = new DeityBoonGoal(Deity.HEPHAESTUS);
