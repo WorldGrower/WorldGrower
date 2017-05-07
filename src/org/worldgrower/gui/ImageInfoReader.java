@@ -110,6 +110,7 @@ public class ImageInfoReader {
     	
     	Sprites smallTree = readSpritesSmallTree();
     	Sprites smallBorealTree = readSpritesSmallBorealTree();
+    	Sprites smallPalmTree = readSpritesSmallPalmTree();
     	Sprites vineWithGrapes = readSpritesVineWithGrapes();
     	Sprites vine = readSpritesVine();
     	Sprites cottonPlant = readSpritesCottonPlant();
@@ -780,6 +781,9 @@ public class ImageInfoReader {
 		
 		add(ImageIds.SAW, tools.getSubImage(0, 5, 1, 1));
 		createAnimation(ImageIds.SAW_ANIMATION, ImageIds.SAW, 10);
+		
+		add(ImageIds.PALM_TREE, tileB.getSubImage(3, 13, 2, 3));
+		add(ImageIds.SMALL_PALM_TREE, smallPalmTree.getSubImage(0, 0, 1, 1));
     }
 
 	private Image createTileTransition(Sprites tileMask, int posX, int posY) {
@@ -1179,6 +1183,10 @@ public class ImageInfoReader {
 	
 	private static Sprites readSpritesSmallBorealTree() throws IOException {
 		return readImages("small_boreal_tree.png", 96, 96, 1, 1);
+	}
+	
+	private static Sprites readSpritesSmallPalmTree() throws IOException {
+		return readImages("small_palm_tree.png", 96, 144, 1, 1);
 	}
 	
 	private static Sprites readSpritesVineWithGrapes() throws IOException {
