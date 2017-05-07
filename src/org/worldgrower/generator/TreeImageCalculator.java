@@ -35,6 +35,14 @@ public class TreeImageCalculator {
 		return treeImageId;
 	}
 	
+	public static ImageIds getPalmTreeImageId(WorldObject tree, World world) {
+		if (!WoodPropertyUtils.woodSourceHasEnoughWood(tree)) {
+			return ImageIds.SMALL_PALM_TREE;
+		} else {
+			return ImageIds.PALM_TREE;
+		}
+	}
+	
 	private static ImageIds getTreeImageId(int x, int y, World world) {
 		final ImageIds imageId;
 		TerrainType terrainType = world.getTerrain().getTerrainInfo(x, y).getTerrainType();

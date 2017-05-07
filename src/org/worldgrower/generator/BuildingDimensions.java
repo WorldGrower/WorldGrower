@@ -45,7 +45,8 @@ public enum BuildingDimensions {
 	NIGHT_SHADE(1, 1),
 	TREE(2, 2),
 	DEMON_TREE(2, 2),
-	COTTON_PLANT(1, 1);
+	COTTON_PLANT(1, 1),
+	PALM_TREE(2, 3);
 	
 	private final int realWidth;
 	private final int realHeight;
