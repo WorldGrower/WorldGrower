@@ -156,21 +156,20 @@ public class PlantGenerator {
 	
 	public static int generateTree(int x, int y, World world, double skillBonus) {
 		int id = world.generateUniqueId();
-		final ImageIds imageId = getTreeImageId(x, y, world);
-		WorldObject tree = generateTree(x, y, id, imageId, skillBonus);
-		tree.setProperty(Constants.IMAGE_ID, TreeImageCalculator.getTreeImageId(tree, world));
+		final TreeType treeType = getTreeType(x, y, world);
+		WorldObject tree = generateTree(x, y, id, treeType, skillBonus);
 		world.addWorldObject(tree);
 		
 		return id;
 	}
 
-	private static WorldObject generateTree(int x, int y, int id, final ImageIds imageId, double skillBonus) {
+	private static WorldObject generateTree(int x, int y, int id, final TreeType treeType, double skillBonus) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		BuildingDimensions.TREE.addWidthHeight(properties);
 		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, imageId);
+		properties.put(Constants.TREE_TYPE, treeType);
 		properties.put(Constants.NAME, "tree");
 		int woodSource = Constants.WOOD_SOURCE.normalize((int)(50 * skillBonus));
 		properties.put(Constants.WOOD_SOURCE, woodSource);
@@ -182,25 +181,25 @@ public class PlantGenerator {
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		WorldObject tree = new WorldObjectImpl(properties, new TreeOnTurn());
+		tree.setProperty(Constants.IMAGE_ID, TreeType.getTreeImageId(tree));
 		return tree;
 	}
 	
 	public static int generatePalmTree(int x, int y, World world, double skillBonus) {
 		int id = world.generateUniqueId();
-		WorldObject tree = generatePalmTree(x, y, id, ImageIds.PALM_TREE, skillBonus);
-		tree.setProperty(Constants.IMAGE_ID, TreeImageCalculator.getPalmTreeImageId(tree, world));
+		WorldObject tree = generatePalmTree(x, y, id, TreeType.PALM, skillBonus);
 		world.addWorldObject(tree);
 		
 		return id;
 	}
 	
-	private static WorldObject generatePalmTree(int x, int y, int id, final ImageIds imageId, double skillBonus) {
+	private static WorldObject generatePalmTree(int x, int y, int id, final TreeType treeType, double skillBonus) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		BuildingDimensions.PALM_TREE.addWidthHeight(properties);
 		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, imageId);
+		properties.put(Constants.TREE_TYPE, treeType);
 		properties.put(Constants.NAME, "palm tree");
 		int woodSource = Constants.WOOD_SOURCE.normalize((int)(50 * skillBonus));
 		properties.put(Constants.WOOD_SOURCE, woodSource);
@@ -212,18 +211,19 @@ public class PlantGenerator {
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		WorldObject tree = new WorldObjectImpl(properties, new TreeOnTurn());
+		tree.setProperty(Constants.IMAGE_ID, TreeType.getTreeImageId(tree));
 		return tree;
 	}
 
-	private static ImageIds getTreeImageId(int x, int y, World world) {
-		final ImageIds imageId;
+	private static TreeType getTreeType(int x, int y, World world) {
+		final TreeType treeType;
 		TerrainType terrainType = world.getTerrain().getTerrainInfo(x, y).getTerrainType();
 		if (terrainType == TerrainType.HILL || terrainType == TerrainType.MOUNTAIN) {
-			imageId = ImageIds.BOREAL_TREE;
+			treeType = TreeType.BOREAL;
 		} else {
-			imageId = ImageIds.TREE;
+			treeType = TreeType.NORMAL;
 		}
-		return imageId;
+		return treeType;
 	}
 	
 	public int generateDemonTree(int x, int y, World world) {
@@ -300,9 +300,9 @@ public class PlantGenerator {
 		plants.add(generateTreeTrunk(0, 0, 0));
 		plants.add(generateGrapeVine(0, 0, 0));
 		plants.add(generateNightShade(0, 0, 0));
-		plants.add(generateTree(0, 0, 0, ImageIds.TREE, 1f));
-		plants.add(generateTree(0, 0, 0, ImageIds.BOREAL_TREE, 1f));
-		plants.add(generatePalmTree(0, 0, 0, ImageIds.PALM_TREE, 1f));
+		plants.add(generateTree(0, 0, 0, TreeType.NORMAL, 1f));
+		plants.add(generateTree(0, 0, 0, TreeType.BOREAL, 1f));
+		plants.add(generatePalmTree(0, 0, 0, TreeType.PALM, 1f));
 		plants.add(generateCottonPlant(0, 0, 0));
 		return plants;
 	}

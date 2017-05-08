@@ -48,7 +48,7 @@ public class TreeOnTurn implements OnTurn {
 		worldObject.increment(Constants.WOOD_PRODUCED, woodProduced);
 		WoodPropertyUtils.checkWoodSourceExhausted(worldObject);
 		
-		worldObject.setProperty(Constants.IMAGE_ID, TreeImageCalculator.getTreeImageId(worldObject, world));
+		worldObject.setProperty(Constants.IMAGE_ID, TreeType.getTreeImageId(worldObject));
 	}
 	
 	private static int calculateWoodProduced(WorldObject worldObject, World world) {
