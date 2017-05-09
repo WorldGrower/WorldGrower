@@ -279,6 +279,9 @@ public class WorldObjectContainer implements Serializable {
 		for(int index=0; index<otherInventory.size(); index++) {
 			WorldObject otherWorldObject = otherInventory.get(index);
 			if (otherWorldObject != null) {
+				if (otherWorldObject.getProperty(Constants.QUANTITY) == null) {
+					throw new IllegalStateException("otherWorldObject.getProperty(Constants.QUANTITY) is null: " + otherWorldObject);
+				}
 				addQuantity(otherWorldObject, otherWorldObject.getProperty(Constants.QUANTITY));
 				otherInventory.remove(index);
 			}
