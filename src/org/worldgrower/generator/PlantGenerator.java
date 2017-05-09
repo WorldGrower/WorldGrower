@@ -143,6 +143,24 @@ public class PlantGenerator {
 		return nightshadePlant;
 	}
 	
+	public static int generateAnyTree(int x, int y, World world) {
+		final TreeType treeType;
+		TerrainType terrainType = world.getTerrain().getTerrainInfo(x, y).getTerrainType();
+		if (terrainType == TerrainType.HILL || terrainType == TerrainType.MOUNTAIN) {
+			treeType = TreeType.BOREAL;
+		} else if (terrainType == TerrainType.GRASLAND) {
+			treeType = TreeType.PALM;
+		} else {
+			treeType = TreeType.NORMAL;
+		}
+		
+		if (treeType == TreeType.PALM) {
+			return generatePalmTree(x, y, world, 1f);
+		} else {
+			return generateTree(x, y, world, 1f);	
+		}
+	}
+	
 	public static int generateTree(int x, int y, World world) {
 		return generateTree(x, y, world, 1f);
 	}

@@ -118,7 +118,7 @@ public class CustomGameParameters implements GameParameters {
 		PlantGenerator.generateTree(3, 8, world, 1f);
 
 		WorldGenerator worldGenerator = new WorldGenerator(seed);
-		worldGenerator.addWorldObjects(world, 2, 2, PlantGenerator::generateTree);
+		worldGenerator.addWorldObjects(world, 2, 2, PlantGenerator::generateAnyTree);
 		
 		int worldArea = world.getWidth() * world.getHeight();
 		int stoneResourceCount = (int) ((worldArea / 1000) * stoneResourceMultiplier);
