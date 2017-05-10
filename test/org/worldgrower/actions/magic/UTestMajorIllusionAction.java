@@ -93,7 +93,7 @@ public class UTestMajorIllusionAction {
 		verminOrganization.setProperty(Constants.ID, 2);
 		world.addWorldObject(verminOrganization);
 		
-		assertEquals(22, action.getIllusionSources(performer, world).size());
+		assertEquals(23, action.getIllusionSources(performer, world).size());
 		
 		int treeId = PlantGenerator.generateTree(0, 0, world);
 		WorldObject tree = world.findWorldObjectById(treeId);

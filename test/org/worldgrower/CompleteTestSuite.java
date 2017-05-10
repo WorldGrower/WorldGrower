@@ -842,7 +842,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestGhoulCurse.class,
 	UTestEquipSawGoal.class,
 	UTestSawGoal.class,
-	UTestCreateSawGoal.class
+	UTestCreateSawGoal.class,
+	UTestConstants.class
 })
 public class CompleteTestSuite {
 }

@@ -343,7 +343,9 @@ public class Constants {
 				|| propertyKey == Constants.WOOD_CUTTING_QUALITY
 				|| propertyKey == Constants.FISHING_POLE_QUALITY
 				|| propertyKey == Constants.PICKAXE_QUALITY
-				|| propertyKey == Constants.LOCKPICK_QUALITY;
+				|| propertyKey == Constants.LOCKPICK_QUALITY
+				|| propertyKey == Constants.REPAIR_QUALITY
+				|| propertyKey == Constants.SAW_QUALITY;
 	}
 	
 	public static List<ManagedProperty<?>> getToolProperties() {
