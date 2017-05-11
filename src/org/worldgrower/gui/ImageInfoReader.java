@@ -784,6 +784,11 @@ public class ImageInfoReader {
 		
 		add(ImageIds.PALM_TREE, tileB.getSubImage(3, 13, 2, 3));
 		add(ImageIds.SMALL_PALM_TREE, smallPalmTree.getSubImage(0, 0, 1, 1));
+		
+		add(ImageIds.IRON_TRIDENT, sprites420.getSubImage(6, 8, 1, 1));
+		createAnimation(ImageIds.IRON_TRIDENT_ANIMATION, ImageIds.IRON_TRIDENT, 10);
+		add(ImageIds.STEEL_TRIDENT, colorize(ImageIds.IRON_TRIDENT, steelBlue));
+		createAnimation(ImageIds.STEEL_TRIDENT_ANIMATION, ImageIds.STEEL_TRIDENT, 10);
     }
 
 	private Image createTileTransition(Sprites tileMask, int posX, int posY) {
