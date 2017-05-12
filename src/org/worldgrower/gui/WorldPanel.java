@@ -35,7 +35,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ActionMap;
@@ -52,6 +51,7 @@ import org.worldgrower.DungeonMaster;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.ManagedOperationListener;
 import org.worldgrower.OperationInfo;
+import org.worldgrower.ReadOnlyLocationWorldObjectsCache;
 import org.worldgrower.World;
 import org.worldgrower.WorldFacade;
 import org.worldgrower.WorldObject;
@@ -263,22 +263,30 @@ public final class WorldPanel extends JPanel implements ImageFactory {
     }
 	
 	private void paintStaticWorldObjects(Graphics g) {
-		List<WorldObject> worldObjects = world.getWorldObjects();
 		Shape clipShape = calculateClipShape();
 		g.setClip(clipShape);
-		for(WorldObject worldObject : new ArrayList<>(worldObjects)) {
-			int x = worldObject.getProperty(Constants.X);
-			int y = worldObject.getProperty(Constants.Y);
-			int width = worldObject.getProperty(Constants.WIDTH);
-			int height = worldObject.getProperty(Constants.HEIGHT);
-			
-			if (!worldObject.hasIntelligence()) {
-				if (shouldDrawWorldObject(worldObject, x, y, width, height)) {
-					ImageIds id = getImageId(worldObject);
-					LookDirection lookDirection = getLookDirection(worldObject);
-		    		Image image = imageInfoReader.getImage(id, lookDirection);
-					
-					drawWorldObject(g, worldObject, lookDirection, image, x, y);
+		
+		int screenWidth = this.getWidth() / 48;
+    	int screenHeight = (this.getHeight() - this.infoPanel.getHeight()) / 48;
+    	ReadOnlyLocationWorldObjectsCache cache = new ReadOnlyLocationWorldObjectsCache(world);
+    	
+		for(int x=-offsetX; x<-offsetX + screenWidth; x++) {
+			for(int y=-offsetY; y<-offsetY + screenHeight; y++) {
+				for(WorldObject worldObject : cache.getworldObjects(x, y, world)) {
+					if (worldObject.getProperty(Constants.X).intValue() == x && worldObject.getProperty(Constants.Y).intValue() == y) {
+						int width = worldObject.getProperty(Constants.WIDTH);
+						int height = worldObject.getProperty(Constants.HEIGHT);
+						
+						if (!worldObject.hasIntelligence()) {
+							if (shouldDrawWorldObject(worldObject, x, y, width, height)) {
+								ImageIds id = getImageId(worldObject);
+								LookDirection lookDirection = getLookDirection(worldObject);
+					    		Image image = imageInfoReader.getImage(id, lookDirection);
+								
+								drawWorldObject(g, worldObject, lookDirection, image, x, y);
+							}
+						}
+					}
 				}
 			}
 		}
