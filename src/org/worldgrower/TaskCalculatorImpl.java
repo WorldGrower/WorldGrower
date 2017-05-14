@@ -96,11 +96,8 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 	private List<Node> reconstructPath(Node current) {
 		List<Node> reconstructedPath = new ArrayList<>();
 		reconstructedPath.add(current);
-		while (current != null) {
-			current = current.parentNode;
-			if (current != null) {
-				reconstructedPath.add(current);
-			}
+		while ((current = current.parentNode) != null) {
+			reconstructedPath.add(current);
 		}
 		return reconstructedPath;
 	}
