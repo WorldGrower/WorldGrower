@@ -103,7 +103,7 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 	}
 
 	private List<Node> neighbourNodes(Node node, WorldObject performer, World world, LocationWorldObjectsCache zone) {
-		List<Node> result = new ArrayList<>();
+		List<Node> result = new ArrayList<>(8);
 		int newG = node.g + 1;
 		addNodeToList(result, node.x - 1, node.y - 1, newG, performer, world, zone);
 		addNodeToList(result, node.x - 1, node.y, newG, performer, world, zone);
