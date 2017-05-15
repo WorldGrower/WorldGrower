@@ -58,8 +58,14 @@ public class UTestFindSecludedLocationGoal {
 		List<OperationInfo> tasks = taskCalculator.calculateTask(performer, world, goal.calculateGoal(performer, world));
 		assertEquals(11, tasks.size());
 		assertEquals(Actions.MOVE_ACTION, tasks.get(0).getManagedOperation());
-		assertEquals(0, tasks.get(0).getArgs()[0]);
+		assertEquals(1, tasks.get(0).getArgs()[0]);
 		assertEquals(1, tasks.get(0).getArgs()[1]);
+		assertEquals(Actions.MOVE_ACTION, tasks.get(1).getManagedOperation());
+		assertEquals(1, tasks.get(1).getArgs()[0]);
+		assertEquals(1, tasks.get(1).getArgs()[1]);
+		assertEquals(Actions.MOVE_ACTION, tasks.get(2).getManagedOperation());
+		assertEquals(1, tasks.get(2).getArgs()[0]);
+		assertEquals(1, tasks.get(2).getArgs()[1]);
 	}
 	
 	@Test

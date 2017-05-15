@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.curse.Curse;
@@ -290,7 +291,13 @@ public class UTestDungeonMaster {
 		
 		dungeonMaster.runWorldObject(commoner, world);		
 		assertEquals(Goals.FOOD_GOAL, world.getGoal(commoner));
-		assertEquals(6, commoner.getProperty(Constants.META_INFORMATION).getCurrentTask().size());
+		assertEquals(5, commoner.getProperty(Constants.META_INFORMATION).getCurrentTask().size());
+		OperationInfo[] currentTasks = commoner.getProperty(Constants.META_INFORMATION).getCurrentTask().toArray(new OperationInfo[0]);
+		Assert.assertArrayEquals(new int[]{1, 1}, currentTasks[0].getArgs());
+		Assert.assertArrayEquals(new int[]{1, 1}, currentTasks[1].getArgs());
+		Assert.assertArrayEquals(new int[]{1, 0}, currentTasks[2].getArgs());
+		Assert.assertArrayEquals(new int[]{1, 1}, currentTasks[3].getArgs());
+		assertEquals(Actions.EAT_ACTION, currentTasks[4].getManagedOperation());
 		assertEquals(1, commoner.getProperty(Constants.X).intValue());
 		assertEquals(1, commoner.getProperty(Constants.Y).intValue());
 		

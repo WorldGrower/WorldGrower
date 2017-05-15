@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Set;
-import java.util.TreeSet;
 
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MoveAction;
@@ -36,10 +36,10 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 		WorldObject copyPerformer = performer.shallowCopy();
 		
 		Set<Node> closedSet = new HashSet<>();
-		TreeSet<Node> openSet = createOpenSet(performer, copyPerformer, goal, world);
+		PriorityQueue<Node> openSet = createOpenSet(performer, copyPerformer, goal, world);
 		
 		while(!openSet.isEmpty()) {
-			Node current = openSet.pollFirst();
+			Node current = openSet.poll();
 			
 			if (current.h == 0) {
 				List<OperationInfo> result = new ArrayList<>();
@@ -75,13 +75,13 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 		return new ArrayList<>();
 	}
 	
-	private TreeSet<Node> createOpenSet(WorldObject performer, WorldObject copyPerformer, OperationInfo goal, World world) {
+	private PriorityQueue<Node> createOpenSet(WorldObject performer, WorldObject copyPerformer, OperationInfo goal, World world) {
 		int performerX = performer.getProperty(Constants.X);
 		int performerY = performer.getProperty(Constants.Y);
 		Node startNode = new Node(performerX, performerY, 0);
 		startNode.h = distance(goal, copyPerformer, startNode, world);
 		
-		TreeSet<Node> openSet = new TreeSet<>(new NodeComparator());
+		PriorityQueue<Node> openSet = new PriorityQueue<>(new NodeComparator());
 		openSet.add(startNode);
 		
 		return openSet;
