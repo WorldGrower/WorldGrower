@@ -66,6 +66,7 @@ import org.worldgrower.generator.CottonPlantOnTurn;
 import org.worldgrower.generator.GrapeVineOnTurn;
 import org.worldgrower.generator.NightShadeOnTurn;
 import org.worldgrower.generator.TreeOnTurn;
+import org.worldgrower.goal.LocationUtils;
 import org.worldgrower.gui.conversation.GuiRespondToQuestion;
 import org.worldgrower.gui.conversation.GuiShowBrawlResult;
 import org.worldgrower.gui.conversation.GuiShowDrinkingContestResult;
@@ -272,18 +273,20 @@ public final class WorldPanel extends JPanel implements ImageFactory {
     	
 		for(int x=-offsetX; x<-offsetX + screenWidth; x++) {
 			for(int y=-offsetY; y<-offsetY + screenHeight; y++) {
-				for(WorldObject worldObject : cache.getworldObjects(x, y, world)) {
-					if (worldObject.getProperty(Constants.X).intValue() == x && worldObject.getProperty(Constants.Y).intValue() == y) {
-						int width = worldObject.getProperty(Constants.WIDTH);
-						int height = worldObject.getProperty(Constants.HEIGHT);
-						
-						if (!worldObject.hasIntelligence()) {
-							if (shouldDrawWorldObject(worldObject, x, y, width, height)) {
-								ImageIds id = getImageId(worldObject);
-								LookDirection lookDirection = getLookDirection(worldObject);
-					    		Image image = imageInfoReader.getImage(id, lookDirection);
-								
-								drawWorldObject(g, worldObject, lookDirection, image, x, y);
+				if (!LocationUtils.areInvalidCoordinates(x, y, world)) {
+					for(WorldObject worldObject : cache.getworldObjects(x, y, world)) {
+						if (worldObject.getProperty(Constants.X).intValue() == x && worldObject.getProperty(Constants.Y).intValue() == y) {
+							int width = worldObject.getProperty(Constants.WIDTH);
+							int height = worldObject.getProperty(Constants.HEIGHT);
+							
+							if (!worldObject.hasIntelligence()) {
+								if (shouldDrawWorldObject(worldObject, x, y, width, height)) {
+									ImageIds id = getImageId(worldObject);
+									LookDirection lookDirection = getLookDirection(worldObject);
+						    		Image image = imageInfoReader.getImage(id, lookDirection);
+									
+									drawWorldObject(g, worldObject, lookDirection, image, x, y);
+								}
 							}
 						}
 					}
@@ -343,6 +346,15 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 		if (isTransparant) {
 			graphics2d.setComposite(originalComposite);
 		}
+	}
+	
+	public void drawWorldObjectInPixels(Graphics g, WorldObject worldObject, LookDirection lookDirection, Image image, int xInSquares, int yInSquares, int xDeltaInPixels, int yDeltaInPixels, boolean drawConditions, Composite composite) {
+		Graphics2D g2 = (Graphics2D) g;
+		Composite originalComposite = g2.getComposite();
+		g2.setComposite(composite);
+		
+		drawWorldObjectInPixels(g, worldObject, lookDirection, image, xInSquares, yInSquares, xDeltaInPixels, yDeltaInPixels, drawConditions);
+		g2.setComposite(originalComposite);
 	}
 	
 	public void drawWorldObjectInPixels(Graphics g, WorldObject worldObject, LookDirection lookDirection, Image image, int xInSquares, int yInSquares, int xDeltaInPixels, int yDeltaInPixels, boolean drawConditions) {
