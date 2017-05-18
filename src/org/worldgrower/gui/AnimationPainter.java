@@ -21,7 +21,7 @@ import org.worldgrower.actions.AnimatedAction;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.LookDirection;
 
-public class MoveMode {
+public class AnimationPainter {
 	private ActionListener guiAfterMoveAction;
 	private boolean moveMode = false;
 	private int moveStep = 0;
@@ -34,7 +34,7 @@ public class MoveMode {
 	private List<WorldObject> magicCasters = new ArrayList<>();
 	private List<MagicTarget> magicTargets = new ArrayList<>();
 	
-	public MoveMode(World world) {
+	public AnimationPainter(World world) {
 		initializeIntelligentWorldObjects(world);
 	}
 	
@@ -125,13 +125,12 @@ public class MoveMode {
 		paintIntelligentWorldObjects(g, worldPanel, imageInfoReader, world, drawAnimation);
 		if (drawAnimation) {
 			paintDeadIntelligentWorldObjects(g, worldPanel, imageInfoReader, world);
-		}
-		
-		for(WorldObject magicCaster : magicCasters) {
-			paintMagicSpellForWorldObject(g, worldPanel, magicCaster, imageInfoReader, moveStep, moveIndex, world);
-		}
-		for(MagicTarget magicTarget : magicTargets) {
-			paintMagicTargetForWorldObject(g, worldPanel, magicTarget, imageInfoReader, moveStep, moveIndex, world);
+			for(WorldObject magicCaster : magicCasters) {
+				paintMagicSpellForWorldObject(g, worldPanel, magicCaster, imageInfoReader, moveStep, moveIndex, world);
+			}
+			for(MagicTarget magicTarget : magicTargets) {
+				paintMagicTargetForWorldObject(g, worldPanel, magicTarget, imageInfoReader, moveStep, moveIndex, world);
+			}
 		}
 		if (drawAnimation) {
 			moveStep += 2;
@@ -266,6 +265,7 @@ public class MoveMode {
 		} else {
 			imageIndex = moveStep;
 		}
+
 		if (moveStep < 47) {
 			Image image = imageInfoReader.getImage(magicTarget.getImageId(), imageIndex);
 			WorldObject target = magicTarget.getTarget();

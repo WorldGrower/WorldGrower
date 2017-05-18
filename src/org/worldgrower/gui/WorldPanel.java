@@ -96,7 +96,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 	private MouseMotionListener mouseMotionListener;
 	private final BonusDescriptions bonusDescriptions = new BonusDescriptions();
 	
-	private final MoveMode moveMode;
+	private final AnimationPainter animationPainter;
 	private final BackgroundPainter backgroundPainter;
 	private final GoToPainter goToPainter;
 	private final KeyBindings keyBindings;
@@ -141,7 +141,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
         
         this.playerCharacter = playerCharacter;
         this.world = world;
-        this.moveMode = new MoveMode(world);
+        this.animationPainter = new AnimationPainter(world);
         Image grassBackground = imageInfoReader.getImage(ImageIds.GRASS_BACKGROUND, null);
         Image grassFlowersBackground = imageInfoReader.getImage(ImageIds.SMALL_FLOWERS, null);
 		this.backgroundPainter = new BackgroundPainter(grassBackground, grassFlowersBackground, imageInfoReader, world);
@@ -251,7 +251,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
         
 		paintStaticWorldObjects(g);
 		
-		moveMode.drawWorldObjects(g, this, imageInfoReader, world);
+		animationPainter.drawWorldObjects(g, this, imageInfoReader, world);
 		
 		goToPainter.paint(g, world, this);
 		
@@ -567,7 +567,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 	}
 
 	public void movePlayerCharacter(int[] args, ActionListener guiMoveAction, ActionListener guiAfterMoveAction) {
-		moveMode.startMove(this, args, guiMoveAction, guiAfterMoveAction, playerCharacter, world, imageInfoReader);
+		animationPainter.startMove(this, args, guiMoveAction, guiAfterMoveAction, playerCharacter, world, imageInfoReader);
 	}
 
 	public void repaintAround(int x, int y, WorldObject worldObject) {
