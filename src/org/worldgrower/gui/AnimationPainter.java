@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.swing.SwingUtilities;
 
@@ -29,6 +30,7 @@ public class AnimationPainter {
 	
 	private List<WorldObject> intelligentWorldObjects = new ArrayList<>();
 	private List<WorldObject> deadIntelligentWorldObjects = new ArrayList<>();
+	private List<WorldObject> newIntelligentWorldObjects = new ArrayList<>();
 	private Map<Integer, Point> oldPositions = new HashMap<>();
 	private Map<Integer, Point> newPositions = new HashMap<>();
 	private List<WorldObject> magicCasters = new ArrayList<>();
@@ -75,6 +77,8 @@ public class AnimationPainter {
 		
 		initializeMagicCastersAndTargets(world, imageInfoReader);
 		initializeDeadIntelligentWorldObjects();
+		
+		initializeNewIntelligentWorldObjects(world);
 	}
 
 	private void initializeMagicCastersAndTargets(World world, ImageInfoReader imageInfoReader) {
@@ -105,10 +109,33 @@ public class AnimationPainter {
 			}
 		}
 	}
+	
+	private void initializeNewIntelligentWorldObjects(World world) {
+		newIntelligentWorldObjects.clear();
+		List<WorldObject> intelligentWorldObjectsAfterAction = getIntelligentWorldObjects(world);
+		for(WorldObject intelligentWorldObject : intelligentWorldObjectsAfterAction) {
+			if (!containsId(intelligentWorldObjects, intelligentWorldObject.getProperty(Constants.ID))) {
+				newIntelligentWorldObjects.add(intelligentWorldObject);
+			}
+		}
+	}
+	
+	private boolean containsId(List<WorldObject> worldObjects, int id) {
+		for(WorldObject worldObject : worldObjects) {
+			if (worldObject.getProperty(Constants.ID).intValue() == id) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	private void initializeIntelligentWorldObjects(World world) {
 		intelligentWorldObjects.clear();
-		intelligentWorldObjects.addAll(world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.hasIntelligence() && w.getProperty(Constants.HIT_POINTS) > 0));
+		intelligentWorldObjects.addAll(getIntelligentWorldObjects(world));
+	}
+
+	private List<WorldObject> getIntelligentWorldObjects(World world) {
+		return world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.hasIntelligence() && w.getProperty(Constants.HIT_POINTS) > 0);
 	}
 	
 	public void drawWorldObjects(Graphics g, WorldPanel worldPanel, ImageInfoReader imageInfoReader, World world) {
@@ -122,9 +149,13 @@ public class AnimationPainter {
 		}
 		
 		boolean drawAnimation = moveMode && moveStep < 48;
-		paintIntelligentWorldObjects(g, worldPanel, imageInfoReader, world, drawAnimation);
+		paintIntelligentWorldObjects(intelligentWorldObjects, g, worldPanel, imageInfoReader, world, drawAnimation);
+		if (!drawAnimation) {
+			paintIntelligentWorldObjects(newIntelligentWorldObjects, g, worldPanel, imageInfoReader, world, drawAnimation);
+		}
 		if (drawAnimation) {
 			paintDeadIntelligentWorldObjects(g, worldPanel, imageInfoReader, world);
+			paintNewIntelligentWorldObjects(g, worldPanel, imageInfoReader, world);
 			for(WorldObject magicCaster : magicCasters) {
 				paintMagicSpellForWorldObject(g, worldPanel, magicCaster, imageInfoReader, moveStep, moveIndex, world);
 			}
@@ -162,9 +193,8 @@ public class AnimationPainter {
 		}
 	}
 
-	private void paintIntelligentWorldObjects(Graphics g, WorldPanel worldPanel, ImageInfoReader imageInfoReader, World world, boolean drawAnimation) {
-		for(int i=0; i<intelligentWorldObjects.size(); i++) {
-			WorldObject worldObject = intelligentWorldObjects.get(i);
+	private void paintIntelligentWorldObjects(List<WorldObject> worldObjects, Graphics g, WorldPanel worldPanel, ImageInfoReader imageInfoReader, World world, boolean drawAnimation) {
+		for(WorldObject worldObject : worldObjects) {
 			if (worldObject.getProperty(Constants.HIT_POINTS) > 0) {
 				ImageIds id = worldPanel.getImageId(worldObject);
 				LookDirection lookDirection = worldPanel.getLookDirection(worldObject);
@@ -277,9 +307,16 @@ public class AnimationPainter {
 		}
 	}
 	
-	public void paintDeadIntelligentWorldObjects(Graphics g, WorldPanel worldPanel, ImageInfoReader imageInfoReader,
-			World world) {
-		for(WorldObject worldObject : deadIntelligentWorldObjects) {
+	private void paintDeadIntelligentWorldObjects(Graphics g, WorldPanel worldPanel, ImageInfoReader imageInfoReader, World world) {
+		paintIntelligentWorldObjectsTransparantly(deadIntelligentWorldObjects, 1f - (0.02f * moveStep), g, worldPanel, imageInfoReader, world);
+	}
+	
+	private void paintNewIntelligentWorldObjects(Graphics g, WorldPanel worldPanel, ImageInfoReader imageInfoReader, World world) {
+		paintIntelligentWorldObjectsTransparantly(newIntelligentWorldObjects, 0.02f * moveStep, g, worldPanel, imageInfoReader, world);
+	}
+	
+	private static void paintIntelligentWorldObjectsTransparantly(List<WorldObject> worldObjects, float alpha, Graphics g, WorldPanel worldPanel, ImageInfoReader imageInfoReader, World world) {
+		for(WorldObject worldObject : worldObjects) {
 			int x = worldObject.getProperty(Constants.X);
 			int y = worldObject.getProperty(Constants.Y);
 			
@@ -288,38 +325,34 @@ public class AnimationPainter {
 				LookDirection lookDirection = worldPanel.getLookDirection(worldObject);
 				Image image = imageInfoReader.getImage(imageId, lookDirection);
 				
-				Composite composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f - (0.02f * moveStep));
+				Composite composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
 				worldPanel.drawWorldObjectInPixels(g, worldObject, lookDirection, image, x, y, 0, 0, false, composite);
 				worldPanel.repaintAround(x, y, worldObject);				
 				//worldPanel.repaint();
 			}
 		}
 	}
+	
+	
 
 	private void repaintIntelligentWorldObjects(WorldPanel worldPanel) {
-		for(WorldObject worldObject : intelligentWorldObjects) {
-			int x = worldObject.getProperty(Constants.X);
-			int y = worldObject.getProperty(Constants.Y);
-			worldPanel.repaintAround(x, y, worldObject);
-			//worldPanel.repaint();
-		}
+		repaintWorldObjects(intelligentWorldObjects, worldPanel);
 	}
 
 	private void repaintMagicCaster(WorldPanel worldPanel) {
-		for(WorldObject magicCaster : magicCasters) {
-			int x = magicCaster.getProperty(Constants.X);
-			int y = magicCaster.getProperty(Constants.Y);
-			worldPanel.repaintAround(x, y, magicCaster);
-			//worldPanel.repaint();
-		}
+		repaintWorldObjects(magicCasters, worldPanel);
 	}
 
 	private void repaintMagicTargets(WorldPanel worldPanel) {
-		for(MagicTarget magicTarget : magicTargets) {
-			WorldObject target = magicTarget.getTarget();
-			int x = target.getProperty(Constants.X);
-			int y = target.getProperty(Constants.Y);
-			worldPanel.repaintAround(x, y, target);
+		List<WorldObject> magicTargetWorldObjects = magicTargets.stream().map(m -> m.getTarget()).collect(Collectors.toList());
+		repaintWorldObjects(magicTargetWorldObjects, worldPanel);
+	}
+	
+	private static void repaintWorldObjects(List<WorldObject> worldObjects, WorldPanel worldPanel) {
+		for(WorldObject worldObject : worldObjects) {
+			int x = worldObject.getProperty(Constants.X);
+			int y = worldObject.getProperty(Constants.Y);
+			worldPanel.repaintAround(x, y, worldObject);
 			//worldPanel.repaint();
 		}
 	}
