@@ -36,8 +36,8 @@ public class AnimationPainter {
 	private List<WorldObject> magicCasters = new ArrayList<>();
 	private List<MagicTarget> magicTargets = new ArrayList<>();
 	
-	public AnimationPainter(World world) {
-		initializeIntelligentWorldObjects(world);
+	public AnimationPainter(WorldPanel worldPanel) {
+		initializeIntelligentWorldObjects(worldPanel);
 	}
 	
 	public void startMove(WorldPanel worldPanel, int[] args, ActionListener guiMoveAction, ActionListener guiAfterMoveAction, WorldObject worldObject, World world, ImageInfoReader imageInfoReader) {
@@ -52,11 +52,11 @@ public class AnimationPainter {
 		
 		//System.out.println("startMove: moveStep = " + moveStep);
 		
-		initializeMovingWorldObjects(guiMoveAction, world, imageInfoReader);
+		initializeMovingWorldObjects(guiMoveAction, world, imageInfoReader, worldPanel);
 	}
 
-	private void initializeMovingWorldObjects(ActionListener guiMoveAction, World world, ImageInfoReader imageInfoReader) {
-		initializeIntelligentWorldObjects(world);
+	private void initializeMovingWorldObjects(ActionListener guiMoveAction, World world, ImageInfoReader imageInfoReader, WorldPanel worldPanel) {
+		initializeIntelligentWorldObjects(worldPanel);
 		
 		oldPositions.clear();
 		for(WorldObject intelligentWorldObject : intelligentWorldObjects) {
@@ -78,7 +78,7 @@ public class AnimationPainter {
 		initializeMagicCastersAndTargets(world, imageInfoReader);
 		initializeDeadIntelligentWorldObjects();
 		
-		initializeNewIntelligentWorldObjects(world);
+		initializeNewIntelligentWorldObjects(worldPanel);
 	}
 
 	private void initializeMagicCastersAndTargets(World world, ImageInfoReader imageInfoReader) {
@@ -110,9 +110,9 @@ public class AnimationPainter {
 		}
 	}
 	
-	private void initializeNewIntelligentWorldObjects(World world) {
+	private void initializeNewIntelligentWorldObjects(WorldPanel worldPanel) {
 		newIntelligentWorldObjects.clear();
-		List<WorldObject> intelligentWorldObjectsAfterAction = getIntelligentWorldObjects(world);
+		List<WorldObject> intelligentWorldObjectsAfterAction = getWorldObjects(worldPanel);
 		for(WorldObject intelligentWorldObject : intelligentWorldObjectsAfterAction) {
 			if (!containsId(intelligentWorldObjects, intelligentWorldObject.getProperty(Constants.ID))) {
 				newIntelligentWorldObjects.add(intelligentWorldObject);
@@ -129,13 +129,20 @@ public class AnimationPainter {
 		return false;
 	}
 
-	private void initializeIntelligentWorldObjects(World world) {
+	private void initializeIntelligentWorldObjects(WorldPanel worldPanel) {
 		intelligentWorldObjects.clear();
-		intelligentWorldObjects.addAll(getIntelligentWorldObjects(world));
+		intelligentWorldObjects.addAll(getWorldObjects(worldPanel));
 	}
 
-	private List<WorldObject> getIntelligentWorldObjects(World world) {
-		return world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.hasIntelligence() && w.getProperty(Constants.HIT_POINTS) > 0);
+	private List<WorldObject> getWorldObjects(WorldPanel worldPanel) {
+		return worldPanel.getWorldObjectsOnScreen(w -> isAlive(w));
+	}
+
+	private boolean isAlive(WorldObject w) {
+		if (!w.hasProperty(Constants.HIT_POINTS)) {
+			throw new IllegalStateException("WorldObject has no HIT_POINTS property: " + w);
+		}
+		return w.getProperty(Constants.HIT_POINTS) > 0;
 	}
 	
 	public void drawWorldObjects(Graphics g, WorldPanel worldPanel, ImageInfoReader imageInfoReader, World world) {
@@ -195,7 +202,7 @@ public class AnimationPainter {
 
 	private void paintIntelligentWorldObjects(List<WorldObject> worldObjects, Graphics g, WorldPanel worldPanel, ImageInfoReader imageInfoReader, World world, boolean drawAnimation) {
 		for(WorldObject worldObject : worldObjects) {
-			if (worldObject.getProperty(Constants.HIT_POINTS) > 0) {
+			if (isAlive(worldObject)) {
 				ImageIds id = worldPanel.getImageId(worldObject);
 				LookDirection lookDirection = worldPanel.getLookDirection(worldObject);
 				Image image = imageInfoReader.getImage(id, lookDirection);

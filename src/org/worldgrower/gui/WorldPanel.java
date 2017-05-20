@@ -37,6 +37,7 @@ import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -142,7 +143,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
         
         this.playerCharacter = playerCharacter;
         this.world = world;
-        this.animationPainter = new AnimationPainter(world);
+        this.animationPainter = new AnimationPainter(this);
         Image grassBackground = imageInfoReader.getImage(ImageIds.GRASS_BACKGROUND, null);
         Image grassFlowersBackground = imageInfoReader.getImage(ImageIds.SMALL_FLOWERS, null);
 		this.backgroundPainter = new BackgroundPainter(grassBackground, grassFlowersBackground, imageInfoReader, world);
@@ -250,9 +251,10 @@ public final class WorldPanel extends JPanel implements ImageFactory {
         
         backgroundPainter.paint(g, world, this);
         
-		paintStaticWorldObjects(g);
-		
+		Shape clipShape = calculateClipShape();
+		g.setClip(clipShape);
 		animationPainter.drawWorldObjects(g, this, imageInfoReader, world);
+		g.setClip(null);
 		
 		goToPainter.paint(g, world, this);
 		
@@ -264,27 +266,10 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 		infoPanel.updatePlayerCharacterValues();
     }
 	
-	private void paintStaticWorldObjects(Graphics g) {
-		Shape clipShape = calculateClipShape();
-		g.setClip(clipShape);
-		
-    	for(WorldObject worldObject : getStaticWorldObjectsOnScreen()) {
-			ImageIds id = getImageId(worldObject);
-			LookDirection lookDirection = getLookDirection(worldObject);
-    		Image image = imageInfoReader.getImage(id, lookDirection);
-
-    		int x = worldObject.getProperty(Constants.X).intValue();
-    		int y = worldObject.getProperty(Constants.Y).intValue();
-    		
-			drawWorldObject(g, worldObject, lookDirection, image, x, y);
-		}
-		g.setClip(null);
-	}
-	
-	public List<WorldObject> getStaticWorldObjectsOnScreen() {
-		List<WorldObject> staticWorldObjectsOnScreen = new ArrayList<>();
+	public List<WorldObject> getWorldObjectsOnScreen(Function<WorldObject, Boolean> worldObjectAcceptancefunction) {
+		List<WorldObject> worldObjectsOnScreen = new ArrayList<>();
 		int screenWidth = this.getWidth() / 48;
-    	int screenHeight = (this.getHeight() - this.infoPanel.getHeight()) / 48;
+    	int screenHeight = this.getHeight() / 48;
     	ReadOnlyLocationWorldObjectsCache cache = new ReadOnlyLocationWorldObjectsCache(world);
     	
 		for(int x=-offsetX; x<-offsetX + screenWidth; x++) {
@@ -295,9 +280,9 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 							int width = worldObject.getProperty(Constants.WIDTH);
 							int height = worldObject.getProperty(Constants.HEIGHT);
 							
-							if (!worldObject.hasIntelligence()) {
+							if (worldObjectAcceptancefunction.apply(worldObject)) {
 								if (shouldDrawWorldObject(worldObject, x, y, width, height)) {
-									staticWorldObjectsOnScreen.add(worldObject);
+									worldObjectsOnScreen.add(worldObject);
 								}
 							}
 						}
@@ -305,7 +290,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 				}
 			}
 		}
-		return staticWorldObjectsOnScreen;
+		return worldObjectsOnScreen;
 	}
 
 	private boolean shouldDrawWorldObject(WorldObject worldObject, int x, int y, int width, int height) {
