@@ -35,6 +35,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ActionMap;
@@ -267,6 +268,21 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 		Shape clipShape = calculateClipShape();
 		g.setClip(clipShape);
 		
+    	for(WorldObject worldObject : getStaticWorldObjectsOnScreen()) {
+			ImageIds id = getImageId(worldObject);
+			LookDirection lookDirection = getLookDirection(worldObject);
+    		Image image = imageInfoReader.getImage(id, lookDirection);
+
+    		int x = worldObject.getProperty(Constants.X).intValue();
+    		int y = worldObject.getProperty(Constants.Y).intValue();
+    		
+			drawWorldObject(g, worldObject, lookDirection, image, x, y);
+		}
+		g.setClip(null);
+	}
+	
+	public List<WorldObject> getStaticWorldObjectsOnScreen() {
+		List<WorldObject> staticWorldObjectsOnScreen = new ArrayList<>();
 		int screenWidth = this.getWidth() / 48;
     	int screenHeight = (this.getHeight() - this.infoPanel.getHeight()) / 48;
     	ReadOnlyLocationWorldObjectsCache cache = new ReadOnlyLocationWorldObjectsCache(world);
@@ -281,11 +297,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 							
 							if (!worldObject.hasIntelligence()) {
 								if (shouldDrawWorldObject(worldObject, x, y, width, height)) {
-									ImageIds id = getImageId(worldObject);
-									LookDirection lookDirection = getLookDirection(worldObject);
-						    		Image image = imageInfoReader.getImage(id, lookDirection);
-									
-									drawWorldObject(g, worldObject, lookDirection, image, x, y);
+									staticWorldObjectsOnScreen.add(worldObject);
 								}
 							}
 						}
@@ -293,7 +305,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 				}
 			}
 		}
-		g.setClip(null);
+		return staticWorldObjectsOnScreen;
 	}
 
 	private boolean shouldDrawWorldObject(WorldObject worldObject, int x, int y, int width, int height) {
