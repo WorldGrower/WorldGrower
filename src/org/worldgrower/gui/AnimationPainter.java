@@ -56,6 +56,7 @@ public class AnimationPainter {
 	}
 
 	private void initializeMovingWorldObjects(ActionListener guiMoveAction, World world, ImageInfoReader imageInfoReader, WorldPanel worldPanel) {
+		int oldWorldObjectsSize = world.getWorldObjects().size();
 		initializeWorldObjects(worldPanel);
 		initializePositions(oldPositions, worldObjects);
 		
@@ -66,7 +67,7 @@ public class AnimationPainter {
 		initializeMagicCastersAndTargets(world, imageInfoReader);
 		initializeDeadWorldObjects();
 		
-		initializeNewWorldObjects(worldPanel);
+		initializeNewWorldObjects(worldPanel, oldWorldObjectsSize);
 	}
 	
 	private static void initializePositions(Map<Integer, Point> positions, List<WorldObject> worldObjects) {
@@ -107,12 +108,15 @@ public class AnimationPainter {
 		}
 	}
 	
-	private void initializeNewWorldObjects(WorldPanel worldPanel) {
+	private void initializeNewWorldObjects(WorldPanel worldPanel, int oldWorldObjectsSize) {
 		newWorldObjects.clear();
 		List<WorldObject> worldObjectsAfterAction = getWorldObjects(worldPanel);
 		for(WorldObject worldObject : worldObjectsAfterAction) {
-			if (!containsId(worldObjects, worldObject.getProperty(Constants.ID))) {
+			int id = worldObject.getProperty(Constants.ID);
+			if (!containsId(worldObjects, id) && id >= oldWorldObjectsSize) {
 				newWorldObjects.add(worldObject);
+			} else {
+				worldObjects.add(worldObject);
 			}
 		}
 	}
