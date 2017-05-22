@@ -845,7 +845,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestCreateSawGoal.class,
 	UTestConstants.class,
 	UTestCraftIronTridentAction.class,
-	UTestCraftSteelTridentAction.class
+	UTestCraftSteelTridentAction.class,
+	UTestPlantPalmTreeAction.class
 })
 public class CompleteTestSuite {
 }
