@@ -67,6 +67,10 @@ public class BuildingGenerator {
 		BuildingDimensions.VOTING_BOX.addWidthHeight(properties);
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.VOTING_BOX);
+		properties.put(Constants.HIT_POINTS, 1000 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 1000 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.NAME, "voting box");
 		properties.put(Constants.TURN_COUNTER, 0);
 		properties.put(Constants.CANDIDATES, new IdList());
