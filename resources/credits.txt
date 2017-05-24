@@ -234,3 +234,7 @@ save.png
 
 tool sprites by petschko at http://petschko.deviantart.com/art/New-Weapons-and-Tools-RPG-Maker-MV-599715962
 new_weapons_and_tools__rpg_maker_mv__by_petschko-d9x1zsq.png
+
+character sprites by Enterbrain and Sebastien Bini at https://thestoryteller01.wordpress.com/tag/sprite/
+malepirate011.png
+femalepirate015.png

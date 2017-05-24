@@ -107,6 +107,8 @@ public class ImageInfoReader {
     	Sprites samNpc = readSpritesSamNpc();
     	Sprites sophieNpc = readSpritesSophieNpc();
     	Sprites nicolaiNpc = readSpritesNicolaiNpc();
+    	Sprites malePirate = readSpritesMalePirate();
+    	Sprites femalePirate = readSpritesFemalePirate();
     	
     	Sprites smallTree = readSpritesSmallTree();
     	Sprites smallBorealTree = readSpritesSmallBorealTree();
@@ -789,6 +791,11 @@ public class ImageInfoReader {
 		createAnimation(ImageIds.IRON_TRIDENT_ANIMATION, ImageIds.IRON_TRIDENT, 10);
 		add(ImageIds.STEEL_TRIDENT, colorize(ImageIds.IRON_TRIDENT, steelBlue));
 		createAnimation(ImageIds.STEEL_TRIDENT_ANIMATION, ImageIds.STEEL_TRIDENT, 10);
+		
+		addCharacter(ImageIds.MALE_PIRATE, malePirate, 0, 0, 1, 1);
+		addCharacter(ImageIds.FEMALE_PIRATE, femalePirate, 0, 0, 1, 1);
+		
+		
     }
 
 	private Image createTileTransition(Sprites tileMask, int posX, int posY) {
@@ -1340,6 +1347,14 @@ public class ImageInfoReader {
     
     private Sprites readSpritesNicolaiNpc() throws IOException {
     	return readImages("nikolai_by_ttrain427-d4knbvf.png", 32, 48, 1, 1);
+	}
+    
+    private Sprites readSpritesMalePirate() throws IOException {
+    	return readImages("malepirate011.png", 32, 48, 1, 1);
+	}
+    
+    private Sprites readSpritesFemalePirate() throws IOException {
+    	return readImages("femalepirate015.png", 32, 48, 1, 1);
 	}
     
     private Sprites readSpritesTileMask() throws IOException {
