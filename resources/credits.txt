@@ -242,3 +242,5 @@ malepirate052.png
 femalepirate052.png
 malepirate02.png
 femalepirate02.png
+malepirate03.png
+femalepirate03.png

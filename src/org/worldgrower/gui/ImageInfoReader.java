@@ -113,6 +113,8 @@ public class ImageInfoReader {
     	Sprites femalePirate52 = readSpritesFemalePirate52();
     	Sprites malePirate02 = readSpritesMalePirate02();
     	Sprites femalePirate02 = readSpritesFemalePirate02();
+    	Sprites malePirate03 = readSpritesMalePirate03();
+    	Sprites femalePirate03 = readSpritesFemalePirate03();
     	
     	Sprites smallTree = readSpritesSmallTree();
     	Sprites smallBorealTree = readSpritesSmallBorealTree();
@@ -802,6 +804,8 @@ public class ImageInfoReader {
 		addCharacter(ImageIds.FEMALE_PIRATE52, femalePirate52, 0, 0, 1, 1);
 		addCharacter(ImageIds.MALE_PIRATE02, malePirate02, 0, 0, 1, 1);
 		addCharacter(ImageIds.FEMALE_PIRATE02, femalePirate02, 0, 0, 1, 1);
+		addCharacter(ImageIds.MALE_PIRATE03, malePirate03, 0, 0, 1, 1);
+		addCharacter(ImageIds.FEMALE_PIRATE03, femalePirate03, 0, 0, 1, 1);
     }
 
 	private Image createTileTransition(Sprites tileMask, int posX, int posY) {
@@ -1377,6 +1381,14 @@ public class ImageInfoReader {
     
     private Sprites readSpritesFemalePirate02() throws IOException {
     	return readImages("femalepirate02.png", 32, 48, 1, 1);
+	}
+    
+    private Sprites readSpritesMalePirate03() throws IOException {
+    	return readImages("malepirate03.png", 32, 48, 1, 1);
+	}
+    
+    private Sprites readSpritesFemalePirate03() throws IOException {
+    	return readImages("femalepirate03.png", 32, 48, 1, 1);
 	}
     
     private Sprites readSpritesTileMask() throws IOException {

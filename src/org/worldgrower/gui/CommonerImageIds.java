@@ -96,7 +96,8 @@ public class CommonerImageIds implements Serializable {
 			ImageIds.NICOLAI_NPC,
 			ImageIds.MALE_PIRATE,
 			ImageIds.MALE_PIRATE52,
-			ImageIds.MALE_PIRATE02
+			ImageIds.MALE_PIRATE02,
+			ImageIds.MALE_PIRATE03
 			);
 	
 	private final List<ImageIds> femaleCommonerIds = Arrays.asList(
@@ -157,7 +158,8 @@ public class CommonerImageIds implements Serializable {
 			ImageIds.SOPHIE_NPC,
 			ImageIds.FEMALE_PIRATE,
 			ImageIds.FEMALE_PIRATE52,
-			ImageIds.FEMALE_PIRATE02
+			ImageIds.FEMALE_PIRATE02,
+			ImageIds.FEMALE_PIRATE03
 			);
 	
 	private int currentMaleCommonerIndex = 0;
