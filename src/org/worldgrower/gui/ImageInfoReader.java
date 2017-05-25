@@ -109,6 +109,10 @@ public class ImageInfoReader {
     	Sprites nicolaiNpc = readSpritesNicolaiNpc();
     	Sprites malePirate = readSpritesMalePirate();
     	Sprites femalePirate = readSpritesFemalePirate();
+    	Sprites malePirate52 = readSpritesMalePirate52();
+    	Sprites femalePirate52 = readSpritesFemalePirate52();
+    	Sprites malePirate02 = readSpritesMalePirate02();
+    	Sprites femalePirate02 = readSpritesFemalePirate02();
     	
     	Sprites smallTree = readSpritesSmallTree();
     	Sprites smallBorealTree = readSpritesSmallBorealTree();
@@ -794,8 +798,10 @@ public class ImageInfoReader {
 		
 		addCharacter(ImageIds.MALE_PIRATE, malePirate, 0, 0, 1, 1);
 		addCharacter(ImageIds.FEMALE_PIRATE, femalePirate, 0, 0, 1, 1);
-		
-		
+		addCharacter(ImageIds.MALE_PIRATE52, malePirate52, 0, 0, 1, 1);
+		addCharacter(ImageIds.FEMALE_PIRATE52, femalePirate52, 0, 0, 1, 1);
+		addCharacter(ImageIds.MALE_PIRATE02, malePirate02, 0, 0, 1, 1);
+		addCharacter(ImageIds.FEMALE_PIRATE02, femalePirate02, 0, 0, 1, 1);
     }
 
 	private Image createTileTransition(Sprites tileMask, int posX, int posY) {
@@ -1355,6 +1361,22 @@ public class ImageInfoReader {
     
     private Sprites readSpritesFemalePirate() throws IOException {
     	return readImages("femalepirate015.png", 32, 48, 1, 1);
+	}
+    
+    private Sprites readSpritesMalePirate52() throws IOException {
+    	return readImages("malepirate052.png", 32, 48, 1, 1);
+	}
+    
+    private Sprites readSpritesFemalePirate52() throws IOException {
+    	return readImages("femalepirate052.png", 32, 48, 1, 1);
+	}
+    
+    private Sprites readSpritesMalePirate02() throws IOException {
+    	return readImages("malepirate02.png", 32, 48, 1, 1);
+	}
+    
+    private Sprites readSpritesFemalePirate02() throws IOException {
+    	return readImages("femalepirate02.png", 32, 48, 1, 1);
 	}
     
     private Sprites readSpritesTileMask() throws IOException {
