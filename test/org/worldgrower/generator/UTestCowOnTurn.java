@@ -21,6 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.DoNothingWorldOnTurn;
 import org.worldgrower.MockTerrain;
 import org.worldgrower.MockWorld;
+import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
@@ -67,7 +68,29 @@ public class UTestCowOnTurn {
 		}
 		
 		assertEquals(5, world.getWorldObjects().size());
+	}
+	
+	@Test
+	public void testCheckLeash() {
+		World world = new WorldImpl(10, 10, null, new DoNothingWorldOnTurn());
+
+		createVillagersOrganization(world);
 		
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject cow = createCow(world, organization);
+		cow.setProperty(Constants.X, 0);
+		cow.setProperty(Constants.Y, 0);
+		
+		WorldObject owner = TestUtils.createIntelligentWorldObject(7, "Test");
+		owner.setProperty(Constants.X, 2);
+		owner.setProperty(Constants.Y, 2);
+		world.addWorldObject(owner);
+		
+		cow.setProperty(Constants.LEASH_ID, owner.getProperty(Constants.ID));
+		cow.onTurn(world, new WorldStateChangedListeners());
+		
+		assertEquals(1, cow.getProperty(Constants.X).intValue());
+		assertEquals(1, cow.getProperty(Constants.Y).intValue());
 	}
 	
 	private WorldObject createCow(World world, WorldObject organization) {
