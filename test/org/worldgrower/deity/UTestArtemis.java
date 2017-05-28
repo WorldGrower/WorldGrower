@@ -81,6 +81,30 @@ public class UTestArtemis {
 		assertEquals(CreatureType.WEREWOLF_CREATURE_TYPE, performer.getProperty(Constants.CREATURE_TYPE));
 	}
 	
+	@Test
+	public void testOnTurnNoWerewolfTarget() {
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
+		WorldObject performer = TestUtils.createSkilledWorldObject(2);
+		performer.setProperty(Constants.DEITY, null);
+		performer.setProperty(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
+		world.addWorldObject(performer);
+		
+		createVillagersOrganization(world);
+		
+		for(int i=0; i<20; i++) {
+			WorldObject worshipper = TestUtils.createSkilledWorldObject(i + 10);
+			worshipper.setProperty(Constants.DEITY, Deity.HADES);
+			world.addWorldObject(worshipper);
+		}
+		
+		for(int i=0; i<5000; i++) {
+			world.nextTurn();
+			deity.onTurn(world, new WorldStateChangedListeners());
+		}
+		
+		assertEquals(CreatureType.HUMAN_CREATURE_TYPE, performer.getProperty(Constants.CREATURE_TYPE));
+	}
+	
 	private WorldObject createVillagersOrganization(World world) {
 		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
 		organization.setProperty(Constants.ID, 1);
