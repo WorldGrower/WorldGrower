@@ -62,6 +62,7 @@ public class PlantGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 15 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.NAME, "berry bush");
 		WorldObject berryBush = new WorldObjectImpl(properties, new BerryBushOnTurn());
 		return berryBush;
