@@ -14,9 +14,11 @@
  *******************************************************************************/
 package org.worldgrower.generator;
 
+import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.FoodPropertyUtils;
+import org.worldgrower.condition.Condition;
 import org.worldgrower.gui.ImageIds;
 
 public class BerryBushImageCalculator {
@@ -24,10 +26,22 @@ public class BerryBushImageCalculator {
 	public static ImageIds getImageId(WorldObject berryBush, World world) {
 		final ImageIds berryBushImageId;
 		if (FoodPropertyUtils.foodSourceHasEnoughFood(berryBush)) {
-			berryBushImageId = ImageIds.BUSH;
+			if (isWilting(berryBush)) {
+				berryBushImageId = ImageIds.WILTING_BERRY_BUSH;
+			} else {
+				berryBushImageId = ImageIds.BUSH;
+			}
 		} else {
-			berryBushImageId = ImageIds.YOUNG_BERRY_BUSH;
+			if (isWilting(berryBush)) {
+				berryBushImageId = ImageIds.YOUNG_WILTING_BERRY_BUSH;
+			} else {
+				berryBushImageId = ImageIds.YOUNG_BERRY_BUSH;
+			}
 		}
 		return berryBushImageId;
+	}
+
+	private static boolean isWilting(WorldObject berryBush) {
+		return berryBush.getProperty(Constants.CONDITIONS).hasCondition(Condition.WILTING_CONDITION);
 	}
 }

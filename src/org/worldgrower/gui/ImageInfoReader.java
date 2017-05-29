@@ -806,6 +806,11 @@ public class ImageInfoReader {
 		addCharacter(ImageIds.FEMALE_PIRATE02, femalePirate02, 0, 0, 1, 1);
 		addCharacter(ImageIds.MALE_PIRATE03, malePirate03, 0, 0, 1, 1);
 		addCharacter(ImageIds.FEMALE_PIRATE03, femalePirate03, 0, 0, 1, 1);
+		
+		add(ImageIds.WILTING_CONDITION, sprites420.getSubImage(0, 24, 1, 1));
+		Color wiltingColor = new Color(139, 69, 19, 120);
+		add(ImageIds.WILTING_BERRY_BUSH, colorize(ImageIds.BUSH, wiltingColor));
+		add(ImageIds.YOUNG_WILTING_BERRY_BUSH, colorize(ImageIds.YOUNG_BERRY_BUSH, wiltingColor));
     }
 
 	private Image createTileTransition(Sprites tileMask, int posX, int posY) {

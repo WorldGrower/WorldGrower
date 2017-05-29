@@ -81,6 +81,7 @@ public interface Condition extends Serializable {
 	public static final ProtectionFromEnergyCondition PROTECTION_FROM_ICE_CONDITION = new ProtectionFromEnergyCondition(ALL_CONDITIONS, "protection from ice", "protection from ice cuts all cold damage in half", ImageIds.PROTECTION_FROM_ICE);
 	public static final ProtectionFromEnergyCondition PROTECTION_FROM_LIGHTNING_CONDITION = new ProtectionFromEnergyCondition(ALL_CONDITIONS, "protection from lightning", "protection from lightning cuts all lightning damage in half", ImageIds.PROTECTION_FROM_LIGHTNING);
 	public static final FreedomOfMovementCondition FREEDOM_OF_MOVEMENT_CONDITION = new FreedomOfMovementCondition(ALL_CONDITIONS);
+	public static final WiltingCondition WILTING_CONDITION = new WiltingCondition(ALL_CONDITIONS);
 	
 	public static final DeityBoonCondition DEMETER_BOON_CONDITION = new DeityBoonCondition(Deity.DEMETER, ALL_CONDITIONS);
 	public static final DeityBoonCondition HEPHAESTUS_BOON_CONDITION = new DeityBoonCondition(Deity.HEPHAESTUS, ALL_CONDITIONS);
