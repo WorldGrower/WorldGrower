@@ -38,6 +38,7 @@ import org.worldgrower.condition.Conditions;
 import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.Curse;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.LegalActionsPropertyUtils;
 
@@ -187,8 +188,10 @@ public class UTestSetGovernanceAction {
 
 		@Override
 		public void fireRebellionStarted(WorldObject organization) {
-			// TODO Auto-generated method stub
-			
+		}
+
+		@Override
+		public void deityRetributed(Deity deity, String description) {
 		}		
 	}
 	

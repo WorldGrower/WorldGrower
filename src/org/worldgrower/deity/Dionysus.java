@@ -78,17 +78,22 @@ public class Dionysus implements Deity {
 	}
 
 	@Override
-	public void onTurn(World world, WorldStateChangedListeners creatureTypeChangedListeners) {
-		int currentTurn = world.getCurrentTurn().getValue();
-		int totalNumberOfWorshippers = DeityPropertyUtils.getTotalNumberOfWorshippers(world);
-		
-		if ((currentTurn % 4000 == 0) && (totalNumberOfWorshippers > 18) && (VampireUtils.getVampireCount(world) == 0)) {
-			List<WorldObject> targets = DeityPropertyUtils.getWorshippersFor(this, world);
-			targets = targets.stream().filter(w -> VampireUtils.canBecomeVampire(w)).collect(Collectors.toList());
-			if (targets.size() > 0) {
-				VampireUtils.vampirizePerson(targets.get(0), creatureTypeChangedListeners);
+	public void onTurn(World world, WorldStateChangedListeners worldStateChangedListeners) {
+		if (DeityPropertyUtils.shouldCheckForDeityRetribution(world)) { 
+			if (DeityPropertyUtils.deityIsUnhappy(world, this) && (VampireUtils.getVampireCount(world) == 0)) {
+				cursePersonAsVampire(world, worldStateChangedListeners);
 			}
 		}
+	}
+
+	private void cursePersonAsVampire(World world, WorldStateChangedListeners worldStateChangedListeners) {
+		List<WorldObject> targets = DeityPropertyUtils.getWorshippersFor(this, world);
+		targets = targets.stream().filter(w -> VampireUtils.canBecomeVampire(w)).collect(Collectors.toList());
+		if (targets.size() > 0) {
+			VampireUtils.vampirizePerson(targets.get(0), worldStateChangedListeners);
+		}
+		
+		world.getWorldStateChangedListeners().deityRetributed(this, getName() + " is displeased due to lack of followers and worship and caused a person to become a vampire");
 	}
 
 	@Override

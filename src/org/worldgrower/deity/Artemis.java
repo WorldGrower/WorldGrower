@@ -63,22 +63,27 @@ public class Artemis implements Deity {
 	
 	@Override
 	public void onTurn(World world, WorldStateChangedListeners creatureTypeChangedListeners) {
-		int currentTurn = world.getCurrentTurn().getValue();
-		int totalNumberOfWorshippers = DeityPropertyUtils.getTotalNumberOfWorshippers(world);
+		if (DeityPropertyUtils.shouldCheckForDeityRetribution(world)) { 
+			if (DeityPropertyUtils.deityIsUnhappy(world, this) && (WerewolfUtils.getWerewolfCount(world) == 0)) {
+				cursePersonAsWerewolf(world);
+			}
+		}
+	}
+
+	private void cursePersonAsWerewolf(World world) {
+		List<WorldObject> targets = DeityPropertyUtils.getWorshippersFor(Deity.APHRODITE, world);
+		targets = targets.stream().filter(w -> WerewolfUtils.canBecomeWerewolf(w)).collect(Collectors.toList());
+		final WorldObject target;
+		if (targets.size() > 0) {
+			target = targets.get(0);
+		} else {
+			target = null;
+		}
 		
-		if ((currentTurn % 4000 == 0) && (totalNumberOfWorshippers > 18) && (WerewolfUtils.getWerewolfCount(world) == 0)) {
-			List<WorldObject> targets = DeityPropertyUtils.getWorshippersFor(Deity.APHRODITE, world);
-			targets = targets.stream().filter(w -> WerewolfUtils.canBecomeWerewolf(w)).collect(Collectors.toList());
-			final WorldObject target;
-			if (targets.size() > 0) {
-				target = targets.get(0);
-			} else {
-				target = null;
-			}
+		if (target != null) {
+			WerewolfUtils.makePersonIntoWerewolf(target, world);
 			
-			if (target != null) {
-				WerewolfUtils.makePersonIntoWerewolf(target, world);
-			}
+			world.getWorldStateChangedListeners().deityRetributed(this, getName() + " is displeased due to lack of followers and worship and caused a person to turn into a werewolf");
 		}
 	}
 	

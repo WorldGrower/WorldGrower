@@ -25,6 +25,7 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.Curse;
+import org.worldgrower.deity.Deity;
 
 public class WorldStateChangedListeners {
 
@@ -128,5 +129,12 @@ public class WorldStateChangedListeners {
 		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
 			worldStateChangedListener.fireCreatureUncursed(performer, target, curse);
 		}
+	}
+
+	public void deityRetributed(Deity deity, String description) {
+		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
+			worldStateChangedListener.deityRetributed(deity, description);
+		}
+		
 	}
 }

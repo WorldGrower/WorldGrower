@@ -24,6 +24,7 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.Curse;
+import org.worldgrower.deity.Deity;
 
 public interface WorldStateChangedListener {
 
@@ -43,4 +44,5 @@ public interface WorldStateChangedListener {
 	public void fireCreatureCursed(WorldObject performer, WorldObject target, Curse curse);
 	public void fireCreatureUncursed(WorldObject performer, WorldObject target, Curse curse);
 	public void fireRebellionStarted(WorldObject organization);
+	public void deityRetributed(Deity deity, String description);
 }

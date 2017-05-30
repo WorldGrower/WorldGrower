@@ -46,7 +46,7 @@ public class WiltingCondition implements DeadlyCondition {
 
 	@Override
 	public void onTurn(WorldObject worldObject, World world, int startTurn, WorldStateChangedListeners creatureTypeChangedListeners) {
-		decreaseHitPoints(worldObject, this, 5 * Item.COMBAT_MULTIPLIER, world);
+		decreaseHitPoints(worldObject, this, 3 * Item.COMBAT_MULTIPLIER, world);
 	}
 
 	@Override

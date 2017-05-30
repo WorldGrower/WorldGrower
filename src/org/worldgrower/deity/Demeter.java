@@ -111,14 +111,18 @@ public class Demeter implements Deity {
 	public void onTurn(World world, WorldStateChangedListeners creatureTypeChangedListeners) {
 		if (DeityPropertyUtils.shouldCheckForDeityRetribution(world)) { 
 			if (DeityPropertyUtils.deityIsUnhappy(world, this)) {
-				List<WorldObject> foodSources = world.findWorldObjectsByProperty(Constants.FOOD_SOURCE, w -> !w.hasIntelligence());
-				for(WorldObject foodSource : foodSources) {
-					Conditions.add(foodSource, Condition.WILTING_CONDITION, 10, world);
-				}
-				
-				//world.getWorldStateChangedListeners().deityRetributed(this, "");
+				wiltBerryBushes(world);
 			}
 		}
+	}
+
+	private void wiltBerryBushes(World world) {
+		List<WorldObject> foodSources = world.findWorldObjectsByProperty(Constants.FOOD_SOURCE, w -> !w.hasIntelligence());
+		for(WorldObject foodSource : foodSources) {
+			Conditions.add(foodSource, Condition.WILTING_CONDITION, 10, world);
+		}
+		
+		world.getWorldStateChangedListeners().deityRetributed(this, getName() + " is displeased due to lack of followers and worship and caused berry bushes to wilt");
 	}
 	
 

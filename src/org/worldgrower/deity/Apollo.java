@@ -17,13 +17,16 @@ package org.worldgrower.deity;
 import java.io.ObjectStreamException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.WerewolfUtils;
 import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.curse.Curse;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.gui.ImageIds;
@@ -70,6 +73,28 @@ public class Apollo implements Deity {
 	
 	@Override
 	public void onTurn(World world, WorldStateChangedListeners creatureTypeChangedListeners) {
+		if (DeityPropertyUtils.shouldCheckForDeityRetribution(world)) { 
+			if (DeityPropertyUtils.deityIsUnhappy(world, this)) {
+				startPlague(world);
+			}
+		}
+	}
+
+	private void startPlague(World world) {
+		List<WorldObject> targets = DeityPropertyUtils.getWorshippersFor(Deity.HERA, world);
+		targets = targets.stream().filter(w -> w.getProperty(Constants.CURSE) == null).collect(Collectors.toList());
+		final WorldObject target;
+		if (targets.size() > 0) {
+			target = targets.get(0);
+		} else {
+			target = null;
+		}
+		
+		if (target != null) {
+			target.setProperty(Constants.CURSE, Curse.POX_CURSE);
+			
+			world.getWorldStateChangedListeners().deityRetributed(this, getName() + " is displeased due to lack of followers and worship and caused a person to become cursed with a plague");
+		}
 	}
 
 	@Override

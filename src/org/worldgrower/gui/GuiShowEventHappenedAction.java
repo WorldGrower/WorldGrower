@@ -30,6 +30,7 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.Curse;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.util.MessageDialogUtils;
 
@@ -223,5 +224,10 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 	public void fireRebellionStarted(WorldObject organization) {
 		String description = " A rebellion has spread to the majority of the villagers and the current leader has been overthrown";
 		MessageDialogUtils.showMessage(description, "Rebellion started", playerCharacter, container, imageInfoReader);
+	}
+
+	@Override
+	public void deityRetributed(Deity deity, String description) {
+		MessageDialogUtils.showMessage(description, "Deity Displeased", playerCharacter, container, imageInfoReader);
 	}
 }
