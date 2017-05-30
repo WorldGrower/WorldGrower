@@ -79,8 +79,10 @@ public class Dionysus implements Deity {
 
 	@Override
 	public void onTurn(World world, WorldStateChangedListeners worldStateChangedListeners) {
-		if (DeityPropertyUtils.shouldCheckForDeityRetribution(world)) { 
-			if (DeityPropertyUtils.deityIsUnhappy(world, this) && (VampireUtils.getVampireCount(world) == 0)) {
+		
+		if (DeityPropertyUtils.shouldCheckForDeityRetribution(world)) {
+			int totalNumberOfWorshippers = DeityPropertyUtils.getTotalNumberOfWorshippers(world);
+			if (totalNumberOfWorshippers > 18 && DeityPropertyUtils.getWorshippersFor(this, world).size() > 0 && (VampireUtils.getVampireCount(world) == 0)) {
 				cursePersonAsVampire(world, worldStateChangedListeners);
 			}
 		}
@@ -93,7 +95,7 @@ public class Dionysus implements Deity {
 			VampireUtils.vampirizePerson(targets.get(0), worldStateChangedListeners);
 		}
 		
-		world.getWorldStateChangedListeners().deityRetributed(this, getName() + " is displeased due to lack of followers and worship and caused a person to become a vampire");
+		world.getWorldStateChangedListeners().deityRetributed(this, getName() + " caused a person to become a vampire");
 	}
 
 	@Override
