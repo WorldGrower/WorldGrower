@@ -19,12 +19,17 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.worldgrower.Args;
 import org.worldgrower.Constants;
+import org.worldgrower.DoNothingWorldOnTurn;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.history.Turn;
 import org.worldgrower.profession.Professions;
 
@@ -44,6 +49,20 @@ public class UTestDemeter {
 		deity.worship(performer, target, 5, world);
 		
 		assertEquals(2, performer.getProperty(Constants.FARMING_SKILL).getLevel(performer));
+	}
+	
+	@Test
+	public void testOnTurn() {
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
+		for(int i=0; i<4000; i++) { world.nextTurn(); }
+		for(int i=0; i<20; i++) { world.addWorldObject(TestUtils.createIntelligentWorldObject(i+10, Constants.DEITY, Deity.ARES)); }
+		
+		int berryBushId = PlantGenerator.generateBerryBush(0, 0, world);
+		WorldObject berryBush = world.findWorldObjectById(berryBushId);
+		assertEquals(false, berryBush.getProperty(Constants.CONDITIONS).hasCondition(Condition.WILTING_CONDITION));
+		
+		deity.onTurn(world, new WorldStateChangedListeners());
+		assertEquals(true, berryBush.getProperty(Constants.CONDITIONS).hasCondition(Condition.WILTING_CONDITION));
 	}
 	
 	@Test

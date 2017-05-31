@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.personality.PersonalityTrait;
@@ -70,9 +71,26 @@ public class Poseidon implements Deity {
 	}
 	
 	@Override
-	public void onTurn(World world, WorldStateChangedListeners creatureTypeChangedListeners) {
+	public void onTurn(World world, WorldStateChangedListeners worldStateChangedListeners) {
+		if (DeityPropertyUtils.shouldCheckForDeityRetribution(world)) { 
+			if (DeityPropertyUtils.deityIsUnhappy(world, this)) {
+				killFish(world);
+			}
+		}
 	}
 
+	private void killFish(World world) {
+		List<WorldObject> fishCreatures = world.findWorldObjectsByProperty(Constants.CREATURE_TYPE, w -> w.getProperty(Constants.CREATURE_TYPE) == CreatureType.FISH_CREATURE_TYPE);
+		for(int i=0; i<fishCreatures.size(); i++) {
+			WorldObject fish = fishCreatures.get(i);
+			if (i % 2 == 0) {
+				fish.setProperty(Constants.HIT_POINTS, 0);
+			}
+		}
+		
+		world.getWorldStateChangedListeners().deityRetributed(this, getName() + " is displeased due to lack of followers and worship and caused some fish to die");
+	}
+	
 	@Override
 	public ImageIds getStatueImageId() {
 		return ImageIds.STATUE_OF_POSEIDON;

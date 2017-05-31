@@ -17,7 +17,6 @@ package org.worldgrower.deity;
 import java.io.ObjectStreamException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
@@ -26,7 +25,6 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
-import org.worldgrower.condition.VampireUtils;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
@@ -108,7 +106,7 @@ public class Demeter implements Deity {
 	}
 	
 	@Override
-	public void onTurn(World world, WorldStateChangedListeners creatureTypeChangedListeners) {
+	public void onTurn(World world, WorldStateChangedListeners worldStateChangedListeners) {
 		if (DeityPropertyUtils.shouldCheckForDeityRetribution(world)) { 
 			if (DeityPropertyUtils.deityIsUnhappy(world, this)) {
 				wiltBerryBushes(world);

@@ -90,6 +90,7 @@ import org.worldgrower.condition.UTestUnconsciousCondition;
 import org.worldgrower.condition.UTestVampireBiteCondition;
 import org.worldgrower.condition.UTestVampireUtils;
 import org.worldgrower.condition.UTestWerewolfUtils;
+import org.worldgrower.condition.UTestWiltingCondition;
 import org.worldgrower.conversation.UTestArenaFighterPayCheckConversation;
 import org.worldgrower.conversation.UTestAskGoalConversation;
 import org.worldgrower.conversation.UTestAssassinateTargetConversation;
@@ -846,7 +847,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestConstants.class,
 	UTestCraftIronTridentAction.class,
 	UTestCraftSteelTridentAction.class,
-	UTestPlantPalmTreeAction.class
+	UTestPlantPalmTreeAction.class,
+	UTestWiltingCondition.class
 })
 public class CompleteTestSuite {
 }
