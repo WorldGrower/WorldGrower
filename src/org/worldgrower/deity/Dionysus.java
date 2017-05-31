@@ -80,7 +80,7 @@ public class Dionysus implements Deity {
 	@Override
 	public void onTurn(World world, WorldStateChangedListeners worldStateChangedListeners) {
 		
-		if (DeityPropertyUtils.shouldCheckForDeityRetribution(world)) {
+		if (DeityRetribution.shouldCheckForDeityRetribution(this, world)) {
 			int totalNumberOfWorshippers = DeityPropertyUtils.getTotalNumberOfWorshippers(world);
 			if (totalNumberOfWorshippers > 18 && DeityPropertyUtils.getWorshippersFor(this, world).size() > 0 && (VampireUtils.getVampireCount(world) == 0)) {
 				cursePersonAsVampire(world, worldStateChangedListeners);

@@ -63,8 +63,8 @@ public class Artemis implements Deity {
 	
 	@Override
 	public void onTurn(World world, WorldStateChangedListeners creatureTypeChangedListeners) {
-		if (DeityPropertyUtils.shouldCheckForDeityRetribution(world)) { 
-			if (DeityPropertyUtils.deityIsUnhappy(world, this) && (WerewolfUtils.getWerewolfCount(world) == 0)) {
+		if (DeityRetribution.shouldCheckForDeityRetribution(this, world)) { 
+			if (DeityPropertyUtils.deityIsUnhappy(this, world) && (WerewolfUtils.getWerewolfCount(world) == 0)) {
 				cursePersonAsWerewolf(world);
 			}
 		}

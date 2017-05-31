@@ -107,8 +107,8 @@ public class Demeter implements Deity {
 	
 	@Override
 	public void onTurn(World world, WorldStateChangedListeners worldStateChangedListeners) {
-		if (DeityPropertyUtils.shouldCheckForDeityRetribution(world)) { 
-			if (DeityPropertyUtils.deityIsUnhappy(world, this)) {
+		if (DeityRetribution.shouldCheckForDeityRetribution(this, world)) { 
+			if (DeityPropertyUtils.deityIsUnhappy(this, world)) {
 				wiltBerryBushes(world);
 			}
 		}

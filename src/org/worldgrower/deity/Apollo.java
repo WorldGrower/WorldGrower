@@ -24,7 +24,6 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.condition.Condition;
-import org.worldgrower.condition.WerewolfUtils;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.curse.Curse;
 import org.worldgrower.goal.Goal;
@@ -73,8 +72,8 @@ public class Apollo implements Deity {
 	
 	@Override
 	public void onTurn(World world, WorldStateChangedListeners creatureTypeChangedListeners) {
-		if (DeityPropertyUtils.shouldCheckForDeityRetribution(world)) { 
-			if (DeityPropertyUtils.deityIsUnhappy(world, this)) {
+		if (DeityRetribution.shouldCheckForDeityRetribution(this, world)) { 
+			if (DeityPropertyUtils.deityIsUnhappy(this, world)) {
 				startPlague(world);
 			}
 		}

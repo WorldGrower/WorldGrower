@@ -76,13 +76,8 @@ public class DeityPropertyUtils {
 		return targets;
 	}
 	
-	public static boolean shouldCheckForDeityRetribution(World world) {
-		int currentTurn = world.getCurrentTurn().getValue();
-		return (currentTurn % 4000 == 0); 
-	}
-	
-	public static boolean deityIsUnhappy(World world, Deity deity) {
-		int totalNumberOfWorshippers = DeityPropertyUtils.getTotalNumberOfWorshippers(world);
+	public static boolean deityIsUnhappy(Deity deity, World world) {
+		int totalNumberOfWorshippers = getTotalNumberOfWorshippers(world);
 		return ((totalNumberOfWorshippers > 18) && (getWorshippersFor(deity, world).isEmpty()));
 	}
 }

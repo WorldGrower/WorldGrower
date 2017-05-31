@@ -168,6 +168,7 @@ import org.worldgrower.deity.UTestArtemis;
 import org.worldgrower.deity.UTestAthena;
 import org.worldgrower.deity.UTestDeity;
 import org.worldgrower.deity.UTestDeityPropertyUtils;
+import org.worldgrower.deity.UTestDeityRetribution;
 import org.worldgrower.deity.UTestDemeter;
 import org.worldgrower.deity.UTestDionysus;
 import org.worldgrower.deity.UTestHades;
@@ -848,7 +849,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestCraftIronTridentAction.class,
 	UTestCraftSteelTridentAction.class,
 	UTestPlantPalmTreeAction.class,
-	UTestWiltingCondition.class
+	UTestWiltingCondition.class,
+	UTestDeityRetribution.class
 })
 public class CompleteTestSuite {
 }
