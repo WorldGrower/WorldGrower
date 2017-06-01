@@ -54,14 +54,17 @@ public class UTestDemeter {
 	@Test
 	public void testOnTurn() {
 		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
-		for(int i=0; i<4000; i++) { world.nextTurn(); }
+		for(int i=0; i<3800; i++) { world.nextTurn(); }
 		for(int i=0; i<20; i++) { world.addWorldObject(TestUtils.createIntelligentWorldObject(i+10, Constants.DEITY, Deity.ARES)); }
 		
 		int berryBushId = PlantGenerator.generateBerryBush(0, 0, world);
 		WorldObject berryBush = world.findWorldObjectById(berryBushId);
 		assertEquals(false, berryBush.getProperty(Constants.CONDITIONS).hasCondition(Condition.WILTING_CONDITION));
 		
-		deity.onTurn(world, new WorldStateChangedListeners());
+		for(int i=0; i<400; i++) {
+			deity.onTurn(world, new WorldStateChangedListeners());
+			world.nextTurn(); 
+		}
 		assertEquals(true, berryBush.getProperty(Constants.CONDITIONS).hasCondition(Condition.WILTING_CONDITION));
 	}
 	

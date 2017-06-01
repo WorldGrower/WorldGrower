@@ -49,13 +49,16 @@ public class UTestDionysus {
 	@Test
 	public void testOnTurn() {
 		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
-		for(int i=0; i<4000; i++) { world.nextTurn(); }
+		for(int i=0; i<3800; i++) { world.nextTurn(); }
 		for(int i=0; i<20; i++) { world.addWorldObject(TestUtils.createIntelligentWorldObject(i+10, Constants.DEITY, Deity.ARES)); }
 		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "performer");
 		performer.setProperty(Constants.DEITY, Deity.DIONYSUS);
 		world.addWorldObject(performer);
 		
-		deity.onTurn(world, new WorldStateChangedListeners());
+		for(int i=0; i<400; i++) { 
+			deity.onTurn(world, new WorldStateChangedListeners());
+			world.nextTurn(); 
+		}
 		
 		assertEquals(CreatureType.VAMPIRE_CREATURE_TYPE, performer.getProperty(Constants.CREATURE_TYPE));
 	}

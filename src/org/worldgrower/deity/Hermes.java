@@ -66,9 +66,28 @@ public class Hermes implements Deity {
 	}
 	
 	@Override
-	public void onTurn(World world, WorldStateChangedListeners creatureTypeChangedListeners) {
+	public void onTurn(World world, WorldStateChangedListeners worldStateChangedListeners) {
+		if (DeityRetribution.shouldCheckForDeityRetribution(this, world)) { 
+			if (DeityPropertyUtils.deityIsUnhappy(this, world)) {
+				destroyGoldMine(world);
+			}
+		}
 	}
-	
+
+	private void destroyGoldMine(World world) {
+		List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.GOLD_SOURCE, w -> true);
+		final WorldObject target;
+		if (targets.size() > 0) {
+			target = targets.get(0);
+		} else {
+			target = null;
+		}
+		
+		if (target != null) {
+			target.setProperty(Constants.HIT_POINTS, 0);
+			world.getWorldStateChangedListeners().deityRetributed(this, getName() + " is displeased due to lack of followers and worship and destroyed a gold mine");
+		}
+	}
 
 	@Override
 	public ImageIds getStatueImageId() {
