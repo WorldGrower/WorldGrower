@@ -21,6 +21,7 @@ import java.util.Map;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.IntProperty;
 
 public class DeityPropertyUtils {
 
@@ -79,5 +80,20 @@ public class DeityPropertyUtils {
 	public static boolean deityIsUnhappy(Deity deity, World world) {
 		int totalNumberOfWorshippers = getTotalNumberOfWorshippers(world);
 		return ((totalNumberOfWorshippers > 18) && (getWorshippersFor(deity, world).isEmpty()));
+	}
+	
+	public static void destroyResource(IntProperty resourceProperty, Deity deity, String description, World world) {
+		List<WorldObject> targets = world.findWorldObjectsByProperty(resourceProperty, w -> true);
+		final WorldObject target;
+		if (targets.size() > 0) {
+			target = targets.get(0);
+		} else {
+			target = null;
+		}
+		
+		if (target != null) {
+			target.setProperty(Constants.HIT_POINTS, 0);
+			world.getWorldStateChangedListeners().deityRetributed(deity, description);
+		}
 	}
 }

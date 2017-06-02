@@ -17,7 +17,6 @@ package org.worldgrower.deity;
 import java.io.ObjectStreamException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
@@ -25,7 +24,6 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListeners;
-import org.worldgrower.curse.Curse;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Professions;
 
@@ -71,23 +69,8 @@ public class Hephaestus implements Deity {
 	public void onTurn(World world, WorldStateChangedListeners worldStateChangedListeners) {
 		if (DeityRetribution.shouldCheckForDeityRetribution(this, world)) { 
 			if (DeityPropertyUtils.deityIsUnhappy(this, world)) {
-				destroyMine(world);
+				DeityPropertyUtils.destroyResource(Constants.ORE_SOURCE, this, getName() + " is displeased due to lack of followers and worship and destroyed a mine", world);
 			}
-		}
-	}
-
-	private void destroyMine(World world) {
-		List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.ORE_SOURCE, w -> true);
-		final WorldObject target;
-		if (targets.size() > 0) {
-			target = targets.get(0);
-		} else {
-			target = null;
-		}
-		
-		if (target != null) {
-			target.setProperty(Constants.HIT_POINTS, 0);
-			world.getWorldStateChangedListeners().deityRetributed(this, getName() + " is displeased due to lack of followers and worship and destroyed a mine");
 		}
 	}
 

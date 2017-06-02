@@ -63,7 +63,7 @@ public class Aphrodite implements Deity {
 	}
 
 	@Override
-	public void onTurn(World world, WorldStateChangedListeners creatureTypeChangedListeners) {
+	public void onTurn(World world, WorldStateChangedListeners worldStateChangedListeners) {
 	}
 
 	@Override

@@ -72,7 +72,12 @@ public class Hades implements Deity {
 	}
 	
 	@Override
-	public void onTurn(World world, WorldStateChangedListeners creatureTypeChangedListeners) {
+	public void onTurn(World world, WorldStateChangedListeners worldStateChangedListeners) {
+		if (DeityRetribution.shouldCheckForDeityRetribution(this, world)) { 
+			if (DeityPropertyUtils.deityIsUnhappy(this, world)) {
+				DeityPropertyUtils.destroyResource(Constants.STONE_SOURCE, this, getName() + " is displeased due to lack of followers and worship and destroyed a stone mine", world);
+			}
+		}
 	}
 
 	@Override
