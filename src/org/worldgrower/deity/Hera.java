@@ -17,15 +17,20 @@ package org.worldgrower.deity;
 import java.io.ObjectStreamException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.curse.Curse;
 import org.worldgrower.goal.Goals;
+import org.worldgrower.goal.MatePropertyUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.history.HistoryItem;
 import org.worldgrower.personality.PersonalityTrait;
 import org.worldgrower.profession.Professions;
 
@@ -76,6 +81,29 @@ public class Hera implements Deity {
 	
 	@Override
 	public void onTurn(World world, WorldStateChangedListeners creatureTypeChangedListeners) {
+		if (DeityRetribution.shouldCheckForDeityRetribution(this, world)) { 
+			if (DeityPropertyUtils.deityIsUnhappy(this, world)) {
+				curseInfidelPartner(world);
+			}
+		}
+	}
+
+	private void curseInfidelPartner(World world) {
+		List<HistoryItem> historyItems = world.getHistory().findHistoryItems(Actions.SEX_ACTION);
+		historyItems = historyItems.stream().filter(h -> h.getTurn().getValue() > world.getCurrentTurn().getValue() - 10 && !MatePropertyUtils.areMates(h.getPerformer(), h.getTarget()) && h.getPerformer().getProperty(Constants.CURSE) == null).collect(Collectors.toList());
+		List<WorldObject> targets = DeityPropertyUtils.getWorshippersFor(Deity.HERA, world);
+		targets = targets.stream().filter(w -> w.getProperty(Constants.CURSE) == null).collect(Collectors.toList());
+		final WorldObject target;
+		if (historyItems.size() > 0) {
+			target = historyItems.get(0).getPerformer();
+		} else {
+			target = null;
+		}
+		
+		if (target != null) {
+			target.setProperty(Constants.CURSE, Curse.POX_CURSE);			
+			world.getWorldStateChangedListeners().deityRetributed(this, getName() + " is displeased due to lack of followers and worship and caused a person to become cursed");
+		}
 	}
 
 	@Override
