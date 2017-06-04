@@ -811,6 +811,8 @@ public class ImageInfoReader {
 		Color wiltingColor = new Color(139, 69, 19, 120);
 		add(ImageIds.WILTING_BERRY_BUSH, colorize(ImageIds.BUSH, wiltingColor));
 		add(ImageIds.YOUNG_WILTING_BERRY_BUSH, colorize(ImageIds.YOUNG_BERRY_BUSH, wiltingColor));
+
+		addCharacter(ImageIds.MINOTAUR, monsters, 6, 4, 1, 1);
     }
 
 	private Image createTileTransition(Sprites tileMask, int posX, int posY) {

@@ -17,13 +17,18 @@ package org.worldgrower.deity;
 import java.io.ObjectStreamException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.WerewolfUtils;
 import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.curse.Curse;
+import org.worldgrower.goal.GenderPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Professions;
 
@@ -63,7 +68,31 @@ public class Aphrodite implements Deity {
 	}
 
 	@Override
-	public void onTurn(World world, WorldStateChangedListeners worldStateChangedListeners) {
+	public void onTurn(World world, WorldStateChangedListeners creatureTypeChangedListeners) {
+		if (DeityRetribution.shouldCheckForDeityRetribution(this, world)) { 
+			if (DeityPropertyUtils.deityIsUnhappy(this, world)) {
+				cursePersonAsMinotaur(world);
+			}
+		}
+	}
+
+	private void cursePersonAsMinotaur(World world) {
+		List<WorldObject> targets = DeityPropertyUtils.getWorshippersFor(Deity.ARTEMIS, world);
+		targets = targets.stream().filter(w -> w.getProperty(Constants.CREATURE_TYPE) == CreatureType.HUMAN_CREATURE_TYPE && w.getProperty(Constants.CURSE) == null && GenderPropertyUtils.isFemale(w)).collect(Collectors.toList());
+		final WorldObject target;
+		if (targets.size() > 0) {
+			target = targets.get(0);
+		} else {
+			target = null;
+		}
+		
+		if (target != null) {
+			target.setProperty(Constants.CURSE, Curse.MINOTAUR_CURSE);
+			if (!target.hasProperty(Constants.PREGNANCY)) {
+				target.setProperty(Constants.PREGNANCY, 1);
+			}
+			world.getWorldStateChangedListeners().deityRetributed(this, getName() + " is displeased due to lack of followers and worship and caused a person to give birth to a minotaur");
+		}
 	}
 
 	@Override

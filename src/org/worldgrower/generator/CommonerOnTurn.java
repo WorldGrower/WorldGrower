@@ -145,21 +145,40 @@ public class CommonerOnTurn implements OnTurn {
 			worldObject.setProperty(Constants.PREGNANCY, pregnancy);
 			
 			if (pregnancy > PREGNANCY_DURATION) {
-				worldObject.setProperty(Constants.PREGNANCY, pregnancy - 201);
+				worldObject.setProperty(Constants.PREGNANCY, null);
 				
-				int performerX = worldObject.getProperty(Constants.X);
-				int performerY = worldObject.getProperty(Constants.Y);
-				int[] position = GoalUtils.findOpenSpace(worldObject, 1, 1, world);
-				if (position != null) {
-					int id = commonerGenerator.generateCommoner(position[0] + performerX, position[1] + performerY, world, organization, worldObject);
-					worldObject.setProperty(Constants.PREGNANCY, null);
-					worldObject.getProperty(Constants.CHILDREN).add(id);
-					
-					everyoneInVicinityKnowsOfChild(worldObject, id, world);
-					
-					logChildBirth(worldObject, world, id);
+				if (worldObject.getProperty(Constants.CURSE) == Curse.MINOTAUR_CURSE) {
+					generateMinotaur(worldObject, world);
+				} else {
+					generateCommoner(worldObject, world);
 				}
 			}
+		}
+	}
+
+	private void generateMinotaur(WorldObject worldObject, World world) {
+		int[] position = GoalUtils.findOpenSpace(worldObject, 1, 1, world);
+		if (position != null) {
+			int performerX = worldObject.getProperty(Constants.X);
+			int performerY = worldObject.getProperty(Constants.Y);
+			CreatureGenerator.generateMinotaur(position[0] + performerX, position[1] + performerY, world);
+			
+			worldObject.setProperty(Constants.CURSE, null);
+		}
+	}
+
+	private void generateCommoner(WorldObject worldObject, World world) {
+		int performerX = worldObject.getProperty(Constants.X);
+		int performerY = worldObject.getProperty(Constants.Y);
+		int[] position = GoalUtils.findOpenSpace(worldObject, 1, 1, world);
+		if (position != null) {
+			int id = commonerGenerator.generateCommoner(position[0] + performerX, position[1] + performerY, world, organization, worldObject);
+			worldObject.setProperty(Constants.PREGNANCY, null);
+			worldObject.getProperty(Constants.CHILDREN).add(id);
+			
+			everyoneInVicinityKnowsOfChild(worldObject, id, world);
+			
+			logChildBirth(worldObject, world, id);
 		}
 	}
 

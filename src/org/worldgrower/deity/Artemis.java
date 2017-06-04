@@ -87,7 +87,6 @@ public class Artemis implements Deity {
 		}
 	}
 	
-
 	@Override
 	public ImageIds getStatueImageId() {
 		return ImageIds.STATUE_OF_ARTEMIS;

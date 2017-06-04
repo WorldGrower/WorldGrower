@@ -50,6 +50,7 @@ public interface Curse extends Serializable {
 	public static final WerewolfCurse WEREWOLF_CURSE = new WerewolfCurse();
 	public static final LichCurse LICH_CURSE = new LichCurse();
 	public static final GhoulCurse GHOUL_CURSE = new GhoulCurse();
+	public static final MinotaurCurse MINOTAUR_CURSE = new MinotaurCurse();
 	
 	public static final List<Curse> BESTOWABLE_CURSES = Arrays.asList(
 			CHANGE_GENDER_CURSE,

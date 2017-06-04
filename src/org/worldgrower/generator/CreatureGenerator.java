@@ -23,6 +23,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
+import org.worldgrower.DoNothingOnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
@@ -51,6 +52,7 @@ public class CreatureGenerator implements Serializable {
 		creatures.add(generateRat(0, 0, 0));
 		creatures.add(generateSpider(0, 0, 0));
 		creatures.add(generateSlime(0, 0, 0));
+		creatures.add(generateMinotaur(0, 0, 0));
 		
 		creatures = creatures.stream().filter(w -> w.getProperty(Constants.WIDTH) == width && w.getProperty(Constants.HEIGHT) == height).collect(Collectors.toList());
 		
@@ -214,6 +216,55 @@ public class CreatureGenerator implements Serializable {
 		
 		WorldObject slime = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new BeastOnTurn(this::generateSlime), new SlimeWorldEvaluationFunction());
 		return slime;
+	}
+	
+	public static int generateMinotaur(int x, int y, World world) {
+		
+		int id = world.generateUniqueId();
+		WorldObject minotaur = generateMinotaur(x, y, id);
+		world.addWorldObject(minotaur);
+		
+		return id;
+	}
+	
+	private static WorldObject generateMinotaur(int x, int y, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 1);
+		properties.put(Constants.HIT_POINTS, 15 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 20 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.NAME, "Minotaur");
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.MINOTAUR);
+		properties.put(Constants.FOOD, 500);
+		properties.put(Constants.WATER, 500);
+		properties.put(Constants.ENERGY, 1000);
+		properties.put(Constants.GROUP, new IdList());
+		properties.put(Constants.GOLD, 0);
+		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
+		properties.put(Constants.CHILDREN, new IdList());
+		properties.put(Constants.SOCIAL, 500);
+		properties.put(Constants.GENDER, "male");
+		properties.put(Constants.CREATURE_TYPE, CreatureType.MINOTAUR_CREATURE_TYPE);
+		properties.put(Constants.CONDITIONS, new Conditions());
+		
+		properties.put(Constants.ARMOR, 10);
+		
+		properties.put(Constants.STRENGTH, 12);
+		properties.put(Constants.DEXTERITY, 8);
+		properties.put(Constants.CONSTITUTION, 16);
+		properties.put(Constants.INTELLIGENCE, 6);
+		properties.put(Constants.WISDOM, 12);
+		properties.put(Constants.CHARISMA, 6);
+		
+		properties.put(Constants.HAND_TO_HAND_SKILL, new Skill(10));
+		
+		properties.put(Constants.DAMAGE, 3 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.DAMAGE_RESIST, 8);
+		
+		return new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new DoNothingOnTurn(), new MinotaurWorldEvaluationFunction());
 	}
 	
 	public int generateSkeleton(int x, int y, World world, WorldObject performer) {
