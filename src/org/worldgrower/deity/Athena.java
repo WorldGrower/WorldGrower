@@ -67,9 +67,13 @@ public class Athena implements Deity {
 	}
 	
 	@Override
-	public void onTurn(World world, WorldStateChangedListeners creatureTypeChangedListeners) {
+	public void onTurn(World world, WorldStateChangedListeners worldStateChangedListeners) {
+		if (DeityRetribution.shouldCheckForDeityRetribution(this, world)) { 
+			if (DeityPropertyUtils.deityIsUnhappy(this, world)) {
+				DeityPropertyUtils.destroyResource(Constants.LIBRARY_QUALITY, this, getName() + " is displeased due to lack of followers and worship and destroyed a library", world);
+			}
+		}
 	}
-	
 
 	@Override
 	public ImageIds getStatueImageId() {
