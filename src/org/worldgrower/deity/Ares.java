@@ -24,7 +24,9 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.goal.Goal;
+import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Professions;
@@ -62,14 +64,24 @@ public class Ares implements Deity {
 	}
 	
 	@Override
-	public void onTurn(World world, WorldStateChangedListeners creatureTypeChangedListeners) {
+	public void onTurn(World world, WorldStateChangedListeners worldStateChangedListeners) {
+		if (DeityRetribution.shouldCheckForDeityRetribution(this, world)) { 
+			if (DeityPropertyUtils.deityIsUnhappy(this, world)) {
+				int x = world.getCurrentTurn().getValue() % world.getWidth();
+				int y = world.getCurrentTurn().getValue() % world.getHeight();
+				
+				if (GoalUtils.isNonWaterOpenSpace(x, y, 1, 1, world)) {
+					CreatureGenerator.generateMinotaur(x, y, world);
+					world.getWorldStateChangedListeners().deityRetributed(this, getName() + " is displeased due to lack of followers and worship and caused a minotaur to appear");
+				}
+			}
+		}
 	}
 
 	@Override
 	public List<Goal> getOrganizationGoals() {
 		return addDefaultOrganizationGoals(Goals.SACRIFICE_PEOPLE_TO_DEITY_GOAL);
 	}
-	
 
 	@Override
 	public ImageIds getStatueImageId() {

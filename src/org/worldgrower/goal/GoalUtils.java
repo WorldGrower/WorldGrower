@@ -131,6 +131,10 @@ public class GoalUtils {
 		return isOpenSpace(openSpaceX, openSpaceY, buildingDimensions.getPlacementWidth(), buildingDimensions.getPlacementHeight(), world);
 	}
 	
+	public static boolean isNonWaterOpenSpace(int openSpaceX, int openSpaceY, int width, int height, World world) {
+		return isOpenSpace(openSpaceX, openSpaceY, width, height, world) && world.getTerrain().getTerrainInfo(openSpaceX, openSpaceY).getTerrainType() != TerrainType.WATER;
+	}
+	
 	public static boolean isOpenSpace(int openSpaceX, int openSpaceY, int width, int height, World world) {
 		for(int x=openSpaceX; x<openSpaceX+width; x++) {
 			for(int y=openSpaceY; y<openSpaceY+height; y++) {
