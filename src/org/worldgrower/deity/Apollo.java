@@ -24,6 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.curse.Curse;
 import org.worldgrower.goal.Goal;
@@ -90,8 +91,7 @@ public class Apollo implements Deity {
 		}
 		
 		if (target != null) {
-			target.setProperty(Constants.CURSE, Curse.POX_CURSE);
-			
+			Conditions.addPermanent(target, Condition.ATAXIA_CONDITION, world);
 			world.getWorldStateChangedListeners().deityRetributed(this, getName() + " is displeased due to lack of followers and worship and caused a person to become cursed with a plague");
 		}
 	}
