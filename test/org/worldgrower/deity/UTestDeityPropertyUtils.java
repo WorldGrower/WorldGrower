@@ -27,6 +27,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.TerrainGenerator;
 
 public class UTestDeityPropertyUtils {
 
@@ -86,6 +87,16 @@ public class UTestDeityPropertyUtils {
 		world.addWorldObject(performer);
 		BuildingGenerator.generateShrine(0, 0, world, performer);
 		assertEquals(Arrays.asList(performer), DeityPropertyUtils.getAllWorshippers(world));
-
+	}
+	
+	@Test
+	public void testDestroyResource() {
+		World world = new WorldImpl(10, 10, null, null);
+		TerrainGenerator.generateGoldResource(0, 0, world);
+		
+		DeityPropertyUtils.destroyResource(Constants.GOLD_SOURCE, Deity.HERMES, "", world);
+		
+		assertEquals(1, world.getWorldObjects().size());
+		assertEquals(0, world.getWorldObjects().get(0).getProperty(Constants.HIT_POINTS).intValue());
 	}
 }

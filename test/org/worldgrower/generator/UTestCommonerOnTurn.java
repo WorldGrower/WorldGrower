@@ -27,6 +27,7 @@ import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.Prices;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.Curse;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.goal.GroupPropertyUtils;
@@ -124,6 +125,24 @@ public class UTestCommonerOnTurn {
 		
 		assertEquals(null, playerCharacter.getProperty(Constants.PREGNANCY));
 		assertEquals(1, playerCharacter.getProperty(Constants.CHILDREN).size());
+	}
+	
+	@Test
+	public void testGiveBirthToMinotaur() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject organization = createVillagersOrganization(world);
+		
+		CharacterAttributes characterAttributes = new CharacterAttributes(10, 10, 10, 10, 10, 10);
+		WorldObject playerCharacter = CommonerGenerator.createPlayerCharacter(7, "player", "adventurer" , "female", world, commonerGenerator, organization, characterAttributes, ImageIds.KNIGHT);
+
+		playerCharacter.setProperty(Constants.PREGNANCY, 500);
+		playerCharacter.setProperty(Constants.CURSE, Curse.MINOTAUR_CURSE);
+		playerCharacter.onTurn(world, new WorldStateChangedListeners());
+		
+		assertEquals(null, playerCharacter.getProperty(Constants.PREGNANCY));
+		assertEquals(0, playerCharacter.getProperty(Constants.CHILDREN).size());
+		assertEquals(3, world.getWorldObjects().size());
+		assertEquals(CreatureType.MINOTAUR_CREATURE_TYPE, world.getWorldObjects().get(2).getProperty(Constants.CREATURE_TYPE));
 	}
 
 	private WorldObject createVillagersOrganization(World world) {
