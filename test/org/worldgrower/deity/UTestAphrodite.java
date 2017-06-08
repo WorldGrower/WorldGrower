@@ -18,11 +18,15 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DoNothingWorldOnTurn;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.curse.Curse;
+import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.profession.Professions;
 
 public class UTestAphrodite {
@@ -47,6 +51,29 @@ public class UTestAphrodite {
 		
 		deity.worship(performer, target, 50, world);
 		assertEquals(true, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.APHRODITE_BOON_CONDITION));
+	}
+	
+	@Test
+	public void testOnTurn() {
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
+		for(int i=0; i<3800; i++) { world.nextTurn(); }
+		for(int i=0; i<20; i++) {
+			WorldObject worldObject = TestUtils.createIntelligentWorldObject(i+10, Constants.DEITY, Deity.ARES);
+			if (i == 0) {
+				worldObject.setProperty(Constants.GENDER, "female");
+				worldObject.setProperty(Constants.DEITY, Deity.ARTEMIS);
+			} else {
+				worldObject.setProperty(Constants.GENDER, "male");
+			}
+			
+			world.addWorldObject(worldObject);
+		}
+		
+		for(int i=0; i<400; i++) {
+			deity.onTurn(world, new WorldStateChangedListeners());
+			world.nextTurn(); 
+		}
+		assertEquals(Curse.MINOTAUR_CURSE, world.getWorldObjects().get(0).getProperty(Constants.CURSE));
 	}
 	
 	@Test

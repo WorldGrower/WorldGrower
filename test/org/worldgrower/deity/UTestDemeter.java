@@ -28,7 +28,6 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListeners;
-import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.history.Turn;
 import org.worldgrower.profession.Professions;

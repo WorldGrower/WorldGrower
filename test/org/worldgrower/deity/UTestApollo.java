@@ -18,12 +18,15 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DoNothingWorldOnTurn;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.Skill;
+import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.personality.Personality;
 import org.worldgrower.personality.PersonalityTrait;
 import org.worldgrower.profession.Professions;
@@ -44,6 +47,19 @@ public class UTestApollo {
 		deity.worship(performer, target, 5, world);
 		
 		assertEquals(2, performer.getProperty(Constants.RESTORATION_SKILL).getLevel(performer));
+	}
+	
+	@Test
+	public void testOnTurn() {
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
+		for(int i=0; i<3800; i++) { world.nextTurn(); }
+		for(int i=0; i<20; i++) { world.addWorldObject(TestUtils.createIntelligentWorldObject(i+10, Constants.DEITY, Deity.HERA)); }
+		
+		for(int i=0; i<400; i++) {
+			deity.onTurn(world, new WorldStateChangedListeners());
+			world.nextTurn(); 
+		}
+		assertEquals(true, world.getWorldObjects().get(0).getProperty(Constants.CONDITIONS).hasCondition(Condition.ATAXIA_CONDITION));
 	}
 	
 	@Test
