@@ -21,26 +21,29 @@ import javax.swing.JFrame;
 
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.gui.music.SoundIdReader;
 
 public class CommunityOverviewAction extends AbstractAction {
 
 	private WorldObject playerCharacter;
 	private CommunityDialog dialog;
 	private ImageInfoReader imageInfoReader;
+	private SoundIdReader soundIdReader;
 	private World world;
 	private JFrame parentFrame;
 	
-	public CommunityOverviewAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, JFrame parentFrame) {
+	public CommunityOverviewAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, JFrame parentFrame) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
+		this.soundIdReader = soundIdReader;
 		this.world = world;
 		this.parentFrame = parentFrame;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		dialog = new CommunityDialog(playerCharacter, imageInfoReader, world, parentFrame);
+		dialog = new CommunityDialog(playerCharacter, imageInfoReader, soundIdReader, world, parentFrame);
 		dialog.setVisible(true);
 	}
 }

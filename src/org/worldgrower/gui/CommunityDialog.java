@@ -15,8 +15,10 @@
 package org.worldgrower.gui;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -24,16 +26,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JToggleButton;
 import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -49,11 +55,13 @@ import org.worldgrower.deity.Deity;
 import org.worldgrower.goal.BountyPropertyUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.cursor.Cursors;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JPanelFactory;
+import org.worldgrower.gui.util.JProgressBarFactory;
 import org.worldgrower.gui.util.JScrollPaneFactory;
 import org.worldgrower.gui.util.JTableFactory;
 import org.worldgrower.gui.util.JTreeFactory;
@@ -61,12 +69,17 @@ import org.worldgrower.profession.Profession;
 
 public class CommunityDialog extends JDialog {
 
+	private static final String ORGANIZATIONS_KEY = "organizations";
+	private static final String RANKS_KEY = "ranks";
+	private static final String ACQUAINTANCES_KEY = "acquaintances";
+	private static final String FAMILY_KEY = "family";
+	private static final String DEITIES_KEY = "deities";
 	private final JPanel contentPanel;
 	private JTable tlbChildren;
 	private JTable tblAcquaintances;
 	private final ImageInfoReader imageInfoReader;
 	
-	public CommunityDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, JFrame parentFrame) {
+	public CommunityDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, JFrame parentFrame) {
 		this.imageInfoReader = imageInfoReader;
 		
 		contentPanel = new TiledImagePanel(imageInfoReader);
@@ -76,8 +89,8 @@ public class CommunityDialog extends JDialog {
 		setTitle("Community Overview");
 		setCursor(Cursors.CURSOR);
 		
-		int width = 1022;
-		int height = 785;
+		int width = 622;
+		int height = 685;
 		setSize(width, height);
 		getContentPane().setPreferredSize(getSize());
 		setLocationRelativeTo(null);
@@ -87,11 +100,58 @@ public class CommunityDialog extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		setUndecorated(true);
+
+		int infoPanelWidth = 575;
+		int infoPanelHeight = 575;
+		CardLayout cardLayout = new CardLayout();
 		
+		JPanel infoPanel = createInfoPanel(infoPanelWidth, infoPanelHeight, cardLayout);
+		
+		createToggleButtonPanel(soundIdReader, infoPanelWidth, cardLayout, infoPanel);
+		
+		createFamilyPanel(playerCharacter, imageInfoReader, world, infoPanelWidth, infoPanelHeight, infoPanel);
+		createAcquaintancesPanel(playerCharacter, imageInfoReader, world, infoPanelWidth, infoPanelHeight, infoPanel);
+		createButtonPanel(imageInfoReader, width, height);
+
+		createRanksPanel(playerCharacter, world, infoPanelWidth, infoPanelHeight, infoPanel);		
+		createOrganizationsPanel(playerCharacter, world, infoPanelWidth, infoPanelHeight, infoPanel);
+		createDeitiesPanel(world, infoPanelWidth, infoPanelHeight, infoPanel);
+
+		SwingUtils.installEscapeCloseOperation(this);
+		DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
+	}
+
+	private JPanel createInfoPanel(int infoPanelWidth, int infoPanelHeight, CardLayout cardLayout) {
+		JPanel infoPanel = JPanelFactory.createBorderlessPanel();
+		infoPanel.setBounds(15, 50, infoPanelWidth, infoPanelHeight);
+		infoPanel.setLayout(cardLayout);
+		contentPanel.add(infoPanel);
+		return infoPanel;
+	}
+
+	private void createToggleButtonPanel(SoundIdReader soundIdReader, int infoPanelWidth, CardLayout cardLayout, JPanel infoPanel) {
+		JPanel toggleButtonPanel = JPanelFactory.createBorderlessPanel();
+		toggleButtonPanel.setBounds(5, 5, infoPanelWidth, 40);
+		toggleButtonPanel.setLayout(new FlowLayout());
+		contentPanel.add(toggleButtonPanel);
+
+		ButtonGroup buttonGroup = new ButtonGroup();
+		
+		JToggleButton familyButton = createToggleButton("Family", FAMILY_KEY, soundIdReader, cardLayout, infoPanel, buttonGroup, toggleButtonPanel);
+	
+		createToggleButton("Acquaintances", ACQUAINTANCES_KEY, soundIdReader, cardLayout, infoPanel, buttonGroup, toggleButtonPanel);
+		createToggleButton("Player Character Ranks", RANKS_KEY, soundIdReader, cardLayout, infoPanel, buttonGroup, toggleButtonPanel);
+		createToggleButton("Organizations", ORGANIZATIONS_KEY, soundIdReader, cardLayout, infoPanel, buttonGroup, toggleButtonPanel);
+		createToggleButton("Deities", DEITIES_KEY, soundIdReader, cardLayout, infoPanel, buttonGroup, toggleButtonPanel);
+		
+		buttonGroup.setSelected(familyButton.getModel(), true);
+	}
+
+	private void createFamilyPanel(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, int infoPanelWidth, int infoPanelHeight, JPanel infoPanel) {
 		JPanel familyPanel = JPanelFactory.createJPanel("Family");
 		familyPanel.setLayout(null);
-		familyPanel.setBounds(12, 13, 480, 340);
-		contentPanel.add(familyPanel);
+		familyPanel.setBounds(12, 13, infoPanelWidth + 5, infoPanelHeight);
+		infoPanel.add(familyPanel, FAMILY_KEY);
 		
 		JLabel lblMate = JLabelFactory.createJLabel("Mate:");
 		lblMate.setBounds(12, 30, 109, 16);
@@ -120,14 +180,16 @@ public class CommunityDialog extends JDialog {
 		tlbChildren.getColumnModel().getColumn(0).setPreferredWidth(50);
 		tlbChildren.getColumnModel().getColumn(1).setPreferredWidth(405);
 		JScrollPane scrollPaneChildren = JScrollPaneFactory.createScrollPane(tlbChildren);
-		scrollPaneChildren.setBounds(13, 80, 455, 241);
+		scrollPaneChildren.setBounds(13, 100, 525, 420);
 		familyPanel.add(scrollPaneChildren);
 		SwingUtils.makeTransparant(tlbChildren, scrollPaneChildren);
-		
+	}
+
+	private void createAcquaintancesPanel(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, int infoPanelWidth, int infoPanelHeight, JPanel infoPanel) {
 		JPanel acquaintancesPanel = JPanelFactory.createJPanel("Acquaintances");
 		acquaintancesPanel.setLayout(null);
-		acquaintancesPanel.setBounds(12, 363, 480, 365);
-		contentPanel.add(acquaintancesPanel);
+		acquaintancesPanel.setBounds(12, 363, infoPanelWidth + 5, infoPanelHeight);
+		infoPanel.add(acquaintancesPanel, ACQUAINTANCES_KEY);
 		
 		tblAcquaintances = JTableFactory.createJTable(new AcquaintancesTableModel(playerCharacter, world));
 		tblAcquaintances.setDefaultRenderer(ImageIds.class, new ImageTableRenderer(imageInfoReader));
@@ -140,10 +202,12 @@ public class CommunityDialog extends JDialog {
 		tblAcquaintances.getColumnModel().getColumn(3).setPreferredWidth(100);
 		tblAcquaintances.getColumnModel().getColumn(4).setPreferredWidth(100);
 		JScrollPane scrollPaneAcquaintances = JScrollPaneFactory.createScrollPane(tblAcquaintances);
-		scrollPaneAcquaintances.setBounds(12, 30, 455, 321);
+		scrollPaneAcquaintances.setBounds(12, 30, 525, 420);
 		acquaintancesPanel.add(scrollPaneAcquaintances);
 		SwingUtils.makeTransparant(tblAcquaintances, scrollPaneAcquaintances);
-		
+	}
+
+	private void createButtonPanel(ImageInfoReader imageInfoReader, int width, int height) {
 		JPanel buttonPane = JPanelFactory.createBorderlessPanel();
 		buttonPane.setOpaque(false);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -152,39 +216,70 @@ public class CommunityDialog extends JDialog {
 		JButton okButton = JButtonFactory.createButton("OK", imageInfoReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
-		buttonPane.setBounds(0, height - 55, width - 15, 50);
+		buttonPane.setBounds(0, height - 55, width - 26, 50);
 		okButton.addActionListener(new CloseDialogAction());
 		getRootPane().setDefaultButton(okButton);
+	}
 
+	private void createRanksPanel(WorldObject playerCharacter, World world, int infoPanelWidth, int infoPanelHeight, JPanel infoPanel) {
 		JPanel ranksPanel = JPanelFactory.createJPanel("Player Character Ranks");
 		ranksPanel.setLayout(null);
-		ranksPanel.setBounds(510, 13, 480, 335);
-		contentPanel.add(ranksPanel);
+		ranksPanel.setBounds(510, 13, infoPanelWidth + 5, infoPanelHeight);
+		infoPanel.add(ranksPanel, RANKS_KEY);
 		
 		OrganizationsModel worldModel = new OrganizationsModel(playerCharacter, world);
 		JTable organizationsTable = JTableFactory.createJTable(worldModel);
 		organizationsTable.setRowHeight(30);
 		JScrollPane scrollPane = JScrollPaneFactory.createScrollPane(organizationsTable);
-		scrollPane.setBounds(15, 30, 450, 290);
+		scrollPane.setBounds(15, 30, 525, 420);
 		ranksPanel.add(scrollPane);
-		
+		SwingUtils.makeTransparant(organizationsTable, scrollPane);
+	}
+
+	private void createOrganizationsPanel(WorldObject playerCharacter, World world, int infoPanelWidth, int infoPanelHeight, JPanel infoPanel) {
 		JPanel organizationsPanel = JPanelFactory.createJPanel("Organizations");
 		organizationsPanel.setLayout(null);
-		organizationsPanel.setBounds(510, 363, 480, 365);
-		contentPanel.add(organizationsPanel);
+		organizationsPanel.setBounds(510, 363, infoPanelWidth + 5, infoPanelHeight);
+		infoPanel.add(organizationsPanel, ORGANIZATIONS_KEY);
 		
 		JTree tree = JTreeFactory.createJTree(createRootNode(playerCharacter, world));
 		tree.setRootVisible(false);
 		expandAllNodes(tree, 0, tree.getRowCount());
 		tree.setCellRenderer(new OrganizationMemberRenderer());
 		JScrollPane treeView = JScrollPaneFactory.createScrollPane(tree);
-		treeView.setBounds(15, 30, 450, 321);
+		treeView.setBounds(15, 30, 525, 420);
 		organizationsPanel.add(treeView);
+	}
+	
+	private void createDeitiesPanel(World world, int infoPanelWidth, int infoPanelHeight, JPanel infoPanel) {
+		JPanel deitiesPanel = JPanelFactory.createJPanel("Deities");
+		deitiesPanel.setLayout(null);
+		deitiesPanel.setBounds(510, 363, infoPanelWidth + 5, infoPanelHeight);
+		infoPanel.add(deitiesPanel, DEITIES_KEY);
 		
-		SwingUtils.makeTransparant(organizationsTable, scrollPane);
-		
-		SwingUtils.installEscapeCloseOperation(this);
-		DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
+		for(int i=0; i<Deity.ALL_DEITIES.size(); i++) {
+			Deity deity = Deity.ALL_DEITIES.get(i);
+			Image image = imageInfoReader.getImage(deity.getBoonImageId(), null);
+			JLabel nameLabel = JLabelFactory.createJLabel(deity.getName(), image);
+			nameLabel.setBounds(15, 30 + 40 * i, 150, 50);
+			nameLabel.setHorizontalAlignment(SwingConstants.LEFT);
+			deitiesPanel.add(nameLabel);
+			
+			JProgressBar relationshipProgresBar = JProgressBarFactory.createHorizontalJProgressBar(-1000, 1000, imageInfoReader);
+			relationshipProgresBar.setBounds(175, 40 + 40 * i, 300, 30);
+			relationshipProgresBar.setValue(500); //TODO
+			relationshipProgresBar.setToolTipText("deity hapiness indicator: if a deity becomes unhappy, they may lash out against the population");
+			deitiesPanel.add(relationshipProgresBar);
+		}
+	}
+	
+	private JToggleButton createToggleButton(String label, String panelKey, SoundIdReader soundIdReader, CardLayout cardLayout, JPanel infoPanel, ButtonGroup buttonGroup, JPanel toggleButtonPanel) {
+		JToggleButton button = JButtonFactory.createToggleButton(label, soundIdReader);
+		button.addActionListener(e -> cardLayout.show(infoPanel, panelKey));
+		button.setOpaque(false);
+		buttonGroup.add(button);
+		toggleButtonPanel.add(button);
+		return button;
 	}
 	
 	private final class CloseDialogAction implements ActionListener {

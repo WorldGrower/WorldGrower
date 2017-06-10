@@ -78,18 +78,26 @@ public class JButtonFactory {
 	
 	public static JToggleButton createToggleButton(ImageIcon icon, SoundIdReader soundIdReader) {
 		JToggleButton button = new JToggleButton(icon);
-		button.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
-		addClickSoundEffect(soundIdReader, button);
-		setButtonProperties(button);
+		setToggleButtonProperties(soundIdReader, button);
 		return button;
 	}
 	
 	public static JToggleButton createToggleButton(String text, ImageIcon icon, SoundIdReader soundIdReader) {
 		JToggleButton button = new JToggleButton(text, icon);
+		setToggleButtonProperties(soundIdReader, button);
+		return button;
+	}
+	
+	public static JToggleButton createToggleButton(String text, SoundIdReader soundIdReader) {
+		JToggleButton button = new JToggleButton(text);
+		setToggleButtonProperties(soundIdReader, button);
+		return button;
+	}
+
+	private static void setToggleButtonProperties(SoundIdReader soundIdReader, JToggleButton button) {
 		button.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		addClickSoundEffect(soundIdReader, button);
 		setButtonProperties(button);
-		return button;
 	}
 	
 	private static void setButtonProperties(AbstractButton button) {

@@ -134,7 +134,7 @@ public class GuiMouseListener extends MouseAdapter {
 		showStatusMessagesAction = new ShowStatusMessagesAction(container);
 		assignActionToLeftMouseAction = getGuiAssignActionToLeftMouseAction();
 		showCharacterActionsAction = new ShowCharacterActionsAction();
-		communityOverviewAction = new CommunityOverviewAction(playerCharacter, imageInfoReader, world, parentFrame);
+		communityOverviewAction = new CommunityOverviewAction(playerCharacter, imageInfoReader, soundIdReader, world, parentFrame);
 		showGovernanceAction = new GuiShowGovernanceAction(playerCharacter, dungeonMaster, world, container, soundIdReader, parentFrame, imageInfoReader);
 		addKeyBindings(keyBindings);
 	}
