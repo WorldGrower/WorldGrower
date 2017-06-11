@@ -54,6 +54,20 @@ public class DeityPropertyUtils {
 		return worshippers;
 	}
 	
+	public static Map<Deity, Integer> getWorshippersByDeity(World world) {
+		List<WorldObject> worshippers = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.hasProperty(Constants.DEITY) && w.getProperty(Constants.DEITY) != null);
+		Map<Deity, Integer> worshippersByDeity = new HashMap<>();
+		for(Deity deity : Deity.ALL_DEITIES) {
+			worshippersByDeity.put(deity, 0);
+		}
+		for(WorldObject worshipper : worshippers) {
+			Deity deity = worshipper.getProperty(Constants.DEITY);
+			worshippersByDeity.put(deity, worshippersByDeity.get(deity) + 1);
+		}
+		
+		return worshippersByDeity;
+	}
+	
 	private static Map<Deity, Integer> createWorshippersByDeity() {
 		Map<Deity, Integer> worshippersByDeity = new HashMap<>();
 		for(Deity deity : Deity.ALL_DEITIES) {
