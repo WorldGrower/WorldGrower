@@ -52,6 +52,7 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.deity.DeityAttributes;
 import org.worldgrower.goal.BountyPropertyUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.cursor.Cursors;
@@ -257,6 +258,8 @@ public class CommunityDialog extends JDialog {
 		deitiesPanel.setBounds(510, 363, infoPanelWidth + 5, infoPanelHeight);
 		infoPanel.add(deitiesPanel, DEITIES_KEY);
 		
+		DeityAttributes deityAttributes = GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.DEITY_ATTRIBUTES);
+		
 		for(int i=0; i<Deity.ALL_DEITIES.size(); i++) {
 			Deity deity = Deity.ALL_DEITIES.get(i);
 			Image image = imageInfoReader.getImage(deity.getBoonImageId(), null);
@@ -267,7 +270,7 @@ public class CommunityDialog extends JDialog {
 			
 			JProgressBar relationshipProgresBar = JProgressBarFactory.createHorizontalJProgressBar(-1000, 1000, imageInfoReader);
 			relationshipProgresBar.setBounds(175, 40 + 40 * i, 300, 30);
-			relationshipProgresBar.setValue(500); //TODO
+			relationshipProgresBar.setValue(deityAttributes.getHappiness(deity));
 			relationshipProgresBar.setToolTipText("deity hapiness indicator: if a deity becomes unhappy, they may lash out against the population");
 			deitiesPanel.add(relationshipProgresBar);
 		}

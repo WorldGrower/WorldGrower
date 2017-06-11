@@ -34,6 +34,10 @@ public class DeityAttributes implements Serializable {
 		}
 	}
 	
+	public int getHappiness(Deity deity) {
+		return deityHapinessMap.get(deity);
+	}
+	
 	public void onTurn(World world) {
 		Map<Deity, Integer> worshippersByDeity = DeityPropertyUtils.getWorshippersByDeity(world);
 		int totalNumberOfWorshippers = worshippersByDeity.size();
