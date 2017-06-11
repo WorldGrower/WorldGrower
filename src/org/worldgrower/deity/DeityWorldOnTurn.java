@@ -14,14 +14,19 @@
  *******************************************************************************/
 package org.worldgrower.deity;
 
+import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldOnTurn;
+import org.worldgrower.goal.GroupPropertyUtils;
 
 public class DeityWorldOnTurn implements WorldOnTurn {
 	
 	@Override
 	public void onTurn(World world) {
 
+		DeityAttributes deityAttributes = GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.DEITY_ATTRIBUTES);
+		deityAttributes.onTurn(world);
+		
 		for(Deity deity : Deity.ALL_DEITIES) {
 			deity.onTurn(world, world.getWorldStateChangedListeners());
 		}

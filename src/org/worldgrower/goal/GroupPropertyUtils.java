@@ -34,6 +34,7 @@ import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.deity.DeityAttributes;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Profession;
@@ -209,6 +210,7 @@ public class GroupPropertyUtils {
 		organization.setProperty(Constants.PAY_CHECK_PAID_TURN, new IdToIntegerMap());
 		organization.setProperty(Constants.TURNS_IN_JAIL, new IdToIntegerMap());
 		organization.setProperty(Constants.BOUNTY, new IdToIntegerMap());
+		organization.setProperty(Constants.DEITY_ATTRIBUTES, new DeityAttributes());
 		setLegalActions(organization);
 		
 		return organization;

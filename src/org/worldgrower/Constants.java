@@ -48,6 +48,7 @@ import org.worldgrower.attribute.WorldObjectProperty;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.Curse;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.deity.DeityAttributes;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.TreeType;
 import org.worldgrower.goal.Goal;
@@ -318,6 +319,7 @@ public class Constants {
 	public static final BooleanProperty CHANGE_GENDER = new BooleanProperty("changeGender", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final BooleanProperty LIGHT_SOURCE = new BooleanProperty("lightSource", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final UnCheckedProperty<TreeType> TREE_TYPE = new UnCheckedProperty<>("treeType", ALL_PROPERTIES);
+	public static final UnCheckedProperty<DeityAttributes> DEITY_ATTRIBUTES = new UnCheckedProperty<>("deityAttributes", ALL_PROPERTIES);
 	
 	//special property not used in WorldObject
 	public static final IntProperty DISTANCE = new IntProperty("distance", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
