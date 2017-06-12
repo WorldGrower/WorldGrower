@@ -57,17 +57,22 @@ public class DeityAttributes implements Serializable {
 		}
 	}
 
-	private int calculateHapinessDelta(Map<Deity, Integer> worshippersByDeity, int totalNumberOfWorshippers, WorshipActionStatistics worshipActionStatistics, Deity deity) {
+	int calculateHapinessDelta(Map<Deity, Integer> worshippersByDeity, int totalNumberOfWorshippers, WorshipActionStatistics worshipActionStatistics, Deity deity) {
 		int hapinessDelta = 0;
 		int deityWorshipperCount = worshippersByDeity.get(deity);
-		if (deityWorshipperCount < totalNumberOfWorshippers / 12) {
+		float expectedWorshipperCount = totalNumberOfWorshippers / 12f;
+		if (deityWorshipperCount == expectedWorshipperCount) {
+			hapinessDelta = 0;
+		} else if (deityWorshipperCount < expectedWorshipperCount) {
 			hapinessDelta--;
 		} else {
 			hapinessDelta++;
 		}
-		float hapinessPerWorshipAction = 30f / worshipActionStatistics.getTotalWorshipActions();
+		if (worshipActionStatistics.getTotalWorshipActions() > 0) {
+			float hapinessPerWorshipAction = 30f / (worshipActionStatistics.getTotalWorshipActions());
 			
-		hapinessDelta += (hapinessPerWorshipAction * worshipActionStatistics.getWorshipCount(deity));
+			hapinessDelta += (hapinessPerWorshipAction * worshipActionStatistics.getWorshipCount(deity));
+		}
 		return hapinessDelta;
 	}
 	
@@ -87,7 +92,7 @@ public class DeityAttributes implements Serializable {
 		return worshipActionStatistics;
 	}
 	
-	private static class WorshipActionStatistics {
+	static class WorshipActionStatistics {
 		private final Map<Deity, Integer> worshipActionsByDeity = new HashMap<>();
 		private int totalWorshipActions;
 
