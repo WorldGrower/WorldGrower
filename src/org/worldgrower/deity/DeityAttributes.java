@@ -26,6 +26,9 @@ import org.worldgrower.actions.Actions;
 
 public class DeityAttributes implements Serializable {
 
+	private static final int MIN_HAPINESS_VALUE = -1000;
+	private static final int MAX_HAPINESS_VALUE = 1000;
+	
 	private final Map<Deity, Integer> deityHapinessMap = new HashMap<>();
 
 	public DeityAttributes() {
@@ -47,11 +50,11 @@ public class DeityAttributes implements Serializable {
 			int hapinessDelta = calculateHapinessDelta(worshippersByDeity, totalNumberOfWorshippers, worshipActionStatistics, deity);
 		
 			int newHapinessValue = deityHapinessMap.get(deity) + hapinessDelta;
-			if (newHapinessValue < -1000) {
-				newHapinessValue = -1000;
+			if (newHapinessValue < MIN_HAPINESS_VALUE) {
+				newHapinessValue = MIN_HAPINESS_VALUE;
 			}
-			if (newHapinessValue > 1000) {
-				newHapinessValue = 1000;
+			if (newHapinessValue > MAX_HAPINESS_VALUE) {
+				newHapinessValue = MAX_HAPINESS_VALUE;
 			}
 			deityHapinessMap.put(deity, newHapinessValue);
 		}
@@ -60,7 +63,7 @@ public class DeityAttributes implements Serializable {
 	int calculateHapinessDelta(Map<Deity, Integer> worshippersByDeity, int totalNumberOfWorshippers, WorshipActionStatistics worshipActionStatistics, Deity deity) {
 		int hapinessDelta = 0;
 		int deityWorshipperCount = worshippersByDeity.get(deity);
-		float expectedWorshipperCount = totalNumberOfWorshippers / 12f;
+		float expectedWorshipperCount = totalNumberOfWorshippers / 18f;
 		if (deityWorshipperCount == expectedWorshipperCount) {
 			hapinessDelta = 0;
 		} else if (deityWorshipperCount < expectedWorshipperCount) {
@@ -117,5 +120,9 @@ public class DeityAttributes implements Serializable {
 		public void setTotalWorshipActions(int totalWorshipActions) {
 			this.totalWorshipActions = totalWorshipActions;
 		}
+	}
+
+	public boolean isUnHappy(Deity deity) {
+		return getHappiness(deity) == MIN_HAPINESS_VALUE;
 	}
 }

@@ -22,6 +22,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IntProperty;
+import org.worldgrower.goal.GroupPropertyUtils;
 
 public class DeityPropertyUtils {
 
@@ -92,8 +93,7 @@ public class DeityPropertyUtils {
 	}
 	
 	public static boolean deityIsUnhappy(Deity deity, World world) {
-		int totalNumberOfWorshippers = getTotalNumberOfWorshippers(world);
-		return ((totalNumberOfWorshippers > 18) && (getWorshippersFor(deity, world).isEmpty()));
+		return GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.DEITY_ATTRIBUTES).isUnHappy(deity);
 	}
 	
 	public static void destroyResource(IntProperty resourceProperty, Deity deity, String description, World world) {

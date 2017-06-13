@@ -57,7 +57,7 @@ public class UTestDeityAttributes {
 		int totalNumberOfWorshippers = 12;
 		WorshipActionStatistics worshipActionStatistics = new WorshipActionStatistics();
 		
-		assertEquals(0, deityAttributes.calculateHapinessDelta(worshippersByDeity, totalNumberOfWorshippers, worshipActionStatistics, Deity.ARES));
+		assertEquals(1, deityAttributes.calculateHapinessDelta(worshippersByDeity, totalNumberOfWorshippers, worshipActionStatistics, Deity.ARES));
 	}
 	
 	@Test
@@ -69,7 +69,7 @@ public class UTestDeityAttributes {
 		int totalNumberOfWorshippers = 13;
 		WorshipActionStatistics worshipActionStatistics = new WorshipActionStatistics();
 		
-		assertEquals(-1, deityAttributes.calculateHapinessDelta(worshippersByDeity, totalNumberOfWorshippers, worshipActionStatistics, Deity.ARES));
+		assertEquals(1, deityAttributes.calculateHapinessDelta(worshippersByDeity, totalNumberOfWorshippers, worshipActionStatistics, Deity.ARES));
 	}
 	
 	@Test
@@ -81,7 +81,7 @@ public class UTestDeityAttributes {
 		int totalNumberOfWorshippers = 12;
 		WorshipActionStatistics worshipActionStatistics = new WorshipActionStatistics();
 		
-		assertEquals(0, deityAttributes.calculateHapinessDelta(worshippersByDeity, totalNumberOfWorshippers, worshipActionStatistics, Deity.ARES));
+		assertEquals(1, deityAttributes.calculateHapinessDelta(worshippersByDeity, totalNumberOfWorshippers, worshipActionStatistics, Deity.ARES));
 	}
 	
 	@Test
@@ -95,7 +95,7 @@ public class UTestDeityAttributes {
 		worshipActionStatistics.incrementWorshipCount(Deity.ARES);
 		worshipActionStatistics.setTotalWorshipActions(1);
 		
-		assertEquals(30, deityAttributes.calculateHapinessDelta(worshippersByDeity, totalNumberOfWorshippers, worshipActionStatistics, Deity.ARES));
+		assertEquals(31, deityAttributes.calculateHapinessDelta(worshippersByDeity, totalNumberOfWorshippers, worshipActionStatistics, Deity.ARES));
 	}
 	
 	@Test
@@ -110,7 +110,7 @@ public class UTestDeityAttributes {
 		worshipActionStatistics.incrementWorshipCount(Deity.ARES);
 		worshipActionStatistics.setTotalWorshipActions(2);
 		
-		assertEquals(30, deityAttributes.calculateHapinessDelta(worshippersByDeity, totalNumberOfWorshippers, worshipActionStatistics, Deity.ARES));
+		assertEquals(31, deityAttributes.calculateHapinessDelta(worshippersByDeity, totalNumberOfWorshippers, worshipActionStatistics, Deity.ARES));
 	}
 	
 	@Test
@@ -125,6 +125,6 @@ public class UTestDeityAttributes {
 		worshipActionStatistics.incrementWorshipCount(Deity.HADES);
 		worshipActionStatistics.setTotalWorshipActions(2);
 		
-		assertEquals(15, deityAttributes.calculateHapinessDelta(worshippersByDeity, totalNumberOfWorshippers, worshipActionStatistics, Deity.ARES));
+		assertEquals(16, deityAttributes.calculateHapinessDelta(worshippersByDeity, totalNumberOfWorshippers, worshipActionStatistics, Deity.ARES));
 	}
 }
