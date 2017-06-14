@@ -27,6 +27,7 @@ import org.worldgrower.attribute.Skill;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.generator.PlantGenerator;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.personality.Personality;
 import org.worldgrower.personality.PersonalityTrait;
 import org.worldgrower.profession.Professions;
@@ -52,14 +53,20 @@ public class UTestApollo {
 	@Test
 	public void testOnTurn() {
 		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
-		for(int i=0; i<3800; i++) { world.nextTurn(); }
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		
 		for(int i=0; i<20; i++) { world.addWorldObject(TestUtils.createIntelligentWorldObject(i+10, Constants.DEITY, Deity.HERA)); }
 		
+		for(int i=0; i<3800; i++) {
+			world.nextTurn();
+			villagersOrganization.getProperty(Constants.DEITY_ATTRIBUTES).onTurn(world);
+		}
+		
 		for(int i=0; i<400; i++) {
-			deity.onTurn(world, new WorldStateChangedListeners());
+			deity.onTurn(world, new WorldStateChangedListeners());	
 			world.nextTurn(); 
 		}
-		assertEquals(true, world.getWorldObjects().get(0).getProperty(Constants.CONDITIONS).hasCondition(Condition.ATAXIA_CONDITION));
+		assertEquals(true, world.findWorldObjectById(10).getProperty(Constants.CONDITIONS).hasCondition(Condition.ATAXIA_CONDITION));
 	}
 	
 	@Test
@@ -90,5 +97,12 @@ public class UTestApollo {
 		
 		performer.getProperty(Constants.PERSONALITY).changeValue(PersonalityTrait.GREEDY, -1000, "");
 		assertEquals(0, Deity.APOLLO.getOrganizationGoalIndex(performer, world));
+	}
+	
+	private WorldObject createVillagersOrganization(World world) {
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		organization.setProperty(Constants.ID, 1);
+		world.addWorldObject(organization);
+		return organization;
 	}
 }

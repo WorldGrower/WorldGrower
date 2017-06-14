@@ -43,7 +43,7 @@ public class BuildHouseAction implements BuildAction {
 		
 		HousePropertyUtils.removeShack(performer, world);
 		
-		performer.getProperty(Constants.INVENTORY).add(Item.generateKey(id, world));
+		performer.getProperty(Constants.INVENTORY).addUniqueQuantity(Item.generateKey(id, world));
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, REQUIRED_STONE);
 		performer.getProperty(Constants.BUILDINGS).add(id, BuildingType.HOUSE);
 	}

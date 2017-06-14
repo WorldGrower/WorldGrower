@@ -27,6 +27,7 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.curse.Curse;
 import org.worldgrower.generator.PlantGenerator;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.profession.Professions;
 
 public class UTestAphrodite {
@@ -56,7 +57,8 @@ public class UTestAphrodite {
 	@Test
 	public void testOnTurn() {
 		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
-		for(int i=0; i<3800; i++) { world.nextTurn(); }
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+
 		for(int i=0; i<20; i++) {
 			WorldObject worldObject = TestUtils.createIntelligentWorldObject(i+10, Constants.DEITY, Deity.ARES);
 			if (i == 0) {
@@ -68,12 +70,16 @@ public class UTestAphrodite {
 			
 			world.addWorldObject(worldObject);
 		}
+		for(int i=0; i<3800; i++) {
+			villagersOrganization.getProperty(Constants.DEITY_ATTRIBUTES).onTurn(world);
+			world.nextTurn();
+		}
 		
 		for(int i=0; i<400; i++) {
 			deity.onTurn(world, new WorldStateChangedListeners());
 			world.nextTurn(); 
 		}
-		assertEquals(Curse.MINOTAUR_CURSE, world.getWorldObjects().get(0).getProperty(Constants.CURSE));
+		assertEquals(Curse.MINOTAUR_CURSE, world.findWorldObjectById(10).getProperty(Constants.CURSE));
 	}
 	
 	@Test
@@ -89,5 +95,12 @@ public class UTestAphrodite {
 		performer.setProperty(Constants.CHARISMA, 10);
 		performer.setProperty(Constants.PROFESSION, Professions.PRIEST_PROFESSION);
 		assertEquals(1, deity.getReasonIndex(performer, world));
+	}
+	
+	private WorldObject createVillagersOrganization(World world) {
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		organization.setProperty(Constants.ID, 1);
+		world.addWorldObject(organization);
+		return organization;
 	}
 }

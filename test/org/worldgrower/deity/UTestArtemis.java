@@ -65,7 +65,7 @@ public class UTestArtemis {
 		performer.setProperty(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
 		world.addWorldObject(performer);
 		
-		createVillagersOrganization(world);
+		WorldObject villagersOrganization = createVillagersOrganization(world);
 		
 		for(int i=0; i<20; i++) {
 			WorldObject worshipper = TestUtils.createSkilledWorldObject(i + 10);
@@ -75,6 +75,7 @@ public class UTestArtemis {
 		
 		for(int i=0; i<5000; i++) {
 			world.nextTurn();
+			villagersOrganization.getProperty(Constants.DEITY_ATTRIBUTES).onTurn(world);
 			deity.onTurn(world, new WorldStateChangedListeners());
 		}
 		

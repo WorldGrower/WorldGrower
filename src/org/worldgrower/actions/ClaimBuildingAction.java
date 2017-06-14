@@ -65,7 +65,7 @@ public class ClaimBuildingAction implements ManagedOperation {
 	
 	private void addKeyToInventory(WorldObject performer, WorldObject target, World world) {
 		int targetId = target.getProperty(Constants.ID).intValue();
-		performer.getProperty(Constants.INVENTORY).add(Item.generateKey(targetId, world));
+		performer.getProperty(Constants.INVENTORY).addUniqueQuantity(Item.generateKey(targetId, world));
 	}
 
 	@Override

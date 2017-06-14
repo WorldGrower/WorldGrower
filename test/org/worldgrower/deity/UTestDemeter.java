@@ -29,6 +29,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.generator.PlantGenerator;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.history.Turn;
 import org.worldgrower.profession.Professions;
 
@@ -53,12 +54,18 @@ public class UTestDemeter {
 	@Test
 	public void testOnTurn() {
 		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
-		for(int i=0; i<3800; i++) { world.nextTurn(); }
+		int berryBushId = PlantGenerator.generateBerryBush(0, 0, world);
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		
 		for(int i=0; i<20; i++) { world.addWorldObject(TestUtils.createIntelligentWorldObject(i+10, Constants.DEITY, Deity.ARES)); }
 		
-		int berryBushId = PlantGenerator.generateBerryBush(0, 0, world);
 		WorldObject berryBush = world.findWorldObjectById(berryBushId);
 		assertEquals(false, berryBush.getProperty(Constants.CONDITIONS).hasCondition(Condition.WILTING_CONDITION));
+		
+		for(int i=0; i<3800; i++) {
+			villagersOrganization.getProperty(Constants.DEITY_ATTRIBUTES).onTurn(world);
+			world.nextTurn();
+		}
 		
 		for(int i=0; i<400; i++) {
 			deity.onTurn(world, new WorldStateChangedListeners());
@@ -84,5 +91,12 @@ public class UTestDemeter {
 		performer.setProperty(Constants.FOOD, 0);
 		world.getHistory().actionPerformed(new OperationInfo(performer, performer, Args.EMPTY, Actions.EAT_ACTION), new Turn());
 		assertEquals(1, deity.getReasonIndex(performer, world));
+	}
+	
+	private WorldObject createVillagersOrganization(World world) {
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		organization.setProperty(Constants.ID, 1);
+		world.addWorldObject(organization);
+		return organization;
 	}
 }
