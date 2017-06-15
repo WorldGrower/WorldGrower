@@ -26,14 +26,14 @@ import org.worldgrower.actions.Actions;
 
 public class DeityAttributes implements Serializable {
 
-	private static final int MIN_HAPINESS_VALUE = -1000;
-	private static final int MAX_HAPINESS_VALUE = 1000;
+	private static final int MIN_HAPINESS_VALUE = -3000;
+	private static final int MAX_HAPINESS_VALUE = 3000;
 	
 	private final Map<Deity, Integer> deityHapinessMap = new HashMap<>();
 
 	public DeityAttributes() {
 		for(Deity deity : Deity.ALL_DEITIES) {
-			deityHapinessMap.put(deity, 0);
+			deityHapinessMap.put(deity, MAX_HAPINESS_VALUE);
 		}
 	}
 	
@@ -41,6 +41,14 @@ public class DeityAttributes implements Serializable {
 		return deityHapinessMap.get(deity);
 	}
 	
+	public int getMinHapinessValue() {
+		return MIN_HAPINESS_VALUE;
+	}
+
+	public int getMaxHapinessValue() {
+		return MAX_HAPINESS_VALUE;
+	}
+
 	public void onTurn(World world) {
 		Map<Deity, Integer> worshippersByDeity = DeityPropertyUtils.getWorshippersByDeity(world);
 		int totalNumberOfWorshippers = worshippersByDeity.size();
@@ -69,7 +77,7 @@ public class DeityAttributes implements Serializable {
 		} else if (deityWorshipperCount < expectedWorshipperCount) {
 			hapinessDelta--;
 		} else {
-			hapinessDelta++;
+			hapinessDelta += 3;
 		}
 		if (worshipActionStatistics.getTotalWorshipActions() > 0) {
 			float hapinessPerWorshipAction = 30f / (worshipActionStatistics.getTotalWorshipActions());

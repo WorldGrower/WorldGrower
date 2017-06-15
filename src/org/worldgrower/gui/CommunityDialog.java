@@ -268,7 +268,7 @@ public class CommunityDialog extends JDialog {
 			nameLabel.setHorizontalAlignment(SwingConstants.LEFT);
 			deitiesPanel.add(nameLabel);
 			
-			JProgressBar relationshipProgresBar = JProgressBarFactory.createHorizontalJProgressBar(-1000, 1000, imageInfoReader);
+			JProgressBar relationshipProgresBar = JProgressBarFactory.createHorizontalJProgressBar(deityAttributes.getMinHapinessValue(), deityAttributes.getMaxHapinessValue(), imageInfoReader);
 			relationshipProgresBar.setBounds(175, 40 + 40 * i, 300, 30);
 			relationshipProgresBar.setValue(deityAttributes.getHappiness(deity));
 			relationshipProgresBar.setToolTipText("deity hapiness indicator: if a deity becomes unhappy, they may lash out against the population");
