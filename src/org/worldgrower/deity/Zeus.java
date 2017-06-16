@@ -92,8 +92,7 @@ public class Zeus implements Deity {
 		historyItems.addAll(world.getHistory().findHistoryItems(Actions.STEAL_ACTION));
 		historyItems.addAll(world.getHistory().findHistoryItems(Actions.STEAL_GOLD_ACTION));
 		historyItems = historyItems.stream().filter(h -> h.getTurn().getValue() > world.getCurrentTurn().getValue() - 10 && h.getPerformer().getProperty(Constants.CURSE) == null).collect(Collectors.toList());
-		List<WorldObject> targets = DeityPropertyUtils.getWorshippersFor(Deity.HERA, world);
-		targets = targets.stream().filter(w -> w.getProperty(Constants.CURSE) == null).collect(Collectors.toList());
+
 		final WorldObject target;
 		if (historyItems.size() > 0) {
 			target = historyItems.get(0).getPerformer();

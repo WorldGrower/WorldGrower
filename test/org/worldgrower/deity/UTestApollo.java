@@ -57,7 +57,7 @@ public class UTestApollo {
 		
 		for(int i=0; i<20; i++) { world.addWorldObject(TestUtils.createIntelligentWorldObject(i+10, Constants.DEITY, Deity.HERA)); }
 		
-		for(int i=0; i<3800; i++) {
+		for(int i=0; i<7800; i++) {
 			world.nextTurn();
 			villagersOrganization.getProperty(Constants.DEITY_ATTRIBUTES).onTurn(world);
 		}

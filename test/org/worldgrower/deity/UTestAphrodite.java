@@ -70,7 +70,7 @@ public class UTestAphrodite {
 			
 			world.addWorldObject(worldObject);
 		}
-		for(int i=0; i<3800; i++) {
+		for(int i=0; i<7800; i++) {
 			villagersOrganization.getProperty(Constants.DEITY_ATTRIBUTES).onTurn(world);
 			world.nextTurn();
 		}

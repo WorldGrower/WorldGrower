@@ -73,7 +73,7 @@ public class UTestArtemis {
 			world.addWorldObject(worshipper);
 		}
 		
-		for(int i=0; i<5000; i++) {
+		for(int i=0; i<9000; i++) {
 			world.nextTurn();
 			villagersOrganization.getProperty(Constants.DEITY_ATTRIBUTES).onTurn(world);
 			deity.onTurn(world, new WorldStateChangedListeners());

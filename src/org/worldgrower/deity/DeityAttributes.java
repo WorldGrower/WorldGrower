@@ -28,6 +28,7 @@ public class DeityAttributes implements Serializable {
 
 	private static final int MIN_HAPINESS_VALUE = -3000;
 	private static final int MAX_HAPINESS_VALUE = 3000;
+	private static final float TOTAL_WORSHIP_HAPINESS = 90f;
 	
 	private final Map<Deity, Integer> deityHapinessMap = new HashMap<>();
 
@@ -80,7 +81,7 @@ public class DeityAttributes implements Serializable {
 			hapinessDelta += 3;
 		}
 		if (worshipActionStatistics.getTotalWorshipActions() > 0) {
-			float hapinessPerWorshipAction = 30f / (worshipActionStatistics.getTotalWorshipActions());
+			float hapinessPerWorshipAction = TOTAL_WORSHIP_HAPINESS / (worshipActionStatistics.getTotalWorshipActions());
 			
 			hapinessDelta += (hapinessPerWorshipAction * worshipActionStatistics.getWorshipCount(deity));
 		}

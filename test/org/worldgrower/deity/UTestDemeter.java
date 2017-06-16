@@ -62,7 +62,7 @@ public class UTestDemeter {
 		WorldObject berryBush = world.findWorldObjectById(berryBushId);
 		assertEquals(false, berryBush.getProperty(Constants.CONDITIONS).hasCondition(Condition.WILTING_CONDITION));
 		
-		for(int i=0; i<3800; i++) {
+		for(int i=0; i<7800; i++) {
 			villagersOrganization.getProperty(Constants.DEITY_ATTRIBUTES).onTurn(world);
 			world.nextTurn();
 		}
