@@ -18,10 +18,16 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DoNothingWorldOnTurn;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.generator.PlantGenerator;
+import org.worldgrower.generator.TerrainGenerator;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.profession.Professions;
 
 public class UTestHermes {
@@ -57,5 +63,34 @@ public class UTestHermes {
 		
 		performer.setProperty(Constants.PROFESSION, Professions.TRICKSTER_PROFESSION);
 		assertEquals(2, deity.getReasonIndex(performer, world));
+	}
+	
+	@Test
+	public void testOnTurn() {
+		World world = new WorldImpl(10, 10, null, new DoNothingWorldOnTurn());
+		int goldResourceId = TerrainGenerator.generateGoldResource(0, 0, world);
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		
+		for(int i=0; i<20; i++) { world.addWorldObject(TestUtils.createIntelligentWorldObject(i+10, Constants.DEITY, Deity.ARES)); }
+		
+		WorldObject goldResource = world.findWorldObjectById(goldResourceId);
+		
+		for(int i=0; i<7800; i++) {
+			villagersOrganization.getProperty(Constants.DEITY_ATTRIBUTES).onTurn(world);
+			world.nextTurn();
+		}
+		
+		for(int i=0; i<400; i++) {
+			deity.onTurn(world, new WorldStateChangedListeners());
+			world.nextTurn(); 
+		}
+		assertEquals(0, goldResource.getProperty(Constants.HIT_POINTS).intValue());
+	}
+
+	private WorldObject createVillagersOrganization(World world) {
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		organization.setProperty(Constants.ID, 1);
+		world.addWorldObject(organization);
+		return organization;
 	}
 }
