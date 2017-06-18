@@ -18,10 +18,15 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DoNothingWorldOnTurn;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.TerrainGenerator;
+import org.worldgrower.goal.GroupPropertyUtils;
 
 public class UTestAthena {
 
@@ -39,5 +44,35 @@ public class UTestAthena {
 		deity.worship(performer, target, 5, world);
 		
 		assertEquals(2, performer.getProperty(Constants.CARPENTRY_SKILL).getLevel(performer));
+	}
+	
+	@Test
+	public void testOnTurn() {
+		World world = new WorldImpl(10, 10, null, new DoNothingWorldOnTurn());
+		WorldObject libraryOwner = TestUtils.createIntelligentWorldObject(999, Constants.DEITY, Deity.ARES);
+		int libraryId = BuildingGenerator.generateLibrary(0, 0, world, libraryOwner);
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		
+		for(int i=0; i<20; i++) { world.addWorldObject(TestUtils.createIntelligentWorldObject(i+10, Constants.DEITY, Deity.ARES)); }
+		
+		WorldObject library = world.findWorldObjectById(libraryId);
+		
+		for(int i=0; i<7800; i++) {
+			villagersOrganization.getProperty(Constants.DEITY_ATTRIBUTES).onTurn(world);
+			world.nextTurn();
+		}
+		
+		for(int i=0; i<400; i++) {
+			deity.onTurn(world, new WorldStateChangedListeners());
+			world.nextTurn(); 
+		}
+		assertEquals(0, library.getProperty(Constants.HIT_POINTS).intValue());
+	}
+
+	private WorldObject createVillagersOrganization(World world) {
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		organization.setProperty(Constants.ID, 1);
+		world.addWorldObject(organization);
+		return organization;
 	}
 }
