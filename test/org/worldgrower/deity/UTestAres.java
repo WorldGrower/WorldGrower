@@ -18,10 +18,15 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DoNothingWorldOnTurn;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.profession.Professions;
 
 public class UTestAres {
@@ -51,5 +56,32 @@ public class UTestAres {
 		
 		performer.setProperty(Constants.PROFESSION, Professions.PRIEST_PROFESSION);
 		assertEquals(0, deity.getReasonIndex(performer, world));
+	}
+	
+	@Test
+	public void testOnTurn() {
+		World world = new WorldImpl(11, 11, null, new DoNothingWorldOnTurn());
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		
+		for(int i=0; i<20; i++) { world.addWorldObject(TestUtils.createIntelligentWorldObject(i+10, Constants.DEITY, Deity.HADES)); }
+		
+		for(int i=0; i<7800; i++) {
+			villagersOrganization.getProperty(Constants.DEITY_ATTRIBUTES).onTurn(world);
+			world.nextTurn();
+		}
+		
+		for(int i=0; i<400; i++) {
+			deity.onTurn(world, new WorldStateChangedListeners());
+			world.nextTurn(); 
+		}
+		
+		assertEquals(CreatureType.MINOTAUR_CREATURE_TYPE, world.getWorldObjects().get(world.getWorldObjects().size() - 1).getProperty(Constants.CREATURE_TYPE));
+	}
+	
+	private WorldObject createVillagersOrganization(World world) {
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		organization.setProperty(Constants.ID, 1);
+		world.addWorldObject(organization);
+		return organization;
 	}
 }
