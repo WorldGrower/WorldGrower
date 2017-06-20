@@ -627,8 +627,10 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 	}
 
 	private String getTerrainTooltip(int x, int y) {
-		if (worldObjectIsExplored(x, y, 1, 1)) {
-			TerrainType terrainType = world.getTerrain().getTerrainInfo(x-offsetX, y-offsetY).getTerrainType();
+		int actualX = x-offsetX;
+		int actualY = y-offsetY;
+		if (worldObjectIsExplored(actualX, actualY, 1, 1)) {
+			TerrainType terrainType = world.getTerrain().getTerrainInfo(actualX, actualY).getTerrainType();
 			StringBuilder terrainTooltipBuilder = new StringBuilder();
 			terrainTooltipBuilder.append("<html>");
 			terrainTooltipBuilder.append(terrainType.getDescription()).append("<br>");
