@@ -619,7 +619,9 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 	private String getWorldObjectTooltip(int worldPanelX, int worldPanelY, int x, int y, WorldObject worldObject) {
 		int width = worldObject.getProperty(Constants.WIDTH);
 		int height = worldObject.getProperty(Constants.HEIGHT);
-		if (shouldDrawWorldObject(worldObject, x, y, width, height)) {
+		int actualX = x-offsetX;
+		int actualY = y-offsetY;
+		if (shouldDrawWorldObject(worldObject, actualX, actualY, width, height)) {
 			return getDescriptionFor(worldPanelX, worldPanelY, worldObject);
 		} else {
 			return null;
