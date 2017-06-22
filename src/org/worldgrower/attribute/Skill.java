@@ -96,9 +96,13 @@ public class Skill implements Serializable {
 		int skillLevels = 0;
 		for(IntProperty attribute : SkillUtils.getAttributes()) {
 			List<SkillProperty> skills = SkillUtils.getSkillsForAttribute(attribute);
-			for(SkillProperty skill : skills) {
+			for(SkillProperty skillProperty : skills) {
 				int startingSkillLevel = new Skill(worldObject.getProperty(attribute)).level;
-				int currentSkillLevel = worldObject.getProperty(skill).level;
+				Skill skill = worldObject.getProperty(skillProperty);
+				if (skill == null) {
+					throw new IllegalStateException("skill " + skillProperty.getName() + " is null for worldObject " + worldObject);
+				}
+				int currentSkillLevel = skill.level;
 				
 				skillLevels += (currentSkillLevel - startingSkillLevel);
 			}

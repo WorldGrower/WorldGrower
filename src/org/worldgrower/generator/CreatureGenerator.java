@@ -260,6 +260,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.CHARISMA, 6);
 		
 		properties.put(Constants.HAND_TO_HAND_SKILL, new Skill(10));
+		properties.put(Constants.ONE_HANDED_SKILL, new Skill(10));
 		
 		properties.put(Constants.DAMAGE, 3 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.DAMAGE_RESIST, 8);
