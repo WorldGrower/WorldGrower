@@ -24,12 +24,12 @@ import org.worldgrower.goal.LegalActionsPropertyUtils;
 
 public class VampireUtils {
 
-	public static void vampirizePerson(WorldObject worldObject, WorldStateChangedListeners creatureTypeChangedListeners) {
+	public static void vampirizePerson(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners) {
 		worldObject.setProperty(Constants.VAMPIRE_BLOOD_LEVEL, 1000);
 		worldObject.setProperty(Constants.CREATURE_TYPE, CreatureType.VAMPIRE_CREATURE_TYPE);
 		worldObject.setProperty(Constants.CURSE, Curse.VAMPIRE_CURSE);
 		
-		creatureTypeChangedListeners.fireCreatureTypeChanged(worldObject, CreatureType.VAMPIRE_CREATURE_TYPE, "You crave blood, you must have become a vampire");
+		worldStateChangedListeners.fireCreatureTypeChanged(worldObject, CreatureType.VAMPIRE_CREATURE_TYPE, "You crave blood, you must have become a vampire");
 	}
 	
 	public static boolean canBecomeVampire(WorldObject worldObject) {

@@ -26,6 +26,7 @@ import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.Prices;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.condition.VampireUtils;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.Curse;
@@ -54,6 +55,38 @@ public class UTestCommonerOnTurn {
 		assertEquals(999, playerCharacter.getProperty(Constants.ENERGY).intValue());
 		assertEquals(799, playerCharacter.getProperty(Constants.FOOD).intValue());
 		assertEquals(799, playerCharacter.getProperty(Constants.WATER).intValue());
+	}
+	
+	@Test
+	public void testOnTurnOfCommonAttributesEncumbrance() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject organization = createVillagersOrganization(world);
+		
+		WorldObject playerCharacter = createPlayerCharacter(world, organization);
+		playerCharacter.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f), 1000);
+		
+		assertEquals(1000, playerCharacter.getProperty(Constants.ENERGY).intValue());
+		
+		playerCharacter.onTurn(world, new WorldStateChangedListeners());
+		assertEquals(998, playerCharacter.getProperty(Constants.ENERGY).intValue());
+	}
+	
+	@Test
+	public void testOnTurnOfCommonAttributesForUndead() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject organization = createVillagersOrganization(world);
+		
+		WorldObject playerCharacter = createPlayerCharacter(world, organization);
+		VampireUtils.vampirizePerson(playerCharacter, new WorldStateChangedListeners());
+		
+		assertEquals(1000, playerCharacter.getProperty(Constants.ENERGY).intValue());
+		assertEquals(800, playerCharacter.getProperty(Constants.FOOD).intValue());
+		assertEquals(800, playerCharacter.getProperty(Constants.WATER).intValue());
+		
+		playerCharacter.onTurn(world, new WorldStateChangedListeners());
+		assertEquals(999, playerCharacter.getProperty(Constants.ENERGY).intValue());
+		assertEquals(1000, playerCharacter.getProperty(Constants.FOOD).intValue());
+		assertEquals(1000, playerCharacter.getProperty(Constants.WATER).intValue());
 	}
 	
 	@Test
