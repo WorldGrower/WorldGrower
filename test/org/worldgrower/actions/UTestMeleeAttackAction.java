@@ -25,6 +25,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.generator.CommonerGenerator;
+import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.GroupPropertyUtils;
 
@@ -43,6 +44,39 @@ public class UTestMeleeAttackAction {
 		Actions.MELEE_ATTACK_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(24 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
+	}
+	
+	@Test
+	public void testExecuteMinotaur() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		int minotaurId = CreatureGenerator.generateMinotaur(0, 0, world);
+		WorldObject performer = world.findWorldObjectById(minotaurId);
+		WorldObject target = createPerformer(world, organization);
+		
+		assertEquals(19 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
+		for(int i=0; i<100; i++) {
+			Actions.MELEE_ATTACK_ACTION.execute(performer, target, Args.EMPTY, world);
+		}
+		
+		assertEquals(0 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
+	}
+	
+	@Test
+	public void testExecuteRat() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		CreatureGenerator creatureGenerator = new CreatureGenerator(organization);
+		int ratId = creatureGenerator.generateRat(0, 0, world);
+		WorldObject performer = world.findWorldObjectById(ratId);
+		WorldObject target = createPerformer(world, organization);
+		
+		assertEquals(19 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
+		for(int i=0; i<100; i++) {
+			Actions.MELEE_ATTACK_ACTION.execute(performer, target, Args.EMPTY, world);
+		}
+		
+		assertEquals(0 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
 	
 	@Test

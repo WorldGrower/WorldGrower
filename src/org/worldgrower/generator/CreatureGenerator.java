@@ -32,7 +32,6 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.PropertyCountMap;
-import org.worldgrower.attribute.Skill;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Conditions;
@@ -100,8 +99,6 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.WISDOM, 12);
 		properties.put(Constants.CHARISMA, 6);
 		
-		properties.put(Constants.HAND_TO_HAND_SKILL, new Skill(10));
-		
 		properties.put(Constants.DAMAGE, 2 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
@@ -159,8 +156,6 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.WISDOM, 12);
 		properties.put(Constants.CHARISMA, 6);
 		
-		properties.put(Constants.HAND_TO_HAND_SKILL, new Skill(10));
-		
 		properties.put(Constants.DAMAGE, 5 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.DAMAGE_RESIST, 10);
 		
@@ -209,8 +204,6 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.WISDOM, 12);
 		properties.put(Constants.CHARISMA, 6);
 		
-		properties.put(Constants.HAND_TO_HAND_SKILL, new Skill(10));
-		
 		properties.put(Constants.DAMAGE, 3 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.DAMAGE_RESIST, 8);
 		
@@ -258,9 +251,6 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.INTELLIGENCE, 6);
 		properties.put(Constants.WISDOM, 12);
 		properties.put(Constants.CHARISMA, 6);
-		
-		properties.put(Constants.HAND_TO_HAND_SKILL, new Skill(10));
-		properties.put(Constants.ONE_HANDED_SKILL, new Skill(10));
 		
 		properties.put(Constants.DAMAGE, 3 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.DAMAGE_RESIST, 8);

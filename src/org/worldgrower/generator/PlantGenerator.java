@@ -259,6 +259,7 @@ public class PlantGenerator {
 		properties.put(Constants.IMAGE_ID, ImageIds.TREE);
 		properties.put(Constants.ENERGY, 1000);
 		properties.put(Constants.GROUP, new IdList().add(organization));
+		properties.put(Constants.CHILDREN, new IdList());
 		properties.put(Constants.CREATURE_TYPE, CreatureType.PLANT_CREATURE_TYPE);
 		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
 		properties.put(Constants.CONDITIONS, new Conditions());
