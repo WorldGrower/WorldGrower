@@ -76,6 +76,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.HIT_POINTS, 2 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 3 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.NAME, "Rat");
+		properties.put(Constants.LEVEL, 1);
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.RAT);
 		properties.put(Constants.FOOD, 200);
@@ -98,6 +99,8 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.INTELLIGENCE, 6);
 		properties.put(Constants.WISDOM, 12);
 		properties.put(Constants.CHARISMA, 6);
+		
+		SkillUtils.addAllSkills(properties);
 		
 		properties.put(Constants.DAMAGE, 2 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.DAMAGE_RESIST, 0);
@@ -181,6 +184,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.HIT_POINTS, 15 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 20 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.NAME, "Slime");
+		properties.put(Constants.LEVEL, 1);
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.SLIME);
 		properties.put(Constants.FOOD, 500);
@@ -203,6 +207,8 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.INTELLIGENCE, 6);
 		properties.put(Constants.WISDOM, 12);
 		properties.put(Constants.CHARISMA, 6);
+		
+		SkillUtils.addAllSkills(properties);
 		
 		properties.put(Constants.DAMAGE, 3 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.DAMAGE_RESIST, 8);
