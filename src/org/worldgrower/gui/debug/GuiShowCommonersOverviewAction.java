@@ -250,10 +250,12 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 			} else if (columnIndex == 18) {
 				StringBuilder inventoryDescriptionBuilder = new StringBuilder("<html>");
 				WorldObjectContainer inventory = npc.getProperty(Constants.INVENTORY);
-				for(int i=0; i<inventory.size(); i++) {
-					WorldObject inventoryItem = inventory.get(i);
-					if (inventoryItem != null) {
-						inventoryDescriptionBuilder.append(inventoryItem).append("<br>");
+				if (inventory != null) {
+					for(int i=0; i<inventory.size(); i++) {
+						WorldObject inventoryItem = inventory.get(i);
+						if (inventoryItem != null) {
+							inventoryDescriptionBuilder.append(inventoryItem).append("<br>");
+						}
 					}
 				}
 				inventoryDescriptionBuilder.append("</html>");
