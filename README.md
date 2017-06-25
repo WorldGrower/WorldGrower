@@ -12,7 +12,7 @@ It focuses on skills, dialogue, economy and society.
 
 ## Installation<a name="installation"></a>
 
-###Binary installation using installer
+### Binary installation using installer
 
 *   [Windows 32-bit](https://github.com/WorldGrower/WorldGrower/releases/download/1.4.0/WorldGrower_windows_1_4_0_32bit.exe)
 *   [Windows 64-bit](https://github.com/WorldGrower/WorldGrower/releases/download/1.4.0/WorldGrower_windows-x64_1_4_0.exe)
@@ -26,7 +26,7 @@ It focuses on skills, dialogue, economy and society.
 
 *These installers contain the game and will install the game when executed.*
 
-###Binary installation of .zip file
+### Binary installation of .zip file
 
 *   [Download .zip file](https://github.com/WorldGrower/WorldGrower/releases/download/1.4.0/worldgrower-1.4.0.zip)
 *   Extract the .zip file on the local filesystem
@@ -34,13 +34,13 @@ It focuses on skills, dialogue, economy and society.
 	If you're not sure, you can check your java version [here](https://www.java.com/verify).
 *	The easiest way to start WorldGrower is to run the .jar file by double-clicking it or to open it with java 8.
 
-###Common problems with binary installation
+### Common problems with binary installation
 
 *	*'java' is not recognized as an internal or external command, operable program or batch file.*<br/> This means that no java version was installed.<br/> Make sure to download java from [here](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html).
 
 *	*Exception in thread "main" java.lang.UnsupportedClassVersionError: org/worldgrower/gui/start/StartScreen : Unsupported major.minor version 52.0*<br/> This means an older java version is installed.<br/> It's best to can check your java version [here](https://www.java.com/verify).
 
-###Source installation
+### Source installation
 
 *   If you are installing from source code, it's recommended that you clone the master branch.
 *   Make sure Java 8 is installed
