@@ -244,3 +244,12 @@ malepirate02.png
 femalepirate02.png
 malepirate03.png
 femalepirate03.png
+
+character sprites by IggyAlben and Sithjester at http://iggyalben.deviantart.com/art/Steampunk-England-RPG-Maker-VX-Ace-Sprite-652378064
+steampunk_england___rpg_maker_vx_ace_sprite___by_crazydaiyamondos-daseq4w.png
+
+character sprites by IggyAlben and Sithjester at http://iggyalben.deviantart.com/art/Masked-Austria-Rpg-Maker-Vx-Ace-Sprite-598810638
+masked_austria___rpg_maker_vx_ace_sprite___by_crazydaiyamondos-d9wil8u.png
+
+character sprites by IggyAlben and Sithjester at http://iggyalben.deviantart.com/art/Young-America-RPG-Maker-VX-Ace-Sprite-584955754
+young_america___rpg_maker_vx_ace_sprite___by_crazydaiyamondos-d9o9mqy.png

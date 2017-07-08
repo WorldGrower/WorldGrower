@@ -115,6 +115,9 @@ public class ImageInfoReader {
     	Sprites femalePirate02 = readSpritesFemalePirate02();
     	Sprites malePirate03 = readSpritesMalePirate03();
     	Sprites femalePirate03 = readSpritesFemalePirate03();
+    	Sprites maleSteamPunk = readSpritesMaleSteamPunk();
+    	Sprites maleMaskedAustria = readSpritesMaleMaskedAustria();
+    	Sprites maleYoungAmerica = readSpritesMaleYoungAmerica();
     	
     	Sprites smallTree = readSpritesSmallTree();
     	Sprites smallBorealTree = readSpritesSmallBorealTree();
@@ -813,6 +816,10 @@ public class ImageInfoReader {
 		add(ImageIds.YOUNG_WILTING_BERRY_BUSH, colorize(ImageIds.YOUNG_BERRY_BUSH, wiltingColor));
 
 		addCharacter(ImageIds.MINOTAUR, monsters, 6, 4, 1, 1);
+		addCharacter(ImageIds.MALE_STEAMPUNK, maleSteamPunk, 0, 0, 1, 1);
+		addCharacter(ImageIds.MALE_MASKED_AUSTRIA, maleMaskedAustria, 0, 0, 1, 1);
+		addCharacter(ImageIds.MALE_YOUNG_AMERICA, maleYoungAmerica, 0, 0, 1, 1);
+			
     }
 
 	private Image createTileTransition(Sprites tileMask, int posX, int posY) {
@@ -1396,6 +1403,18 @@ public class ImageInfoReader {
     
     private Sprites readSpritesFemalePirate03() throws IOException {
     	return readImages("femalepirate03.png", 32, 48, 1, 1);
+	}
+    
+    private Sprites readSpritesMaleSteamPunk() throws IOException {
+    	return readImages("steampunk_england___rpg_maker_vx_ace_sprite___by_crazydaiyamondos-daseq4w.png", 32, 52, 1, 1);
+	}
+    
+    private Sprites readSpritesMaleMaskedAustria() throws IOException {
+    	return readImages("masked_austria___rpg_maker_vx_ace_sprite___by_crazydaiyamondos-d9wil8u.png", 32, 48, 1, 1);
+	}
+    
+    private Sprites readSpritesMaleYoungAmerica() throws IOException {
+    	return readImages("young_america___rpg_maker_vx_ace_sprite___by_crazydaiyamondos-d9o9mqy.png", 32, 48, 1, 1);
 	}
     
     private Sprites readSpritesTileMask() throws IOException {
