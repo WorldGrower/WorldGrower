@@ -100,7 +100,8 @@ public class CommonerImageIds implements Serializable {
 			ImageIds.MALE_PIRATE03,
 			ImageIds.MALE_STEAMPUNK,
 			ImageIds.MALE_MASKED_AUSTRIA,
-			ImageIds.MALE_YOUNG_AMERICA
+			ImageIds.MALE_YOUNG_AMERICA,
+			ImageIds.MALE_YOUNG_CANADA
 			);
 	
 	private final List<ImageIds> femaleCommonerIds = Arrays.asList(
@@ -162,7 +163,9 @@ public class CommonerImageIds implements Serializable {
 			ImageIds.FEMALE_PIRATE,
 			ImageIds.FEMALE_PIRATE52,
 			ImageIds.FEMALE_PIRATE02,
-			ImageIds.FEMALE_PIRATE03
+			ImageIds.FEMALE_PIRATE03,
+			ImageIds.FEMALE_ITALY,
+			ImageIds.FEMALE_FRANCE
 			);
 	
 	private int currentMaleCommonerIndex = 0;

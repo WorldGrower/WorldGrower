@@ -118,6 +118,9 @@ public class ImageInfoReader {
     	Sprites maleSteamPunk = readSpritesMaleSteamPunk();
     	Sprites maleMaskedAustria = readSpritesMaleMaskedAustria();
     	Sprites maleYoungAmerica = readSpritesMaleYoungAmerica();
+    	Sprites femaleItaly = readSpritesFemaleItaly();
+    	Sprites femaleFrance = readSpritesFemaleFrance();
+    	Sprites maleYoungCanada = readSpritesMaleYoungCanada();
     	
     	Sprites smallTree = readSpritesSmallTree();
     	Sprites smallBorealTree = readSpritesSmallBorealTree();
@@ -819,7 +822,10 @@ public class ImageInfoReader {
 		addCharacter(ImageIds.MALE_STEAMPUNK, maleSteamPunk, 0, 0, 1, 1);
 		addCharacter(ImageIds.MALE_MASKED_AUSTRIA, maleMaskedAustria, 0, 0, 1, 1);
 		addCharacter(ImageIds.MALE_YOUNG_AMERICA, maleYoungAmerica, 0, 0, 1, 1);
-			
+		addCharacter(ImageIds.FEMALE_ITALY, femaleItaly, 0, 0, 1, 1);
+		addCharacter(ImageIds.FEMALE_FRANCE, femaleFrance, 0, 0, 1, 1);
+		addCharacter(ImageIds.MALE_YOUNG_CANADA, maleYoungCanada, 0, 0, 1, 1);
+
     }
 
 	private Image createTileTransition(Sprites tileMask, int posX, int posY) {
@@ -1416,6 +1422,18 @@ public class ImageInfoReader {
     private Sprites readSpritesMaleYoungAmerica() throws IOException {
     	return readImages("young_america___rpg_maker_vx_ace_sprite___by_crazydaiyamondos-d9o9mqy.png", 32, 48, 1, 1);
 	}
+    
+    private Sprites readSpritesFemaleItaly() throws IOException {
+    	return readImages("2p_italy_with_overalls___rpg_maker_vx_ace_sprite___by_crazydaiyamondos-dasepwb.png", 32, 48, 1, 1);
+	}
+    
+    private Sprites readSpritesFemaleFrance() throws IOException {
+    	return readImages("france_with_a_vest___rpg_maker_vx_ace_sprite___by_crazydaiyamondos-daseor5.png", 32, 48, 1, 1);
+	}
+    
+    private Sprites readSpritesMaleYoungCanada() throws IOException {
+    	return readImages("young_canada___rpg_maker_vx_ace_sprite___by_crazydaiyamondos-d9o9s4p.png", 32, 48, 1, 1);
+	}  
     
     private Sprites readSpritesTileMask() throws IOException {
     	return readImages("tile_mask.png", 48, 48, 1, 1);
