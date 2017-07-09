@@ -121,6 +121,9 @@ public class ImageInfoReader {
     	Sprites femaleItaly = readSpritesFemaleItaly();
     	Sprites femaleFrance = readSpritesFemaleFrance();
     	Sprites maleYoungCanada = readSpritesMaleYoungCanada();
+    	Sprites femaleVelia = readSpritesFemaleVelia();
+    	Sprites maleWeiss = readSpritesMaleWeiss();
+    	Sprites charactersA = readSpritesCharactersA();
     	
     	Sprites smallTree = readSpritesSmallTree();
     	Sprites smallBorealTree = readSpritesSmallBorealTree();
@@ -825,7 +828,17 @@ public class ImageInfoReader {
 		addCharacter(ImageIds.FEMALE_ITALY, femaleItaly, 0, 0, 1, 1);
 		addCharacter(ImageIds.FEMALE_FRANCE, femaleFrance, 0, 0, 1, 1);
 		addCharacter(ImageIds.MALE_YOUNG_CANADA, maleYoungCanada, 0, 0, 1, 1);
-
+		addCharacter(ImageIds.FEMALE_VELIA, femaleVelia, 0, 0, 1, 1);
+		addCharacter(ImageIds.MALE_WEISS, maleWeiss, 0, 0, 1, 1);
+		
+		addCharacter(ImageIds.MALE_CHAR_A1, charactersA, 0, 0, 1, 1);
+		addCharacter(ImageIds.MALE_CHAR_A2, charactersA, 3, 0, 1, 1);
+		addCharacter(ImageIds.MALE_CHAR_A3, charactersA, 6, 0, 1, 1);
+		addCharacter(ImageIds.MALE_CHAR_A4, charactersA, 9, 0, 1, 1);
+		addCharacter(ImageIds.MALE_CHAR_A5, charactersA, 3, 4, 1, 1);
+		addCharacter(ImageIds.MALE_CHAR_A6, charactersA, 6, 4, 1, 1);
+		addCharacter(ImageIds.FEMALE_CHAR_A1, charactersA, 9, 4, 1, 1);
+		
     }
 
 	private Image createTileTransition(Sprites tileMask, int posX, int posY) {
@@ -1433,7 +1446,19 @@ public class ImageInfoReader {
     
     private Sprites readSpritesMaleYoungCanada() throws IOException {
     	return readImages("young_canada___rpg_maker_vx_ace_sprite___by_crazydaiyamondos-d9o9s4p.png", 32, 48, 1, 1);
-	}  
+	}
+    
+    private Sprites readSpritesFemaleVelia() throws IOException {
+    	return readImages("velia_vargas___rpg_maker_vx_ace_sprite_by_vesuvius00-davwit1.png", 32, 48, 1, 1);
+	}
+    
+    private Sprites readSpritesMaleWeiss() throws IOException {
+    	return readImages("weiss_beilschmidt___rpg_maker_vx_ace_sprite_by_vesuvius00-dawui48.png", 32, 48, 1, 1);
+	}
+    
+    private Sprites readSpritesCharactersA() throws IOException {
+    	return readImages("chara02_timt_by_zerphoon-d9wf8z9.png", 32, 48, 8, 12);
+	}
     
     private Sprites readSpritesTileMask() throws IOException {
     	return readImages("tile_mask.png", 48, 48, 1, 1);
