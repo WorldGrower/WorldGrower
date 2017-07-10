@@ -14,10 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.gui.music;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.zip.GZIPInputStream;
 
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineEvent;
@@ -25,17 +23,17 @@ import javax.sound.sampled.LineListener;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import org.worldgrower.gui.start.Game;
-
 public class MusicPlayer implements LineListener {
 	private boolean enabled;
 	private boolean playCompleted;
 	private Clip audioClip;
 	private SoundOutput soundOutput;
+	private final MusicLoader musicLoader;
 	
-	public MusicPlayer(SoundOutput soundOutput, boolean enabled) {
+	public MusicPlayer(SoundOutput soundOutput, boolean enabled) throws IOException {
 		this.soundOutput = soundOutput;
 		this.enabled = enabled;
+		this.musicLoader = new MusicLoader();
 	}
 	
 	private void play(InputStream audioFilePath) {
@@ -68,11 +66,7 @@ public class MusicPlayer implements LineListener {
 			new Thread() {
 		    	@Override
 		    	public void run() {
-		    		try {
-						play(new BufferedInputStream(new GZIPInputStream(Game.class.getResourceAsStream("/sound/Forest_Ambience8bit.wav.gz"))));
-					} catch (IOException e) {
-						throw new IllegalStateException(e);
-					}
+		    		play(musicLoader.getNextFile());
 		    	}
 		    }.start();
 		}
