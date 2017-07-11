@@ -23,23 +23,29 @@ import org.worldgrower.gui.start.Game;
 
 public class MusicLoader {
 
-	private static final String[] MUSIC_FILES = { "/sound/Forest_Ambience8bit.wav.gz" };
+	private static final String[] MUSIC_FILES = {
+		"/sound/Ove - Earth Is All We Have.wav.gz",
+		"/sound/Ove Melaa - I have just been eaten.wav.gz",
+		"/sound/Ove Melaa - Dark Blue.wav.gz"
+	};
 	
-	private final InputStream[] musicInputStreams;
 	private int currentMusic;
 	
 	public MusicLoader() throws IOException {
-		this.musicInputStreams = new InputStream[MUSIC_FILES.length];
-		for(int i=0; i<MUSIC_FILES.length; i++) {
-			this.musicInputStreams[i] = new BufferedInputStream(new GZIPInputStream(Game.class.getResourceAsStream(MUSIC_FILES[i])));
-		}
-		
 		this.currentMusic = 0;
+	}
+
+	private BufferedInputStream getInputStream(String path) throws IOException {
+		return new BufferedInputStream(new GZIPInputStream(Game.class.getResourceAsStream(path)));
 	}
 	
 	public InputStream getNextFile() {
-		InputStream nextFile = musicInputStreams[currentMusic];
-		currentMusic = (currentMusic + 1) % MUSIC_FILES.length;		
-		return nextFile;
+		try {
+			InputStream nextFile = getInputStream(MUSIC_FILES[currentMusic]);
+			currentMusic = (currentMusic + 1) % MUSIC_FILES.length;		
+			return nextFile;
+		} catch(IOException e) {
+			throw new IllegalStateException(e);
+		}
 	}
 }

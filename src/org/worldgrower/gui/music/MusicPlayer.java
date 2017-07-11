@@ -25,7 +25,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class MusicPlayer implements LineListener {
 	private boolean enabled;
-	private boolean playCompleted;
 	private Clip audioClip;
 	private SoundOutput soundOutput;
 	private final MusicLoader musicLoader;
@@ -41,20 +40,7 @@ public class MusicPlayer implements LineListener {
 		try {
 			audioClip = BackgroundMusicUtils.readMusicFile(audioFilePath, soundOutput);
 			audioClip.addLineListener(this);
-			audioClip.loop(Clip.LOOP_CONTINUOUSLY);
-			
-			while (!playCompleted) {
-				// wait for the playback completes
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException ex) {
-					throw new IllegalStateException(ex);
-				}
-			}
-			
-			if (audioClip != null) {
-				audioClip.close();
-			}
+			audioClip.start();
 			
 		} catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
 			throw new IllegalStateException(ex);
@@ -75,17 +61,22 @@ public class MusicPlayer implements LineListener {
 	@Override
 	public void update(LineEvent event) {
 		LineEvent.Type type = event.getType();
-		
-		if (type == LineEvent.Type.START) {
-			
-		} else if (type == LineEvent.Type.STOP) {
-			playCompleted = true;
+		if (type == LineEvent.Type.STOP) {
+			if (audioClip != null) {
+				audioClip.close();
+				audioClip.removeLineListener(this);
+				audioClip = null;
+			}
+			if (enabled) {
+				play(musicLoader.getNextFile());
+			}
 		}
 	}
 
 	public void stop() {
 		audioClip.stop();
 		audioClip.close();
+		audioClip.removeLineListener(this);
 		audioClip = null;
 	}
 

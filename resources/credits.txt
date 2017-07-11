@@ -105,9 +105,6 @@ Wind effects 58bit.wav.gz
 Sound Effects by artisticdude at http://opengameart.org/content/rpg-sound-pack
 cloth8bit.wav.gz
 
-Background music by TinyWorlds at http://opengameart.org/content/forest-ambience
-Forest_Ambience8bit.wav.gz
-
 Sound Effects by p0ss at http://opengameart.org/content/spell-sounds-starter-pack
 blessing28bit.wav.gz
 curse8bit.wav.gz
@@ -271,3 +268,9 @@ weiss_beilschmidt___rpg_maker_vx_ace_sprite_by_vesuvius00-dawui48.png
 
 character sprites by Zerphoon at http://zerphoon.deviantart.com/art/Original-Mack-Sprites-598654773
 chara02_timt_by_zerphoon-d9wf8z9.png
+
+background music by Ove Melaa at https://opengameart.org/content/oves-essential-game-audio-pack-collection-160-files-updated
+Ove Melaa - Dark Blue.wav.gz
+Ove Melaa - I have just been eaten.wav.gz
+Ove - Earth Is All We Have.wav.gz
+written and produced by Ove Melaa (Omsofware@hotmail.com) Or Additional samples by Ove Melaa (Omsofware@hotmail.com) -2013 Ove Melaa
