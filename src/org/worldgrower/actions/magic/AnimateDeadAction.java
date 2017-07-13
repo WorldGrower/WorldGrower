@@ -47,7 +47,7 @@ public class AnimateDeadAction implements MagicSpell, AnimatedAction {
 		WorldObject skeleton = world.findWorldObjectById(skeletonId);
 		skeleton.getProperty(Constants.GROUP).addAll(performer.getProperty(Constants.GROUP));
 		
-		world.removeWorldObject(target);
+		target.setProperty(Constants.HIT_POINTS, 0);
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 	

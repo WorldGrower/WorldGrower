@@ -40,7 +40,7 @@ public class ButcherAction implements ManagedOperation, AnimatedAction {
 		int meatQuantity = addMeatToInventory(performer, target, inventoryPerformer, skillBonus);
 		int leatherQuantity = addLeatherToInventory(performer, target, inventoryPerformer, skillBonus);
 		
-		world.removeWorldObject(target);
+		target.setProperty(Constants.HIT_POINTS, 0);
 		
 		world.logAction(this, performer, target, args, meatQuantity + " "+ Constants.MEAT_SOURCE + " and " + leatherQuantity + " leather added to inventory");
 	}

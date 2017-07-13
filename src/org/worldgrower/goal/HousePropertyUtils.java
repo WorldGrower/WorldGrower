@@ -138,7 +138,7 @@ public class HousePropertyUtils {
 		if (currentHouseIds.size() > 0) {
 			int currentHouseId = currentHouseIds.get(0);
 			WorldObject shack = world.findWorldObjectById(currentHouseId);
-			world.removeWorldObject(shack);
+			shack.setProperty(Constants.HIT_POINTS, 0);
 		}
 	}
 	

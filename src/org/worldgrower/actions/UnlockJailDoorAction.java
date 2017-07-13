@@ -28,7 +28,7 @@ public class UnlockJailDoorAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		world.removeWorldObject(target);
+		target.setProperty(Constants.HIT_POINTS, 0);
 	}
 	
 	@Override

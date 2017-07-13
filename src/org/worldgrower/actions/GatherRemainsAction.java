@@ -46,7 +46,7 @@ public class GatherRemainsAction implements ManagedOperation {
 		performerInventory.moveItemsFrom(targetInventory);
 		
 		performerInventory.addQuantity(target);
-		world.removeWorldObject(target);
+		target.setProperty(Constants.HIT_POINTS, 0);
 	}
 
 	@Override

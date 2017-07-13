@@ -45,7 +45,7 @@ public class CatchFishAction implements ManagedOperation {
 		}
 		inventoryPerformer.addQuantity(harvestedFood, quantity);
 
-		world.removeWorldObject(target);
+		target.setProperty(Constants.HIT_POINTS, 0);
 		
 		SkillUtils.useEnergy(performer, Constants.FISHING_SKILL, ENERGY_USE, world.getWorldStateChangedListeners());
 	}
