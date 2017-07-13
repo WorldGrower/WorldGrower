@@ -39,7 +39,7 @@ public class UTestButcherAction {
 		
 		Actions.BUTCHER_ACTION.execute(performer, target, Args.EMPTY, world);
 		
-		assertEquals(false, world.exists(target));
+		assertEquals(0, target.getProperty(Constants.HIT_POINTS).intValue());
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD));
 		assertEquals(5, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.LEATHER));
 	}
@@ -54,7 +54,7 @@ public class UTestButcherAction {
 		
 		Actions.BUTCHER_ACTION.execute(performer, target, Args.EMPTY, world);
 		
-		assertEquals(false, world.exists(target));
+		assertEquals(0, target.getProperty(Constants.HIT_POINTS).intValue());
 		assertEquals(2, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD));
 		assertEquals(10, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.LEATHER));
 	}

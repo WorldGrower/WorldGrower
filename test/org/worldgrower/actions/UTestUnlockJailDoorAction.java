@@ -37,8 +37,9 @@ public class UTestUnlockJailDoorAction {
 		world.addWorldObject(target);
 		Actions.UNLOCK_JAIL_DOOR_ACTION.execute(performer, target, Args.EMPTY, world);
 		
-		assertEquals(1, world.getWorldObjects().size());
+		assertEquals(2, world.getWorldObjects().size());
 		assertEquals(2, world.getWorldObjects().get(0).getProperty(Constants.ID).intValue());
+		assertEquals(0, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
 	
 	@Test

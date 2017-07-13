@@ -53,8 +53,10 @@ public class UTestBuildHouseAction {
 		
 		Actions.BUILD_HOUSE_ACTION.execute(performer, target, Args.EMPTY, world);
 		
-		assertEquals(1, world.getWorldObjects().size());
-		assertEquals(BuildingType.HOUSE, world.getWorldObjects().get(0).getProperty(Constants.BUILDING_TYPE));
+		assertEquals(2, world.getWorldObjects().size());
+		assertEquals(BuildingType.SHACK, world.getWorldObjects().get(0).getProperty(Constants.BUILDING_TYPE));
+		assertEquals(0, world.getWorldObjects().get(0).getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(BuildingType.HOUSE, world.getWorldObjects().get(1).getProperty(Constants.BUILDING_TYPE));
 	}
 	
 	@Test

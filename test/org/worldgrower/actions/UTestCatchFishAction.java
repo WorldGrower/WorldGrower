@@ -41,7 +41,7 @@ public class UTestCatchFishAction {
 		Actions.CATCH_FISH_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(8, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD));
-		assertEquals(false, world.exists(target));
+		assertEquals(0, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
 	
 	@Test

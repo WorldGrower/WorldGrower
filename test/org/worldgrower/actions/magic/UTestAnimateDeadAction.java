@@ -41,8 +41,9 @@ public class UTestAnimateDeadAction {
 		
 		Actions.ANIMATE_DEAD_ACTION.execute(performer, target, Args.EMPTY, world);
 		
-		assertEquals(2, world.getWorldObjects().size());
-		assertEquals("Skeleton", world.getWorldObjects().get(1).getProperty(Constants.NAME));
+		assertEquals(3, world.getWorldObjects().size());
+		assertEquals(0, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals("Skeleton", world.getWorldObjects().get(2).getProperty(Constants.NAME));
 	}
 	
 	@Test

@@ -47,8 +47,9 @@ public class UTestEatRemainsAction {
 		
 		Actions.EAT_REMAINS_ACTION.execute(performer, target, Args.EMPTY, world);
 		
-		assertEquals(0, world.getWorldObjects().size());
+		assertEquals(1, world.getWorldObjects().size());
 		assertEquals(120, performer.getProperty(Constants.GOLD).intValue());
+		assertEquals(0, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
 	
 	@Test
