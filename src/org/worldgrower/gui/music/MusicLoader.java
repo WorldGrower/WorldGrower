@@ -25,8 +25,13 @@ public class MusicLoader {
 
 	private static final String[] MUSIC_FILES = {
 		"/sound/Ove - Earth Is All We Have.wav.gz",
+		"/sound/old city theme.wav.gz",
 		"/sound/Ove Melaa - I have just been eaten.wav.gz",
-		"/sound/Ove Melaa - Dark Blue.wav.gz"
+		"/sound/regular battle.wav.gz",
+		"/sound/Ove Melaa - They Came By Boat.wav.gz",
+		"/sound/Lonely Witch.wav.gz",
+		"/sound/Ove Melaa - Dark Blue.wav.gz",
+		"/sound/overworld theme.wav.gz"
 	};
 	
 	private int currentMusic;

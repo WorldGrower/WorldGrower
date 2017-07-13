@@ -36,7 +36,6 @@ public class MusicPlayer implements LineListener {
 	}
 	
 	private void play(InputStream audioFilePath) {
-
 		try {
 			audioClip = BackgroundMusicUtils.readMusicFile(audioFilePath, soundOutput);
 			audioClip.addLineListener(this);
@@ -68,8 +67,17 @@ public class MusicPlayer implements LineListener {
 				audioClip = null;
 			}
 			if (enabled) {
+				sleep(500);
 				play(musicLoader.getNextFile());
 			}
+		}
+	}
+
+	private void sleep(int millis) {
+		try {
+			Thread.sleep(millis);
+		} catch (InterruptedException e) {
+			throw new IllegalStateException(e);
 		}
 	}
 
