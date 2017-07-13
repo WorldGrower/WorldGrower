@@ -20,6 +20,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.MultipleGradientPaint.CycleMethod;
 import java.awt.RadialGradientPaint;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.geom.Area;
@@ -72,11 +73,11 @@ public class PlayerCharacterVisionPainter {
 		BufferedImage playerVisionImage = getPlayerVisionImage(circleRadius);
 		ga.drawImage(playerVisionImage, playerCharacterX - circleRadius, playerCharacterY - circleRadius, null);
 		
-		Area outter = new Area(circle.getBounds());
-        outter.subtract(new Area(circle));
+		Area worldPanelRectangle = new Area(new Rectangle(image.getWidth(), image.getHeight()));
+		worldPanelRectangle.subtract(new Area(circle));
         
         ga.setColor(Color.BLACK);
-        ga.fill(outter);
+        ga.fill(worldPanelRectangle);
 		
 		ga.dispose();
 		return image;
