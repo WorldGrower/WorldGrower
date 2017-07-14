@@ -28,6 +28,7 @@ public class MusicPlayer implements LineListener {
 	private Clip audioClip;
 	private SoundOutput soundOutput;
 	private final MusicLoader musicLoader;
+	private MusicThread musicThread = null;
 	
 	public MusicPlayer(SoundOutput soundOutput, boolean enabled) throws IOException {
 		this.soundOutput = soundOutput;
@@ -48,13 +49,18 @@ public class MusicPlayer implements LineListener {
 	
 	public void play() {
 		if (enabled) {
-			new Thread() {
-		    	@Override
-		    	public void run() {
-		    		play(musicLoader.getNextFile());
-		    	}
-		    }.start();
+			if (musicThread == null) {
+				musicThread = new MusicThread();
+				musicThread.start();
+			}
 		}
+	}
+	
+	private class MusicThread extends Thread {
+		@Override
+    	public void run() {
+    		play(musicLoader.getNextFile());
+    	}
 	}
 	
 	@Override
