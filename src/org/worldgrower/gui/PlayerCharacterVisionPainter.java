@@ -45,7 +45,7 @@ public class PlayerCharacterVisionPainter {
 	private final Map<Integer, BufferedImage> playerVisionImages = new HashMap<>();
 	
 	public void paintPlayerCharacterVision(Graphics worldPanelGraphics, WorldObject playerCharacter, World world, WorldPanel worldPanel) {
-		int circleRadius = (PerceptionPropertyUtils.calculateRadius(playerCharacter, world) + 1) * 48;
+		int circleRadius = (PerceptionPropertyUtils.calculateRadius(playerCharacter, world)) * 48;
 		int playerCharacterX = worldPanel.getScreenX(playerCharacter.getProperty(Constants.X)) * 48;
 		int playerCharacterY = worldPanel.getScreenY(playerCharacter.getProperty(Constants.Y)) * 48;
 		
