@@ -148,7 +148,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
         Image grassFlowersBackground = imageInfoReader.getImage(ImageIds.SMALL_FLOWERS, null);
 		this.backgroundPainter = new BackgroundPainter(grassBackground, grassFlowersBackground, imageInfoReader, world);
 		this.goToPainter = new GoToPainter(imageInfoReader);
-		this.playerCharacterVisionPainter = new PlayerCharacterVisionPainter();
+		this.playerCharacterVisionPainter = new PlayerCharacterVisionPainter(new PlayerCharacterPositionImpl(this, animationPainter));
 		
 		centerIfNecessary(width, height, world);
     }

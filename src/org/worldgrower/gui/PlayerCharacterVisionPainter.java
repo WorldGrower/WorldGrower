@@ -30,59 +30,54 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.PerceptionPropertyUtils;
 
 public class PlayerCharacterVisionPainter {
 
+	private final PlayerCharacterPosition playerCharacterPosition;
 	private int lastCircleRadius = 0;
-	private int lastPlayerCharacterX = -1;
-	private int lastPlayerCharacterY = -1;
 	private BufferedImage lastImage = null;
 	
 	private final Map<Integer, BufferedImage> playerVisionImages = new HashMap<>();
 	
-	public void paintPlayerCharacterVision(Graphics worldPanelGraphics, WorldObject playerCharacter, World world, WorldPanel worldPanel) {
-		int circleRadius = (PerceptionPropertyUtils.calculateRadius(playerCharacter, world)) * 48;
-		int playerCharacterX = worldPanel.getScreenX(playerCharacter.getProperty(Constants.X)) * 48;
-		int playerCharacterY = worldPanel.getScreenY(playerCharacter.getProperty(Constants.Y)) * 48;
-		
-		final BufferedImage image;
-		if (circleRadius == lastCircleRadius && playerCharacterX == lastPlayerCharacterX && playerCharacterY == lastPlayerCharacterY) {
-			image = lastImage;
-		} else {
-			image = createImageToDraw(worldPanel, circleRadius, playerCharacterX, playerCharacterY);
-		}
-		worldPanelGraphics.drawImage(image, 0, 0, null);
-		
-		lastCircleRadius = circleRadius;
-		lastPlayerCharacterX = playerCharacterX;
-		lastPlayerCharacterY = playerCharacterY;
-		lastImage = image;
+	public PlayerCharacterVisionPainter(PlayerCharacterPosition playerCharacterPosition) {
+		super();
+		this.playerCharacterPosition = playerCharacterPosition;
 	}
 
-	private BufferedImage createImageToDraw(WorldPanel worldPanel, int circleRadius, int playerCharacterX, int playerCharacterY) {
+	public void paintPlayerCharacterVision(Graphics worldPanelGraphics, WorldObject playerCharacter, World world, WorldPanel worldPanel) {
+		int circleRadius = (PerceptionPropertyUtils.calculateRadius(playerCharacter, world)) * 48;
+		int playerCharacterX = playerCharacterPosition.getScreenX(playerCharacter);
+		int playerCharacterY = playerCharacterPosition.getScreenY(playerCharacter);
+		
+		final BufferedImage playerVisionImage;
+		if (circleRadius == lastCircleRadius) {
+			playerVisionImage = lastImage;
+		} else {
+			playerVisionImage = getPlayerVisionImage(circleRadius);
+		}
+		int circleLeft = playerCharacterX - circleRadius;
+		int circleTop = playerCharacterY - circleRadius;
+		worldPanelGraphics.drawImage(playerVisionImage, circleLeft, circleTop, null);
+		
+		paintUnexploredTerrain(worldPanelGraphics, worldPanel, circleRadius, circleLeft, circleTop);
+		
+		lastCircleRadius = circleRadius;
+		lastImage = playerVisionImage;
+	}
+
+	private void paintUnexploredTerrain(Graphics worldPanelGraphics, WorldPanel worldPanel, int circleRadius, int circleLeft, int circleTop) {
 		float circleDiameter = circleRadius * 2.0f;
-		Shape circle = new Ellipse2D.Float(playerCharacterX - circleRadius, playerCharacterY - circleRadius, circleDiameter, circleDiameter);
-		BufferedImage image = new BufferedImage(worldPanel.getWorldViewWidth(), worldPanel.getWorldViewHeight(), BufferedImage.TYPE_INT_ARGB);
-		
-		Graphics2D ga = (Graphics2D) image.createGraphics();
-		
-		BufferedImage playerVisionImage = getPlayerVisionImage(circleRadius);
-		ga.drawImage(playerVisionImage, playerCharacterX - circleRadius, playerCharacterY - circleRadius, null);
-		
-		Area worldPanelRectangle = new Area(new Rectangle(image.getWidth(), image.getHeight()));
+		Shape circle = new Ellipse2D.Float(circleLeft, circleTop, circleDiameter, circleDiameter);
+		Area worldPanelRectangle = new Area(new Rectangle(worldPanel.getWorldViewWidth(), worldPanel.getWorldViewHeight()));
 		worldPanelRectangle.subtract(new Area(circle));
         
-        ga.setColor(Color.BLACK);
-        ga.fill(worldPanelRectangle);
-		
-		ga.dispose();
-		return image;
+		worldPanelGraphics.setColor(Color.BLACK);
+		((Graphics2D)worldPanelGraphics).fill(worldPanelRectangle);
 	}
-	
+
 	private BufferedImage getPlayerVisionImage(int radius) {
 		BufferedImage playerVisionImage = playerVisionImages.get(radius);
 		if (playerVisionImage == null) {

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
@@ -178,6 +179,27 @@ public class AnimationPainter {
 			if (this.guiAfterMoveAction != null) {
 				this.guiAfterMoveAction.actionPerformed(null);
 			}
+		}
+	}
+	
+	public int getDeltaX(WorldObject playerCharacter) {
+		return getDeltaPosition(playerCharacter, p -> p.x);
+	}
+	
+	public int getDeltaY(WorldObject playerCharacter) {
+		return getDeltaPosition(playerCharacter, p -> p.y);
+	}
+	
+	private int getDeltaPosition(WorldObject playerCharacter, Function<Point, Integer> posFunction) {
+		Integer playerCharacterId = playerCharacter.getProperty(Constants.ID);
+		Point oldPosition = oldPositions.get(playerCharacterId);
+		Point newPosition = newPositions.get(playerCharacterId);
+		if (moveMode && oldPosition != null && newPosition != null) {
+			return (posFunction.apply(newPosition) - posFunction.apply(oldPosition)) * moveStep;
+		} else if (oldPosition != null && newPosition != null) {
+			return (posFunction.apply(newPosition) - posFunction.apply(oldPosition)) * 48;
+		} else {
+			return 0;
 		}
 	}
 
