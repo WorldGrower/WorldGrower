@@ -362,7 +362,7 @@ public class Game {
 	private static void exploreWorld(WorldObject playerCharacter, World world) {
 		int x = playerCharacter.getProperty(Constants.X);
 		int y = playerCharacter.getProperty(Constants.Y);
-		world.getTerrain().explore(x, y, PerceptionPropertyUtils.calculateRadius(playerCharacter, world));
+		world.getTerrain().explore(x, y, PerceptionPropertyUtils.calculateRadius(playerCharacter, world) + 1);
 	}
 	
 	private static void checkToSkipTurn(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel worldPanel, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {

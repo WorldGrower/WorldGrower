@@ -190,8 +190,10 @@ public class AnimationPainter {
 				
 				int x = worldObject.getProperty(Constants.X);
 				int y = worldObject.getProperty(Constants.Y);
+				int width = worldObject.getProperty(Constants.WIDTH);
+				int height = worldObject.getProperty(Constants.HEIGHT);
 				
-				if (world.getTerrain().isExplored(x, y)) {
+				if (world.getTerrain().isExplored(x, y, width, height)) {
 					boolean positionRemainsSame = positionRemainsSame(worldObject.getProperty(Constants.ID));
 					if (drawAnimation && !positionRemainsSame) {
 						
@@ -260,7 +262,9 @@ public class AnimationPainter {
 			Image image = imageInfoReader.getImage(ImageIds.MAGIC1, imageIndex);
 			int x = magicCaster.getProperty(Constants.X) - 1;
 			int y = magicCaster.getProperty(Constants.Y) - 1;
-			if (world.getTerrain().isExplored(x, y)) {
+			int width = magicCaster.getProperty(Constants.WIDTH);
+			int height = magicCaster.getProperty(Constants.HEIGHT);
+			if (world.getTerrain().isExplored(x, y, width, height)) {
 				worldPanel.drawWorldObjectInPixels(g, magicCaster, null, image, x, y, 0, 0, false);
 			}
 		}
@@ -289,7 +293,9 @@ public class AnimationPainter {
 			WorldObject target = magicTarget.getTarget();
 			Integer x = target.getProperty(Constants.X);
 			Integer y = target.getProperty(Constants.Y);
-			if (world.getTerrain().isExplored(x, y)) {
+			int width = target.getProperty(Constants.WIDTH);
+			int height = target.getProperty(Constants.HEIGHT);
+			if (world.getTerrain().isExplored(x, y, width, height)) {
 				worldPanel.drawWorldObjectInPixels(g, target, null, image, x, y, 0, 0, true);
 			}
 		}
@@ -307,8 +313,10 @@ public class AnimationPainter {
 		for(WorldObject worldObject : worldObjects) {
 			int x = worldObject.getProperty(Constants.X);
 			int y = worldObject.getProperty(Constants.Y);
+			int width = worldObject.getProperty(Constants.WIDTH);
+			int height = worldObject.getProperty(Constants.HEIGHT);
 			
-			if (world.getTerrain().isExplored(x, y)) {
+			if (world.getTerrain().isExplored(x, y, width, height)) {
 				ImageIds imageId = worldPanel.getImageId(worldObject);
 				LookDirection lookDirection = worldPanel.getLookDirection(worldObject);
 				Image image = imageInfoReader.getImage(imageId, lookDirection);

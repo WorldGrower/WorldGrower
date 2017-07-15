@@ -29,4 +29,11 @@ public interface Terrain {
 	public boolean isExplored(int x, int y);
 	public void explore(int x, int y, int radius); 
 	public Rectangle getExploredBoundsInSquares();
+	
+	public default boolean isExplored(int x, int y, int width, int height) {
+		return isExplored(x, y)
+			|| isExplored(x + width - 1, y)
+			|| isExplored(x, y + height - 1)
+			|| isExplored(x + width - 1, y + height - 1);
+	}
 }

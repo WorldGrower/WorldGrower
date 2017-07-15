@@ -303,10 +303,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 	}
 
 	private boolean worldObjectIsExplored(int x, int y, int width, int height) {
-		return world.getTerrain().isExplored(x, y)
-			|| world.getTerrain().isExplored(x + width - 1, y)
-			|| world.getTerrain().isExplored(x, y + height - 1)
-			|| world.getTerrain().isExplored(x + width - 1, y + height - 1);
+		return world.getTerrain().isExplored(x, y, width, height);
 	}
 
 	private void showTargetHitPoints(Graphics g) {
