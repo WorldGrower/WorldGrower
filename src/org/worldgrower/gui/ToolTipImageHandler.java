@@ -24,6 +24,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLStreamHandler;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -33,7 +35,8 @@ class ToolTipImageHandler {
 
 	// source: http://stackoverflow.com/questions/861500/url-to-load-resources-from-the-classpath-in-java
 	private static final String IMAGE_PROTOCOL = "image";
-
+	private final Map<ImageIds, byte[]> imageContentMap = new HashMap<>();
+	
 	public ToolTipImageHandler(ImageInfoReader imageInfoReader) {
 		initializeUrlHandler(imageInfoReader);
 	}
@@ -91,10 +94,15 @@ class ToolTipImageHandler {
 
 		@Override
 		public InputStream getInputStream() throws IOException {
-			Image image = imageInfoReader.getImage(imageIds, null);
-			ByteArrayOutputStream os = new ByteArrayOutputStream();
-			ImageIO.write((BufferedImage) image, "png", os);
-			return new ByteArrayInputStream(os.toByteArray());
+			byte[] imageContent = imageContentMap.get(imageIds);
+			if (imageContent == null) {
+				Image image = imageInfoReader.getImage(imageIds, null);
+				ByteArrayOutputStream os = new ByteArrayOutputStream();
+				ImageIO.write((BufferedImage) image, "png", os);
+				imageContent = os.toByteArray();
+				imageContentMap.put(imageIds, imageContent);
+			}
+			return new ByteArrayInputStream(imageContent);
 		}
 	}
 }
