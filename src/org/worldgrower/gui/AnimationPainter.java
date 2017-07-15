@@ -10,9 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-
-import javax.swing.SwingUtilities;
 
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
@@ -173,24 +170,7 @@ public class AnimationPainter {
 		}
 		if (drawAnimation) {
 			moveStep += 2;
-			SwingUtilities.invokeLater(new Runnable() {
-				public void run() {
-					repaintWorldObjects(worldPanel);
-				}
-			});
-			
-			SwingUtilities.invokeLater(new Runnable() {
-				public void run() {
-					repaintMagicCaster(worldPanel);
-				}
-			});
-			
-			SwingUtilities.invokeLater(new Runnable() {
-				public void run() {
-					repaintMagicTargets(worldPanel);
-				}
-			});
-			
+			worldPanel.repaint();
 		} else {
 			moveMode = false;
 			moveIndex = 0;
@@ -338,30 +318,6 @@ public class AnimationPainter {
 				worldPanel.repaintAround(x, y, worldObject);				
 				//worldPanel.repaint();
 			}
-		}
-	}
-	
-	
-
-	private void repaintWorldObjects(WorldPanel worldPanel) {
-		repaintWorldObjects(worldObjects, worldPanel);
-	}
-
-	private void repaintMagicCaster(WorldPanel worldPanel) {
-		repaintWorldObjects(magicCasters, worldPanel);
-	}
-
-	private void repaintMagicTargets(WorldPanel worldPanel) {
-		List<WorldObject> magicTargetWorldObjects = magicTargets.stream().map(m -> m.getTarget()).collect(Collectors.toList());
-		repaintWorldObjects(magicTargetWorldObjects, worldPanel);
-	}
-	
-	private static void repaintWorldObjects(List<WorldObject> worldObjects, WorldPanel worldPanel) {
-		for(WorldObject worldObject : worldObjects) {
-			int x = worldObject.getProperty(Constants.X);
-			int y = worldObject.getProperty(Constants.Y);
-			worldPanel.repaintAround(x, y, worldObject);
-			//worldPanel.repaint();
 		}
 	}
 
