@@ -136,6 +136,8 @@ public final class WorldPanel extends JPanel implements ImageFactory {
         this.setMinimumSize(new Dimension(width, height));
         this.setPreferredSize(new Dimension(width, height));
         
+        setBackground(Color.BLACK);
+        
         initializeKeyBindings(playerCharacter, world, dungeonMaster);
         
         this.infoPanel = new InfoPanel(playerCharacter, world, imageInfoReader, soundIdReader, initialStatusMessage, parentFrame, this);        
@@ -380,11 +382,6 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 		g.drawImage(image, (x+offsetX) * 48, (y+offsetY) * 48, null);
 	}
 	
-	public void drawUnexploredTerrain(Graphics g, int x, int y) {
-		g.setColor(Color.BLACK);
-		g.fillRect((x+offsetX) * 48, (y+offsetY) * 48, 48, 48);
-	}
-
 	private Image changeSize(WorldObject worldObject, Image image) {
 		if (hasCondition(worldObject, Condition.ENLARGED_CONDITION)) {
 			int imageWidth = 48 * worldObject.getProperty(Constants.WIDTH);

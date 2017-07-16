@@ -378,11 +378,8 @@ public class BackgroundPainter {
 					Image image = backgroundTransitionMap.get(getKeyForBackgroundTransitionMap(index, terrain, x, y, world));
 					worldPanel.drawBackgroundImage(g, image, x, y);
 				}
-			} else {
-				worldPanel.drawUnexploredTerrain(g, x, y);
 			}
 		}
-		
 	}
 
 	private int calculateIndex(int x, int y) {
