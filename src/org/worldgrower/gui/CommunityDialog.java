@@ -138,12 +138,12 @@ public class CommunityDialog extends JDialog {
 
 		ButtonGroup buttonGroup = new ButtonGroup();
 		
-		JToggleButton familyButton = createToggleButton("Family", FAMILY_KEY, soundIdReader, cardLayout, infoPanel, buttonGroup, toggleButtonPanel);
+		JToggleButton familyButton = createToggleButton("Family", FAMILY_KEY, soundIdReader, cardLayout, infoPanel, buttonGroup, toggleButtonPanel, "Shows family members of the player character");
 	
-		createToggleButton("Acquaintances", ACQUAINTANCES_KEY, soundIdReader, cardLayout, infoPanel, buttonGroup, toggleButtonPanel);
-		createToggleButton("Player Character Ranks", RANKS_KEY, soundIdReader, cardLayout, infoPanel, buttonGroup, toggleButtonPanel);
-		createToggleButton("Organizations", ORGANIZATIONS_KEY, soundIdReader, cardLayout, infoPanel, buttonGroup, toggleButtonPanel);
-		createToggleButton("Deities", DEITIES_KEY, soundIdReader, cardLayout, infoPanel, buttonGroup, toggleButtonPanel);
+		createToggleButton("Acquaintances", ACQUAINTANCES_KEY, soundIdReader, cardLayout, infoPanel, buttonGroup, toggleButtonPanel, "Shows acquaintances of the player character");
+		createToggleButton("Player Character Ranks", RANKS_KEY, soundIdReader, cardLayout, infoPanel, buttonGroup, toggleButtonPanel, "Shows group memberships of the player character");
+		createToggleButton("Organizations", ORGANIZATIONS_KEY, soundIdReader, cardLayout, infoPanel, buttonGroup, toggleButtonPanel, "Shows an overview of all organizations and their members");
+		createToggleButton("Deities", DEITIES_KEY, soundIdReader, cardLayout, infoPanel, buttonGroup, toggleButtonPanel, "Shows an overview of all deities and their happiness");
 		
 		buttonGroup.setSelected(familyButton.getModel(), true);
 	}
@@ -259,6 +259,7 @@ public class CommunityDialog extends JDialog {
 		infoPanel.add(deitiesPanel, DEITIES_KEY);
 		
 		DeityAttributes deityAttributes = GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.DEITY_ATTRIBUTES);
+		String deityTooltip = "deity hapiness indicator: if a deity becomes unhappy, they may lash out against the population";
 		
 		for(int i=0; i<Deity.ALL_DEITIES.size(); i++) {
 			Deity deity = Deity.ALL_DEITIES.get(i);
@@ -266,20 +267,22 @@ public class CommunityDialog extends JDialog {
 			JLabel nameLabel = JLabelFactory.createJLabel(deity.getName(), image);
 			nameLabel.setBounds(15, 30 + 40 * i, 150, 50);
 			nameLabel.setHorizontalAlignment(SwingConstants.LEFT);
+			nameLabel.setToolTipText(deityTooltip);
 			deitiesPanel.add(nameLabel);
 			
 			JProgressBar relationshipProgresBar = JProgressBarFactory.createHorizontalJProgressBar(deityAttributes.getMinHapinessValue(), deityAttributes.getMaxHapinessValue(), imageInfoReader);
 			relationshipProgresBar.setBounds(175, 40 + 40 * i, 300, 30);
 			relationshipProgresBar.setValue(deityAttributes.getHappiness(deity));
-			relationshipProgresBar.setToolTipText("deity hapiness indicator: if a deity becomes unhappy, they may lash out against the population");
+			relationshipProgresBar.setToolTipText(deityTooltip);
 			deitiesPanel.add(relationshipProgresBar);
 		}
 	}
 	
-	private JToggleButton createToggleButton(String label, String panelKey, SoundIdReader soundIdReader, CardLayout cardLayout, JPanel infoPanel, ButtonGroup buttonGroup, JPanel toggleButtonPanel) {
+	private JToggleButton createToggleButton(String label, String panelKey, SoundIdReader soundIdReader, CardLayout cardLayout, JPanel infoPanel, ButtonGroup buttonGroup, JPanel toggleButtonPanel, String tooltip) {
 		JToggleButton button = JButtonFactory.createToggleButton(label, soundIdReader);
 		button.addActionListener(e -> cardLayout.show(infoPanel, panelKey));
 		button.setOpaque(false);
+		button.setToolTipText(tooltip);
 		buttonGroup.add(button);
 		toggleButtonPanel.add(button);
 		return button;
