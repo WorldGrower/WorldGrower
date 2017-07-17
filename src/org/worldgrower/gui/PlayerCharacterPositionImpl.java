@@ -30,14 +30,14 @@ public class PlayerCharacterPositionImpl implements PlayerCharacterPosition {
 
 	@Override
 	public int getScreenX(WorldObject playerCharacter) {
-		int currentX = worldPanel.getScreenX(playerCharacter.getProperty(Constants.X)) * 48;
+		int currentX = worldPanel.getScreenX(playerCharacter.getProperty(Constants.X)) * 48 + 24;
 		int deltaX = animationPainter.getDeltaX(playerCharacter);
 		return currentX + deltaX;
 	}
 
 	@Override
 	public int getScreenY(WorldObject playerCharacter) {
-		int currentY = worldPanel.getScreenY(playerCharacter.getProperty(Constants.Y)) * 48;
+		int currentY = worldPanel.getScreenY(playerCharacter.getProperty(Constants.Y)) * 48 + 24;
 		int deltaY = animationPainter.getDeltaY(playerCharacter);
 		return currentY + deltaY;
 	}

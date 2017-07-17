@@ -35,7 +35,6 @@ import org.worldgrower.gui.util.ImageUtils;
 
 public class BuildModeOutline {
 
-	private WorldObject playerCharacter;
 	private boolean buildMode = false;
 	private BuildAction buildAction;
 	private int[] args;
@@ -44,7 +43,6 @@ public class BuildModeOutline {
 	private BufferedImage notOkImage;
 	
 	public void startBuildMode(WorldObject playerCharacter, BuildAction buildAction, int[] args, ImageInfoReader imageInfoReader) {
-		this.playerCharacter = playerCharacter;
 		this.buildMode = true;
 		this.buildAction = buildAction;
 		this.args = args;
@@ -54,9 +52,10 @@ public class BuildModeOutline {
 		this.notOkImage = ImageUtils.dye(okImage, new Color(1f, 0, 0, 0.5f));
 	}
 	
-	public void endBuildMode(boolean executeBuildAction, Point mouseLocation, int offsetX, int offsetY, WorldObject playerCharacter, World world, GuiMouseListener guiMouseListener) {
+	public void endBuildMode(boolean executeBuildAction, MouseLocationProvider mouseLocationProvider, int offsetX, int offsetY, WorldObject playerCharacter, World world, GuiMouseListener guiMouseListener) {
 		this.buildMode = false;
 		if (executeBuildAction) {
+			Point mouseLocation = mouseLocationProvider.getMouseLocation();
 			WorldObject buildLocation = getBuildLocation(mouseLocation, offsetX, offsetY);
 			if (isbuildActionPossible(playerCharacter, world, buildLocation)) {
 				guiMouseListener.executeBuildAction(buildAction, buildLocation, args);
@@ -70,11 +69,11 @@ public class BuildModeOutline {
 		return Game.canActionExecute(playerCharacter, buildAction, args, world, buildLocation);
 	}
 	
-	public void repaintBuildMode(Graphics g, Point mouseLocation, int offsetX, int offsetY, WorldObject playerCharacter, World world) {
+	public void repaintBuildMode(Graphics g, MouseLocationProvider mouseLocationProvider, int offsetX, int offsetY, WorldObject playerCharacter, World world) {
 		if (buildMode) {
 			Graphics2D g2 = (Graphics2D) g;
 			
-			
+			Point mouseLocation = mouseLocationProvider.getMouseLocation();
 			Double rectangleToDraw = getRectangleToDraw(mouseLocation);
 			final Color color;
 			WorldObject buildLocation = getBuildLocation(mouseLocation, offsetX, offsetY);

@@ -79,7 +79,7 @@ import org.worldgrower.gui.music.SoundIds;
 import org.worldgrower.gui.start.KeyBindings;
 import org.worldgrower.terrain.TerrainType;
 
-public final class WorldPanel extends JPanel implements ImageFactory {
+public final class WorldPanel extends JPanel implements ImageFactory, MouseLocationProvider {
 
 	private WorldObject playerCharacter;
 	private World world;
@@ -264,7 +264,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 		
 		playerCharacterVisionPainter.paintPlayerCharacterVision(g, playerCharacter, world, this);
 		
-		buildModeOutline.repaintBuildMode(g, getMouseLocation(), offsetX, offsetY, playerCharacter, world);
+		buildModeOutline.repaintBuildMode(g, this, offsetX, offsetY, playerCharacter, world);
 		infoPanel.updatePlayerCharacterValues();
     }
 	
@@ -529,13 +529,14 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 	}
 
 	public void endBuildMode(boolean executeBuildAction) {
-		this.buildModeOutline.endBuildMode(executeBuildAction, getMouseLocation(), offsetX, offsetY, playerCharacter, world, guiMouseListener);
+		this.buildModeOutline.endBuildMode(executeBuildAction, this, offsetX, offsetY, playerCharacter, world, guiMouseListener);
 		this.removeMouseMotionListener(this.mouseMotionListener);
 		repaint();
 		bindEscapeButtonToStartScreen(world);
 	}
 
-	private Point getMouseLocation() {
+	@Override
+	public Point getMouseLocation() {
 		Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
 		SwingUtilities.convertPointFromScreen(mouseLocation, this);
 		return mouseLocation;
