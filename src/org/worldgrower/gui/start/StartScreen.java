@@ -38,6 +38,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
 import javax.swing.plaf.FontUIResource;
 
 import org.worldgrower.Version;
@@ -102,7 +103,10 @@ public class StartScreen implements SaveGameHandler {
 		UIManager.getDefaults().put("Label.disabledForeground", ColorPalette.DISABLED_FOREGROUND_COLOR);
 		UIManager.getDefaults().put("CheckBox.disabledText", ColorPalette.DISABLED_FOREGROUND_COLOR);		
 		UIManager.put("ToolTip.font", new FontUIResource(Fonts.FONT));
-
+		UIManager.put("ToolTip.background", Color.BLACK);
+		UIManager.put("ToolTip.foreground", Color.WHITE);
+		UIManager.put("ToolTip.border", new LineBorder(Color.BLACK));
+		
 		Color menuSelectionBackground = new Color(255, 0, 0, 0);
 		Color menuSelectionForeground = Color.BLACK;
 		UIManager.put("MenuItem.selectionBackground", menuSelectionBackground);
