@@ -631,11 +631,12 @@ public final class WorldPanel extends JPanel implements ImageFactory, MouseLocat
 			StringBuilder terrainTooltipBuilder = new StringBuilder();
 			terrainTooltipBuilder.append("<html>");
 			terrainTooltipBuilder.append(terrainType.getDescription()).append("<br>");
-			terrainTooltipBuilder.append(imageInfoReader.smallImageTag(ImageIds.BERRY)).append(" food bonus ").append(BerryBushOnTurn.getPercentageFoodBonus(terrainType)).append("<br>");
-			terrainTooltipBuilder.append(imageInfoReader.smallImageTag(ImageIds.WOOD)).append(" wood bonus ").append(TreeOnTurn.getPercentageWoodBonus(terrainType)).append("<br>");
-			terrainTooltipBuilder.append(imageInfoReader.smallImageTag(ImageIds.COTTON)).append(" cotton bonus ").append(CottonPlantOnTurn.getPercentageCottonBonus(terrainType)).append("<br>");
-			terrainTooltipBuilder.append(imageInfoReader.smallImageTag(ImageIds.GRAPES)).append(" grapes bonus ").append(GrapeVineOnTurn.getPercentageGrapesBonus(terrainType)).append("<br>");
-			terrainTooltipBuilder.append(imageInfoReader.smallImageTag(ImageIds.NIGHT_SHADE)).append(" nightshade bonus ").append(NightShadeOnTurn.getPercentageNightShadeBonus(terrainType)).append("<br>");
+			terrainTooltipBuilder.append("<table>");
+			terrainTooltipBuilder.append("<tr><td>").append(imageInfoReader.smallImageTag(ImageIds.BERRY)).append(" food bonus </td><td>").append(BerryBushOnTurn.getPercentageFoodBonus(terrainType)).append("</td></tr>");
+			terrainTooltipBuilder.append("<tr><td>").append(imageInfoReader.smallImageTag(ImageIds.WOOD)).append(" wood bonus </td><td>").append(TreeOnTurn.getPercentageWoodBonus(terrainType)).append("</td></tr>");
+			terrainTooltipBuilder.append("<tr><td>").append(imageInfoReader.smallImageTag(ImageIds.COTTON)).append(" cotton bonus </td><td>").append(CottonPlantOnTurn.getPercentageCottonBonus(terrainType)).append("</td></tr>");
+			terrainTooltipBuilder.append("<tr><td>").append(imageInfoReader.smallImageTag(ImageIds.GRAPES)).append(" grapes bonus </td><td>").append(GrapeVineOnTurn.getPercentageGrapesBonus(terrainType)).append("</td></tr>");
+			terrainTooltipBuilder.append("<tr><td>").append(imageInfoReader.smallImageTag(ImageIds.NIGHT_SHADE)).append(" nightshade bonus </td><td>").append(NightShadeOnTurn.getPercentageNightShadeBonus(terrainType)).append("</td></tr>");
 			terrainTooltipBuilder.append("</html>");
 			return terrainTooltipBuilder.toString();
 		} else {
