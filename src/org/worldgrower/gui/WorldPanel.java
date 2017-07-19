@@ -654,9 +654,9 @@ public final class WorldPanel extends JPanel implements ImageFactory, MouseLocat
 		} else {
 			WorldObject facade = worldObject.getProperty(Constants.FACADE);
 			if ((facade != null) && facade.getProperty(Constants.NAME) != null) {
-				return bonusDescriptions.getWorldObjectDescription(facade, world);
+				return bonusDescriptions.getWorldObjectDescription(facade, imageInfoReader, world);
 			} else {
-				return bonusDescriptions.getWorldObjectDescription(worldObject, world);
+				return bonusDescriptions.getWorldObjectDescription(worldObject, imageInfoReader, world);
 			}
 		}
 	}
