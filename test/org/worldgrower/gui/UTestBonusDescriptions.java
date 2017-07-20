@@ -32,23 +32,29 @@ import org.worldgrower.goal.GroupPropertyUtils;
 public class UTestBonusDescriptions {
 
 	private BonusDescriptions bonusDescriptions = new BonusDescriptions();
-	private static ImageInfoReader imageInfoReader;
+	private static SmallImageTagFactory smallImageTagFactory;
 	
 	@BeforeClass
 	public static void setup() throws IOException {
-		imageInfoReader = new ImageInfoReader();
+		smallImageTagFactory = new SmallImageTagFactory() {
+
+			@Override
+			public String smallImageTag(ImageIds imageIds) {
+				return "<" + imageIds.name() + ">";
+			}
+		};
 	}
 	
 	@Test
 	public void testGetCattleDescription() throws IOException {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject cow = generateCow(world);
-		assertEquals("<html>Cow<br><table><tr><td>meat</td><td>1 <img src=\"image:MEAT\" width=\"18\" height=\"18\"></td></tr></table></html>", bonusDescriptions.getWorldObjectDescription(cow, imageInfoReader, world));
+		assertEquals("<html>Cow<br><table><tr><td>meat</td><td>1 <MEAT></td></tr></table></html>", bonusDescriptions.getWorldObjectDescription(cow, smallImageTagFactory, world));
 		
 		WorldObject performer = TestUtils.createWorldObject(6, "Test1");
 		world.addWorldObject(performer);
 		cow.setProperty(Constants.CATTLE_OWNER_ID, performer.getProperty(Constants.ID));
-		assertEquals("<html>Cow<br><table><tr><td>owner</td><td>Test1</td></tr><tr><td>meat</td><td>1 <img src=\"image:MEAT\" width=\"18\" height=\"18\"></td></tr></table></html>", bonusDescriptions.getWorldObjectDescription(cow, imageInfoReader, world));
+		assertEquals("<html>Cow<br><table><tr><td>owner</td><td>Test1</td></tr><tr><td>meat</td><td>1 <MEAT></td></tr></table></html>", bonusDescriptions.getWorldObjectDescription(cow, smallImageTagFactory, world));
 	}
 	
 	@Test
@@ -57,7 +63,7 @@ public class UTestBonusDescriptions {
 		WorldObject performer = TestUtils.createSkilledWorldObject(6);
 		world.addWorldObject(performer);
 		WorldObject house = generateHouse(performer, world);
-		assertEquals("<html>worldObject's house<br> <table><tr><td>sleep bonus </td><td>6 <img src=\"image:SLEEPING_INDICATOR\" width=\"18\" height=\"18\"></td></tr><tr><td></td></table></html>", bonusDescriptions.getWorldObjectDescription(house, imageInfoReader, world));
+		assertEquals("<html>worldObject's house<br> <table><tr><td>sleep bonus </td><td>6 <SLEEPING_INDICATOR></td></tr><tr><td></td></table></html>", bonusDescriptions.getWorldObjectDescription(house, smallImageTagFactory, world));
 	}
 	
 	private WorldObject generateCow(World world) {

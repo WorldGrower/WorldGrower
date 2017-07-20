@@ -41,7 +41,7 @@ import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.font.Fonts;
 import org.worldgrower.gui.util.ImageUtils;
 
-public class ImageInfoReader {
+public class ImageInfoReader implements SmallImageTagFactory {
 
 	private final Map<ImageIds, List<Image>> idToImages = new HashMap<>();
 	private final List<ImageIds> characterImageIds = new ArrayList<>();
@@ -1589,6 +1589,7 @@ public class ImageInfoReader {
 	   return idToImages.get(id).size();
    }
 	
+   @Override
 	public String smallImageTag(ImageIds imageIds) {
 		// lazy initialization to avoid initializing this in unit tests
 		if (toolTipImageHandler == null) {

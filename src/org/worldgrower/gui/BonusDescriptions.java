@@ -40,11 +40,11 @@ public class BonusDescriptions {
 					
 			);
 	
-	public String getWorldObjectDescription(WorldObject worldObject, ImageInfoReader imageInfoReader, World world) {
+	public String getWorldObjectDescription(WorldObject worldObject, SmallImageTagFactory smallImageTagFactory, World world) {
 		String name = worldObject.getProperty(Constants.NAME);
 		
 		for (TooltipFormatter tooltipFormatter : tooltipFormatters) {
-			String toolTip = tooltipFormatter.getToolTip(worldObject, imageInfoReader, world);
+			String toolTip = tooltipFormatter.getToolTip(worldObject, smallImageTagFactory, world);
 			if (toolTip != null) {
 				return "<html>" + name + "<br>" + toolTip + "</html>";
 			}
@@ -54,7 +54,7 @@ public class BonusDescriptions {
 	}
 	
 	private static interface TooltipFormatter {
-		public String getToolTip(WorldObject worldObject, ImageInfoReader imageInfoReader, World world);
+		public String getToolTip(WorldObject worldObject, SmallImageTagFactory smallImageTagFactory, World world);
 	}
 	
 	private static class BonusDescription implements TooltipFormatter {
@@ -72,12 +72,12 @@ public class BonusDescriptions {
 		}
 		
 		@Override
-		public String getToolTip(WorldObject worldObject, ImageInfoReader imageInfoReader, World world) {
+		public String getToolTip(WorldObject worldObject, SmallImageTagFactory smallImageTagFactory, World world) {
 			if (worldObject.hasProperty(intProperty)) {
 				int bonus = worldObject.getProperty(intProperty);
 				boolean isBooleanFlagSet = worldObject.hasProperty(booleanProperty) && worldObject.getProperty(booleanProperty);
 				String booleanFlagDescription = (isBooleanFlagSet ? booleanProperty.getName() + "</td><td> yes" : "");
-				return " <table><tr><td>" + description + " bonus </td><td>" + bonus + " " + imageInfoReader.smallImageTag(imageId) + "</td></tr><tr><td>"+ booleanFlagDescription + "</td></table>";
+				return " <table><tr><td>" + description + " bonus </td><td>" + bonus + " " + smallImageTagFactory.smallImageTag(imageId) + "</td></tr><tr><td>"+ booleanFlagDescription + "</td></table>";
 			} else {
 				return null;
 			}
@@ -97,20 +97,20 @@ public class BonusDescriptions {
 		}
 		
 		@Override
-		public String getToolTip(WorldObject worldObject, ImageInfoReader imageInfoReader, World world) {
+		public String getToolTip(WorldObject worldObject, SmallImageTagFactory smallImageTagFactory, World world) {
 			if (worldObject.hasProperty(idProperty) && worldObject.getProperty(idProperty) != null) {
 				int id = worldObject.getProperty(idProperty);
 				WorldObject owner = world.findWorldObjectById(id);
-				return "<table><tr><td>owner</td><td>" + owner.getProperty(Constants.NAME) + "</td></tr><tr><td>" + generateIntPropertyDescription(worldObject, imageInfoReader) + "</td></tr></table>";
+				return "<table><tr><td>owner</td><td>" + owner.getProperty(Constants.NAME) + "</td></tr><tr><td>" + generateIntPropertyDescription(worldObject, smallImageTagFactory) + "</td></tr></table>";
 			} else if (worldObject.hasProperty(intProperty)) {
-				return "<table><tr><td>" + generateIntPropertyDescription(worldObject, imageInfoReader) + "</td></tr></table>";
+				return "<table><tr><td>" + generateIntPropertyDescription(worldObject, smallImageTagFactory) + "</td></tr></table>";
 			} else {
 				return null;
 			}
 		}
 		
-		private String generateIntPropertyDescription(WorldObject worldObject, ImageInfoReader imageInfoReader) {
-			return intProperty.getName() + "</td><td>" + worldObject.getProperty(intProperty) + " " + imageInfoReader.smallImageTag(imageId);
+		private String generateIntPropertyDescription(WorldObject worldObject, SmallImageTagFactory smallImageTagFactory) {
+			return intProperty.getName() + "</td><td>" + worldObject.getProperty(intProperty) + " " + smallImageTagFactory.smallImageTag(imageId);
 		}
 	}
 }
