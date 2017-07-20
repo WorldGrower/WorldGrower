@@ -25,8 +25,10 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.CreatureGenerator;
+import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.goal.GroupPropertyUtils;
 
 public class UTestBonusDescriptions {
@@ -63,7 +65,35 @@ public class UTestBonusDescriptions {
 		WorldObject performer = TestUtils.createSkilledWorldObject(6);
 		world.addWorldObject(performer);
 		WorldObject house = generateHouse(performer, world);
-		assertEquals("<html>worldObject's house<br> <table><tr><td>sleep bonus </td><td>6 <SLEEPING_INDICATOR></td></tr><tr><td></td></table></html>", bonusDescriptions.getWorldObjectDescription(house, smallImageTagFactory, world));
+		assertEquals("<html>worldObject's house<br><table><tr><td>sleep bonus </td><td>6 <SLEEPING_INDICATOR></td></tr></table></html>", bonusDescriptions.getWorldObjectDescription(house, smallImageTagFactory, world));
+	}
+	
+	@Test
+	public void testGetOwnedHouseDescription() throws IOException {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(6);
+		world.addWorldObject(performer);
+		WorldObject house = generateHouse(performer, world);
+		performer.getProperty(Constants.BUILDINGS).add(house, BuildingType.HOUSE);
+		assertEquals("<html>worldObject's house<br><table><tr><td>sleep bonus </td><td>6 <SLEEPING_INDICATOR></td></tr><tr><td>owner</td><td>worldObject</td></tr></table></html>", bonusDescriptions.getWorldObjectDescription(house, smallImageTagFactory, world));
+	}
+	
+	@Test
+	public void testGetSellableHouseDescription() throws IOException {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(6);
+		world.addWorldObject(performer);
+		WorldObject house = generateHouse(performer, world);
+		house.setProperty(Constants.SELLABLE, Boolean.TRUE);
+		assertEquals("<html>worldObject's house<br><table><tr><td>sleep bonus </td><td>6 <SLEEPING_INDICATOR></td></tr><tr><td>sellable</td><td> yes</td></tr></table></html>", bonusDescriptions.getWorldObjectDescription(house, smallImageTagFactory, world));
+	}
+	
+	@Test
+	public void testGetTreeDescription() throws IOException {
+		World world = new WorldImpl(10, 10, null, null);
+		int treeId = PlantGenerator.generateOldTree(0, 0, world);
+		WorldObject tree = world.findWorldObjectById(treeId);
+		assertEquals("tree", bonusDescriptions.getWorldObjectDescription(tree, smallImageTagFactory, world));
 	}
 	
 	private WorldObject generateCow(World world) {

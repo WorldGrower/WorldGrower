@@ -23,6 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.BooleanProperty;
 import org.worldgrower.attribute.IdProperty;
 import org.worldgrower.attribute.IntProperty;
+import org.worldgrower.goal.HousePropertyUtils;
 
 public class BonusDescriptions {
 
@@ -75,11 +76,24 @@ public class BonusDescriptions {
 		public String getToolTip(WorldObject worldObject, SmallImageTagFactory smallImageTagFactory, World world) {
 			if (worldObject.hasProperty(intProperty)) {
 				int bonus = worldObject.getProperty(intProperty);
-				boolean isBooleanFlagSet = worldObject.hasProperty(booleanProperty) && worldObject.getProperty(booleanProperty);
-				String booleanFlagDescription = (isBooleanFlagSet ? booleanProperty.getName() + "</td><td> yes" : "");
-				return " <table><tr><td>" + description + " bonus </td><td>" + bonus + " " + smallImageTagFactory.smallImageTag(imageId) + "</td></tr><tr><td>"+ booleanFlagDescription + "</td></table>";
+				WorldObject owner = HousePropertyUtils.getBuildingOwner(worldObject, world);
+				String ownerDescription = (owner != null ? addOwnerRow(worldObject, owner, smallImageTagFactory) : "");
+				return "<table>" + addBonusDescription(bonus, smallImageTagFactory) + addBooleanRow(worldObject) + ownerDescription + "</table>";
 			} else {
 				return null;
+			}
+		}
+		
+		private String addBonusDescription(int bonus, SmallImageTagFactory smallImageTagFactory) {
+			return "<tr><td>" + description + " bonus </td><td>" + bonus + " " + smallImageTagFactory.smallImageTag(imageId) + "</td></tr>";
+		}
+		
+		private String addBooleanRow(WorldObject worldObject) {
+			boolean isBooleanFlagSet = worldObject.hasProperty(booleanProperty) && worldObject.getProperty(booleanProperty);
+			if (isBooleanFlagSet) {
+				return "<tr><td>" + booleanProperty.getName() + "</td><td> yes</td></tr>";
+			} else {
+				return "";
 			}
 		}
 	}
@@ -101,16 +115,22 @@ public class BonusDescriptions {
 			if (worldObject.hasProperty(idProperty) && worldObject.getProperty(idProperty) != null) {
 				int id = worldObject.getProperty(idProperty);
 				WorldObject owner = world.findWorldObjectById(id);
-				return "<table><tr><td>owner</td><td>" + owner.getProperty(Constants.NAME) + "</td></tr><tr><td>" + generateIntPropertyDescription(worldObject, smallImageTagFactory) + "</td></tr></table>";
+				return "<table>" + addOwnerRow(worldObject, owner, smallImageTagFactory) + addIntPropertyRow(worldObject, smallImageTagFactory) + "</table>";
 			} else if (worldObject.hasProperty(intProperty)) {
-				return "<table><tr><td>" + generateIntPropertyDescription(worldObject, smallImageTagFactory) + "</td></tr></table>";
+				return "<table>" + addIntPropertyRow(worldObject, smallImageTagFactory) + "</table>";
 			} else {
 				return null;
 			}
 		}
 		
-		private String generateIntPropertyDescription(WorldObject worldObject, SmallImageTagFactory smallImageTagFactory) {
-			return intProperty.getName() + "</td><td>" + worldObject.getProperty(intProperty) + " " + smallImageTagFactory.smallImageTag(imageId);
+		
+		
+		private String addIntPropertyRow(WorldObject worldObject, SmallImageTagFactory smallImageTagFactory) {
+			return "<tr><td>" + intProperty.getName() + "</td><td>" + worldObject.getProperty(intProperty) + " " + smallImageTagFactory.smallImageTag(imageId) + "</td></tr>";
 		}
+	}
+	
+	private static String addOwnerRow(WorldObject worldObject, WorldObject owner, SmallImageTagFactory smallImageTagFactory) {
+		return "<tr><td>owner</td><td>" + owner.getProperty(Constants.NAME) + "</td></tr>";
 	}
 }

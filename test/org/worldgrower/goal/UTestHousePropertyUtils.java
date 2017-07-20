@@ -152,4 +152,21 @@ public class UTestHousePropertyUtils {
 		
 		assertEquals(false, HousePropertyUtils.allHousesButFirstSellable(performer, world));
 	}
+	
+	@Test
+	public void testGetBuildingOwner() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.BUILDINGS, new BuildingList());
+		world.addWorldObject(performer);
+		
+		int houseId = BuildingGenerator.generateHouse(0, 0, world, performer);
+		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
+		WorldObject house = world.findWorldObjectById(houseId);
+		
+		assertEquals(7, HousePropertyUtils.getBuildingOwner(house, world).getProperty(Constants.ID).intValue());
+		
+		world.removeWorldObject(performer);
+		assertEquals(null, HousePropertyUtils.getBuildingOwner(house, world));
+		
+	}
 }

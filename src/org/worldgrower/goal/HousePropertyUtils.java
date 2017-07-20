@@ -151,4 +151,13 @@ public class HousePropertyUtils {
 		target.getProperty(Constants.BUILDINGS).add(buildingId, buildingType);
 		building.setProperty(Constants.SELLABLE, Boolean.FALSE);
 	}
+	
+	public static WorldObject getBuildingOwner(WorldObject building, World world) {
+		List<WorldObject> worldObjects = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.hasProperty(Constants.BUILDINGS) && w.getProperty(Constants.BUILDINGS).contains(building));
+		if (worldObjects.size() > 0) {
+			return worldObjects.get(0);
+		} else {
+			return null;
+		}
+	}
 }
