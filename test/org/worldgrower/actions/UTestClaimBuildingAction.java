@@ -48,21 +48,6 @@ public class UTestClaimBuildingAction {
 	}
 	
 	@Test
-	public void testChangeName() {
-		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = createPerformer(2);
-		performer.setProperty(Constants.NAME, "performer");
-		
-		WorldObject brewery = generateBrewery(world, performer);
-		assertEquals("performer's brewery", brewery.getProperty(Constants.NAME));
-		
-		performer.setProperty(Constants.NAME, "tester");
-		action.changeName(performer, brewery, world);
-		
-		assertEquals("tester's brewery", brewery.getProperty(Constants.NAME));
-	}
-	
-	@Test
 	public void testChangeKeyNames() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
@@ -70,13 +55,13 @@ public class UTestClaimBuildingAction {
 		world.addWorldObject(performer);
 		
 		WorldObject brewery = generateBrewery(world, performer);
-		assertEquals("performer's brewery", brewery.getProperty(Constants.NAME));
+		assertEquals("brewery", brewery.getProperty(Constants.NAME));
 		
-		performer.getProperty(Constants.INVENTORY).add(Item.generateKey(brewery.getProperty(Constants.ID), world));
+		performer.getProperty(Constants.INVENTORY).add(Item.generateKey(brewery.getProperty(Constants.ID), performer, world));
 		assertEquals("key to performer's brewery", performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.NAME));
 		
-		brewery.setProperty(Constants.NAME, "tester's brewery");
-		action.changeKeyNames(brewery, world);
+		performer.setProperty(Constants.NAME, "tester");
+		action.changeKeyNames(performer, brewery, world);
 		
 		assertEquals("key to tester's brewery", performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.NAME));
 	}
@@ -126,7 +111,7 @@ public class UTestClaimBuildingAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject brewery = generateBrewery(world, performer);
 		
-		assertEquals("claiming a worldObject's brewery", action.getDescription(performer, brewery, Args.EMPTY, world));
+		assertEquals("claiming a brewery", action.getDescription(performer, brewery, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

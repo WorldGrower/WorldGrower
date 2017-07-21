@@ -65,7 +65,7 @@ public class UTestBonusDescriptions {
 		WorldObject performer = TestUtils.createSkilledWorldObject(6);
 		world.addWorldObject(performer);
 		WorldObject house = generateHouse(performer, world);
-		assertEquals("<html>worldObject's house<br><table><tr><td>sleep bonus </td><td>6 <SLEEPING_INDICATOR></td></tr></table></html>", bonusDescriptions.getWorldObjectDescription(house, smallImageTagFactory, world));
+		assertEquals("<html>house<br><table><tr><td>sleep bonus </td><td>6 <SLEEPING_INDICATOR></td></tr></table></html>", bonusDescriptions.getWorldObjectDescription(house, smallImageTagFactory, world));
 	}
 	
 	@Test
@@ -75,7 +75,7 @@ public class UTestBonusDescriptions {
 		world.addWorldObject(performer);
 		WorldObject house = generateHouse(performer, world);
 		performer.getProperty(Constants.BUILDINGS).add(house, BuildingType.HOUSE);
-		assertEquals("<html>worldObject's house<br><table><tr><td>sleep bonus </td><td>6 <SLEEPING_INDICATOR></td></tr><tr><td>owner</td><td>worldObject</td></tr></table></html>", bonusDescriptions.getWorldObjectDescription(house, smallImageTagFactory, world));
+		assertEquals("<html>house<br><table><tr><td>sleep bonus </td><td>6 <SLEEPING_INDICATOR></td></tr><tr><td>owner</td><td>worldObject</td></tr></table></html>", bonusDescriptions.getWorldObjectDescription(house, smallImageTagFactory, world));
 	}
 	
 	@Test
@@ -85,7 +85,7 @@ public class UTestBonusDescriptions {
 		world.addWorldObject(performer);
 		WorldObject house = generateHouse(performer, world);
 		house.setProperty(Constants.SELLABLE, Boolean.TRUE);
-		assertEquals("<html>worldObject's house<br><table><tr><td>sleep bonus </td><td>6 <SLEEPING_INDICATOR></td></tr><tr><td>sellable</td><td> yes</td></tr></table></html>", bonusDescriptions.getWorldObjectDescription(house, smallImageTagFactory, world));
+		assertEquals("<html>house<br><table><tr><td>sleep bonus </td><td>6 <SLEEPING_INDICATOR></td></tr><tr><td>sellable</td><td> yes</td></tr></table></html>", bonusDescriptions.getWorldObjectDescription(house, smallImageTagFactory, world));
 	}
 	
 	@Test

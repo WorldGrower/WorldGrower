@@ -39,10 +39,10 @@ public class UTestLockUtils {
 		
 		assertEquals(false, LockUtils.performerHasKey(performer, target));
 		
-		WorldObject key = Item.generateKey(target.getProperty(Constants.ID), world);
+		WorldObject key = Item.generateKey(target.getProperty(Constants.ID), performer, world);
 		performer.getProperty(Constants.INVENTORY).add(key);
 		assertEquals(true, LockUtils.performerHasKey(performer, target));
-		assertEquals("key to Test2", key.getProperty(Constants.NAME));
+		assertEquals("key to worldObject's Test2", key.getProperty(Constants.NAME));
 	}
 	
 	@Test

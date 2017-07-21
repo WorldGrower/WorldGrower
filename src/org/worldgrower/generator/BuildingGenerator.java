@@ -106,7 +106,7 @@ public class BuildingGenerator {
 		properties.put(Constants.Y, y);
 		BuildingDimensions.SHACK.addWidthHeight(properties);
 		properties.put(Constants.SLEEP_COMFORT, 3 + sleepComfortBonus);
-		properties.put(Constants.NAME, createName("shack", owner));
+		properties.put(Constants.NAME, "shack");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, BuildingType.SHACK.getImageId());
 		properties.put(Constants.HIT_POINTS, 100 * Item.COMBAT_MULTIPLIER);
@@ -141,7 +141,7 @@ public class BuildingGenerator {
 		properties.put(Constants.Y, y);
 		BuildingDimensions.HOUSE.addWidthHeight(properties);
 		properties.put(Constants.SLEEP_COMFORT, 5 + sleepComfortBonus);
-		properties.put(Constants.NAME, createName("house", owner));
+		properties.put(Constants.NAME, "house");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, BuildingType.HOUSE.getImageId());
 		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
@@ -159,14 +159,6 @@ public class BuildingGenerator {
 		
 		WorldObject house = new WorldObjectImpl(properties);
 		return house;
-	}
-	
-	public static String createName(BuildingType buildingType, WorldObject owner) {
-		return createName(buildingType.getDescription(), owner);
-	}
-	
-	public static String createName(String baseName, WorldObject owner) {
-		return owner.getProperty(Constants.NAME) + "'s " + baseName;
 	}
 	
 	public static int buildWell(int x, int y, World world, double skillBonus) {
@@ -599,7 +591,7 @@ public class BuildingGenerator {
 		properties.put(Constants.Y, y);
 		BuildingDimensions.LIBRARY.addWidthHeight(properties);
 		properties.put(Constants.LIBRARY_QUALITY, libraryQualityBonus);
-		properties.put(Constants.NAME, createName("library", owner));
+		properties.put(Constants.NAME, "library");
 		
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.LIBRARY);
@@ -633,7 +625,7 @@ public class BuildingGenerator {
 		properties.put(Constants.Y, y);
 		BuildingDimensions.PAPERMILL.addWidthHeight(properties);
 		properties.put(Constants.PAPER_MILL_QUALITY, paperMillBonus);
-		properties.put(Constants.NAME, createName("papermill", owner));
+		properties.put(Constants.NAME, "papermill");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, BuildingType.PAPERMILL.getImageId());
 		properties.put(Constants.HIT_POINTS, 50 * Item.COMBAT_MULTIPLIER);
@@ -665,7 +657,7 @@ public class BuildingGenerator {
 		properties.put(Constants.Y, y);
 		BuildingDimensions.SMITH.addWidthHeight(properties);
 		properties.put(Constants.SMITH_QUALITY, smithBonus);
-		properties.put(Constants.NAME, createName("smithy", owner));
+		properties.put(Constants.NAME, "smithy");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, BuildingType.SMITH.getImageId());
 		properties.put(Constants.HIT_POINTS, 100 * Item.COMBAT_MULTIPLIER);
@@ -695,7 +687,7 @@ public class BuildingGenerator {
 		properties.put(Constants.Y, y);
 		BuildingDimensions.WORKBENCH.addWidthHeight(properties);
 		properties.put(Constants.WORKBENCH_QUALITY, workBenchBonus);
-		properties.put(Constants.NAME, createName("workbench", owner));
+		properties.put(Constants.NAME, "workbench");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, BuildingType.WORKBENCH.getImageId());
 		properties.put(Constants.HIT_POINTS, 100 * Item.COMBAT_MULTIPLIER);
@@ -726,7 +718,7 @@ public class BuildingGenerator {
 		properties.put(Constants.WIDTH, 6);
 		properties.put(Constants.HEIGHT, 8);
 		properties.put(Constants.SLEEP_COMFORT, 5 + sleepComfortBonus);
-		properties.put(Constants.NAME, createName("Inn", owner));
+		properties.put(Constants.NAME, "Inn");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, BuildingType.INN.getImageId());
 		properties.put(Constants.CONDITIONS, new Conditions());
@@ -789,7 +781,7 @@ public class BuildingGenerator {
 		properties.put(Constants.Y, y);
 		BuildingDimensions.WEAVERY.addWidthHeight(properties);
 		properties.put(Constants.WEAVERY_QUALITY, weaveryBonus);
-		properties.put(Constants.NAME, createName("weavery", owner));
+		properties.put(Constants.NAME, "weavery");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, BuildingType.WEAVERY.getImageId());
 		properties.put(Constants.HIT_POINTS, 100 * Item.COMBAT_MULTIPLIER);
@@ -819,7 +811,7 @@ public class BuildingGenerator {
 		properties.put(Constants.Y, y);
 		BuildingDimensions.BREWERY.addWidthHeight(properties);
 		properties.put(Constants.BREWERY_QUALITY, breweryBonus);
-		properties.put(Constants.NAME, createName("brewery", owner));
+		properties.put(Constants.NAME, "brewery");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, BuildingType.BREWERY.getImageId());
 		properties.put(Constants.HIT_POINTS, 100 * Item.COMBAT_MULTIPLIER);
@@ -849,7 +841,7 @@ public class BuildingGenerator {
 		properties.put(Constants.Y, y);
 		BuildingDimensions.APOTHECARY.addWidthHeight(properties);
 		properties.put(Constants.APOTHECARY_QUALITY, apothecaryBonus);
-		properties.put(Constants.NAME, createName("apothecary", owner));
+		properties.put(Constants.NAME, "apothecary");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, BuildingType.APOTHECARY.getImageId());
 		properties.put(Constants.HIT_POINTS, 100 * Item.COMBAT_MULTIPLIER);
@@ -877,7 +869,7 @@ public class BuildingGenerator {
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		BuildingDimensions.CHEST.addWidthHeight(properties);
-		properties.put(Constants.NAME, createName("chest", owner));
+		properties.put(Constants.NAME, "chest");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, BuildingType.CHEST.getImageId());
 		properties.put(Constants.FLAMMABLE, Boolean.TRUE);

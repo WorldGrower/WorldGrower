@@ -23,7 +23,6 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.BuildingType;
-import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.HousePropertyUtils;
 import org.worldgrower.gui.ImageIds;
@@ -41,31 +40,25 @@ public class ClaimBuildingAction implements ManagedOperation {
 			HousePropertyUtils.removeShack(performer, world);
 		}
 		
-		changeName(performer, target, world);
-		changeKeyNames(target, world);
+		changeKeyNames(performer, target, world);
 		addKeyToInventory(performer, target, world);
 	}
-
-	void changeName(WorldObject performer, WorldObject target, World world) {
-		String name = BuildingGenerator.createName(target.getProperty(Constants.BUILDING_TYPE), performer);
-		target.setProperty(Constants.NAME, name);
-	}
 	
-	void changeKeyNames(WorldObject target, World world) {
+	void changeKeyNames(WorldObject performer, WorldObject target, World world) {
 		List<WorldObject> targetsWithKeys = world.findWorldObjectsByProperty(Constants.INVENTORY, w -> w.getProperty(Constants.INVENTORY).getIndexFor(Constants.LOCK_ID) != -1);
 
 		int targetId = target.getProperty(Constants.ID).intValue();
 		for(WorldObject targetsWithKey : targetsWithKeys) {
 			List<WorldObject> keysForTarget = targetsWithKey.getProperty(Constants.INVENTORY).getWorldObjectsByFunction(Constants.LOCK_ID, w -> w.getProperty(Constants.LOCK_ID) == targetId);
 			for(WorldObject keyForTarget : keysForTarget) {
-				keyForTarget.setProperty(Constants.NAME, Item.getKeyName(target));
+				keyForTarget.setProperty(Constants.NAME, Item.getKeyName(target, performer));
 			}
 		}
 	}
 	
 	private void addKeyToInventory(WorldObject performer, WorldObject target, World world) {
 		int targetId = target.getProperty(Constants.ID).intValue();
-		performer.getProperty(Constants.INVENTORY).addUniqueQuantity(Item.generateKey(targetId, world));
+		performer.getProperty(Constants.INVENTORY).addUniqueQuantity(Item.generateKey(targetId, performer, world));
 	}
 
 	@Override

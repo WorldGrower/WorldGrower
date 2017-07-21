@@ -48,7 +48,7 @@ public class UTestUnlockMagicSpellAction {
 			
 			@Override
 			public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object value) {
-				assertEquals("worldObject unlocks worldObject's house", value.toString());
+				assertEquals("worldObject unlocks house", value.toString());
 			}
 		});		
 		
@@ -72,7 +72,7 @@ public class UTestUnlockMagicSpellAction {
 	
 			@Override
 			public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object value) {
-				assertEquals("worldObject fails to unlock worldObject's house", value.toString());
+				assertEquals("worldObject fails to unlock house", value.toString());
 			}
 		});
 		

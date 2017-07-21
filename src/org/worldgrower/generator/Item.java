@@ -1327,16 +1327,20 @@ public enum Item {
 		return spellBook;
 	}
 	
-	public static WorldObject generateKey(int structureToLockId, World world) {
+	public static WorldObject generateKey(int structureToLockId, WorldObject owner, World world) {
 		WorldObject key = Item.KEY.generate(1f);
 		WorldObject structureToLock = world.findWorldObjectById(structureToLockId);
-		key.setProperty(Constants.NAME, getKeyName(structureToLock));
+		key.setProperty(Constants.NAME, getKeyName(structureToLock, owner));
 		key.setProperty(Constants.LOCK_ID, structureToLockId);
 		return key;
 	}
 	
-	public static String getKeyName(WorldObject structureToLock) {
-		return "key to " + structureToLock.getProperty(Constants.NAME);
+	public static String getKeyName(WorldObject structureToLock, WorldObject owner) {
+		return "key to " + createName(structureToLock.getProperty(Constants.NAME), owner);
+	}
+	
+	private static String createName(String baseName, WorldObject owner) {
+		return owner.getProperty(Constants.NAME) + "'s " + baseName;
 	}
 	
 	public static WorldObject generateNewsPaper(List<Knowledge> knowledgeList, int[] knowledgeIndices, World world) {
