@@ -477,6 +477,7 @@ public final class WorldPanel extends JPanel implements ImageFactory, MouseLocat
 	    		offsetY = -world.getHeight() + screenHeight;
 	    	}
     	}
+    	animationPainter.viewChanged(this);
     }
     
 	public WorldObject findWorldObject(int x, int y) {

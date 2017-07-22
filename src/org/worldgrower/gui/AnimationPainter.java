@@ -39,6 +39,10 @@ public class AnimationPainter {
 		initializeWorldObjects(worldPanel);
 	}
 	
+	public void viewChanged(WorldPanel worldPanel) {
+		initializeWorldObjects(worldPanel);
+	}
+	
 	public void startMove(WorldPanel worldPanel, int[] args, ActionListener guiMoveAction, ActionListener guiAfterMoveAction, WorldObject worldObject, World world, ImageInfoReader imageInfoReader) {
 		if (moveMode) {
 			return;
