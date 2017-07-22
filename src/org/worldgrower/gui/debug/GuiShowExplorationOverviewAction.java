@@ -16,6 +16,7 @@ package org.worldgrower.gui.debug;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -23,8 +24,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
 
 import org.worldgrower.World;
+import org.worldgrower.gui.AnimationPainter.AnimationDescription;
 import org.worldgrower.gui.WorldPanel;
 
 public class GuiShowExplorationOverviewAction extends AbstractAction {
@@ -56,8 +61,56 @@ public class GuiShowExplorationOverviewAction extends AbstractAction {
 		contentPanel.add(isTileExploredButton);
 		isTileExploredButton.addActionListener(ev -> showTileExploredGui());
 		
+		JTable table = new JTable(new AnimationModel(worldPanel.getAnimatedWorldObjects()));
+		contentPanel.add(new JScrollPane(table));
+		
 		frame.setBounds(100,  100, 500, 800);
 		frame.setVisible(true);
+	}
+	
+	private class AnimationModel extends AbstractTableModel {
+		
+		private final List<AnimationDescription> animatedWorldObjects;
+		
+		public AnimationModel(List<AnimationDescription> animatedWorldObjects) {
+			this.animatedWorldObjects = animatedWorldObjects;
+		}
+
+		@Override
+		public int getColumnCount() {
+			return 3;
+		}
+
+		@Override
+		public int getRowCount() {
+			return animatedWorldObjects.size();
+		}
+
+		@Override
+		public String getColumnName(int columnIndex) {
+			if (columnIndex == 0) {
+				return "Name";
+			} else if (columnIndex == 1) {
+				return "X";
+			} else if (columnIndex == 2) {
+				return "Y";
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public Object getValueAt(int rowIndex, int columnIndex) {
+			if (columnIndex == 0) {
+				return animatedWorldObjects.get(rowIndex).getName();
+			} else if (columnIndex == 1) {
+				return animatedWorldObjects.get(rowIndex).getX();
+			} else if (columnIndex == 2) {
+				return animatedWorldObjects.get(rowIndex).getY();
+			} else {
+				return null;
+			}
+		}
 	}
 	
 	private void showWorldObjectExploredGui() {

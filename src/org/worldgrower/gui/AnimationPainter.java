@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
@@ -372,6 +373,35 @@ public class AnimationPainter {
 
 		public int getNumberOfFrames() {
 			return numberOfFrames;
+		}
+	}
+
+	public List<AnimationDescription> getAnimatedWorldObjects() {
+		return worldObjects.stream().map(w -> new AnimationDescription(w.getProperty(Constants.NAME), w.getProperty(Constants.X).toString(), w.getProperty(Constants.Y).toString())).collect(Collectors.toList());
+	}
+	
+	public static class AnimationDescription {
+		private final String name;
+		private final String x;
+		private final String y;
+
+		public AnimationDescription(String name, String x, String y) {
+			super();
+			this.name = name;
+			this.x = x;
+			this.y = y;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public String getX() {
+			return x;
+		}
+
+		public String getY() {
+			return y;
 		}
 	}
 }

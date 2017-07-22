@@ -69,6 +69,7 @@ import org.worldgrower.generator.GrapeVineOnTurn;
 import org.worldgrower.generator.NightShadeOnTurn;
 import org.worldgrower.generator.TreeOnTurn;
 import org.worldgrower.goal.LocationUtils;
+import org.worldgrower.gui.AnimationPainter.AnimationDescription;
 import org.worldgrower.gui.conversation.GuiRespondToQuestion;
 import org.worldgrower.gui.conversation.GuiShowBrawlResult;
 import org.worldgrower.gui.conversation.GuiShowDrinkingContestResult;
@@ -709,5 +710,9 @@ public final class WorldPanel extends JPanel implements ImageFactory, MouseLocat
 
 	public int getWorldViewHeight() {
 		return getHeight() - infoPanel.getHeight();
+	}
+	
+	public List<AnimationDescription> getAnimatedWorldObjects() {
+		return animationPainter.getAnimatedWorldObjects();
 	}
 }
