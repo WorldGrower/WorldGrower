@@ -346,13 +346,14 @@ public class Game {
 				break;
 			}
 		}
+    	worldPanel.updateAndRepaintWorldView();
 	}
 
 	private static void runWorld(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel worldPanel) {
 		dungeonMaster.runWorld(world, worldPanel.getWorldStateChangedListeners());
 		exploreWorld(playerCharacter, world);
 		worldPanel.centerViewOnPlayerCharacter();
-		worldPanel.repaint();
+		worldPanel.repaintWorldView();
 	}
     
     public static boolean canActionExecute(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, WorldObject target) {

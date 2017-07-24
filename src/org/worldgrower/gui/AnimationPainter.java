@@ -176,7 +176,7 @@ public class AnimationPainter {
 		}
 		if (drawAnimation) {
 			moveStep += 2;
-			worldPanel.repaint();
+			worldPanel.repaintWorldView();
 		} else {
 			moveMode = false;
 			moveIndex = 0;
@@ -351,7 +351,6 @@ public class AnimationPainter {
 				Composite composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
 				worldPanel.drawWorldObjectInPixels(g, worldObject, lookDirection, image, x, y, 0, 0, false, composite);
 				worldPanel.repaintAround(x, y, worldObject);				
-				//worldPanel.repaint();
 			}
 		}
 	}

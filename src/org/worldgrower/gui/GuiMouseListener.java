@@ -230,7 +230,7 @@ public class GuiMouseListener extends MouseAdapter {
         int y = (int) e.getPoint().getY() / 48;
         
         ((WorldPanel)container).centerOffsetsOn(x, y);
-        container.repaint();
+        container.repaintWorldView();
 	}
 
 	private void doPop(MouseEvent e){
@@ -288,7 +288,7 @@ public class GuiMouseListener extends MouseAdapter {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				container.setGotoPath(GuiGotoAction.calculatePath(playerCharacter, x, y, world));
-				container.repaint();
+				container.repaintWorldView();
 			}
 		});
 		
@@ -310,7 +310,7 @@ public class GuiMouseListener extends MouseAdapter {
 	
 	void clearPath() {
 		container.setGotoPath(new ArrayList<>());
-		container.repaint();
+		container.repaintWorldView();
 	}
 
 	private void showPlayerCharacterMenu(int x, int y) {

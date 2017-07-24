@@ -29,6 +29,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -522,7 +523,7 @@ public final class WorldPanel extends JPanel implements ImageFactory, MouseLocat
 			@Override
 			public void mouseMoved(MouseEvent mouseEvent) {
 				super.mouseMoved(mouseEvent);
-				WorldPanel.this.repaint();
+				WorldPanel.this.repaintWorldView();
 			}
 			
 		};
@@ -533,7 +534,7 @@ public final class WorldPanel extends JPanel implements ImageFactory, MouseLocat
 	public void endBuildMode(boolean executeBuildAction) {
 		this.buildModeOutline.endBuildMode(executeBuildAction, this, offsetX, offsetY, playerCharacter, world, guiMouseListener);
 		this.removeMouseMotionListener(this.mouseMotionListener);
-		repaint();
+		repaintWorldView();
 		bindEscapeButtonToStartScreen(world);
 	}
 
@@ -715,5 +716,14 @@ public final class WorldPanel extends JPanel implements ImageFactory, MouseLocat
 	
 	public List<AnimationDescription> getAnimatedWorldObjects() {
 		return animationPainter.getAnimatedWorldObjects();
+	}
+
+	public void updateAndRepaintWorldView() {
+		animationPainter.viewChanged(this);
+		repaintWorldView();
+	}
+	
+	public void repaintWorldView() {
+		repaint(0, 0, getWorldViewWidth(), getWorldViewHeight());
 	}
 }
