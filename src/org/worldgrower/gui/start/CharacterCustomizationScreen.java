@@ -55,12 +55,12 @@ import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JPanelFactory;
 import org.worldgrower.gui.util.JRadioButtonFactory;
 import org.worldgrower.gui.util.JTextFieldFactory;
-import org.worldgrower.util.NumberUtils;
 
 public class CharacterCustomizationScreen extends JFrame {
 
 	private static final String PLAYER_NAME_TOOL_TIP = "Sets player character name";
 	private static final String GENDER_TOOL_TIP = "choose gender of player character";
+	private static final String CHARACTER_IMAGE_TOOLTIP = "choose player character image";
 	private static final String CHARACTER_PROFESSION_TOOL_TIP = "describes profession of player character";
 	
 	private static final String ATTRIBUTE_EXPLANATION = "Shows number of attribute points that can be distributed among attributes. Attributes must be between 8 and 20";
@@ -344,7 +344,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		generalInfoPanel.add(femaleRadioButton);
 		
 		JLabel lblCharacterImage = JLabelFactory.createJLabel("Character image:");
-		lblCharacterImage.setToolTipText("choose gender of player character");
+		lblCharacterImage.setToolTipText(CHARACTER_IMAGE_TOOLTIP);
 		lblCharacterImage.setBounds(25, 155, 191, 26);
 		lblCharacterImage.setCursor(Cursors.CURSOR);
 		generalInfoPanel.add(lblCharacterImage);
@@ -352,6 +352,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		cmbImage = JComboBoxFactory.createJComboBox(imageInfoReader);
 		cmbImage.setModel(new ImageComboBoxModel(imageInfoReader));
 		cmbImage.setRenderer(new ImageComboBoxCellRenderer(imageInfoReader));
+		cmbImage.setToolTipText(CHARACTER_IMAGE_TOOLTIP);
 		cmbImage.setSelectedIndex(0);
 		cmbImage.setBounds(228, 163, 137, 58);
 		generalInfoPanel.add(cmbImage);
