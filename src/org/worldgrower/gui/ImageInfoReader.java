@@ -124,6 +124,8 @@ public class ImageInfoReader implements SmallImageTagFactory {
     	Sprites femaleVelia = readSpritesFemaleVelia();
     	Sprites maleWeiss = readSpritesMaleWeiss();
     	Sprites charactersA = readSpritesCharactersA();
+    	Sprites characterMaleMax = readSpritesCharactersMaleMax();
+    	Sprites characterFemaleEllie = readSpritesCharactersFemaleEllie();
     	
     	Sprites smallTree = readSpritesSmallTree();
     	Sprites smallBorealTree = readSpritesSmallBorealTree();
@@ -839,6 +841,9 @@ public class ImageInfoReader implements SmallImageTagFactory {
 		addCharacter(ImageIds.MALE_CHAR_A6, charactersA, 6, 4, 1, 1);
 		addCharacter(ImageIds.FEMALE_CHAR_A1, charactersA, 9, 4, 1, 1);
 		
+		addCharacter(ImageIds.MALE_MAX_CHAR, characterMaleMax, 0, 0, 1, 1);
+		addCharacter(ImageIds.FEMALE_ELLIE_CHAR, characterFemaleEllie, 0, 0, 1, 1);
+	
     }
 
 	private Image createTileTransition(Sprites tileMask, int posX, int posY) {
@@ -1458,6 +1463,14 @@ public class ImageInfoReader implements SmallImageTagFactory {
     
     private Sprites readSpritesCharactersA() throws IOException {
     	return readImages("chara02_timt_by_zerphoon-d9wf8z9.png", 32, 48, 8, 12);
+	}
+    
+    private Sprites readSpritesCharactersMaleMax() throws IOException {
+    	return readImages("vx_ace_sprite___max___free_download_by_rpgmakerworld-d9t61mu.png", 32, 48, 1, 1);
+	}
+    
+    private Sprites readSpritesCharactersFemaleEllie() throws IOException {
+    	return readImages("vx_ace_sprite___ellie__free_download_by_rpgmakerworld-d9sykcp.png", 32, 48, 1, 1);
 	}
     
     private Sprites readSpritesTileMask() throws IOException {
