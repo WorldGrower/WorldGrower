@@ -29,7 +29,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -65,6 +64,7 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.generator.BerryBushOnTurn;
+import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.CottonPlantOnTurn;
 import org.worldgrower.generator.GrapeVineOnTurn;
 import org.worldgrower.generator.NightShadeOnTurn;
@@ -276,8 +276,14 @@ public final class WorldPanel extends JPanel implements ImageFactory, MouseLocat
     	int screenHeight = this.getHeight() / 48;
     	ReadOnlyLocationWorldObjectsCache cache = new ReadOnlyLocationWorldObjectsCache(world);
     	
-		for(int x=-offsetX; x<-offsetX + screenWidth; x++) {
-			for(int y=-offsetY; y<-offsetY + screenHeight; y++) {
+    	// Building widths and heights are taken into accounts
+    	// otherwise offscreen worldobjects aren't rendered
+		int startX = -offsetX - BuildingDimensions.getMaximumBuildingWidth();
+		int startY = -offsetY - BuildingDimensions.getMaximumBuildingHeight();
+		int endX = startX + screenWidth + BuildingDimensions.getMaximumBuildingWidth();
+		int endY = startY + screenHeight + BuildingDimensions.getMaximumBuildingHeight();
+		for(int x=startX; x<endX; x++) {
+			for(int y=startY; y<endY; y++) {
 				if (!LocationUtils.areInvalidCoordinates(x, y, world)) {
 					for(WorldObject worldObject : cache.getworldObjects(x, y, world)) {
 						if (worldObject.getProperty(Constants.X).intValue() == x && worldObject.getProperty(Constants.Y).intValue() == y) {

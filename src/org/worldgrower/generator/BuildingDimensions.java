@@ -48,6 +48,9 @@ public enum BuildingDimensions {
 	COTTON_PLANT(1, 1),
 	PALM_TREE(2, 2);
 	
+	private static int MAXIMUM_BUILDING_WIDTH = 11;
+	private static int MAXIMUM_BUILDING_HEIGHT = 10;
+	
 	private final int realWidth;
 	private final int realHeight;
 	
@@ -75,5 +78,13 @@ public enum BuildingDimensions {
 	public void addWidthHeight(Map<ManagedProperty<?>, Object> properties) {
 		properties.put(Constants.WIDTH, getRealWidth());
 		properties.put(Constants.HEIGHT, getRealHeight());
+	}
+	
+	public static int getMaximumBuildingWidth() {
+		return MAXIMUM_BUILDING_WIDTH;
+	}
+	
+	public static int getMaximumBuildingHeight() {
+		return MAXIMUM_BUILDING_HEIGHT;
 	}
 }
