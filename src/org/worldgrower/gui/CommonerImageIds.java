@@ -176,7 +176,9 @@ public class CommonerImageIds implements Serializable {
 			ImageIds.FEMALE_FRANCE,
 			ImageIds.FEMALE_VELIA,
 			ImageIds.FEMALE_CHAR_A1,
-			ImageIds.FEMALE_ELLIE_CHAR
+			ImageIds.FEMALE_ELLIE_CHAR,
+			ImageIds.FEMALE_LILA_CHAR,
+			ImageIds.FEMALE_CLOVER_CHAR
 			);
 	
 	private int currentMaleCommonerIndex = 0;

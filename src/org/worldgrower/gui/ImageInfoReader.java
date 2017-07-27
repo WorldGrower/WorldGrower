@@ -126,6 +126,8 @@ public class ImageInfoReader implements SmallImageTagFactory {
     	Sprites charactersA = readSpritesCharactersA();
     	Sprites characterMaleMax = readSpritesCharactersMaleMax();
     	Sprites characterFemaleEllie = readSpritesCharactersFemaleEllie();
+    	Sprites characterFemaleLila = readSpritesCharactersFemaleLila();
+    	Sprites characterFemaleClover = readSpritesCharactersFemaleClover();
     	
     	Sprites smallTree = readSpritesSmallTree();
     	Sprites smallBorealTree = readSpritesSmallBorealTree();
@@ -843,7 +845,9 @@ public class ImageInfoReader implements SmallImageTagFactory {
 		
 		addCharacter(ImageIds.MALE_MAX_CHAR, characterMaleMax, 0, 0, 1, 1);
 		addCharacter(ImageIds.FEMALE_ELLIE_CHAR, characterFemaleEllie, 0, 0, 1, 1);
-	
+		addCharacter(ImageIds.FEMALE_LILA_CHAR, characterFemaleLila, 0, 0, 1, 1);
+		addCharacter(ImageIds.FEMALE_CLOVER_CHAR, characterFemaleClover, 0, 0, 1, 1);
+		
     }
 
 	private Image createTileTransition(Sprites tileMask, int posX, int posY) {
@@ -1471,6 +1475,14 @@ public class ImageInfoReader implements SmallImageTagFactory {
     
     private Sprites readSpritesCharactersFemaleEllie() throws IOException {
     	return readImages("vx_ace_sprite___ellie__free_download_by_rpgmakerworld-d9sykcp.png", 32, 48, 1, 1);
+	}
+    
+    private Sprites readSpritesCharactersFemaleLila() throws IOException {
+    	return readImages("vx_ace_sprite___lila___free_download_by_rpgmakerworld-d9t60il.png", 32, 48, 1, 1);
+	}
+    
+    private Sprites readSpritesCharactersFemaleClover() throws IOException {
+    	return readImages("vx_ace_sprite___clover___free_download_by_rpgmakerworld-d9srcu2.png", 32, 48, 1, 1);
 	}
     
     private Sprites readSpritesTileMask() throws IOException {
