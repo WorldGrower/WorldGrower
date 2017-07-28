@@ -75,6 +75,10 @@ public class CommunityDialog extends JDialog {
 	private static final String ACQUAINTANCES_KEY = "acquaintances";
 	private static final String FAMILY_KEY = "family";
 	private static final String DEITIES_KEY = "deities";
+	
+	private static final String MATE_TOOLTIP = "indicates the mate of the player character which can have any gender";
+	private static final String CHILDREN_TOOLTIP = "shows the children of the player character";
+	
 	private final JPanel contentPanel;
 	private JTable tlbChildren;
 	private JTable tblAcquaintances;
@@ -155,10 +159,12 @@ public class CommunityDialog extends JDialog {
 		infoPanel.add(familyPanel, FAMILY_KEY);
 		
 		JLabel lblMate = JLabelFactory.createJLabel("Mate:");
+		lblMate.setToolTipText(MATE_TOOLTIP);
 		lblMate.setBounds(12, 30, 109, 16);
 		familyPanel.add(lblMate);
 				
 		JLabel lblMateValue = JLabelFactory.createJLabel("<no mate>");
+		lblMateValue.setToolTipText(MATE_TOOLTIP);
 		Integer mateId = playerCharacter.getProperty(Constants.MATE_ID);
 		if (mateId != null) {
 			WorldObject mate = world.findWorldObjectById(mateId);
@@ -170,6 +176,7 @@ public class CommunityDialog extends JDialog {
 		familyPanel.add(lblMateValue);
 		
 		JLabel lblChildren = JLabelFactory.createJLabel("Children:");
+		lblChildren.setToolTipText(CHILDREN_TOOLTIP);
 		lblChildren.setBounds(12, 60, 109, 16);
 		familyPanel.add(lblChildren);
 		
@@ -180,6 +187,7 @@ public class CommunityDialog extends JDialog {
 		tlbChildren.setAutoCreateRowSorter(true);
 		tlbChildren.getColumnModel().getColumn(0).setPreferredWidth(50);
 		tlbChildren.getColumnModel().getColumn(1).setPreferredWidth(405);
+		tlbChildren.setToolTipText(CHILDREN_TOOLTIP);
 		JScrollPane scrollPaneChildren = JScrollPaneFactory.createScrollPane(tlbChildren);
 		scrollPaneChildren.setBounds(13, 100, 525, 420);
 		familyPanel.add(scrollPaneChildren);
