@@ -29,6 +29,7 @@ import org.worldgrower.attribute.BuildingList;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.generator.Item;
 
 public class UTestHousePropertyUtils {
@@ -174,6 +175,8 @@ public class UTestHousePropertyUtils {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.BUILDINGS, new BuildingList());
 		world.addWorldObject(performer);
+		
+		new CreatureGenerator(performer).generateCow(0, 0, world);
 		
 		BuildingGenerator.generateShack(0, 0, world, performer);
 		

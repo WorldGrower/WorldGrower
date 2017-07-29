@@ -124,7 +124,7 @@ public class HousePropertyUtils {
 	
 	public static int getOwnedBuildingCount(BuildingType buildingType, World world) {
 		int ownedBuildingCount = 0;
-		for(WorldObject owner : world.findWorldObjectsByProperty(Constants.STRENGTH, w -> true)) {
+		for(WorldObject owner : world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.hasProperty(Constants.BUILDINGS))) {
 			ownedBuildingCount += owner.getProperty(Constants.BUILDINGS).getIds(buildingType).size();
 		}
 		return ownedBuildingCount;
