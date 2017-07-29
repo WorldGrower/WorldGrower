@@ -26,34 +26,32 @@ public class TaxesAndWagesCalculator implements Serializable {
 
 	public TaxesAndWages calculate(World world) {
 		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
-		int shackTaxRate = villagersOrganization.getProperty(Constants.SHACK_TAX_RATE);
-		int houseTaxRate = villagersOrganization.getProperty(Constants.HOUSE_TAX_RATE);
+		int shackTaxRate = 0;
+		int houseTaxRate = 1;
 		int sheriffWage = villagersOrganization.getProperty(Constants.SHERIFF_WAGE);
 		int taxCollectorWage = villagersOrganization.getProperty(Constants.TAX_COLLECTOR_WAGE);
 		
 		int totalIncome = calculateTotalIncome(shackTaxRate, houseTaxRate, world);
 		int totalExpense = calculateTotalExpense(sheriffWage, taxCollectorWage, world);
 		
-		if (totalExpense > totalIncome) {
-			shackTaxRate++;
-			houseTaxRate++;
-			
-			if (houseTaxRate <= shackTaxRate) {
-				houseTaxRate++;
-			}
-		} else if (totalExpense < totalIncome) {
+		if (totalExpense > 0) {
 			int numberOfOwnedShacks = HousePropertyUtils.getOwnedBuildingCount(BuildingType.SHACK, world);
 			int numberOfOwnedHouses = HousePropertyUtils.getOwnedBuildingCount(BuildingType.HOUSE, world);
 			
-			if (houseTaxRate > shackTaxRate + 1) {
-				if (totalExpense < totalIncome - numberOfOwnedHouses) {
-					houseTaxRate--;
+			if (numberOfOwnedShacks > 0 || numberOfOwnedHouses > 0) {
+				while (totalExpense > totalIncome) {
+					shackTaxRate++;
+					houseTaxRate++;
+					
 					totalIncome = calculateTotalIncome(shackTaxRate, houseTaxRate, world);
 				}
+			} else {
+				shackTaxRate = 0;
+				houseTaxRate = 0;
 			}
-			if (totalExpense < totalIncome - numberOfOwnedShacks) {
-				shackTaxRate--;
-			}
+		} else {
+			shackTaxRate = 0;
+			houseTaxRate = 0;
 		}
 		
 		return new TaxesAndWages(shackTaxRate, houseTaxRate, sheriffWage, taxCollectorWage);

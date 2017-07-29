@@ -55,8 +55,24 @@ public class UTestTaxesAndWagesCalculator {
 		createVillagersOrganization(world);
 		
 		TaxesAndWages taxesAndWages = calculator.calculate(world);
-		assertEquals(1, taxesAndWages.getShackTaxRate());
-		assertEquals(2, taxesAndWages.getHouseTaxRate());
+		assertEquals(9, taxesAndWages.getShackTaxRate());
+		assertEquals(10, taxesAndWages.getHouseTaxRate());
+		assertEquals(10, taxesAndWages.getSheriffWage());
+		assertEquals(10, taxesAndWages.getTaxCollectorWage());
+	}
+	
+	@Test
+	public void testCalculateOneWageNoShacksNoHouses() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		performer.setProperty(Constants.CAN_ATTACK_CRIMINALS, Boolean.TRUE);
+		world.addWorldObject(performer);
+		
+		createVillagersOrganization(world);
+		
+		TaxesAndWages taxesAndWages = calculator.calculate(world);
+		assertEquals(0, taxesAndWages.getShackTaxRate());
+		assertEquals(0, taxesAndWages.getHouseTaxRate());
 		assertEquals(10, taxesAndWages.getSheriffWage());
 		assertEquals(10, taxesAndWages.getTaxCollectorWage());
 	}
@@ -75,8 +91,8 @@ public class UTestTaxesAndWagesCalculator {
 		villagersOrganization.setProperty(Constants.HOUSE_TAX_RATE, 2);
 		
 		TaxesAndWages taxesAndWages = calculator.calculate(world);
-		assertEquals(1, taxesAndWages.getShackTaxRate());
-		assertEquals(2, taxesAndWages.getHouseTaxRate());
+		assertEquals(0, taxesAndWages.getShackTaxRate());
+		assertEquals(0, taxesAndWages.getHouseTaxRate());
 		assertEquals(10, taxesAndWages.getSheriffWage());
 		assertEquals(10, taxesAndWages.getTaxCollectorWage());
 	}
