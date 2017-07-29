@@ -852,7 +852,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestPlantPalmTreeAction.class,
 	UTestWiltingCondition.class,
 	UTestDeityRetribution.class,
-	UTestDeityAttributes.class
+	UTestDeityAttributes.class,
+	UTestTaxesAndWagesCalculator.class
 })
 public class CompleteTestSuite {
 }

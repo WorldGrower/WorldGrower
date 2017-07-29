@@ -27,42 +27,66 @@ import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 
-public class UTestSetTaxesGoal {
+public class UTestTaxesAndWagesCalculator {
 
-	private SetTaxesGoal goal = Goals.SET_TAXES_GOAL;
+	private TaxesAndWagesCalculator calculator = new TaxesAndWagesCalculator();
 	
 	@Test
-	public void testCalculateGoalSetTaxRate() {
+	public void testCalculateNoIncomeNoExpense() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = createPerformer();
-		WorldObject organization = createVillagersOrganization(world);
+		createVillagersOrganization(world);
 		
-		assertEquals(Actions.SET_GOVERNANCE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		TaxesAndWages taxesAndWages = calculator.calculate(world);
+		assertEquals(0, taxesAndWages.getShackTaxRate());
+		assertEquals(0, taxesAndWages.getHouseTaxRate());
+		assertEquals(10, taxesAndWages.getSheriffWage());
+		assertEquals(10, taxesAndWages.getTaxCollectorWage());
 	}
-
+	
 	@Test
-	public void testIsGoalMet() {
+	public void testCalculateOneWage() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
+		performer.setProperty(Constants.CAN_ATTACK_CRIMINALS, Boolean.TRUE);
 		world.addWorldObject(performer);
 		
-		WorldObject organization = createVillagersOrganization(world);
-		assertEquals(true, goal.isGoalMet(performer, world));
+		addHouse(performer, world);
 		
+		createVillagersOrganization(world);
 		
-		organization.setProperty(Constants.ORGANIZATION_LEADER_ID, performer.getProperty(Constants.ID));
-		assertEquals(true, goal.isGoalMet(performer, world));
+		TaxesAndWages taxesAndWages = calculator.calculate(world);
+		assertEquals(1, taxesAndWages.getShackTaxRate());
+		assertEquals(2, taxesAndWages.getHouseTaxRate());
+		assertEquals(10, taxesAndWages.getSheriffWage());
+		assertEquals(10, taxesAndWages.getTaxCollectorWage());
+	}
+	
+	@Test
+	public void testCalculateTenHousesNoWage() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
 		
-		organization.setProperty(Constants.SHACK_TAX_RATE, 1);
-		organization.setProperty(Constants.HOUSE_TAX_RATE, 2);
-		int shackId = BuildingGenerator.generateShack(0, 0, world, performer);
-		performer.getProperty(Constants.BUILDINGS).add(shackId, BuildingType.SHACK);
+		for(int i=0; i<10; i++) {
+			addHouse(performer, world);
+		}
+		
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		villagersOrganization.setProperty(Constants.SHACK_TAX_RATE, 1);
+		villagersOrganization.setProperty(Constants.HOUSE_TAX_RATE, 2);
+		
+		TaxesAndWages taxesAndWages = calculator.calculate(world);
+		assertEquals(1, taxesAndWages.getShackTaxRate());
+		assertEquals(2, taxesAndWages.getHouseTaxRate());
+		assertEquals(10, taxesAndWages.getSheriffWage());
+		assertEquals(10, taxesAndWages.getTaxCollectorWage());
+	}
+	
+	private void addHouse(WorldObject performer, World world) {
 		int houseId = BuildingGenerator.generateHouse(0, 0, world, performer);
 		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
-		assertEquals(false, goal.isGoalMet(performer, world));
 	}
 
-	WorldObject createVillagersOrganization(World world) {
+	private WorldObject createVillagersOrganization(World world) {
 		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
 		organization.setProperty(Constants.ID, 1);
 		world.addWorldObject(organization);

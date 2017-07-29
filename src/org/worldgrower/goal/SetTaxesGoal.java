@@ -26,23 +26,27 @@ import org.worldgrower.text.TextId;
 
 public class SetTaxesGoal implements Goal {
 
+	private final TaxesAndWagesCalculator taxesAndWagesCalculator = new TaxesAndWagesCalculator();
+	
 	public SetTaxesGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		int[] args = LegalActions.createGovernanceArgs(1, 2, world);
+		TaxesAndWages taxesAndWages = taxesAndWagesCalculator.calculate(world);
+		int[] args = LegalActions.createGovernanceArgs(taxesAndWages.getShackTaxRate(), taxesAndWages.getHouseTaxRate(), world);
 		return new OperationInfo(performer, performer, args, Actions.SET_GOVERNANCE_ACTION);
 	}
-
+	
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
 	}
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		if (GroupPropertyUtils.performerIsLeaderOfVillagers(performer, world) && !GroupPropertyUtils.canCollectTaxes(world)) {
+		if (GroupPropertyUtils.performerIsLeaderOfVillagers(performer, world) 
+				&& !taxesAndWagesCalculator.getCurrentTaxesAndWages(world).equals(taxesAndWagesCalculator.calculate(world))) {
 			return false;
 		} else {
 			return true;
