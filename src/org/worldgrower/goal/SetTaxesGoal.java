@@ -45,12 +45,10 @@ public class SetTaxesGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		if (GroupPropertyUtils.performerIsLeaderOfVillagers(performer, world) 
-				&& !taxesAndWagesCalculator.getCurrentTaxesAndWages(world).equals(taxesAndWagesCalculator.calculate(world))) {
-			return false;
-		} else {
-			return true;
-		}
+		boolean goalFailed =  (GroupPropertyUtils.performerIsLeaderOfVillagers(performer, world) 
+				&& !taxesAndWagesCalculator.getCurrentTaxesAndWages(world).equals(taxesAndWagesCalculator.calculate(world)));
+		
+		return !goalFailed;	
 	}
 	
 	@Override
