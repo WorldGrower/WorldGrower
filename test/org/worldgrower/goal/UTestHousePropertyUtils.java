@@ -166,7 +166,21 @@ public class UTestHousePropertyUtils {
 		assertEquals(7, HousePropertyUtils.getBuildingOwner(house, world).getProperty(Constants.ID).intValue());
 		
 		world.removeWorldObject(performer);
-		assertEquals(null, HousePropertyUtils.getBuildingOwner(house, world));
+		assertEquals(null, HousePropertyUtils.getBuildingOwner(house, world));	
+	}
+	
+	@Test
+	public void testGetOwnedBuildingCount() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.BUILDINGS, new BuildingList());
+		world.addWorldObject(performer);
 		
+		BuildingGenerator.generateShack(0, 0, world, performer);
+		
+		int houseId = BuildingGenerator.generateHouse(0, 0, world, performer);
+		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
+		
+		assertEquals(0, HousePropertyUtils.getOwnedBuildingCount(BuildingType.SHACK, world));
+		assertEquals(1, HousePropertyUtils.getOwnedBuildingCount(BuildingType.HOUSE, world));
 	}
 }
