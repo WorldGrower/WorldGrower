@@ -42,7 +42,7 @@ public class BuySellUtils {
 	}
 
 	private static boolean targetHasSufficientQuantity(ManagedProperty<?> property, int quantity, WorldObject w) {
-		return w.getProperty(Constants.INVENTORY).getQuantityFor(property, Constants.PRICE, inventoryItem -> inventoryItem.getProperty(Constants.SELLABLE)) >= quantity;
+		return w.getProperty(Constants.INVENTORY).getQuantityFor(property, Constants.PRICE, inventoryItem -> isInventoryItemSellable(inventoryItem)) >= quantity;
 	}
 	
 	public static List<WorldObject> findBuyTargets(WorldObject performer, Item item, int quantity, World world) {
@@ -78,7 +78,8 @@ public class BuySellUtils {
 	}
 	
 	static boolean isInventoryItemSellable(WorldObject inventoryItem) {
-		return inventoryItem.hasProperty(Constants.PRICE) && inventoryItem.getProperty(Constants.SELLABLE);
+		Boolean isSellable = inventoryItem.getProperty(Constants.SELLABLE);
+		return isSellable != null && isSellable.booleanValue();
 	}
 	
 	public static int getPrice(WorldObject seller, int inventoryIndex) {
