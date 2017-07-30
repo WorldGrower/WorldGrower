@@ -22,21 +22,18 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 
 public class UTestTaxesAndWagesCalculator {
 
-	private TaxesAndWagesCalculator calculator = new TaxesAndWagesCalculator();
-	
 	@Test
 	public void testCalculateNoIncomeNoExpense() {
 		World world = new WorldImpl(1, 1, null, null);
 		createVillagersOrganization(world);
 		
-		TaxesAndWages taxesAndWages = calculator.calculate(world);
+		TaxesAndWages taxesAndWages = TaxesAndWagesCalculator.calculate(world);
 		assertEquals(0, taxesAndWages.getShackTaxRate());
 		assertEquals(0, taxesAndWages.getHouseTaxRate());
 		assertEquals(10, taxesAndWages.getSheriffWage());
@@ -54,7 +51,7 @@ public class UTestTaxesAndWagesCalculator {
 		
 		createVillagersOrganization(world);
 		
-		TaxesAndWages taxesAndWages = calculator.calculate(world);
+		TaxesAndWages taxesAndWages = TaxesAndWagesCalculator.calculate(world);
 		assertEquals(9, taxesAndWages.getShackTaxRate());
 		assertEquals(10, taxesAndWages.getHouseTaxRate());
 		assertEquals(10, taxesAndWages.getSheriffWage());
@@ -70,7 +67,7 @@ public class UTestTaxesAndWagesCalculator {
 		
 		createVillagersOrganization(world);
 		
-		TaxesAndWages taxesAndWages = calculator.calculate(world);
+		TaxesAndWages taxesAndWages = TaxesAndWagesCalculator.calculate(world);
 		assertEquals(0, taxesAndWages.getShackTaxRate());
 		assertEquals(0, taxesAndWages.getHouseTaxRate());
 		assertEquals(10, taxesAndWages.getSheriffWage());
@@ -90,7 +87,7 @@ public class UTestTaxesAndWagesCalculator {
 		villagersOrganization.setProperty(Constants.SHACK_TAX_RATE, 1);
 		villagersOrganization.setProperty(Constants.HOUSE_TAX_RATE, 2);
 		
-		TaxesAndWages taxesAndWages = calculator.calculate(world);
+		TaxesAndWages taxesAndWages = TaxesAndWagesCalculator.calculate(world);
 		assertEquals(0, taxesAndWages.getShackTaxRate());
 		assertEquals(0, taxesAndWages.getHouseTaxRate());
 		assertEquals(10, taxesAndWages.getSheriffWage());

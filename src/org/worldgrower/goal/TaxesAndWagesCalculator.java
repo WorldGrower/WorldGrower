@@ -14,17 +14,15 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
-import java.io.Serializable;
-
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.profession.Professions;
 
-public class TaxesAndWagesCalculator implements Serializable {
+public class TaxesAndWagesCalculator {
 
-	public TaxesAndWages calculate(World world) {
+	public static TaxesAndWages calculate(World world) {
 		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
 		int shackTaxRate = 0;
 		int houseTaxRate = 1;
@@ -57,7 +55,7 @@ public class TaxesAndWagesCalculator implements Serializable {
 		return new TaxesAndWages(shackTaxRate, houseTaxRate, sheriffWage, taxCollectorWage);
 	}
 	
-	public TaxesAndWages getCurrentTaxesAndWages(World world) {
+	public static TaxesAndWages getCurrentTaxesAndWages(World world) {
 		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
 		int shackTaxRate = villagersOrganization.getProperty(Constants.SHACK_TAX_RATE);
 		int houseTaxRate = villagersOrganization.getProperty(Constants.HOUSE_TAX_RATE);
@@ -67,7 +65,7 @@ public class TaxesAndWagesCalculator implements Serializable {
 		return new TaxesAndWages(shackTaxRate, houseTaxRate, sheriffWage, taxCollectorWage);
 	}
 	
-	private int calculateTotalIncome(int shackTaxRate, int houseTaxRate, World world) {
+	private static int calculateTotalIncome(int shackTaxRate, int houseTaxRate, World world) {
 		int numberOfOwnedShacks = HousePropertyUtils.getOwnedBuildingCount(BuildingType.SHACK, world);
 		int totalShackIncome = shackTaxRate * numberOfOwnedShacks;
 		
@@ -77,7 +75,7 @@ public class TaxesAndWagesCalculator implements Serializable {
 		return totalShackIncome + totalHouseIncome;
 	}
 	
-	private int calculateTotalExpense(int sheriffWage, int taxCollectorWage, World world) {
+	private static int calculateTotalExpense(int sheriffWage, int taxCollectorWage, World world) {
 		int numberOfSheriffs = Professions.getProfessionCount(world, Constants.CAN_ATTACK_CRIMINALS);
 		int totalSheriffExpense = sheriffWage * numberOfSheriffs;
 		
