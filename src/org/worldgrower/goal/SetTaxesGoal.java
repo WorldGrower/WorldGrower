@@ -33,7 +33,12 @@ public class SetTaxesGoal implements Goal {
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		TaxesAndWages taxesAndWages = TaxesAndWagesCalculator.calculate(world);
-		int[] args = LegalActions.createGovernanceArgs(taxesAndWages.getShackTaxRate(), taxesAndWages.getHouseTaxRate(), world);
+		int[] args = LegalActions.createGovernanceArgs(
+				taxesAndWages.getShackTaxRate(), 
+				taxesAndWages.getHouseTaxRate(), 
+				taxesAndWages.getSheriffWage(),
+				taxesAndWages.getTaxCollectorWage(),
+				world);
 		return new OperationInfo(performer, performer, args, Actions.SET_GOVERNANCE_ACTION);
 	}
 	

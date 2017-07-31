@@ -89,7 +89,7 @@ public class LegalActions implements Serializable {
 		return args;
 	}
 	
-	public static int[] createGovernanceArgs(int shackTaxRate, int houseTaxRate, World world) {
+	public static int[] createGovernanceArgs(int shackTaxRate, int houseTaxRate, int sheriffWage, int taxCollectorWage, World world) {
 		LegalActions legalActions = LegalActionsPropertyUtils.getLegalActions(world);
 		Map<LegalAction, Boolean> legalFlags = legalActions.getLegalActions();
 		int[] args = createGovernanceArgs(legalFlags, world);
@@ -98,6 +98,8 @@ public class LegalActions implements Serializable {
 		int wageOffset = actions.size();
 		args[wageOffset] = shackTaxRate;
 		args[wageOffset+1] = houseTaxRate;
+		args[wageOffset+2] = sheriffWage;
+		args[wageOffset+3] = taxCollectorWage;
 		
 		return args;
 	}

@@ -18,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -35,9 +36,27 @@ public class UTestSetTaxesGoal {
 	public void testCalculateGoalSetTaxRate() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
-		WorldObject organization = createVillagersOrganization(world);
+		createVillagersOrganization(world);
 		
 		assertEquals(Actions.SET_GOVERNANCE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateAndPerformGoalSetTaxRate() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer();
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		villagersOrganization.setProperty(Constants.SHACK_TAX_RATE, 5);
+		villagersOrganization.setProperty(Constants.HOUSE_TAX_RATE, 6);
+		villagersOrganization.setProperty(Constants.SHERIFF_WAGE, 7);
+		villagersOrganization.setProperty(Constants.TAX_COLLECTOR_WAGE, 8);
+		
+		OperationInfo operationInfo = goal.calculateGoal(performer, world);
+		operationInfo.perform(world);
+		assertEquals(0, villagersOrganization.getProperty(Constants.SHACK_TAX_RATE).intValue());
+		assertEquals(0, villagersOrganization.getProperty(Constants.HOUSE_TAX_RATE).intValue());
+		assertEquals(10, villagersOrganization.getProperty(Constants.SHERIFF_WAGE).intValue());
+		assertEquals(10, villagersOrganization.getProperty(Constants.TAX_COLLECTOR_WAGE).intValue());
 	}
 
 	@Test
