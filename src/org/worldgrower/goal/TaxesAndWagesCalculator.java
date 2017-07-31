@@ -23,11 +23,10 @@ import org.worldgrower.profession.Professions;
 public class TaxesAndWagesCalculator {
 
 	public static TaxesAndWages calculate(World world) {
-		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
 		int shackTaxRate = 0;
 		int houseTaxRate = 1;
-		int sheriffWage = villagersOrganization.getProperty(Constants.SHERIFF_WAGE);
-		int taxCollectorWage = villagersOrganization.getProperty(Constants.TAX_COLLECTOR_WAGE);
+		int sheriffWage = GroupPropertyUtils.getDefaultWage();
+		int taxCollectorWage = GroupPropertyUtils.getDefaultWage();
 		
 		int totalIncome = calculateTotalIncome(shackTaxRate, houseTaxRate, world);
 		int totalExpense = calculateTotalExpense(sheriffWage, taxCollectorWage, world);
