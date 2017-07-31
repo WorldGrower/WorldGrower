@@ -155,11 +155,13 @@ public class UTestGroupPropertyUtils {
 	public void testCanCollectTaxes() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = createVillagersOrganization(world);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "Test");
+		world.addWorldObject(performer);
 		
-		assertEquals(false, GroupPropertyUtils.canCollectTaxes(world));
+		assertEquals(false, GroupPropertyUtils.canStartCollectingTaxes(world));
 		
-		organization.setProperty(Constants.SHACK_TAX_RATE, 1);
-		assertEquals(true, GroupPropertyUtils.canCollectTaxes(world));
+		organization.setProperty(Constants.ORGANIZATION_LEADER_ID, performer.getProperty(Constants.ID));
+		assertEquals(true, GroupPropertyUtils.canStartCollectingTaxes(world));
 	}
 	
 	@Test

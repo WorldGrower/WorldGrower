@@ -262,9 +262,8 @@ public class GroupPropertyUtils {
 		}
 	}
 	
-	public static boolean canCollectTaxes(World world) {
-		WorldObject villagersOrganization = getVillagersOrganization(world);
-		return villagersOrganization.getProperty(Constants.SHACK_TAX_RATE) > 0 || villagersOrganization.getProperty(Constants.HOUSE_TAX_RATE) > 0;
+	public static boolean canStartCollectingTaxes(World world) {
+		return getLeaderOfVillagers(world) != null;
 	}
 	
 	public static int getAmountToCollect(WorldObject target, World world) {
