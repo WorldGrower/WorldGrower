@@ -71,6 +71,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 	private static final Integer[] VOTING_TURNS = new Integer[] {100, 200, 300, 400, 500};
 	
 	private static final String LEGAL_ACTIONS_TOOLTIP = "When someone performs an illegal action, they are thrown out of the villagers group";
+	private static final String VILLAGER_LEADER_TOOLTIP = "Indicates the current village leader";
 	private static final String VILLAGER_GOLD_TOOLTIP = "Villager gold is the stored income for the villager government in order to pay expenses";
 	private static final String SHACK_TAX_RATE_TOOLTIP = "Shack Tax Rate is the amount of gold that a shack owner has to pay each " + GroupPropertyUtils.getTaxesPeriodDescription() + " turns";
 	private static final String HOUSE_TAX_RATE_TOOLTIP = "House Tax Rate is the amount of gold that a house owner has to pay each " + GroupPropertyUtils.getTaxesPeriodDescription() + " turns";
@@ -125,23 +126,45 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		scrollPane.setBounds(15, 25, 438, 680);
 		legalActionsPanel.add(scrollPane);
 		
+		int villageLeaderTop = 20;
+		JLabel villagerLeaderLabel = JLabelFactory.createJLabel("Village Leader:");
+		villagerLeaderLabel.setBounds(500, villageLeaderTop, 200, 50);
+		villagerLeaderLabel.setToolTipText(VILLAGER_LEADER_TOOLTIP);
+		dialog.addComponent(villagerLeaderLabel);
+		
+		WorldObject villageLeader = getVillageLeader();
+		final JLabel villagerLeaderValue;
+		if (villageLeader != null) {
+			Image villageLeaderImage = imageInfoReader.getImage(villageLeader.getProperty(Constants.IMAGE_ID), null);
+			villagerLeaderValue = JLabelFactory.createJLabel(villageLeader.getProperty(Constants.NAME), villageLeaderImage);
+		} else {
+			villagerLeaderValue = JLabelFactory.createJLabel("n/a");
+		}
+		villagerLeaderValue.setHorizontalAlignment(SwingConstants.LEFT);
+		villagerLeaderValue.setHorizontalTextPosition(SwingConstants.TRAILING);
+		villagerLeaderValue.setBounds(700, villageLeaderTop, 250, 50);
+		villagerLeaderValue.setToolTipText(VILLAGER_LEADER_TOOLTIP);
+		dialog.addComponent(villagerLeaderValue);
+		
+		int villagerGoldTop = 75;
 		JLabel villagerGoldLabel = JLabelFactory.createJLabel("Villager Gold:");
-		villagerGoldLabel.setBounds(500, 15, 200, 30);
+		villagerGoldLabel.setBounds(500, villagerGoldTop, 200, 30);
 		villagerGoldLabel.setToolTipText(VILLAGER_GOLD_TOOLTIP);
 		dialog.addComponent(villagerGoldLabel);
 		
 		String villagerGold = getVillagerGold();
 		Image smallCoinImage = imageInfoReader.getImage(ImageIds.SMALL_GOLD_COIN, null);
 		JLabel villagerGoldValue = JLabelFactory.createJLabel(villagerGold, smallCoinImage);
+		villagerGoldValue.setHorizontalAlignment(SwingConstants.LEFT);
 		villagerGoldValue.setHorizontalTextPosition(SwingConstants.LEADING);
-		villagerGoldValue.setBounds(700, 15, 250, 30);
+		villagerGoldValue.setBounds(700, villagerGoldTop, 250, 30);
 		villagerGoldValue.setToolTipText(VILLAGER_GOLD_TOOLTIP);
 		dialog.addComponent(villagerGoldValue);
 		
 		int panelWidth = 530;
 		JPanel incomePanel = JPanelFactory.createJPanel("Income");
 		incomePanel.setLayout(null);
-		incomePanel.setBounds(500, 55, panelWidth, 135);
+		incomePanel.setBounds(500, 115, panelWidth, 135);
 		dialog.addComponent(incomePanel);
 		
 		JLabel shackTaxRate = JLabelFactory.createJLabel("Shack Tax Rate:");
@@ -202,7 +225,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		JPanel expensePanel = JPanelFactory.createJPanel("Expense");
 		expensePanel.setLayout(null);
-		expensePanel.setBounds(500, 200, panelWidth, 135);
+		expensePanel.setBounds(500, 260, panelWidth, 135);
 		dialog.addComponent(expensePanel);
 		
 		JLabel sheriffWage = JLabelFactory.createJLabel("Sheriff Wage:");
@@ -261,7 +284,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		JPanel votingPanel = JPanelFactory.createJPanel("Voting");
 		votingPanel.setLayout(null);
-		votingPanel.setBounds(500, 345, panelWidth, 390);
+		votingPanel.setBounds(500, 405, panelWidth, 330);
 		dialog.addComponent(votingPanel);
 		
 		JCheckBox ownerShackHouseCheckBox = JCheckBoxFactory.createJCheckBox("Only owners of shacks/houses can vote");
@@ -391,6 +414,10 @@ public class GuiShowGovernanceAction extends AbstractAction {
 			}
 		}
 		return "n/a";
+	}
+	
+	WorldObject getVillageLeader() {
+		return GroupPropertyUtils.getLeaderOfVillagers(world);
 	}
 	
 	private void addActionHandlers(JButton okButton, WorldModel worldModel, JComboBox<Integer> shackComboBox, JComboBox<Integer> houseComboBox, JComboBox<Integer> sheriffComboBox, JComboBox<Integer> taxCollectorComboBox, JDialog dialog, boolean performerIsLeaderOfVillagers, JCheckBox ownerShackHouseCheckBox, JCheckBox maleCheckBox, JCheckBox femaleCheckBox, JCheckBox undeadCheckBox, JComboBox<Integer> candidateStageComboBox, JComboBox<Integer> votingStageComboBox) {
