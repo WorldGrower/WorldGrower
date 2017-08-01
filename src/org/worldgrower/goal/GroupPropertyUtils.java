@@ -72,9 +72,21 @@ public class GroupPropertyUtils {
 	
 	private static void removePerformerAsVillagerLeader(WorldObject performer, World world) {
 		if (performerIsLeaderOfVillagers(performer, world)) {
-			getVillagersOrganization(world).setProperty(Constants.ORGANIZATION_LEADER_ID, null);
+			setVillageLeader(null, world);
 			world.getWorldStateChangedListeners().lostLeadership(performer, getVillagersOrganization(world));
 		}
+	}
+	
+	public static void setVillageLeader(Integer leaderId, World world) {
+		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
+		if (leaderId != null) {
+			villagersOrganization.setProperty(Constants.ORGANIZATION_LEADER_ID, leaderId);
+			villagersOrganization.setProperty(Constants.ORGANIZATION_LEADER_START_TURN, world.getCurrentTurn().getValue());
+		} else {
+			villagersOrganization.setProperty(Constants.ORGANIZATION_LEADER_ID, null);
+			villagersOrganization.setProperty(Constants.ORGANIZATION_LEADER_START_TURN, null);
+		}
+		villagersOrganization.setProperty(Constants.ORGANIZATION_REBEL_IDS, new IdList());
 	}
 	
 	public static boolean isOrganizationNameInUse(String organizationName, World world) {

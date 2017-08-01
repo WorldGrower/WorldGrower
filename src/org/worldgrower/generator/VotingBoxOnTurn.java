@@ -73,11 +73,10 @@ public class VotingBoxOnTurn implements OnTurn {
 		int organizationId = worldObject.getProperty(Constants.ORGANIZATION_ID);
 		WorldObject organization = world.findWorldObjectById(organizationId);
 		if (newLeaderId != -1) {
-			organization.setProperty(Constants.ORGANIZATION_LEADER_ID, newLeaderId);
+			GroupPropertyUtils.setVillageLeader(newLeaderId, world);
 		} else {
-			organization.setProperty(Constants.ORGANIZATION_LEADER_ID, null);
+			GroupPropertyUtils.setVillageLeader(null, world);
 		}
-		organization.setProperty(Constants.ORGANIZATION_REBEL_IDS, new IdList());
 		return organization;
 	}
 

@@ -44,9 +44,7 @@ public class OrganizationRebelsOnTurn implements WorldOnTurn {
 	}
 
 	private void startRebellion(WorldObject villagersOrganization, World world) {
-		villagersOrganization.setProperty(Constants.ORGANIZATION_LEADER_ID, null);
-		villagersOrganization.setProperty(Constants.ORGANIZATION_REBEL_IDS, new IdList());
-		
+		GroupPropertyUtils.setVillageLeader(null, world);
 		world.getWorldStateChangedListeners().fireRebellionStarted(villagersOrganization);
 	}
 }
