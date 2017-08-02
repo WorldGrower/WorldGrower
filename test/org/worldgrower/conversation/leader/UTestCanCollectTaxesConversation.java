@@ -88,11 +88,12 @@ public class UTestCanCollectTaxesConversation {
 	
 	@Test
 	public void testHandleResponse0() {
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		assertEquals(null, performer.getProperty(Constants.CAN_COLLECT_TAXES));
 		
-		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		
 		conversation.handleResponse(0, context);
 		assertEquals(Boolean.TRUE, performer.getProperty(Constants.CAN_COLLECT_TAXES));

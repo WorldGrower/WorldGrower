@@ -25,6 +25,7 @@ import org.worldgrower.conversation.ConversationContext;
 import org.worldgrower.conversation.Question;
 import org.worldgrower.conversation.Response;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.goal.ProfessionPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.text.TextId;
 
@@ -61,9 +62,10 @@ public class CanCollectTaxesConversation implements Conversation {
 	@Override
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
 		WorldObject performer = conversationContext.getPerformer();
+		World world = conversationContext.getWorld();
 		
 		if (replyIndex == YES) {
-			performer.setProperty(Constants.CAN_COLLECT_TAXES, Boolean.TRUE);
+			ProfessionPropertyUtils.enableTaxCollecting(performer, world);
 		}
 	}
 	

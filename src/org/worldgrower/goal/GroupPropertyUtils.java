@@ -89,6 +89,20 @@ public class GroupPropertyUtils {
 		villagersOrganization.setProperty(Constants.ORGANIZATION_REBEL_IDS, new IdList());
 	}
 	
+	public static int getVillageLeaderStartTurn(World world) {
+		return GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.ORGANIZATION_LEADER_START_TURN);
+	}
+	
+	public static boolean shouldEvaluateTaxCollectors(WorldObject performer, World world) {
+		int currentTurn = world.getCurrentTurn().getValue();
+		int leaderStartTurn = GroupPropertyUtils.getVillageLeaderStartTurn(world);
+		if (currentTurn > leaderStartTurn) {
+			return (currentTurn - leaderStartTurn) % TAXES_PERIOD == 0;
+		} else {
+			return false;
+		}
+	}
+	
 	public static boolean isOrganizationNameInUse(String organizationName, World world) {
 		List<WorldObject> organizations = world.findWorldObjects(w -> w.hasProperty(Constants.ORGANIZATION_LEADER_ID) && w.getProperty(Constants.NAME).equals(organizationName));
 		return organizations.size() > 0;

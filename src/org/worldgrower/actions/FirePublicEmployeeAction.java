@@ -21,15 +21,23 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.goal.ProfessionPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
+import org.worldgrower.profession.Profession;
+import org.worldgrower.profession.Professions;
 
 public class FirePublicEmployeeAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		target.removeProperty(Constants.CAN_ATTACK_CRIMINALS);
-		target.removeProperty(Constants.CAN_COLLECT_TAXES);
+		ProfessionPropertyUtils.endTaxCollecting(target);
+		
+		Profession targetProfession = target.getProperty(Constants.PROFESSION);
+		if (targetProfession == Professions.TAX_COLLECTOR_PROFESSION || targetProfession == Professions.SHERIFF_PROFESSION) {
+			target.setProperty(Constants.PROFESSION, null);
+		}
 		
 		world.logAction(this, performer, target, args, performer.getProperty(Constants.NAME) + " fired " + target.getProperty(Constants.NAME));
 	}

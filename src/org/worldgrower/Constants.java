@@ -264,6 +264,7 @@ public class Constants {
 	public static final IdMapProperty PAY_CHECK_PAID_TURN = new IdMapProperty("payCheckPaidTurn", ALL_PROPERTIES);
 	public static final BooleanProperty CAN_COLLECT_TAXES = new BooleanProperty("canCollectTaxes", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final BooleanProperty CAN_ATTACK_CRIMINALS = new BooleanProperty("canAttackCriminals", NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty PROFESSION_START_TURN = new IntProperty("professionStartTurn", null, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdMapProperty TURNS_IN_JAIL = new IdMapProperty("turnsInJail", ALL_PROPERTIES);
 	public static final IntProperty SHERIFF_WAGE = new IntProperty("sheriffWage", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty TAX_COLLECTOR_WAGE = new IntProperty("taxCollectorWage", 0, null, NOT_NULLABLE, ALL_PROPERTIES);

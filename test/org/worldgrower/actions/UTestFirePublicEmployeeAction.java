@@ -25,21 +25,58 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.profession.PlayerCharacterProfession;
+import org.worldgrower.profession.Professions;
 
 public class UTestFirePublicEmployeeAction {
 
 	private FirePublicEmployeeAction action = Actions.FIRE_PUBLIC_EMPLOYEE_ACTION;
 	
 	@Test
-	public void testExecute() {
+	public void testExecuteSheriff() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		target.setProperty(Constants.CAN_ATTACK_CRIMINALS, true);
+		target.setProperty(Constants.PROFESSION, Professions.SHERIFF_PROFESSION);
 		
 		action.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(null, target.getProperty(Constants.CAN_ATTACK_CRIMINALS));
+		assertEquals(null, target.getProperty(Constants.PROFESSION));
+	}
+	
+	@Test
+	public void testExecuteTaxCollector() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		target.setProperty(Constants.CAN_COLLECT_TAXES, true);
+		target.setProperty(Constants.PROFESSION, Professions.TAX_COLLECTOR_PROFESSION);
+		target.setProperty(Constants.PROFESSION_START_TURN, 34);
+		
+		action.execute(performer, target, Args.EMPTY, world);
+		
+		assertEquals(null, target.getProperty(Constants.CAN_COLLECT_TAXES));
+		assertEquals(null, target.getProperty(Constants.PROFESSION));
+		assertEquals(null, target.getProperty(Constants.PROFESSION_START_TURN));
+	}
+	
+	@Test
+	public void testExecutePlayerCharacterTaxCollector() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		target.setProperty(Constants.CAN_COLLECT_TAXES, true);
+		PlayerCharacterProfession profession = new PlayerCharacterProfession("description");
+		target.setProperty(Constants.PROFESSION, profession);
+		target.setProperty(Constants.PROFESSION_START_TURN, 34);
+		
+		action.execute(performer, target, Args.EMPTY, world);
+		
+		assertEquals(null, target.getProperty(Constants.CAN_COLLECT_TAXES));
+		assertEquals(profession, target.getProperty(Constants.PROFESSION));
+		assertEquals(null, target.getProperty(Constants.PROFESSION_START_TURN));
 	}
 	
 	@Test

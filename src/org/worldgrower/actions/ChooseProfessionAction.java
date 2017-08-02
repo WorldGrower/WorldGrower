@@ -36,6 +36,7 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.ChildrenPropertyUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.goal.ProfessionPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
@@ -99,7 +100,7 @@ public class ChooseProfessionAction implements ManagedOperation {
 		}
 		
 		if (profession == Professions.TAX_COLLECTOR_PROFESSION) {
-			performer.setProperty(Constants.CAN_COLLECT_TAXES, Boolean.TRUE);
+			ProfessionPropertyUtils.enableTaxCollecting(performer, world);
 		}
 		
 		if (profession == Professions.SHERIFF_PROFESSION) {
