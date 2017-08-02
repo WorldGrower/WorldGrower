@@ -20,11 +20,14 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.legal.LegalActionFactory;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.IdList;
@@ -37,6 +40,7 @@ import org.worldgrower.deity.Deity;
 import org.worldgrower.deity.DeityAttributes;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Profession;
 
 public class GroupPropertyUtils {
@@ -103,6 +107,44 @@ public class GroupPropertyUtils {
 		}
 	}
 	
+	public static WorldObject findTaxCollectorToBeFired(WorldObject performer, World world) {
+		SortedMap<Integer, Integer> goldCollectedMap = buildGoldCollectedMap(world);
+		
+		int taxCollectorWage = getVillagersOrganization(world).getProperty(Constants.TAX_COLLECTOR_WAGE);
+		int taxCollectorId = goldCollectedMap.firstKey();
+		int taxCollected = goldCollectedMap.get(taxCollectorId);
+		if (taxCollected < taxCollectorWage) {
+			return world.findWorldObjectById(taxCollectorId);
+		} else {
+			return null;
+		}
+	}
+
+	private static SortedMap<Integer, Integer> buildGoldCollectedMap(World world) {
+		List<WorldObject> taxCollectors = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.hasProperty(Constants.CAN_COLLECT_TAXES) && w.getProperty(Constants.CAN_COLLECT_TAXES));
+		int startTurn = world.getCurrentTurn().getValue() - TAXES_PERIOD;
+		
+		SortedMap<Integer, Integer> goldCollectedMap = new TreeMap<>();
+		for(WorldObject taxCollector : taxCollectors) {
+			if (taxCollector.getProperty(Constants.PROFESSION_START_TURN) >= startTurn) {
+				int goldCollectedDuringPeriod = calculateGoldCollected(taxCollector, startTurn, world);
+				goldCollectedMap.put(taxCollector.getProperty(Constants.ID), goldCollectedDuringPeriod);
+			}
+		}
+		return goldCollectedMap;
+	}
+	
+	private static int calculateGoldCollected(WorldObject taxCollector, int startTurn, World world) {
+		int goldCollected = 0;
+		List<HistoryItem> historyItems = world.getHistory().findHistoryItems(taxCollector, Actions.HANDOVER_TAXES_ACTION);
+		for(HistoryItem historyItem : historyItems) {
+			if (historyItem.getTurn().getValue() >= startTurn) {
+				goldCollected += (Integer)historyItem.getAdditionalValue();
+			}
+		}
+		return goldCollected;
+	}
+
 	public static boolean isOrganizationNameInUse(String organizationName, World world) {
 		List<WorldObject> organizations = world.findWorldObjects(w -> w.hasProperty(Constants.ORGANIZATION_LEADER_ID) && w.getProperty(Constants.NAME).equals(organizationName));
 		return organizations.size() > 0;

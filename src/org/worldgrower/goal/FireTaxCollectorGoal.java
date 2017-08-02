@@ -17,7 +17,6 @@ package org.worldgrower.goal;
 import java.util.List;
 
 import org.worldgrower.Args;
-import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -33,22 +32,10 @@ public class FireTaxCollectorGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		WorldObject leftHandEquipment = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
-		boolean leftHandContainsFishingPole = leftHandEquipment != null ? leftHandEquipment.hasProperty(Constants.FISHING_POLE_QUALITY) : false;
-		if (leftHandContainsFishingPole) {
-			WorldObject target = GoalUtils.findNearestTarget(performer, Actions.CATCH_FISH_ACTION, world);
-			if (target != null) {
-				return new OperationInfo(performer, target, Args.EMPTY, Actions.CATCH_FISH_ACTION);
-			}
-		} else {
-			if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FISHING_POLE_QUALITY) > 0) {
-				int indexOfFishingPole = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.FISHING_POLE_QUALITY);
-				return new OperationInfo(performer, performer, new int[] { indexOfFishingPole }, Actions.EQUIP_INVENTORY_ITEM_ACTION);
-			} else {
-				return Goals.FISHING_POLE_GOAL.calculateGoal(performer, world);
-			}
+		WorldObject taxCollectorToBeFired = GroupPropertyUtils.findTaxCollectorToBeFired(performer, world);
+		if (taxCollectorToBeFired != null) {
+			return new OperationInfo(performer, taxCollectorToBeFired, Args.EMPTY, Actions.FIRE_PUBLIC_EMPLOYEE_ACTION);
 		}
-		
 		return null;
 	}
 	

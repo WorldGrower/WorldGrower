@@ -518,4 +518,27 @@ public class UTestGroupPropertyUtils {
 		assertEquals("TestOrg", GroupPropertyUtils.getAllOrganizations(world).get(0).getProperty(Constants.NAME));
 		assertEquals("TestOrg2", GroupPropertyUtils.getAllOrganizations(world).get(1).getProperty(Constants.NAME));
 	}
+	
+	@Test
+	public void testShouldEvaluateTaxCollectors() {
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.GROUP, new IdList());
+		world.addWorldObject(performer);
+		createVillagersOrganization(world);
+		GroupPropertyUtils.setVillageLeader(performer.getProperty(Constants.ID), world);
+		
+		assertEquals(false, GroupPropertyUtils.shouldEvaluateTaxCollectors(performer, world));
+		
+		for(int i=0; i<250; i++) {
+			world.nextTurn();
+		}
+		
+		assertEquals(false, GroupPropertyUtils.shouldEvaluateTaxCollectors(performer, world));
+		
+		for(int i=0; i<250; i++) {
+			world.nextTurn();
+		}
+		
+		assertEquals(true, GroupPropertyUtils.shouldEvaluateTaxCollectors(performer, world));
+	}
 }

@@ -35,6 +35,9 @@ public class HandoverTaxesAction implements ManagedOperation {
 		
 		performer.setProperty(Constants.ORGANIZATION_GOLD, 0);
 		target.increment(Constants.ORGANIZATION_GOLD, collectedTaxes);
+		
+		//TODO: if there are more return values, set return value Object on execute method, search for any other TODO like this
+		world.getHistory().setNextAdditionalValue(collectedTaxes);
 	}
 
 	@Override
