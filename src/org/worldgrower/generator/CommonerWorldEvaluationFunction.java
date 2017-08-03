@@ -61,6 +61,7 @@ public class CommonerWorldEvaluationFunction implements WorldObjectPriorities {
 				Goals.ORGANIZATION_VOTE_GOAL,
 				Goals.REBELLION_GOAL,
 				Goals.SET_TAXES_GOAL,
+				Goals.FIRE_TAX_COLLECTOR_GOAL,
 				Goals.BUY_CLOTHES_GOAL,
 				Goals.USE_EQUIPMENT_GOAL,
 				Goals.REPAIR_EQUIPMENT_GOAL);

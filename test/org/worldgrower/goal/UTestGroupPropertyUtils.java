@@ -26,16 +26,19 @@ import java.util.List;
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.DoNothingWorldOnTurn;
+import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.BuildingList;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.history.Turn;
 import org.worldgrower.profession.Professions;
 
 public class UTestGroupPropertyUtils {
@@ -248,10 +251,7 @@ public class UTestGroupPropertyUtils {
 		
 		assertEquals(0, GroupPropertyUtils.getAmountToCollect(target, world));
 		
-		for(int i=0; i<1000; i++) {
-			world.nextTurn();
-		}
-		
+		worldNextTurn(1000, world);
 		assertEquals(6, GroupPropertyUtils.getAmountToCollect(target, world));
 	}
 	
@@ -267,11 +267,7 @@ public class UTestGroupPropertyUtils {
 		
 		assertEquals(0, GroupPropertyUtils.getPayCheckAmount(target, world));
 		
-		for(int i=0; i<1000; i++) {
-			world.nextTurn();
-		}
-		
-		
+		worldNextTurn(1000, world);
 		assertEquals(20, GroupPropertyUtils.getPayCheckAmount(target, world));
 	}
 	
@@ -529,16 +525,71 @@ public class UTestGroupPropertyUtils {
 		
 		assertEquals(false, GroupPropertyUtils.shouldEvaluateTaxCollectors(performer, world));
 		
-		for(int i=0; i<250; i++) {
-			world.nextTurn();
-		}
-		
+		worldNextTurn(250, world);
 		assertEquals(false, GroupPropertyUtils.shouldEvaluateTaxCollectors(performer, world));
 		
-		for(int i=0; i<250; i++) {
+		worldNextTurn(250, world);
+		assertEquals(true, GroupPropertyUtils.shouldEvaluateTaxCollectors(performer, world));
+	}
+	
+	@Test
+	public void testCalculateGoldCollected() {
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.CAN_COLLECT_TAXES, Boolean.TRUE);
+		
+		assertEquals(0, GroupPropertyUtils.calculateGoldCollected(performer, 0, world));
+		
+		addTaxHandover(performer, 25, 5, world);
+		worldNextTurn(250, world);
+		
+		assertEquals(25, GroupPropertyUtils.calculateGoldCollected(performer, 0, world));
+		assertEquals(0, GroupPropertyUtils.calculateGoldCollected(performer, 250, world));
+	}
+	
+	@Test
+	public void testFindTaxCollectorToBeFired() {
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(6, "test");
+		world.addWorldObject(performer);
+
+		createVillagersOrganization(world);
+		worldNextTurn(500, world);
+		
+		assertEquals(null, GroupPropertyUtils.findTaxCollectorToBeFired(performer, world));
+		
+		WorldObject taxCollector = addTaxCollector(7, 0, world);
+		assertEquals(7, GroupPropertyUtils.findTaxCollectorToBeFired(performer, world).getProperty(Constants.ID).intValue());
+		
+		addTaxHandover(taxCollector, 300, 5, world);
+		
+		assertEquals(null, GroupPropertyUtils.findTaxCollectorToBeFired(performer, world));
+		
+		WorldObject taxCollector2 = addTaxCollector(8, 501, world);
+		WorldObject taxCollector3 = addTaxCollector(9, 0, world);
+		addTaxHandover(taxCollector3, 9, 5, world);
+		
+		WorldObject taxCollector4 = addTaxCollector(10, 0, world);
+		
+		addTaxHandover(taxCollector3, 8, 5, world);
+		
+		assertEquals(10, GroupPropertyUtils.findTaxCollectorToBeFired(performer, world).getProperty(Constants.ID).intValue());
+	}
+
+	private void worldNextTurn(int amount, World world) {
+		for(int i=0; i<amount; i++) {
 			world.nextTurn();
 		}
-		
-		assertEquals(true, GroupPropertyUtils.shouldEvaluateTaxCollectors(performer, world));
+	}
+	
+	private WorldObject addTaxCollector(int id, int professionStartTurn, World world) {
+		WorldObject taxCollector = TestUtils.createIntelligentWorldObject(id, Constants.CAN_COLLECT_TAXES, Boolean.TRUE);
+		taxCollector.setProperty(Constants.PROFESSION_START_TURN, professionStartTurn);
+		world.addWorldObject(taxCollector);
+		return taxCollector;
+	}
+	
+	private void addTaxHandover(WorldObject performer, int amount, int turn, World world) {
+		world.getHistory().setNextAdditionalValue(amount);
+		world.getHistory().actionPerformed(new OperationInfo(performer, performer, new int[0], Actions.HANDOVER_TAXES_ACTION), Turn.valueOf(turn));
 	}
 }
