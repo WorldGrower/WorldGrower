@@ -854,7 +854,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestDeityRetribution.class,
 	UTestDeityAttributes.class,
 	UTestTaxesAndWagesCalculator.class,
-	UTestFireTaxCollectorGoal.class
+	UTestFireTaxCollectorGoal.class,
+	UTestProfessionPropertyUtils.class
 })
 public class CompleteTestSuite {
 }

@@ -357,7 +357,8 @@ public class ChooseProfessionAction implements ManagedOperation {
 		}
 		
 		boolean canStartCollectingTaxes = GroupPropertyUtils.canStartCollectingTaxes(world);
-		if (canStartCollectingTaxes) {
+		boolean wasFiredOnce = ProfessionPropertyUtils.wasFiredOnce(performer, world);
+		if (canStartCollectingTaxes && !wasFiredOnce) {
 			result.add(new ProfessionEvaluation(Professions.TAX_COLLECTOR_PROFESSION, -1));
 			result.add(new ProfessionEvaluation(Professions.SHERIFF_PROFESSION, 0));
 		} else {
