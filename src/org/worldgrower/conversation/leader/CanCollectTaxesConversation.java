@@ -43,12 +43,11 @@ public class CanCollectTaxesConversation implements Conversation {
 		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
 		World world = conversationContext.getWorld();
-		int relationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
-		boolean wasFiredOnce = ProfessionPropertyUtils.wasFiredOnce(performer, world);
-		if (wasFiredOnce || (relationshipValue < -900)) {
-			replyId = NO;
-		} else {
+		boolean canBecomeEmployee = EmployeeUtils.canBecomePublicEmployee(performer, target, world);
+		if (canBecomeEmployee) {
 			replyId = YES;
+		} else {
+			replyId = NO;
 		}
 		return getReply(getReplyPhrases(conversationContext), replyId);
 	}

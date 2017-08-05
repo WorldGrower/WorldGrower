@@ -20,11 +20,14 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.conversation.Conversation;
 import org.worldgrower.conversation.ConversationContext;
+import org.worldgrower.conversation.Conversations;
 import org.worldgrower.conversation.Question;
 import org.worldgrower.conversation.Response;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.text.TextId;
 
@@ -35,7 +38,16 @@ public class CanAttackCriminalsConversation implements Conversation {
 	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
-		final int replyId = YES;
+		final int replyId;
+		WorldObject performer = conversationContext.getPerformer();
+		WorldObject target = conversationContext.getTarget();
+		World world = conversationContext.getWorld();
+		boolean canBecomeEmployee = EmployeeUtils.canBecomePublicEmployee(performer, target, world);
+		if (canBecomeEmployee) {
+			replyId = YES;
+		} else {
+			replyId = NO;
+		}
 		return getReply(getReplyPhrases(conversationContext), replyId);
 	}
 
@@ -61,9 +73,13 @@ public class CanAttackCriminalsConversation implements Conversation {
 	@Override
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
 		WorldObject performer = conversationContext.getPerformer();
+		WorldObject target = conversationContext.getTarget();
+		World world = conversationContext.getWorld();
 		
 		if (replyIndex == YES) {
 			performer.setProperty(Constants.CAN_ATTACK_CRIMINALS, Boolean.TRUE);
+		} else if (replyIndex == NO) {
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
 	}
 	

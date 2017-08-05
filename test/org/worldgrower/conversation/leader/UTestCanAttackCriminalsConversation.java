@@ -22,10 +22,12 @@ import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.DoNothingWorldOnTurn;
+import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.BuildingList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.conversation.ConversationContext;
@@ -33,6 +35,8 @@ import org.worldgrower.conversation.Conversations;
 import org.worldgrower.conversation.Question;
 import org.worldgrower.conversation.Response;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.goal.RelationshipPropertyUtils;
+import org.worldgrower.history.Turn;
 
 public class UTestCanAttackCriminalsConversation {
 
@@ -51,7 +55,7 @@ public class UTestCanAttackCriminalsConversation {
 	}
 	
 	@Test
-	public void testGetReplyPhrase() {
+	public void testGetReplyPhraseYes() {
 		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.BUILDINGS, new BuildingList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.BUILDINGS, new BuildingList());
@@ -60,6 +64,34 @@ public class UTestCanAttackCriminalsConversation {
 				
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		assertEquals(0, conversation.getReplyPhrase(context).getId());
+	}
+	
+	@Test
+	public void testGetReplyPhrasePerformedFired() {
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.BUILDINGS, new BuildingList());
+		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.BUILDINGS, new BuildingList());
+
+		createVillagersOrganization(world);
+
+		world.getHistory().actionPerformed(new OperationInfo(target, performer, new int[0], Actions.FIRE_PUBLIC_EMPLOYEE_ACTION), Turn.valueOf(0));
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		assertEquals(1, conversation.getReplyPhrase(context).getId());
+	}
+	
+	@Test
+	public void testGetReplyPhrasePerformedHatedByTarget() {
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.BUILDINGS, new BuildingList());
+		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.BUILDINGS, new BuildingList());
+
+		createVillagersOrganization(world);
+
+		RelationshipPropertyUtils.changeRelationshipValue(target, performer, -1000, Actions.TALK_ACTION, new int[0], world);
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		assertEquals(1, conversation.getReplyPhrase(context).getId());
 	}
 	
 	@Test
@@ -96,6 +128,20 @@ public class UTestCanAttackCriminalsConversation {
 		
 		conversation.handleResponse(0, context);
 		assertEquals(Boolean.TRUE, performer.getProperty(Constants.CAN_ATTACK_CRIMINALS));
+	}
+	
+	@Test
+	public void testHandleResponse1() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		assertEquals(null, performer.getProperty(Constants.CAN_COLLECT_TAXES));
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		
+		conversation.handleResponse(1, context);
+		assertEquals(-50, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
+		assertEquals(-50, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
 	}
 
 	private WorldObject createVillagersOrganization(World world) {
