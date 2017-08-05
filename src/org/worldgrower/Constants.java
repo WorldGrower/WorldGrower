@@ -43,6 +43,7 @@ import org.worldgrower.attribute.Reasons;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.StringProperty;
 import org.worldgrower.attribute.UnCheckedProperty;
+import org.worldgrower.attribute.WantedProfession;
 import org.worldgrower.attribute.WorldObjectContainerProperty;
 import org.worldgrower.attribute.WorldObjectProperty;
 import org.worldgrower.creaturetype.CreatureType;
@@ -322,6 +323,7 @@ public class Constants {
 	public static final BooleanProperty LIGHT_SOURCE = new BooleanProperty("lightSource", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final UnCheckedProperty<TreeType> TREE_TYPE = new UnCheckedProperty<>("treeType", ALL_PROPERTIES);
 	public static final UnCheckedProperty<DeityAttributes> DEITY_ATTRIBUTES = new UnCheckedProperty<>("deityAttributes", ALL_PROPERTIES);
+	public static final UnCheckedProperty<WantedProfession> WANTED_PROFESSION = new UnCheckedProperty<>("wantedProfession", ALL_PROPERTIES);
 	
 	//special property not used in WorldObject
 	public static final IntProperty DISTANCE = new IntProperty("distance", 0, null, NOT_NULLABLE, ALL_PROPERTIES);

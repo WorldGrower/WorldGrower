@@ -224,4 +224,5 @@ public class Goals {
 	public static final CreateSawGoal CREATE_SAW_GOAL = new CreateSawGoal(ALL_GOALS);
 	public static final SawGoal SAW_GOAL = new SawGoal(ALL_GOALS);
 	public static final FireTaxCollectorGoal FIRE_TAX_COLLECTOR_GOAL = new FireTaxCollectorGoal(ALL_GOALS);
+	public static final WantedProfessionGoal WANTED_PROFESSION_GOAL = new WantedProfessionGoal(ALL_GOALS);
 }
