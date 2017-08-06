@@ -37,6 +37,7 @@ import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.ChildrenPropertyUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.ProfessionPropertyUtils;
+import org.worldgrower.goal.WantedProfessionGoal;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
@@ -364,7 +365,7 @@ public class ChooseProfessionAction implements ManagedOperation {
 		
 		boolean canStartCollectingTaxes = GroupPropertyUtils.canStartCollectingTaxes(world);
 		boolean wasFiredOnce = ProfessionPropertyUtils.wasFiredOnce(performer, world);
-		if (canStartCollectingTaxes && !wasFiredOnce) {
+		if (canStartCollectingTaxes && !wasFiredOnce && WantedProfessionGoal.canAskToBecomePublicEmployee(performer, world)) {
 			result.add(new ProfessionEvaluation(Professions.TAX_COLLECTOR_PROFESSION, -1));
 			result.add(new ProfessionEvaluation(Professions.SHERIFF_PROFESSION, 0));
 		} else {

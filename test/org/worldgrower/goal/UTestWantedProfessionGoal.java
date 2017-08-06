@@ -25,6 +25,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.IdMapProperty;
+import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.attribute.WantedProfession;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.conversation.Conversations;
@@ -51,15 +53,17 @@ public class UTestWantedProfessionGoal {
 	public void testCalculateGoalPreviousResponseNegative() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(7);
+		world.addWorldObject(performer);
 		performer.setProperty(Constants.WANTED_PROFESSION, WantedProfession.TAX_COLLECTOR);
 		WorldObject leader = createPerformer(8);
 		world.addWorldObject(leader);
 		createVillagersOrganization(world);
 		GroupPropertyUtils.setVillageLeader(leader.getProperty(Constants.ID), world);
 		
-		world.getHistory().actionPerformed(new OperationInfo(performer, leader, Conversations.createArgs(Conversations.CAN_COLLECT_TAXES_CONVERSATION, null, 1), Actions.TALK_ACTION), Turn.valueOf(0));
+		world.getHistory().setNextAdditionalValue(1);
+		world.getHistory().actionPerformed(new OperationInfo(performer, leader, Conversations.createArgs(Conversations.CAN_COLLECT_TAXES_CONVERSATION), Actions.TALK_ACTION), Turn.valueOf(0));
 		
-		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(null, goal.calculateGoal(performer, world));
 	}
 	
 	@Test
@@ -87,7 +91,7 @@ public class UTestWantedProfessionGoal {
 	}
 
 	private WorldObject createPerformer(int id) {
-		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		performer.setProperty(Constants.X, 0);
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
