@@ -31,6 +31,7 @@ import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.ProfessionPropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.profession.Professions;
 import org.worldgrower.text.TextId;
 
 public class CanCollectTaxesConversation implements QueryableConversation {
@@ -83,6 +84,10 @@ public class CanCollectTaxesConversation implements QueryableConversation {
 		} else if (replyIndex == NO) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
+		if (performer.getProperty(Constants.PROFESSION) == null) {
+			performer.setProperty(Constants.PROFESSION, Professions.TAX_COLLECTOR_PROFESSION);
+		}
+		performer.removeProperty(Constants.WANTED_PROFESSION);
 		
 		//TODO: if there are more return values, set return value Object on execute method, search for any other TODO like this
 		world.getHistory().setNextAdditionalValue(replyIndex);

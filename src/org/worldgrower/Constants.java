@@ -377,6 +377,7 @@ public class Constants {
 		Constants.GOLD,
 		Constants.GRAPE,
 		Constants.OIL,
+		Constants.PAPER,
 		Constants.POISON_DAMAGE,
 		Constants.SOUL_GEM,
 		Constants.FISHING_POLE_QUALITY,

@@ -37,7 +37,7 @@ public class WantedProfessionGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		WantedProfession wantedProfession = performer.getProperty(Constants.WANTED_PROFESSION);
 		WorldObject villageLeader = GroupPropertyUtils.getLeaderOfVillagers(world);
-		if (canAskToBecomePublicEmployee(performer, world)) {
+		if (canAskToBecomePublicEmployee(performer, wantedProfession, world)) {
 			Conversation conversation = wantedProfession.getConversation();
 			return new OperationInfo(performer, villageLeader, Conversations.createArgs(conversation), Actions.TALK_ACTION);
 		} else {
@@ -45,8 +45,7 @@ public class WantedProfessionGoal implements Goal {
 		}
 	}
 
-	public static boolean canAskToBecomePublicEmployee(WorldObject performer, World world) {
-		WantedProfession wantedProfession = performer.getProperty(Constants.WANTED_PROFESSION);
+	public static boolean canAskToBecomePublicEmployee(WorldObject performer, WantedProfession wantedProfession, World world) {
 		WorldObject villageLeader = GroupPropertyUtils.getLeaderOfVillagers(world);
 		boolean previousAnswerWasNegative = wantedProfession.getConversation().previousAnswerWasNegative(performer, villageLeader, world);
 		return !previousAnswerWasNegative && (villageLeader != null);

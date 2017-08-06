@@ -32,6 +32,7 @@ import org.worldgrower.attribute.Background;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.ProfessionExplanation;
 import org.worldgrower.attribute.PropertyCountMap;
+import org.worldgrower.attribute.WantedProfession;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.ChildrenPropertyUtils;
@@ -103,14 +104,12 @@ public class ChooseProfessionAction implements ManagedOperation {
 		}
 		
 		if (profession == Professions.TAX_COLLECTOR_PROFESSION) {
-			ProfessionPropertyUtils.enableTaxCollecting(performer, world);
+			performer.setProperty(Constants.WANTED_PROFESSION, WantedProfession.TAX_COLLECTOR);
+		} else if (profession == Professions.SHERIFF_PROFESSION) {
+			performer.setProperty(Constants.WANTED_PROFESSION, WantedProfession.SHERIFF);
+		} else {
+			performer.setProperty(Constants.PROFESSION, profession);
 		}
-		
-		if (profession == Professions.SHERIFF_PROFESSION) {
-			performer.setProperty(Constants.CAN_ATTACK_CRIMINALS, Boolean.TRUE);
-		}
-		
-		performer.setProperty(Constants.PROFESSION, profession);
 		performer.getProperty(Constants.REASONS).addReason(Constants.PROFESSION, reason);
 	}
 
@@ -365,13 +364,17 @@ public class ChooseProfessionAction implements ManagedOperation {
 		
 		boolean canStartCollectingTaxes = GroupPropertyUtils.canStartCollectingTaxes(world);
 		boolean wasFiredOnce = ProfessionPropertyUtils.wasFiredOnce(performer, world);
-		if (canStartCollectingTaxes && !wasFiredOnce && WantedProfessionGoal.canAskToBecomePublicEmployee(performer, world)) {
+		if (canStartCollectingTaxes && !wasFiredOnce && WantedProfessionGoal.canAskToBecomePublicEmployee(performer, WantedProfession.TAX_COLLECTOR, world)) {
 			result.add(new ProfessionEvaluation(Professions.TAX_COLLECTOR_PROFESSION, -1));
-			result.add(new ProfessionEvaluation(Professions.SHERIFF_PROFESSION, 0));
 		} else {
 			result.add(new ProfessionEvaluation(Professions.TAX_COLLECTOR_PROFESSION, Integer.MIN_VALUE));
+		}
+		if (canStartCollectingTaxes && !wasFiredOnce && WantedProfessionGoal.canAskToBecomePublicEmployee(performer, WantedProfession.SHERIFF, world)) {
+			result.add(new ProfessionEvaluation(Professions.SHERIFF_PROFESSION, 0));
+		} else {
 			result.add(new ProfessionEvaluation(Professions.SHERIFF_PROFESSION, Integer.MIN_VALUE));
 		}
+
 		
 		if (populationCount < 15) {
 			result.add(new ProfessionEvaluation(Professions.THIEF_PROFESSION, Integer.MIN_VALUE));
