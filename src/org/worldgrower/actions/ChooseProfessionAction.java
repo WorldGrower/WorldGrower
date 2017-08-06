@@ -77,6 +77,8 @@ public class ChooseProfessionAction implements ManagedOperation {
 		// 3) is there a need for someone of this profession?
 		// 4) what does the background of the performer indicate?
 		
+		clearProfessionState(performer);
+		
 		ProfessionResult professionResult = getProfessionResult(performer, world);
 		ProfessionEvaluation bestProfession = professionResult.getBestProfession();
 		String reason = professionResult.getReason();
@@ -109,6 +111,10 @@ public class ChooseProfessionAction implements ManagedOperation {
 		
 		performer.setProperty(Constants.PROFESSION, profession);
 		performer.getProperty(Constants.REASONS).addReason(Constants.PROFESSION, reason);
+	}
+
+	private void clearProfessionState(WorldObject performer) {
+		performer.removeProperty(Constants.WANTED_PROFESSION);
 	}
 
 	public static void createTricksterFacade(WorldObject performer) {

@@ -37,8 +37,13 @@ public class WantedProfessionGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		WantedProfession wantedProfession = performer.getProperty(Constants.WANTED_PROFESSION);
 		WorldObject villageLeader = GroupPropertyUtils.getLeaderOfVillagers(world);
-		Conversation conversation = wantedProfession.getConversation();
-		return new OperationInfo(performer, villageLeader, Conversations.createArgs(conversation), Actions.TALK_ACTION);
+		boolean previousAnswerWasNegative = wantedProfession.getConversation().previousAnswerWasNegative(performer, villageLeader, world);
+		if (!previousAnswerWasNegative) {
+			Conversation conversation = wantedProfession.getConversation();
+			return new OperationInfo(performer, villageLeader, Conversations.createArgs(conversation), Actions.TALK_ACTION);
+		} else {
+			return null;
+		}
 	}
 
 	@Override

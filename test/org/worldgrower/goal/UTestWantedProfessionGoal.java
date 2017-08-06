@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.DefaultConversationFormatter;
+import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -26,6 +27,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WantedProfession;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.conversation.Conversations;
+import org.worldgrower.history.Turn;
 
 public class UTestWantedProfessionGoal {
 
@@ -40,6 +43,21 @@ public class UTestWantedProfessionGoal {
 		world.addWorldObject(leader);
 		createVillagersOrganization(world);
 		GroupPropertyUtils.setVillageLeader(leader.getProperty(Constants.ID), world);
+		
+		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalPreviousResponseNegative() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(7);
+		performer.setProperty(Constants.WANTED_PROFESSION, WantedProfession.TAX_COLLECTOR);
+		WorldObject leader = createPerformer(8);
+		world.addWorldObject(leader);
+		createVillagersOrganization(world);
+		GroupPropertyUtils.setVillageLeader(leader.getProperty(Constants.ID), world);
+		
+		world.getHistory().actionPerformed(new OperationInfo(performer, leader, Conversations.createArgs(Conversations.CAN_COLLECT_TAXES_CONVERSATION, null, 1), Actions.TALK_ACTION), Turn.valueOf(0));
 		
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}

@@ -24,6 +24,8 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.conversation.Conversation;
 import org.worldgrower.conversation.ConversationContext;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.conversation.PreviousResponseIdUtils;
+import org.worldgrower.conversation.QueryableConversation;
 import org.worldgrower.conversation.Question;
 import org.worldgrower.conversation.Response;
 import org.worldgrower.goal.GroupPropertyUtils;
@@ -32,7 +34,7 @@ import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.text.TextId;
 
-public class CanCollectTaxesConversation implements Conversation {
+public class CanCollectTaxesConversation implements QueryableConversation {
 
 	private static final int YES = 0;
 	private static final int NO = 1;
@@ -82,10 +84,18 @@ public class CanCollectTaxesConversation implements Conversation {
 		} else if (replyIndex == NO) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
+		
+		//TODO: if there are more return values, set return value Object on execute method, search for any other TODO like this
+		world.getHistory().setNextAdditionalValue(replyIndex);
 	}
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
 		return "talking about permission to collect taxes";
+	}
+	
+	@Override
+	public boolean previousAnswerWasNegative(WorldObject performer, WorldObject target, World world) {
+		return PreviousResponseIdUtils.previousResponseIdsContains(this, NO, performer, target, world);
 	}
 }

@@ -12,22 +12,12 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.attribute;
+package org.worldgrower.conversation;
 
-import org.worldgrower.conversation.Conversations;
-import org.worldgrower.conversation.QueryableConversation;
+import org.worldgrower.World;
+import org.worldgrower.WorldObject;
 
-public enum WantedProfession {
-	TAX_COLLECTOR(Conversations.CAN_COLLECT_TAXES_CONVERSATION),
-	SHERIFF(Conversations.CAN_ATTACK_CRIMINALS_CONVERSATION);
+public interface QueryableConversation extends Conversation {
 
-	private final QueryableConversation conversation;
-	
-	private WantedProfession(QueryableConversation conversation) {
-		this.conversation = conversation;
-	}
-
-	public QueryableConversation getConversation() {
-		return conversation;
-	}
+	public boolean previousAnswerWasNegative(WorldObject performer, WorldObject target, World world);
 }
