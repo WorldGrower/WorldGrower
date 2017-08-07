@@ -51,17 +51,18 @@ public class StopSellingGoal implements Goal {
 		if (profession != null) {
 			List<Item> itemsSoldByProfession = profession.getSellItems();
 			for(WorldObject organization : organizations) {
-				return world.findWorldObjectsByProperty(Constants.STRENGTH, w -> nonMemberSoldItem(organization, w, itemsSoldByProfession));
+				return world.findWorldObjectsByProperty(Constants.STRENGTH, w -> nonMemberSoldItem(performer, organization, w, itemsSoldByProfession));
 			}
 		}
 		return new ArrayList<>();
 	}
 	
-	private boolean nonMemberSoldItem(WorldObject organization, WorldObject w, List<Item> items) {
+	private boolean nonMemberSoldItem(WorldObject performer, WorldObject organization, WorldObject w, List<Item> items) {
 		return w.hasProperty(Constants.ITEMS_SOLD) 
 				&& !w.getProperty(Constants.ITEMS_SOLD).isEmpty()
 				&& w.getProperty(Constants.ITEMS_SOLD).containsAny(items)
-				&& !w.getProperty(Constants.GROUP).contains(organization);
+				&& !w.getProperty(Constants.GROUP).contains(organization)
+				&& !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w);
 	}
 
 	@Override

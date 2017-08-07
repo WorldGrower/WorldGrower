@@ -36,7 +36,7 @@ public class UTestStopSellingGoal {
 	@Test
 	public void testCalculateGoalNull() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = createPerformer();
+		WorldObject performer = createPerformer(2);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
@@ -44,15 +44,18 @@ public class UTestStopSellingGoal {
 	@Test
 	public void testCalculateGoalAskStopSelling() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = createPerformer();
-		WorldObject target = createPerformer();
+		WorldObject performer = createPerformer(7);
+		WorldObject target = createPerformer(8);
 		
 		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		
+		createVillagersOrganization(world);
+		
 		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(performer.getProperty(Constants.ID), "TestOrg", Professions.FARMER_PROFESSION, world);
-		performer.getProperty(Constants.GROUP).add(organization);
+		performer.getProperty(Constants.GROUP).add(organization).add(1);
 		target.setProperty(Constants.ITEMS_SOLD, new ItemCountMap());
 		target.getProperty(Constants.ITEMS_SOLD).add(Item.BERRIES, 1);
+		target.getProperty(Constants.GROUP).add(1);
 		world.addWorldObject(target);
 		
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
@@ -63,13 +66,21 @@ public class UTestStopSellingGoal {
 	@Test
 	public void testIsGoalMet() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = createPerformer();
+		WorldObject performer = createPerformer(2);
 		
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
+	
+	private WorldObject createVillagersOrganization(World world) {
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		organization.setProperty(Constants.ID, 1);
+		world.addWorldObject(organization);
+		world.generateUniqueId(); world.generateUniqueId(); world.generateUniqueId();
+		return organization;
+	}
 
-	private WorldObject createPerformer() {
-		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.GROUP, new IdList());
+	private WorldObject createPerformer(int id) {
+		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.GROUP, new IdList());
 		performer.setProperty(Constants.X, 0);
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
