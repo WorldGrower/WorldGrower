@@ -76,8 +76,12 @@ public class LearnSkillGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		Profession performerProfession = performer.getProperty(Constants.PROFESSION);		
-		SkillProperty skillProperty = performerProfession.getSkillProperty();
-		return skillProperty.getLevel(performer);
+		Profession performerProfession = performer.getProperty(Constants.PROFESSION);
+		if (performerProfession != null) {
+			SkillProperty skillProperty = performerProfession.getSkillProperty();
+			return skillProperty.getLevel(performer);
+		} else {
+			return 0;
+		}
 	}
 }

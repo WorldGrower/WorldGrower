@@ -30,7 +30,6 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.gui.ImageIds;
-import org.worldgrower.terrain.TerrainInfo;
 import org.worldgrower.terrain.TerrainType;
 
 public class GoalUtils {
