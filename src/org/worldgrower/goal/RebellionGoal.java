@@ -41,7 +41,8 @@ public class RebellionGoal implements Goal {
 		if (Constants.RELATIONSHIP_VALUE.isAtMin(relationshipValue)) {
 			List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.TALK_ACTION, Constants.STRENGTH, w -> isTargetForRebellionConversation(performer, w, leader, rebels, world) && Constants.RELATIONSHIP_VALUE.isAtMin(w.getProperty(Constants.RELATIONSHIPS).getValue(leader)), world);
 			if (targets.size() > 0) {
-				int[] args = Conversations.createArgs(Conversations.START_REBELLION_CONVERSATION);
+				WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
+				int[] args = Conversations.createArgs(Conversations.START_REBELLION_CONVERSATION, villagersOrganization);
 				return new OperationInfo(performer, targets.get(0), args, Actions.TALK_ACTION);
 			}
 		}

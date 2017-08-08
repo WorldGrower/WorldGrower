@@ -16,6 +16,9 @@ package org.worldgrower.goal;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Test;
 import org.worldgrower.AssertUtils;
 import org.worldgrower.Constants;
@@ -62,8 +65,13 @@ public class UTestRebellionGoal {
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
 		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.START_REBELLION_CONVERSATION);
+		
+		goal.calculateGoal(performer, world).perform(world);
+		
+		List<Integer> expectedIds = Arrays.asList(performer.getProperty(Constants.ID), target.getProperty(Constants.ID));
+		assertEquals(expectedIds, villagersOrganization.getProperty(Constants.ORGANIZATION_REBEL_IDS).getIds());
 	}
-	
+
 	@Test
 	public void testCalculateGoalOneTargetAlreadySaidNo() {
 		World world = new WorldImpl(1, 1, null, null);
