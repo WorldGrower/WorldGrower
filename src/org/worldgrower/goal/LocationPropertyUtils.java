@@ -65,6 +65,7 @@ public class LocationPropertyUtils {
 	}
 	
 	public static boolean isPassable(WorldObject w) {
-		return w.hasProperty(Constants.PASSABLE) && w.getProperty(Constants.PASSABLE);
+		Boolean isPassable = w.getProperty(Constants.PASSABLE);
+		return isPassable != null && isPassable.booleanValue();
 	}
 }

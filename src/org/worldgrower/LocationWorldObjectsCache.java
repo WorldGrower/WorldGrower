@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static org.worldgrower.goal.LocationPropertyUtils.isPassable;
+
 class LocationWorldObjectsCache implements WorldObjectsCache, Serializable {
 
 	private final WorldObjectsList[][] cache;
@@ -34,10 +36,6 @@ class LocationWorldObjectsCache implements WorldObjectsCache, Serializable {
 		}
 		
 		this.zone = new int[width][height];
-	}
-	
-	private boolean isPassable(WorldObject target) {
-		return target.hasProperty(Constants.PASSABLE) && target.getProperty(Constants.PASSABLE);
 	}
 	
 	@Override
