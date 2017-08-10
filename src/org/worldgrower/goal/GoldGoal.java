@@ -40,11 +40,15 @@ public class GoldGoal implements Goal {
 		if (targets.size() > 0) {
 			return BuySellUtils.create(performer, targets.get(0), Item.GOLD, QUANTITY_TO_BUY, world);
 		} else {
-			WorldObject target = GoalUtils.findNearestTarget(performer, Actions.MINE_GOLD_ACTION, world);
-			if (target != null) {
-				return new OperationInfo(performer, target, Args.EMPTY, Actions.MINE_GOLD_ACTION);
+			if (Actions.MINE_GOLD_ACTION.hasRequiredEnergy(performer)) {
+				WorldObject target = GoalUtils.findNearestTarget(performer, Actions.MINE_GOLD_ACTION, world);
+				if (target != null) {
+					return new OperationInfo(performer, target, Args.EMPTY, Actions.MINE_GOLD_ACTION);
+				} else {
+					return null;
+				}
 			} else {
-				return null;
+				return Goals.REST_GOAL.calculateGoal(performer, world);
 			}
 		}
 	}

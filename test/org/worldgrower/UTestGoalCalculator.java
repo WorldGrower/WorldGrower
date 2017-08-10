@@ -16,9 +16,9 @@ package org.worldgrower;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Test;
 import org.worldgrower.actions.Actions;
@@ -34,10 +34,27 @@ public class UTestGoalCalculator {
 		TestWorldObjectPriorities worldObjectPriorities = new TestWorldObjectPriorities(Arrays.asList(new TestGoal()));
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.FOOD, 1000, worldObjectPriorities);
 		World world = new WorldImpl(10, 10, null, null);
-		List<Goal> triedGoals = new ArrayList<>();
+		Set<Goal> triedGoals = new HashSet<>();
 		
 		GoalAndOperationInfo goalAndOperationInfo = goalCalculator.calculateGoal(performer, world, triedGoals);
 		assertEquals(TestGoal.class, goalAndOperationInfo.getGoal().getClass());
+	}
+	
+	@Test
+	public void testCalculateGoalTriedGoals() {
+		TestGoal goal1 = new TestGoal();
+		TestGoal goal2 = new TestGoal();
+		TestWorldObjectPriorities worldObjectPriorities = new TestWorldObjectPriorities(Arrays.asList(goal1, goal2));
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.FOOD, 1000, worldObjectPriorities);
+		World world = new WorldImpl(10, 10, null, null);
+		Set<Goal> triedGoals = new HashSet<>();
+		
+		GoalAndOperationInfo goalAndOperationInfo = goalCalculator.calculateGoal(performer, world, triedGoals);
+		assertEquals(goal1, goalAndOperationInfo.getGoal());
+		
+		triedGoals.add(goal1);		
+		goalAndOperationInfo = goalCalculator.calculateGoal(performer, world, triedGoals);
+		assertEquals(goal2, goalAndOperationInfo.getGoal());
 	}
 	
 	@Test

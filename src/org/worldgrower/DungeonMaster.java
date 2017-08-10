@@ -17,7 +17,9 @@ package org.worldgrower;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.WorldStateChangedListeners;
@@ -126,7 +128,7 @@ public class DungeonMaster implements Serializable {
 
 	private void calculateGoalAndTasks(WorldObject worldObject, World world, MetaInformation metaInformation, GoalChangedReason goalChangedReason) {
 		boolean goalFound = false;
-		List<Goal> triedGoals = new ArrayList<>();
+		Set<Goal> triedGoals = new HashSet<>();
 		
 		if (!worldObject.getProperty(Constants.CONDITIONS).canTakeAction()) {
 			metaInformation.setNoActionPossible();

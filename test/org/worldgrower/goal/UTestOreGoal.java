@@ -23,7 +23,9 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.TerrainGenerator;
 
 public class UTestOreGoal {
 
@@ -35,6 +37,27 @@ public class UTestOreGoal {
 		WorldObject performer = createPerformer();
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
+	}
+	
+	@Test
+	public void testCalculateGoalMine() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		
+		TerrainGenerator.generateOreResource(0, 0, world);
+		
+		assertEquals(Actions.MINE_ORE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalMineNotEnoughEnergy() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		performer.setProperty(Constants.ENERGY, 0);
+		
+		TerrainGenerator.generateOreResource(0, 0, world);
+		
+		assertEquals(Actions.REST_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test

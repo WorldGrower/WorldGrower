@@ -16,6 +16,7 @@ package org.worldgrower;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import org.worldgrower.goal.Goal;
 
@@ -25,7 +26,7 @@ import org.worldgrower.goal.Goal;
  */
 public class GoalCalculator implements Serializable {
 
-	public GoalAndOperationInfo calculateGoal(WorldObject performer, World world, List<Goal> triedGoals) {
+	public GoalAndOperationInfo calculateGoal(WorldObject performer, World world, Set<Goal> triedGoals) {
 		GoalAndOperationInfo goalAndOperationInfo = calculateGoalInternal(performer, world, triedGoals);
 		return changeTargetToRealTarget(goalAndOperationInfo, performer, world);
 	}
@@ -43,7 +44,7 @@ public class GoalCalculator implements Serializable {
 		return goalAndOperationInfo;
 	}
 
-	private GoalAndOperationInfo calculateGoalInternal(WorldObject performer, World world, List<Goal> triedGoals) {
+	private GoalAndOperationInfo calculateGoalInternal(WorldObject performer, World world, Set<Goal> triedGoals) {
 		List<Goal> prioritizedGoals = performer.getPriorities(world);
 		
 		for (Goal prioritizedGoal : prioritizedGoals) {

@@ -17,11 +17,57 @@ package org.worldgrower.goal;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Constants;
 import org.worldgrower.DefaultConversationFormatter;
+import org.worldgrower.TestUtils;
+import org.worldgrower.World;
+import org.worldgrower.WorldImpl;
+import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.TerrainGenerator;
 
 public class UTestGoldGoal {
 
 	private GoldGoal goal = Goals.GOLD_GOAL;
+	
+	@Test
+	public void testCalculateGoalNull() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer();
+		
+		assertEquals(null, goal.calculateGoal(performer, world));
+	}
+	
+	@Test
+	public void testCalculateGoalMine() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		
+		TerrainGenerator.generateGoldResource(0, 0, world);
+		
+		assertEquals(Actions.MINE_GOLD_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalMineNotEnoughEnergy() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		performer.setProperty(Constants.ENERGY, 0);
+		
+		TerrainGenerator.generateGoldResource(0, 0, world);
+		
+		assertEquals(Actions.REST_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	private WorldObject createPerformer() {
+		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.X, 0);
+		performer.setProperty(Constants.Y, 0);
+		performer.setProperty(Constants.WIDTH, 1);
+		performer.setProperty(Constants.HEIGHT, 1);
+		return performer;
+	}
 	
 	@Test
 	public void testGetDescription() {
