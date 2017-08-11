@@ -28,6 +28,7 @@ import org.worldgrower.actions.MoveAction;
 public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 
 	private int maxDepth = 50;
+	private static final NodeComparator NODE_COMPARATOR = new NodeComparator();
 	
 	@Override
 	public List<OperationInfo> calculateTask(WorldObject performer, World world, OperationInfo goal) {
@@ -42,17 +43,7 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 			Node current = openSet.poll();
 			
 			if (current.h == 0) {
-				List<OperationInfo> result = new ArrayList<>();
-				List<Node> reconstructedPath = reconstructPath(current); 
-				for(int i=reconstructedPath.size()-1; i>0; i--) {
-					int xMovement = reconstructedPath.get(i-1).x - reconstructedPath.get(i).x;
-					int yMovement = reconstructedPath.get(i-1).y - reconstructedPath.get(i).y;
-					int[] args = new int[] { xMovement, yMovement };
-					result.add(new OperationInfo(performer, performer, args, Actions.MOVE_ACTION));
-				}
-				result.add(goal);
-				
-				return result;
+				return constructTasks(performer, goal, current);
 			}
 			
 			closedSet.add(current);
@@ -74,6 +65,20 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 		//throw new IllegalStateException("performer " + performer + " cannot calculate tasks to goal " + goal);
 		return new ArrayList<>();
 	}
+
+	private List<OperationInfo> constructTasks(WorldObject performer, OperationInfo goal, Node current) {
+		List<Node> reconstructedPath = reconstructPath(current);
+		List<OperationInfo> result = new ArrayList<>(reconstructedPath.size());
+		for(int i=reconstructedPath.size()-1; i>0; i--) {
+			int xMovement = reconstructedPath.get(i-1).x - reconstructedPath.get(i).x;
+			int yMovement = reconstructedPath.get(i-1).y - reconstructedPath.get(i).y;
+			int[] args = new int[] { xMovement, yMovement };
+			result.add(new OperationInfo(performer, performer, args, Actions.MOVE_ACTION));
+		}
+		result.add(goal);
+		
+		return result;
+	}
 	
 	private PriorityQueue<Node> createOpenSet(WorldObject performer, WorldObject copyPerformer, OperationInfo goal, World world) {
 		int performerX = performer.getProperty(Constants.X);
@@ -81,7 +86,7 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 		Node startNode = new Node(performerX, performerY, 0);
 		startNode.h = distance(goal, copyPerformer, startNode, world);
 		
-		PriorityQueue<Node> openSet = new PriorityQueue<>(new NodeComparator());
+		PriorityQueue<Node> openSet = new PriorityQueue<>(NODE_COMPARATOR);
 		openSet.add(startNode);
 		
 		return openSet;
@@ -127,9 +132,9 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 	}
 
 	private static final class Node {
-		public int x;
-		public int y;
-		public int g;
+		public final int x;
+		public final int y;
+		public final int g;
 		public int h;
 		public Node parentNode;
 		
