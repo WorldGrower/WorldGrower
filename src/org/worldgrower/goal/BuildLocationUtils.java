@@ -111,13 +111,15 @@ public class BuildLocationUtils {
 	}
 	
 	static WorldObject findOpenLocationNearExistingProperty(WorldObject performer, int width, int height, World world, List<WorldObject> housing, ZoneInitializer zoneInitializer) {
-		Zone zone = new Zone(world.getWidth(), world.getHeight(), zoneInitializer);
+		int worldWidth = world.getWidth();
+		int worldHeight = world.getHeight();
+		Zone zone = new Zone(worldWidth, worldHeight, zoneInitializer);
 		zone.addValues(housing, 6, 1);
 		
 		int bestValue = 0;
 		int[] bestLocation = null;
-		for(int x=0; x < world.getWidth(); x++) {
-			for(int y=0; y<world.getHeight(); y++) {
+		for(int x=0; x < worldWidth; x++) {
+			for(int y=0; y<worldHeight; y++) {
 				if ((zone.value(x, y) > bestValue)) {
 					if (GoalUtils.isOpenSpace(x, y, width, height, world)) {
 						bestLocation = new int[]{ x, y };
