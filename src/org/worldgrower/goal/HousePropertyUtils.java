@@ -31,7 +31,7 @@ public class HousePropertyUtils {
 	public static List<WorldObject> getHousingOfOwners(List<WorldObject> owners, World world) {
 		List<WorldObject> result = new ArrayList<>();
 		for(WorldObject owner : owners) {
-			if (owner.hasProperty(Constants.BUILDINGS) && owner.getProperty(Constants.BUILDINGS) != null) {
+			if (owner.getProperty(Constants.BUILDINGS) != null) {
 				List<Integer> houseIds = owner.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK, BuildingType.HOUSE);
 				for(int houseId : houseIds) {
 					result.add(world.findWorldObjectById(houseId));

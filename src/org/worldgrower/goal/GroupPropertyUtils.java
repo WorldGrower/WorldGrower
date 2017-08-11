@@ -21,8 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
@@ -62,7 +60,7 @@ public class GroupPropertyUtils {
 	
 	public static List<WorldObject> findWorldObjectsInSameGroup(WorldObject performer, World world) {
 		IdList performerOrganizationIdList = performer.getProperty(Constants.GROUP);
-		return world.findWorldObjects(w -> w.hasIntelligence() && (w.getProperty(Constants.GROUP).intersects(performerOrganizationIdList)));
+		return world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.hasIntelligence() && (w.getProperty(Constants.GROUP).intersects(performerOrganizationIdList)));
 	}
 	
 	public static void throwPerformerOutGroup(WorldObject performer, WorldObject w, World world) {
