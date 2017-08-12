@@ -38,17 +38,22 @@ public class FoodGoal implements Goal {
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		boolean hasInventoryFood = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD) > 0;
-		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.EAT_ACTION, world);
-		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, QUANTITY_TO_BUY, world);
+		
 		if (hasInventoryFood) {
 			int indexOfFood = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.FOOD);
 			return new OperationInfo(performer, performer, new int[] {indexOfFood}, Actions.EAT_FROM_INVENTORY_ACTION);
-		} else if (buyOperationInfo != null) {
-			return buyOperationInfo;
-		} else if (target != null && Reach.distance(performer, target) < 15) {
-			return new OperationInfo(performer, target, Args.EMPTY, Actions.EAT_ACTION);
 		} else {
-			return Goals.CREATE_FOOD_SOURCES_GOAL.calculateGoal(performer, world);
+			OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, QUANTITY_TO_BUY, world);
+			if (buyOperationInfo != null) {
+				return buyOperationInfo;
+			} else {
+				WorldObject eatTarget = GoalUtils.findNearestTarget(performer, Actions.EAT_ACTION, world);
+				if (eatTarget != null && Reach.distance(performer, eatTarget) < 15) {
+					return new OperationInfo(performer, eatTarget, Args.EMPTY, Actions.EAT_ACTION);
+				} else {
+					return Goals.CREATE_FOOD_SOURCES_GOAL.calculateGoal(performer, world);
+				}
+			}
 		}
 	}
 	
