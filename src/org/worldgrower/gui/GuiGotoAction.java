@@ -72,7 +72,7 @@ public class GuiGotoAction extends AbstractAction {
 	}
 	
 	public static List<OperationInfo> calculatePath(WorldObject playerCharacter, int destinationX, int destinationY, World world) {
-		TaskCalculator taskCalculator = new TaskCalculatorImpl();
+		TaskCalculator taskCalculator = new TaskCalculatorImpl(world);
 		OperationInfo goal = new OperationInfo(playerCharacter, playerCharacter, Args.EMPTY, new GotoAction(destinationX, destinationY));
 		List<OperationInfo> tasks = taskCalculator.calculateTask(playerCharacter, world, goal);
 		return tasks;

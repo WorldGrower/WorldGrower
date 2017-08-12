@@ -37,7 +37,7 @@ public class UTestPayBountyConversation {
 	
 	@Test
 	public void testGetReplyPhrases() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		createVillagersOrganization(world);
@@ -48,10 +48,15 @@ public class UTestPayBountyConversation {
 		assertEquals("Yes, your bounty is cleared", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 		assertEquals("No, I won't clear your bounty", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
+
+	private WorldImpl createWorld() {
+		int worldDimension = 1;
+		return new WorldImpl(worldDimension, worldDimension, new DungeonMaster(worldDimension, worldDimension), null);
+	}
 	
 	@Test
 	public void testGetReplyPhrase() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GOLD, 0);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Goals.COLLECT_WATER_GOAL);
 		
@@ -66,7 +71,7 @@ public class UTestPayBountyConversation {
 	
 	@Test
 	public void testGetQuestionPhrases() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList());
 		
@@ -80,7 +85,7 @@ public class UTestPayBountyConversation {
 	
 	@Test
 	public void testHandleResponse0() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
@@ -99,7 +104,7 @@ public class UTestPayBountyConversation {
 	
 	@Test
 	public void testHandleResponse1() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
@@ -115,7 +120,7 @@ public class UTestPayBountyConversation {
 	
 	@Test
 	public void testIsConversationAvailable() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		performer.setProperty(Constants.GOLD, 1000);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());

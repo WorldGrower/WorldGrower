@@ -54,7 +54,7 @@ public class UTestFindSecludedLocationGoal {
 		
 		assertEquals(new SecludedAction(Actions.REST_ACTION), goal.calculateGoal(performer, world).getManagedOperation());
 		
-		TaskCalculator taskCalculator = new TaskCalculatorImpl();
+		TaskCalculator taskCalculator = new TaskCalculatorImpl(world);
 		List<OperationInfo> tasks = taskCalculator.calculateTask(performer, world, goal.calculateGoal(performer, world));
 		assertEquals(11, tasks.size());
 		assertEquals(Actions.MOVE_ACTION, tasks.get(0).getManagedOperation());

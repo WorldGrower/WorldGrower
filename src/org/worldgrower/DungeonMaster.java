@@ -32,7 +32,11 @@ import org.worldgrower.goal.Goal;
 public class DungeonMaster implements Serializable {
 	
 	private final GoalCalculator goalCalculator = new GoalCalculator();
-	private TaskCalculator taskCalculator = new TaskCalculatorImpl();
+	private TaskCalculator taskCalculator;
+	
+	public DungeonMaster(int worldWidth, int worldHeight) {
+		taskCalculator = new TaskCalculatorImpl(worldWidth, worldHeight);
+	}
 	
 	public void runWorld(World world, WorldStateChangedListeners worldStateChangedListeners) {
 		List<WorldObject> worldObjects = new ArrayList<>(world.getWorldObjects());

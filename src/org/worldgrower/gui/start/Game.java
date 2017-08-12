@@ -80,9 +80,11 @@ public class Game {
 	public static void run(CharacterAttributes characterAttributes, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, ImageIds playerCharacterImageId, GameParameters gameParameters, KeyBindings keyBindings) throws Exception {
 		int seed = gameParameters.getSeed();
 		int startTurn = gameParameters.getStartTurn();
-		DungeonMaster dungeonMaster = new DungeonMaster();
+		int worldWidth = gameParameters.getWorldWidth();
+		int worldHeight = gameParameters.getWorldHeight();
+		DungeonMaster dungeonMaster = new DungeonMaster(worldWidth, worldHeight);
 		WorldOnTurnImpl worldOnTurn = new WorldOnTurnImpl(new DeityWorldOnTurn(), new ArenaFightOnTurn(), new OrganizationRebelsOnTurn());
-		Terrain terrain = new TerrainImpl(gameParameters.getWorldWidth(), gameParameters.getWorldHeight(), new TerrainMapper(gameParameters.getWaterCutoff()));
+		Terrain terrain = new TerrainImpl(worldWidth, worldHeight, new TerrainMapper(gameParameters.getWaterCutoff()));
 		World world = new WorldImpl(terrain, dungeonMaster, worldOnTurn);
 		int playerCharacterId = world.generateUniqueId();
 		
@@ -135,6 +137,7 @@ public class Game {
 
 		@Override
 		protected Integer doInBackground() throws Exception {
+			long start = System.currentTimeMillis();
 			for(int i=0; i<startTurn; i++) {
 				dungeonMaster.runWorld(world, new WorldStateChangedListeners());
 				publish(i);
@@ -147,6 +150,8 @@ public class Game {
 					}
 				});
 			}
+			System.out.println("total time=" + (System.currentTimeMillis() - start) + " ms");
+			
 			progressDialog.close();
 			
 			return 0;
@@ -213,8 +218,8 @@ public class Game {
 	}
 	
 	public static void load(File fileToLoad, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, KeyBindings keyBindings) {
-		DungeonMaster dungeonMaster = new DungeonMaster();
 		World world = WorldImpl.load(fileToLoad);
+		DungeonMaster dungeonMaster = new DungeonMaster(world.getWidth(), world.getHeight());
 		final WorldObject playerCharacter = world.findWorldObjectById(0);
 		NameRequesterImpl nameRequester = new NameRequesterImpl(imageInfoReader, soundIdReader);
 		((CommonerOnTurn)playerCharacter.getOnTurn()).getCommonerGenerator().setNameRequester(nameRequester);

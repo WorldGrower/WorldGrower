@@ -39,7 +39,7 @@ public class UTestSetOrganizationProfitPercentageConversation {
 	
 	@Test
 	public void testGetReplyPhrases() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject subject = TestUtils.createWorldObject(3, "TestOrg");
@@ -49,6 +49,11 @@ public class UTestSetOrganizationProfitPercentageConversation {
 		assertEquals(2, replyPhrases.size());
 		assertEquals("Yes, I'll set the price for an iron claymore to 0 gold.", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 		assertEquals("No", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+	}
+
+	private WorldImpl createWorld() {
+		int worldDimension = 1;
+		return new WorldImpl(worldDimension, worldDimension, new DungeonMaster(worldDimension, worldDimension), null);
 	}
 	
 	@Test

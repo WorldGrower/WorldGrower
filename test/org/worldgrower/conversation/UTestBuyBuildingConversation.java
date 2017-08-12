@@ -49,7 +49,7 @@ public class UTestBuyBuildingConversation {
 	
 	@Test
 	public void testGetReplyPhrase() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BUILDINGS, new BuildingList().add(3, BuildingType.HOUSE));
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.GOLD, 100);
 		
@@ -69,7 +69,7 @@ public class UTestBuyBuildingConversation {
 	
 	@Test
 	public void testHandleResponse0() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BUILDINGS, new BuildingList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.BUILDINGS, new BuildingList().add(3, BuildingType.HOUSE));
 		
@@ -91,7 +91,7 @@ public class UTestBuyBuildingConversation {
 	
 	@Test
 	public void testIsConversationAvailable() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BUILDINGS, new BuildingList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.BUILDINGS, new BuildingList().add(3, BuildingType.HOUSE));
 		
@@ -104,5 +104,10 @@ public class UTestBuyBuildingConversation {
 		
 		target.getProperty(Constants.BUILDINGS).removeAll();
 		assertEquals(false, conversation.isConversationAvailable(performer, target, null, null));
+	}
+	
+	private WorldImpl createWorld() {
+		int worldDimension = 1;
+		return new WorldImpl(worldDimension, worldDimension, new DungeonMaster(worldDimension, worldDimension), null);
 	}
 }

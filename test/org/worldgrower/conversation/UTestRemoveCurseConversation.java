@@ -52,7 +52,7 @@ public class UTestRemoveCurseConversation {
 	
 	@Test
 	public void testGetReplyPhrase() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
@@ -61,6 +61,11 @@ public class UTestRemoveCurseConversation {
 		
 		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, -2000);
 		assertEquals(1, conversation.getReplyPhrase(context).getId());
+	}
+
+	private WorldImpl createWorld() {
+		int worldDimension = 1;
+		return new WorldImpl(worldDimension, worldDimension, new DungeonMaster(worldDimension, worldDimension), null);
 	}
 	
 	@Test

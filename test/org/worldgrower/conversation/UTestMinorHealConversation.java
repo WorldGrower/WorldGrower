@@ -50,7 +50,7 @@ public class UTestMinorHealConversation {
 	
 	@Test
 	public void testGetReplyPhrase() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GOLD, 0);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.GOLD, 0);
 		
@@ -59,6 +59,11 @@ public class UTestMinorHealConversation {
 		
 		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, -2000);
 		assertEquals(1, conversation.getReplyPhrase(context).getId());
+	}
+
+	private WorldImpl createWorld() {
+		int worldDimension = 1;
+		return new WorldImpl(worldDimension, worldDimension, new DungeonMaster(worldDimension, worldDimension), null);
 	}
 	
 	@Test

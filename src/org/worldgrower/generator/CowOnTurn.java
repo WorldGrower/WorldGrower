@@ -67,7 +67,7 @@ public class CowOnTurn implements OnTurn {
 		Integer leashId = worldObject.getProperty(Constants.LEASH_ID);
 		if (leashId != null) {
 			WorldObject leashOwner = world.findWorldObjectById(leashId);
-			TaskCalculator taskCalculator = new TaskCalculatorImpl();
+			TaskCalculator taskCalculator = new TaskCalculatorImpl(world);
 			OperationInfo meleeAttackOperationInfo = new OperationInfo(worldObject, leashOwner, Args.EMPTY, Actions.MELEE_ATTACK_ACTION);
 			List<OperationInfo> tasks = taskCalculator.calculateTask(worldObject, world, meleeAttackOperationInfo);
 			if (tasks.size() > 1) {

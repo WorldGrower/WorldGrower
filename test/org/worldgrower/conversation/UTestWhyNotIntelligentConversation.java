@@ -35,7 +35,7 @@ public class UTestWhyNotIntelligentConversation {
 	
 	@Test
 	public void testGetReplyPhrases() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = createPerformerFacade(world);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
@@ -44,6 +44,11 @@ public class UTestWhyNotIntelligentConversation {
 		assertEquals(2, replyPhrases.size());
 		assertEquals("What are you? Why am I talking with a berry bush?", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 		assertEquals("A good try, berry bush, but I see through your disguise", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+	}
+
+	private WorldImpl createWorld() {
+		int worldDimension = 1;
+		return new WorldImpl(worldDimension, worldDimension, new DungeonMaster(worldDimension, worldDimension), null);
 	}
 
 	private WorldObject createPerformerFacade(World world) {
@@ -58,7 +63,7 @@ public class UTestWhyNotIntelligentConversation {
 	
 	@Test
 	public void testGetReplyPhraseNull() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
@@ -68,7 +73,7 @@ public class UTestWhyNotIntelligentConversation {
 	
 	@Test
 	public void testGetReplyPhraseMinusOne() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = createPerformerFacade(world);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
@@ -78,7 +83,7 @@ public class UTestWhyNotIntelligentConversation {
 	
 	@Test
 	public void testGetReplyPhraseMinusTwo() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject facade = TestUtils.createWorldObject(0, 0, 1, 1, Constants.ID, 3);
 		world.addWorldObject(facade);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.FACADE, facade);
@@ -90,7 +95,7 @@ public class UTestWhyNotIntelligentConversation {
 	
 	@Test
 	public void testHandleResponseMinusTwo() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = createPerformerFacade(world);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 

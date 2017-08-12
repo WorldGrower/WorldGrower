@@ -40,7 +40,7 @@ public class UTestCollectBountyFromThievesConversation {
 	
 	@Test
 	public void testGetReplyPhrases() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		target.setProperty(Constants.GOLD, 1000);
@@ -56,7 +56,7 @@ public class UTestCollectBountyFromThievesConversation {
 	
 	@Test
 	public void testGetReplyPhrase() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GOLD, 0);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Goals.COLLECT_WATER_GOAL);
 		
@@ -72,7 +72,7 @@ public class UTestCollectBountyFromThievesConversation {
 	
 	@Test
 	public void testGetQuestionPhrases() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList());
 		
@@ -86,7 +86,7 @@ public class UTestCollectBountyFromThievesConversation {
 	
 	@Test
 	public void testHandleResponse0() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
@@ -105,7 +105,7 @@ public class UTestCollectBountyFromThievesConversation {
 	
 	@Test
 	public void testHandleResponse1() {
-		World world = new WorldImpl(10, 10, new DungeonMaster(), null);
+		World world = createWorld(10);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
@@ -125,7 +125,7 @@ public class UTestCollectBountyFromThievesConversation {
 	
 	@Test
 	public void testHandleResponse2() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
@@ -141,7 +141,7 @@ public class UTestCollectBountyFromThievesConversation {
 	
 	@Test
 	public void testIsConversationAvailable() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		world.addWorldObject(target);
@@ -157,7 +157,7 @@ public class UTestCollectBountyFromThievesConversation {
 	
 	@Test
 	public void testIsConversationAvailableForLookalike() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		target.setProperty(Constants.IMAGE_ID, ImageIds.KNIGHT);
@@ -174,6 +174,14 @@ public class UTestCollectBountyFromThievesConversation {
 		
 		villagersOrganization.getProperty(Constants.BOUNTY).incrementValue(target2, 40);
 		assertEquals(true, conversation.isConversationAvailable(performer, target, null, world));
+	}
+	
+	private WorldImpl createWorld() {
+		return createWorld(1);
+	}
+	
+	private WorldImpl createWorld(int worldDimension) {
+		return new WorldImpl(worldDimension, worldDimension, new DungeonMaster(worldDimension, worldDimension), null);
 	}
 	
 	private WorldObject createVillagersOrganization(World world) {

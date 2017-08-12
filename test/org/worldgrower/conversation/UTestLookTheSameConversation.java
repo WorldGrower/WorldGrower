@@ -35,7 +35,7 @@ public class UTestLookTheSameConversation {
 	
 	@Test
 	public void testGetReplyPhrases() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject performer = createPerformerFacade(target, world);
 		
@@ -45,10 +45,15 @@ public class UTestLookTheSameConversation {
 		assertEquals(1, replyPhrases.size());
 		assertEquals("You look exactly like me. Who or what are you?", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
+
+	private WorldImpl createWorld() {
+		int worldDimension = 1;
+		return new WorldImpl(worldDimension, worldDimension, new DungeonMaster(worldDimension, worldDimension), null);
+	}
 	
 	@Test
 	public void testGetReplyPhrasesNull() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
@@ -67,7 +72,7 @@ public class UTestLookTheSameConversation {
 	
 	@Test
 	public void testGetReplyPhraseNull() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
@@ -77,7 +82,7 @@ public class UTestLookTheSameConversation {
 	
 	@Test
 	public void testGetReplyPhraseMinusOne() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject performer = createPerformerFacade(target, world);
 		

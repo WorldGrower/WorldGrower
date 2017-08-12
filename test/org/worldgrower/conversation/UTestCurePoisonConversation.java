@@ -52,7 +52,7 @@ public class UTestCurePoisonConversation {
 	
 	@Test
 	public void testGetReplyPhrase() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld(1);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
@@ -127,5 +127,9 @@ public class UTestCurePoisonConversation {
 		Conditions.add(performer, Condition.POISONED_CONDITION, 8, world);
 		target.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.CURE_POISON_ACTION));
 		assertEquals(true, conversation.isConversationAvailable(performer, target, null, null));
+	}
+	
+	private WorldImpl createWorld(int worldDimension) {
+		return new WorldImpl(worldDimension, worldDimension, new DungeonMaster(worldDimension, worldDimension), null);
 	}
 }

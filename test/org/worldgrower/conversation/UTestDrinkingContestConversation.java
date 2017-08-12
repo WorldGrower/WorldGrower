@@ -40,7 +40,7 @@ public class UTestDrinkingContestConversation {
 	
 	@Test
 	public void testGetReplyPhrases() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld(1);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
@@ -57,7 +57,7 @@ public class UTestDrinkingContestConversation {
 	
 	@Test
 	public void testGetReplyPhrase() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld(1);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GOLD, 0);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Goals.COLLECT_WATER_GOAL);
 		
@@ -109,5 +109,9 @@ public class UTestDrinkingContestConversation {
 		
 		DrinkingContestPropertyUtils.startDrinkingContest(performer, target, 10);
 		assertEquals(false, conversation.isConversationAvailable(performer, target, null, null));
+	}
+	
+	private WorldImpl createWorld(int worldDimension) {
+		return new WorldImpl(worldDimension, worldDimension, new DungeonMaster(worldDimension, worldDimension), null);
 	}
 }

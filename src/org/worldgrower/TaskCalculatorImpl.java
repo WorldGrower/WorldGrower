@@ -17,10 +17,8 @@ package org.worldgrower;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.PriorityQueue;
-import java.util.Set;
 
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MoveAction;
@@ -29,6 +27,15 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 
 	private int maxDepth = 50;
 	private static final NodeComparator NODE_COMPARATOR = new NodeComparator();
+	private final ClosedSet closedSet;
+	
+	public TaskCalculatorImpl(World world) {
+		this.closedSet = new ClosedSet(world.getWidth(), world.getHeight());
+	}
+	
+	public TaskCalculatorImpl(int worldWidth, int worldHeight) {
+		this.closedSet = new ClosedSet(worldWidth, worldHeight);
+	}
 	
 	@Override
 	public List<OperationInfo> calculateTask(WorldObject performer, World world, OperationInfo goal) {
@@ -36,7 +43,7 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 		
 		WorldObject copyPerformer = performer.shallowCopy();
 		
-		Set<Node> closedSet = new HashSet<>();
+		closedSet.clear();
 		PriorityQueue<Node> openSet = createOpenSet(performer, copyPerformer, goal, world);
 		
 		while(!openSet.isEmpty()) {
@@ -162,6 +169,36 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 		public String toString() {
 			return "["+ x + ", " + y + "]";
 		}	
+	}
+	
+	private static final class ClosedSet {
+		private int[][] values;
+		private int currentValue;
+		
+		public ClosedSet(int worldWidth, int worldHeight) {
+			super();
+			reset(worldWidth, worldHeight);
+		}
+
+		private void reset(int worldWidth, int worldHeight) {
+			this.values = new int[worldWidth][worldHeight];
+			this.currentValue = 1;
+		}
+		
+		public void clear() {
+			currentValue = (currentValue + 1) % Integer.MAX_VALUE;
+			if (currentValue == 0) {
+				reset(values.length, values[0].length);
+			}
+		}
+		
+		public void add(Node node) {
+			values[node.x][node.y] = currentValue;
+		}
+		
+		public boolean contains(Node node) {
+			return values[node.x][node.y] == currentValue;
+		}
 	}
 	
 	private static final class NodeComparator implements Comparator<Node> {

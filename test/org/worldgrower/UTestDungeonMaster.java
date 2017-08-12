@@ -37,10 +37,11 @@ import org.worldgrower.personality.Personality;
 
 public class UTestDungeonMaster {
 
+	private static final int WORLD_DIMENSION = 10;
 	private final DungeonMaster dungeonMaster;
 	
 	public UTestDungeonMaster() {
-		this.dungeonMaster = new DungeonMaster();
+		this.dungeonMaster = createDungeonMaster();
 		this.dungeonMaster.setTaskCalculator(new MockTaskCalculator());
 	}
 	
@@ -54,11 +55,11 @@ public class UTestDungeonMaster {
 	}
 
 	private WorldImpl createWorld() {
-		return new WorldImpl(10, 10, dungeonMaster, null);
+		return new WorldImpl(WORLD_DIMENSION, WORLD_DIMENSION, dungeonMaster, null);
 	}
 	
 	private WorldImpl createWorld(DungeonMaster dungeonMaster) {
-		return new WorldImpl(10, 10, dungeonMaster, null);
+		return new WorldImpl(WORLD_DIMENSION, WORLD_DIMENSION, dungeonMaster, null);
 	}
 
 	@Test
@@ -109,7 +110,7 @@ public class UTestDungeonMaster {
 	
 	@Test
 	public void testRunWorldObjectWithInvalidTarget() {
-		DungeonMaster dungeonMaster = new DungeonMaster();
+		DungeonMaster dungeonMaster = createDungeonMaster();
 		World world = createWorld(dungeonMaster);
 		WorldObject commoner = TestUtils.createIntelligentWorldObject(1, Goals.DRINK_WATER_GOAL);
 		commoner.setProperty(Constants.NAME, "performer");
@@ -139,7 +140,7 @@ public class UTestDungeonMaster {
 	
 	@Test
 	public void testRunWorldObjectWithImpossibleAction() {
-		DungeonMaster dungeonMaster = new DungeonMaster();
+		DungeonMaster dungeonMaster = createDungeonMaster();
 		World world = createWorld(dungeonMaster);
 		world.generateUniqueId(); world.generateUniqueId(); world.generateUniqueId();
 		createVillagersOrganization(world);
@@ -172,7 +173,7 @@ public class UTestDungeonMaster {
 	
 	@Test
 	public void testRunWorldObjectWithRemovedTarget() {
-		DungeonMaster dungeonMaster = new DungeonMaster();
+		DungeonMaster dungeonMaster = createDungeonMaster();
 		World world = createWorld(dungeonMaster);
 		world.generateUniqueId(); world.generateUniqueId(); world.generateUniqueId();
 		createVillagersOrganization(world);
@@ -209,7 +210,7 @@ public class UTestDungeonMaster {
 		WorldObject commoner = TestUtils.createIntelligentWorldObject(2, Goals.SOCIALIZE_GOAL);
 		WorldObject target = TestUtils.createIntelligentWorldObject(3, "target");
 		
-		DungeonMaster dungeonMaster = new DungeonMaster();
+		DungeonMaster dungeonMaster = createDungeonMaster();
 		World world = createWorld(dungeonMaster);
 		world.generateUniqueId(); world.generateUniqueId(); world.generateUniqueId();
 		createVillagersOrganization(world);
@@ -219,7 +220,7 @@ public class UTestDungeonMaster {
 	
 	@Test
 	public void testRunWorldObjectWithMovingPlayerCharacterTarget() {
-		DungeonMaster dungeonMaster = new DungeonMaster();
+		DungeonMaster dungeonMaster = createDungeonMaster();
 		World world = createWorld(dungeonMaster);
 		world.generateUniqueId(); world.generateUniqueId(); world.generateUniqueId();
 		WorldObject organization = createVillagersOrganization(world);
@@ -232,7 +233,7 @@ public class UTestDungeonMaster {
 	
 	@Test
 	public void testRunWorldObjectWithMoreUrgentGoal() {
-		DungeonMaster dungeonMaster = new DungeonMaster();
+		DungeonMaster dungeonMaster = createDungeonMaster();
 		World world = createWorld(dungeonMaster);
 		world.generateUniqueId(); world.generateUniqueId(); world.generateUniqueId();
 		
@@ -258,7 +259,7 @@ public class UTestDungeonMaster {
 	
 	@Test
 	public void testRunWorldObjectWithUnreachableTarget() {
-		DungeonMaster dungeonMaster = new DungeonMaster();
+		DungeonMaster dungeonMaster = createDungeonMaster();
 		World world = createWorld(dungeonMaster);
 		world.generateUniqueId(); world.generateUniqueId(); world.generateUniqueId();
 		
@@ -277,7 +278,7 @@ public class UTestDungeonMaster {
 	
 	@Test
 	public void testRunWorldObjectTargetBecomesUnreachable() {
-		DungeonMaster dungeonMaster = new DungeonMaster();
+		DungeonMaster dungeonMaster = createDungeonMaster();
 		World world = createWorld(dungeonMaster);
 		world.generateUniqueId(); world.generateUniqueId(); world.generateUniqueId();
 		
@@ -314,6 +315,10 @@ public class UTestDungeonMaster {
 		assertEquals(0, commoner.getProperty(Constants.META_INFORMATION).getCurrentTask().size());
 		assertEquals(4, commoner.getProperty(Constants.X).intValue());
 		assertEquals(3, commoner.getProperty(Constants.Y).intValue());
+	}
+
+	private DungeonMaster createDungeonMaster() {
+		return new DungeonMaster(WORLD_DIMENSION, WORLD_DIMENSION);
 	}
 
 	private void createUnreachableBerryBush(World world, boolean addTopObstacle) {

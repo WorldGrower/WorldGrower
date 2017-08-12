@@ -33,10 +33,12 @@ import org.worldgrower.profession.Professions;
 
 public class UTestTalkAction {
 
+	private static final int WORLD_DIMENSION = 1;
+	
 	private WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
 	private WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
 	private WorldObject deity = TestUtils.createWorldObject(3, "Demeter");
-	private DungeonMaster dungeonMaster = new DungeonMaster();
+	private DungeonMaster dungeonMaster = new DungeonMaster(WORLD_DIMENSION, WORLD_DIMENSION);
 	
 	@Test
 	public void testAskName() {
@@ -217,7 +219,7 @@ public class UTestTalkAction {
 	}
 	
 	private World createWorld() {
-		World world = new WorldImpl(1, 1, dungeonMaster, null);
+		World world = new WorldImpl(WORLD_DIMENSION, WORLD_DIMENSION, dungeonMaster, null);
 		performer.setProperty(Constants.ID, world.generateUniqueId());
 		world.addWorldObject(performer);
 		target.setProperty(Constants.ID, world.generateUniqueId());

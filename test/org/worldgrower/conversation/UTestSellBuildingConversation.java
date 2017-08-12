@@ -49,7 +49,7 @@ public class UTestSellBuildingConversation {
 	
 	@Test
 	public void testGetReplyPhrase() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BUILDINGS, new BuildingList().add(3, BuildingType.HOUSE));
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.GOLD, 100);
 		
@@ -59,6 +59,11 @@ public class UTestSellBuildingConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		assertEquals(1, conversation.getReplyPhrase(context).getId());
+	}
+
+	private WorldImpl createWorld() {
+		int worldDimension = 1;
+		return new WorldImpl(worldDimension, worldDimension, new DungeonMaster(worldDimension, worldDimension), null);
 	}
 	
 	@Test
@@ -73,7 +78,7 @@ public class UTestSellBuildingConversation {
 	
 	@Test
 	public void testHandleResponse0() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BUILDINGS, new BuildingList().add(3, BuildingType.HOUSE));
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.BUILDINGS, new BuildingList());
 		

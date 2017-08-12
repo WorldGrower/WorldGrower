@@ -35,7 +35,7 @@ public class UTestSawDisguisingConversation {
 	
 	@Test
 	public void testGetReplyPhrases() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = createPerformerWithFacade(world);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
@@ -47,10 +47,15 @@ public class UTestSawDisguisingConversation {
 		assertEquals(1, replyPhrases.size());
 		assertEquals("A good try, performer, but I saw you disguise yourself earlier", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
+
+	private WorldImpl createWorld() {
+		int worldDimension = 1;
+		return new WorldImpl(worldDimension, worldDimension, new DungeonMaster(worldDimension, worldDimension), null);
+	}
 	
 	@Test
 	public void testGetReplyPhrasesNull() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
@@ -71,7 +76,7 @@ public class UTestSawDisguisingConversation {
 	
 	@Test
 	public void testGetReplyPhraseNull() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
@@ -81,7 +86,7 @@ public class UTestSawDisguisingConversation {
 	
 	@Test
 	public void testGetReplyPhraseMinusThree() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = createPerformerWithFacade(world);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
@@ -94,7 +99,7 @@ public class UTestSawDisguisingConversation {
 	
 	@Test
 	public void testHandleResponseMinusThree() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = createPerformerWithFacade(world);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		

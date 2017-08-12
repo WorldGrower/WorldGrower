@@ -28,7 +28,7 @@ import org.worldgrower.terrain.TerrainType;
 
 public class UTestTaskCalculator {
 
-	private TaskCalculator taskCalculator = new TaskCalculatorImpl();
+	private TaskCalculator taskCalculator = new TaskCalculatorImpl(createWorld());
 	
 	@Test
 	public void testPathFindingNoObstacle() {
@@ -46,7 +46,7 @@ public class UTestTaskCalculator {
 	}
 
 	private WorldImpl createWorld() {
-		return new WorldImpl(10, 10, null, null);
+		return new WorldImpl(30, 30, null, null);
 	}
 	
 	@Test
@@ -100,7 +100,7 @@ public class UTestTaskCalculator {
 		WorldObject obstacle1 = createWorldObject(1, 3, 1, 1, Constants.ID, 4);
 		WorldObject obstacle2 = createWorldObject(2, 3, 1, 1, Constants.ID, 5);
 		WorldObject obstacle3 = createWorldObject(3, 3, 1, 1, Constants.ID, 6);
-		World world = createWorld();
+		World world = new WorldImpl(10, 10, null, null);
 		world.addWorldObject(performer);
 		world.addWorldObject(target);
 		world.addWorldObject(obstacle1);
@@ -237,6 +237,7 @@ public class UTestTaskCalculator {
 		
 		addBerryBushPrison(world);
 		
+		TaskCalculator taskCalculator = new TaskCalculatorImpl(100, 100);
 		List<OperationInfo> tasks = taskCalculator.calculateTask(performer, world, new OperationInfo(performer, target, Args.EMPTY, new TalkAction()));
 		assertEquals(0, tasks.size());
 	}

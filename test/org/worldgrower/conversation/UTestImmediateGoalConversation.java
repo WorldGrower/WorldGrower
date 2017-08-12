@@ -43,7 +43,7 @@ public class UTestImmediateGoalConversation {
 	
 	@Test
 	public void testGetReplyPhrases() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.DEITY, Deity.APHRODITE);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.DEITY, Deity.HADES);
 
@@ -97,7 +97,7 @@ public class UTestImmediateGoalConversation {
 	}
 	
 	private void assertReplyPhrase(String replyPhrase, Goal goal, ManagedOperation action) {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.DEITY, Deity.APHRODITE);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.DEITY, Deity.HADES);
 
@@ -110,7 +110,7 @@ public class UTestImmediateGoalConversation {
 	
 	@Test
 	public void testGetReplyPhraseThief() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.PROFESSION, Professions.THIEF_PROFESSION);
 
@@ -129,7 +129,7 @@ public class UTestImmediateGoalConversation {
 
 	@Test
 	public void testGetReplyPhrase() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.DEITY, Deity.APHRODITE);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.DEITY, Deity.HADES);
 
@@ -141,6 +141,11 @@ public class UTestImmediateGoalConversation {
 		
 		MockMetaInformation.setMetaInformation(target, null);
 		assertEquals(1, conversation.getReplyPhrase(context).getId());
+	}
+
+	private WorldImpl createWorld() {
+		int worldDimension = 1;
+		return new WorldImpl(worldDimension, worldDimension, new DungeonMaster(worldDimension, worldDimension), null);
 	}
 	
 	@Test

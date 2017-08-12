@@ -53,7 +53,7 @@ public class UTestCureDiseaseConversation {
 	
 	@Test
 	public void testGetReplyPhrase() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld(1);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GOLD, 0);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.GOLD, 0);
 		
@@ -130,5 +130,9 @@ public class UTestCureDiseaseConversation {
 		
 		performer.getProperty(Constants.CONDITIONS).removeAllDiseases(performer, new WorldStateChangedListeners());
 		assertEquals(false, conversation.isConversationAvailable(performer, target, null, null));
+	}
+	
+	private WorldImpl createWorld(int worldDimension) {
+		return new WorldImpl(worldDimension, worldDimension, new DungeonMaster(worldDimension, worldDimension), null);
 	}
 }

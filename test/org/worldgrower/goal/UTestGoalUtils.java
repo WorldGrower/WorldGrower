@@ -57,7 +57,8 @@ public class UTestGoalUtils {
 	}
 
 	private WorldImpl createWorld() {
-		return new WorldImpl(10, 10, new DungeonMaster(), null);
+		int worldDimension = 10;
+		return new WorldImpl(worldDimension, worldDimension, new DungeonMaster(worldDimension, worldDimension), null);
 	}
 	
 	@Test

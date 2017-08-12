@@ -48,7 +48,7 @@ public class UTestStartArenaFightConversation {
 	
 	@Test
 	public void testGetReplyPhrase() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GOLD, 0);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.ARENA_IDS, new IdList());
 		
@@ -63,6 +63,14 @@ public class UTestStartArenaFightConversation {
 		subject.setProperty(Constants.ARENA_OPPONENT_ID, -1);
 		assertEquals(0, conversation.getReplyPhrase(context).getId());
 	}
+
+	private WorldImpl createWorld() {
+		return createWorld(1);
+	}
+	
+	private WorldImpl createWorld(int worldDimension) {
+		return new WorldImpl(worldDimension, worldDimension, new DungeonMaster(worldDimension, worldDimension), null);
+	}
 	
 	@Test
 	public void testGetQuestionPhrases() {
@@ -76,7 +84,7 @@ public class UTestStartArenaFightConversation {
 	
 	@Test
 	public void testHandleResponse0() {
-		World world = new WorldImpl(15, 15, new DungeonMaster(), null);
+		World world = createWorld(15);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.ARENA_IDS, new IdList().add(3));
 		
@@ -95,7 +103,7 @@ public class UTestStartArenaFightConversation {
 	
 	@Test
 	public void testHandleResponse1() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.ARENA_IDS, new IdList().add(3));
 		target.setProperty(Constants.ARENA_FIGHTER_IDS, new IdList());
@@ -109,7 +117,7 @@ public class UTestStartArenaFightConversation {
 	
 	@Test
 	public void testHandleResponse2() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.ARENA_IDS, new IdList().add(3));
 		target.setProperty(Constants.ARENA_FIGHTER_IDS, new IdList());
