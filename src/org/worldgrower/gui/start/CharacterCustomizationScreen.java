@@ -87,6 +87,7 @@ public class CharacterCustomizationScreen extends JFrame {
 	private final ImageInfoReader imageInfoReader;
 	
 	public CharacterCustomizationScreen(ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, KeyBindings keyBindings, JFrame parentFrame) {
+		super("Character Customization");
 		this.imageInfoReader = imageInfoReader;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 599, 780);

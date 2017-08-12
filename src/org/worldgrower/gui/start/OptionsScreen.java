@@ -101,7 +101,7 @@ public class OptionsScreen {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(ImageInfoReader imageInfoReader, JFrame parentFrame) {
-		frame = new JFrame();
+		frame = new JFrame("World Customization");
 		frame.setResizable(false);
 		((JComponent)frame.getRootPane()).setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
 		JPanel contentPanel = new TiledImagePanel(imageInfoReader);

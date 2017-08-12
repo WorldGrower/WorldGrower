@@ -34,6 +34,8 @@ public class ProgressDialog extends JFrame {
 	private JProgressBar progressBar;
 	
 	public ProgressDialog(String description, int max, ImageInfoReader imageInfoReader) {
+		super("Processing turns...");
+		
 		getContentPane().setLayout(null);
 		IconUtils.setIcon(this);
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
