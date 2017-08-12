@@ -22,6 +22,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.BuildingList;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.generator.Item;
@@ -31,8 +32,9 @@ public class HousePropertyUtils {
 	public static List<WorldObject> getHousingOfOwners(List<WorldObject> owners, World world) {
 		List<WorldObject> result = new ArrayList<>();
 		for(WorldObject owner : owners) {
-			if (owner.getProperty(Constants.BUILDINGS) != null) {
-				List<Integer> houseIds = owner.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK, BuildingType.HOUSE);
+			BuildingList buildings = owner.getProperty(Constants.BUILDINGS);
+			if (buildings != null) {
+				List<Integer> houseIds = buildings.getIds(BuildingType.SHACK, BuildingType.HOUSE);
 				for(int houseId : houseIds) {
 					result.add(world.findWorldObjectById(houseId));
 				}
