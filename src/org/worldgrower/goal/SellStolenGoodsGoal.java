@@ -34,7 +34,7 @@ public class SellStolenGoodsGoal implements Goal {
 	public final OperationInfo calculateGoal(WorldObject performer, World world) {
 		int indexOfItemsToSell = getIndexOfItemsToSell(performer);
 		if (indexOfItemsToSell != -1) {
-			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.SELL_ACTION, w -> performerCanSell(performer, world, indexOfItemsToSell, w) , world);
+			List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.SELL_ACTION, Constants.STRENGTH, w -> performerCanSell(performer, world, indexOfItemsToSell, w) , world);
 			if (targets.size() > 0) {
 				WorldObject target = targets.get(0);
 				int[] args = createArgs(performer, indexOfItemsToSell);

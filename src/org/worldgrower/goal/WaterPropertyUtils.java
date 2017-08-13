@@ -22,7 +22,6 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.KnowledgeMap;
-import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
@@ -32,7 +31,7 @@ public class WaterPropertyUtils {
 
 	public static WorldObject findWaterSource(WorldObject performer, World world) {
 		KnowledgeMap knowledgeMap = performer.getProperty(Constants.KNOWLEDGE_MAP);
-		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.DRINK_ACTION, w -> !knowledgeMap.hasProperty(w, Constants.POISON_DAMAGE) && Reach.distance(performer, w) < 15, world);
+		List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.DRINK_ACTION, Constants.WATER_SOURCE, w -> !knowledgeMap.hasProperty(w, Constants.POISON_DAMAGE) && Reach.distance(performer, w) < 15, world);
 		if (targets.size() > 0) {
 			return targets.get(0);
 		} else {
