@@ -108,9 +108,11 @@ public class UTestWorldObjectContainer {
 	public void testGetIndexFor() {
 		WorldObjectContainer container = new WorldObjectContainer();
 		container.addQuantity(Item.WOOD.generate(1f), 1);
+		container.addQuantity(Item.GOLD.generate(1f), 1);
 		
 		assertEquals(0, container.getIndexFor(Constants.WOOD));
 		assertEquals(-1, container.getIndexFor(Constants.STONE));
+		assertEquals(1, container.getIndexFor(Constants.GOLD));
 	}
 	
 	@Test
@@ -143,6 +145,7 @@ public class UTestWorldObjectContainer {
 		assertEquals(0, container.getIndexFor(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT, w -> w.getProperty(Constants.ARMOR) > 0));
 		assertEquals(-1, container.getIndexFor(Constants.NAME, "Test", w -> w.getProperty(Constants.ARMOR) > 0));
 		assertEquals(-1, container.getIndexFor(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT, w -> w.getProperty(Constants.ARMOR) == 0));
+		assertEquals(1, container.getIndexFor(Constants.FOOD, 1, w -> true));
 	}
 	
 	@Test
@@ -155,12 +158,23 @@ public class UTestWorldObjectContainer {
 	}
 	
 	@Test
+	public void testGetIndexForFunctionNull() {
+		WorldObjectContainer container = new WorldObjectContainer();
+		container.addQuantity(Item.BERRIES.generate(1f), 10);
+		container.removeAllQuantity(Constants.FOOD);
+		
+		assertEquals(-1, container.getIndexFor(w -> w.getProperty(Constants.ID) == 1));
+	}
+	
+	@Test
 	public void testGetIndexForWithValue() {
 		WorldObjectContainer container = new WorldObjectContainer();
 		container.add(TestUtils.createWorldObject(1, "Test"));
 		container.addQuantity(Item.BERRIES.generate(1f), 10);
 		
 		assertEquals(1, container.getIndexFor(Constants.FOOD, 1));
+		assertEquals(-1, container.getIndexFor(Constants.WOOD, 1));
+		assertEquals(0, container.getIndexFor(Constants.WIDTH, 1));
 	}
 	
 	@Test

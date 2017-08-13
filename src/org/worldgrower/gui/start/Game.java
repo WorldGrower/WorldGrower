@@ -150,8 +150,9 @@ public class Game {
 					}
 				});
 			}
-			System.out.println("total time=" + (System.currentTimeMillis() - start) + " ms");
-			
+			if (Boolean.getBoolean("DEBUG")) {
+				System.out.println("total time=" + (System.currentTimeMillis() - start) + " ms");
+			}
 			progressDialog.close();
 			
 			return 0;
