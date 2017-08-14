@@ -28,6 +28,7 @@ import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
+import org.worldgrower.generator.PlantGenerator;
 
 public class UTestCreateSleepingPotionGoal {
 
@@ -45,6 +46,28 @@ public class UTestCreateSleepingPotionGoal {
 	public void testCalculateGoalPlantNightShade() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
+		
+		assertEquals(Actions.PLANT_NIGHT_SHADE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalHarvestNightShade() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		int nightShadeId = PlantGenerator.generateNightShade(0, 0, world);
+		WorldObject nightShade = world.findWorldObjectById(nightShadeId);
+		nightShade.setProperty(Constants.NIGHT_SHADE_SOURCE, 30);
+		
+		assertEquals(Actions.HARVEST_NIGHT_SHADE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalPlantNightShadeIfFarAway() {
+		World world = new WorldImpl(30, 30, null, null);
+		WorldObject performer = createPerformer();
+		int nightShadeId = PlantGenerator.generateNightShade(29, 29, world);
+		WorldObject nightShade = world.findWorldObjectById(nightShadeId);
+		nightShade.setProperty(Constants.NIGHT_SHADE_SOURCE, 30);
 		
 		assertEquals(Actions.PLANT_NIGHT_SHADE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}

@@ -39,7 +39,6 @@ public class FurnitureGoal implements Goal {
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		boolean hasInventoryFurniture = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.BED).size() > 0;
-		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.SLEEP_COMFORT, QUANTITY_TO_BUY, world);
 		if (hasInventoryFurniture) {
 			int indexOfFurniture = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.SLEEP_COMFORT);
 			WorldObject target = HousePropertyUtils.getBestHouse(performer, world);
@@ -57,18 +56,21 @@ public class FurnitureGoal implements Goal {
 			} else {
 				return Goals.HOUSE_GOAL.calculateGoal(performer, world);
 			}
-		} else if (targets.size() > 0) {
-			return BuySellUtils.create(performer, targets.get(0), Item.BED, QUANTITY_TO_BUY, world);
-		} else if (ConstructBedAction.hasEnoughWood(performer)) {
-			Integer workbenchId = BuildingGenerator.getWorkbenchId(performer);
-			if (workbenchId == null) {
-				return Goals.WORKBENCH_GOAL.calculateGoal(performer, world);
-			} else {
-				WorldObject workbench = world.findWorldObjectById(workbenchId);
-				return new OperationInfo(performer, workbench, Args.EMPTY, Actions.CONSTRUCT_BED_ACTION);
-			}
 		} else {
-			return Goals.WOOD_GOAL.calculateGoal(performer, world);
+			List<WorldObject> buyTargets = BuySellUtils.findBuyTargets(performer, Constants.SLEEP_COMFORT, QUANTITY_TO_BUY, world);
+			if (buyTargets.size() > 0) {
+				return BuySellUtils.create(performer, buyTargets.get(0), Item.BED, QUANTITY_TO_BUY, world);
+			} else if (ConstructBedAction.hasEnoughWood(performer)) {
+				Integer workbenchId = BuildingGenerator.getWorkbenchId(performer);
+				if (workbenchId == null) {
+					return Goals.WORKBENCH_GOAL.calculateGoal(performer, world);
+				} else {
+					WorldObject workbench = world.findWorldObjectById(workbenchId);
+					return new OperationInfo(performer, workbench, Args.EMPTY, Actions.CONSTRUCT_BED_ACTION);
+				}
+			} else {
+				return Goals.WOOD_GOAL.calculateGoal(performer, world);
+			}
 		}
 	}
 	

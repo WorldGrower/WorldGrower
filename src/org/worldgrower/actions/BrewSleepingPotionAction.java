@@ -107,4 +107,8 @@ public class BrewSleepingPotionAction implements CraftAction, AnimatedAction {
 	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
 		return Arrays.asList(target);
 	}
+	
+	public boolean hasEnoughNightShade(WorldObject performer) {
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.NIGHT_SHADE) >= NIGHT_SHADE_REQUIRED;
+	}
 }

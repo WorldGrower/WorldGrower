@@ -16,38 +16,31 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
-import org.worldgrower.Constants;
+import org.worldgrower.Args;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.generator.BuildingDimensions;
+import org.worldgrower.generator.Item;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
-public class DonateMoneyToArenaGoal implements Goal {
+public class PlantNightShadeGoal implements Goal {
 
-	private static final int NUMBER_OF_TURNS_BETWEEN_DONATIONS = 200;
-	
-	public DonateMoneyToArenaGoal(List<Goal> allGoals) {
+	public PlantNightShadeGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isTargetForMoneyDonation(performer, w, world));
-		if (targets.size() > 0) {
-			WorldObject target = targets.get(0);
-			target = GoalUtils.findNearestPersonLookingLike(performer, target.getProperty(Constants.ID), world);
-			int performerGold = performer.getProperty(Constants.GOLD);
-			if (performerGold > 50) {
-				return new OperationInfo(performer, target, new int[] { 5 }, Actions.DONATE_MONEY_ACTION);
-			}
+		WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.NIGHT_SHADE, world);
+		
+		if (target != null) {
+			return new OperationInfo(performer, target, Args.EMPTY, Actions.PLANT_NIGHT_SHADE_ACTION);
+		} else {
+			return null;
 		}
-		return null;
-	}
-
-	private boolean isTargetForMoneyDonation(WorldObject performer, WorldObject w, World world) {
-		return ArenaPropertyUtils.worldObjectOwnsArena(w) && Actions.DONATE_MONEY_ACTION.isValidTarget(performer, w, world);
 	}
 	
 	@Override
@@ -56,10 +49,7 @@ public class DonateMoneyToArenaGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		int money = performer.getProperty(Constants.GOLD);
-		boolean hasInsufficientMoney = (money < 50);
-		boolean donatedRecently = ArenaPropertyUtils.getTurnsSinceLastDonation(performer, world) < NUMBER_OF_TURNS_BETWEEN_DONATIONS;
-		return hasInsufficientMoney || donatedRecently;
+		return false;
 	}
 	
 	@Override
@@ -69,12 +59,11 @@ public class DonateMoneyToArenaGoal implements Goal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_DONATE_MONEY_TO_ARENA);
+		return new FormattableText(TextId.GOAL_PLANT_NIGHTSHADE, Item.NIGHT_SHADE);
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
 		return 0;
 	}
-
 }

@@ -163,7 +163,8 @@ public class DungeonMaster implements Serializable {
 			if (!lastTask.canExecuteIgnoringDistance(worldObject, world)) {
 				boolean isValidTarget = lastTask.isValidTarget(world);
 				boolean isActionPossible = lastTask.isActionPossible(worldObject, world);
-				throw new IllegalStateException("WorldObject " + worldObject + " works towards task " + lastTask.getManagedOperation() + " which cannot be performed on target " + lastTask.getTarget() + " with args " + Arrays.toString(lastTask.getArgs()) + " for old goal " + metaInformation.getFinalGoal() + " isValidTarget = " + isValidTarget + " isActionPossible = " + isActionPossible);
+				boolean canWorldObjectPerformAction = worldObject.canWorldObjectPerformAction(lastTask.getManagedOperation());
+				throw new IllegalStateException("WorldObject " + worldObject + " works towards task " + lastTask.getManagedOperation() + " which cannot be performed on target " + lastTask.getTarget() + " with args " + Arrays.toString(lastTask.getArgs()) + " for old goal " + metaInformation.getFinalGoal() + " isValidTarget = " + isValidTarget + " isActionPossible = " + isActionPossible + " canWorldObjectPerformAction=" + canWorldObjectPerformAction);
 			}
 		}
 		

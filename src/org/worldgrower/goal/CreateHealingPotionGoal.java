@@ -22,7 +22,6 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.text.FormattableText;
@@ -42,13 +41,7 @@ public class CreateHealingPotionGoal implements Goal {
 			if (harvestNightShadeOperationInfo != null) {
 				return harvestNightShadeOperationInfo;
 			} else {
-				WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.NIGHT_SHADE, world);
-		
-				if (target != null) {
-					return new OperationInfo(performer, target, Args.EMPTY, Actions.PLANT_NIGHT_SHADE_ACTION);
-				} else {
-					return null;
-				}
+				return Goals.PLANT_NIGHT_SHADE_GOAL.calculateGoal(performer, world);
 			}
 		} else if (apothecaryId == null) {
 			return Goals.APOTHECARY_GOAL.calculateGoal(performer, world);

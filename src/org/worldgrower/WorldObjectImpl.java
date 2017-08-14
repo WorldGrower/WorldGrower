@@ -170,6 +170,8 @@ public class WorldObjectImpl implements WorldObject, Serializable {
 			return this.getProperty(Constants.NAME).equals("Spider");
 		} else if (operation instanceof MagicSpell) {
 			return MagicSpellUtils.canCast(this, (MagicSpell)operation);
+		} else if (operation == Actions.DO_NOTHING_ACTION) {
+			return true;
 		} else {
 			Conditions conditions = this.getProperty(Constants.CONDITIONS);
 			if (conditions == null || conditions.canTakeAction()) {

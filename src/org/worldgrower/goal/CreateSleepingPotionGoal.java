@@ -19,10 +19,10 @@ import java.util.List;
 import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.text.FormattableText;
@@ -37,14 +37,13 @@ public class CreateSleepingPotionGoal implements Goal {
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		Integer apothecaryId = BuildingGenerator.getApothecaryId(performer);
-		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.NIGHT_SHADE) == 0) {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.NIGHT_SHADE, world);
-	
-			if (target != null) {
-				return new OperationInfo(performer, target, Args.EMPTY, Actions.PLANT_NIGHT_SHADE_ACTION);
-			} else {
-				return null;
+		if (!Actions.BREW_SLEEPING_POTION_ACTION.hasEnoughNightShade(performer)) {
+			OperationInfo harvestNightShadeGoal = Goals.HARVEST_NIGHT_SHADE_GOAL.calculateGoal(performer, world);
+			if (harvestNightShadeGoal != null && Reach.distance(performer, harvestNightShadeGoal.getTarget()) < 15) {
+				return harvestNightShadeGoal;
 			}
+			
+			return Goals.PLANT_NIGHT_SHADE_GOAL.calculateGoal(performer, world);
 		} else if (apothecaryId == null) {
 			return Goals.APOTHECARY_GOAL.calculateGoal(performer, world);
 		} else {
