@@ -29,6 +29,7 @@ import org.worldgrower.goal.LocationPropertyUtils;
 import org.worldgrower.goal.LocationUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
+import org.worldgrower.terrain.Terrain;
 import org.worldgrower.terrain.TerrainType;
 
 public class MoveAction implements ManagedOperation {
@@ -79,7 +80,7 @@ public class MoveAction implements ManagedOperation {
 		if (LocationUtils.areInvalidCoordinates(newX, newY, world)) {
 			return 1;
 		} else {
-			if (performerCanMoveOnTerrain(performer, newX, newY, world)) {
+			if (performerCanMoveOnTerrain(performer, newX, newY, world.getTerrain())) {
 				List<WorldObject> obstacles = calculateObstacles(performer, world, performerX, performerY, newX, newY);
 				
 				if (obstacles.size() == 1) {
@@ -97,8 +98,8 @@ public class MoveAction implements ManagedOperation {
 		}
 	}
 	
-	public static boolean performerCanMoveOnTerrain(WorldObject performer, int newX, int newY, World world) {
-		TerrainType terrainType = world.getTerrain().getTerrainInfo(newX, newY).getTerrainType();
+	public static boolean performerCanMoveOnTerrain(WorldObject performer, int newX, int newY, Terrain terrain) {
+		TerrainType terrainType = terrain.getTerrainInfo(newX, newY).getTerrainType();
 		if (terrainType == TerrainType.WATER) {
 			boolean hasWaterWalkCondition = performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.WATER_WALK_CONDITION);
 			if (hasWaterWalkCondition) {

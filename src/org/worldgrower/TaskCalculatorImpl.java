@@ -22,6 +22,7 @@ import java.util.PriorityQueue;
 
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MoveAction;
+import org.worldgrower.terrain.Terrain;
 
 public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 
@@ -40,6 +41,7 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 	@Override
 	public List<OperationInfo> calculateTask(WorldObject performer, World world, OperationInfo goal) {
 		LocationWorldObjectsCache zone = (LocationWorldObjectsCache) world.getWorldObjectsCache(Constants.X, Constants.Y);
+		Terrain terrain = world.getTerrain();
 		
 		WorldObject copyPerformer = performer.shallowCopy();
 		
@@ -56,7 +58,7 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 			closedSet.add(current);
 			
 			if (current.g < maxDepth) {
-				for(Node neighbourNode : neighbourNodes(current, copyPerformer, world, zone)) {
+				for(Node neighbourNode : neighbourNodes(current, copyPerformer, terrain, zone)) {
 					if (!closedSet.contains(neighbourNode)) {
 						if (!openSet.contains(neighbourNode)) {
 							neighbourNode.h = distance(goal, copyPerformer, neighbourNode, world);
@@ -114,26 +116,26 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 		return reconstructedPath;
 	}
 
-	private List<Node> neighbourNodes(Node node, WorldObject performer, World world, LocationWorldObjectsCache zone) {
+	private List<Node> neighbourNodes(Node node, WorldObject performer, Terrain terrain, LocationWorldObjectsCache zone) {
 		List<Node> result = new ArrayList<>(8);
 		int newG = node.g + 1;
-		addNodeToList(result, node.x - 1, node.y - 1, newG, performer, world, zone);
-		addNodeToList(result, node.x - 1, node.y, newG, performer, world, zone);
-		addNodeToList(result, node.x - 1, node.y + 1, newG, performer, world, zone);
-		addNodeToList(result, node.x, node.y - 1, newG, performer, world, zone);
-		addNodeToList(result, node.x, node.y + 1, newG, performer, world, zone);
-		addNodeToList(result, node.x + 1, node.y - 1, newG, performer, world, zone);
-		addNodeToList(result, node.x + 1, node.y, newG, performer, world, zone);
-		addNodeToList(result, node.x + 1, node.y + 1, newG, performer, world, zone);
+		addNodeToList(result, node.x - 1, node.y - 1, newG, performer, terrain, zone);
+		addNodeToList(result, node.x - 1, node.y, newG, performer, terrain, zone);
+		addNodeToList(result, node.x - 1, node.y + 1, newG, performer, terrain, zone);
+		addNodeToList(result, node.x, node.y - 1, newG, performer, terrain, zone);
+		addNodeToList(result, node.x, node.y + 1, newG, performer, terrain, zone);
+		addNodeToList(result, node.x + 1, node.y - 1, newG, performer, terrain, zone);
+		addNodeToList(result, node.x + 1, node.y, newG, performer, terrain, zone);
+		addNodeToList(result, node.x + 1, node.y + 1, newG, performer, terrain, zone);
 		return result;
 	}
 	
-	private void addNodeToList(List<Node> list, int nodeX, int nodeY, int newG, WorldObject performer, World world, LocationWorldObjectsCache zone) {
-		if ((nodeX >= 0) && (nodeX < world.getWidth()) && 
-				(nodeY >= 0) && (nodeY < world.getHeight()) && 
+	private void addNodeToList(List<Node> list, int nodeX, int nodeY, int newG, WorldObject performer, Terrain terrain, LocationWorldObjectsCache zone) {
+		if ((nodeX >= 0) && (nodeX < terrain.getWidth()) && 
+				(nodeY >= 0) && (nodeY < terrain.getHeight()) && 
 				zone.value(nodeX, nodeY) == 0 &&
 				//TODO: call MoveAction::distance?
-				MoveAction.performerCanMoveOnTerrain(performer, nodeX, nodeY, world)) {
+				MoveAction.performerCanMoveOnTerrain(performer, nodeX, nodeY, terrain)) {
 			list.add(new Node(nodeX, nodeY, newG));
 		}
 	}
