@@ -39,11 +39,14 @@ public class UTestFirePublicEmployeeAction {
 		WorldObject target = createPerformer(3);
 		target.setProperty(Constants.CAN_ATTACK_CRIMINALS, true);
 		target.setProperty(Constants.PROFESSION, Professions.SHERIFF_PROFESSION);
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		villagersOrganization.getProperty(Constants.PAY_CHECK_PAID_TURN).incrementValue(target, 500);
 		
 		action.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(null, target.getProperty(Constants.CAN_ATTACK_CRIMINALS));
 		assertEquals(null, target.getProperty(Constants.PROFESSION));
+		assertEquals(false, villagersOrganization.getProperty(Constants.PAY_CHECK_PAID_TURN).contains(target));
 	}
 	
 	@Test
@@ -54,12 +57,15 @@ public class UTestFirePublicEmployeeAction {
 		target.setProperty(Constants.CAN_COLLECT_TAXES, true);
 		target.setProperty(Constants.PROFESSION, Professions.TAX_COLLECTOR_PROFESSION);
 		target.setProperty(Constants.PROFESSION_START_TURN, 34);
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		villagersOrganization.getProperty(Constants.PAY_CHECK_PAID_TURN).incrementValue(target, 500);
 		
 		action.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(null, target.getProperty(Constants.CAN_COLLECT_TAXES));
 		assertEquals(null, target.getProperty(Constants.PROFESSION));
 		assertEquals(null, target.getProperty(Constants.PROFESSION_START_TURN));
+		assertEquals(false, villagersOrganization.getProperty(Constants.PAY_CHECK_PAID_TURN).contains(target));
 	}
 	
 	@Test
@@ -71,12 +77,15 @@ public class UTestFirePublicEmployeeAction {
 		PlayerCharacterProfession profession = new PlayerCharacterProfession("description");
 		target.setProperty(Constants.PROFESSION, profession);
 		target.setProperty(Constants.PROFESSION_START_TURN, 34);
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		villagersOrganization.getProperty(Constants.PAY_CHECK_PAID_TURN).incrementValue(target, 500);
 		
 		action.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(null, target.getProperty(Constants.CAN_COLLECT_TAXES));
 		assertEquals(profession, target.getProperty(Constants.PROFESSION));
 		assertEquals(null, target.getProperty(Constants.PROFESSION_START_TURN));
+		assertEquals(false, villagersOrganization.getProperty(Constants.PAY_CHECK_PAID_TURN).contains(target));
 	}
 	
 	@Test

@@ -20,6 +20,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.IdMap;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.ProfessionPropertyUtils;
 import org.worldgrower.gui.ImageIds;
@@ -38,6 +39,10 @@ public class FirePublicEmployeeAction implements ManagedOperation {
 		if (targetProfession == Professions.TAX_COLLECTOR_PROFESSION || targetProfession == Professions.SHERIFF_PROFESSION) {
 			target.setProperty(Constants.PROFESSION, null);
 		}
+		
+		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
+		IdMap payCheckPaidTurn = villagersOrganization.getProperty(Constants.PAY_CHECK_PAID_TURN);
+		payCheckPaidTurn.remove(target);
 		
 		world.logAction(this, performer, target, args, performer.getProperty(Constants.NAME) + " fired " + target.getProperty(Constants.NAME));
 	}
