@@ -28,14 +28,17 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 
 	private int maxDepth = 50;
 	private static final NodeComparator NODE_COMPARATOR = new NodeComparator();
+	private final OpenSet openSet;
 	private final ClosedSet closedSet;
 	
 	public TaskCalculatorImpl(World world) {
 		this.closedSet = new ClosedSet(world.getWidth(), world.getHeight());
+		this.openSet = new OpenSet(world.getWidth(), world.getHeight());
 	}
 	
 	public TaskCalculatorImpl(int worldWidth, int worldHeight) {
 		this.closedSet = new ClosedSet(worldWidth, worldHeight);
+		this.openSet = new OpenSet(worldWidth, worldHeight);
 	}
 	
 	@Override
@@ -46,7 +49,8 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 		WorldObject copyPerformer = performer.shallowCopy();
 		
 		closedSet.clear();
-		PriorityQueue<Node> openSet = createOpenSet(performer, copyPerformer, goal, world);
+		openSet.clear();
+		initializeOpenSet(performer, copyPerformer, goal, world);
 		
 		while(!openSet.isEmpty()) {
 			Node current = openSet.poll();
@@ -89,16 +93,13 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 		return result;
 	}
 	
-	private PriorityQueue<Node> createOpenSet(WorldObject performer, WorldObject copyPerformer, OperationInfo goal, World world) {
+	private void initializeOpenSet(WorldObject performer, WorldObject copyPerformer, OperationInfo goal, World world) {
 		int performerX = performer.getProperty(Constants.X);
 		int performerY = performer.getProperty(Constants.Y);
 		Node startNode = new Node(performerX, performerY, 0);
 		startNode.h = distance(goal, copyPerformer, startNode, world);
 		
-		PriorityQueue<Node> openSet = new PriorityQueue<>(NODE_COMPARATOR);
 		openSet.add(startNode);
-		
-		return openSet;
 	}
 	
 	private int distance(OperationInfo goal, WorldObject copyPerformer, Node node, World world) {
@@ -173,6 +174,10 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 		}	
 	}
 	
+	// a ClosedSet works by flagging each tile with an int.
+	// if the int is expected the tile is in the closed set.
+	// to avoid clearing the flags each iteration, the expected int value is increased.
+	// This way the performance of the contains and add method is improved over using a HashSet. 
 	private static final class ClosedSet {
 		private int[][] values;
 		private int currentValue;
@@ -200,6 +205,55 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 		
 		public boolean contains(Node node) {
 			return values[node.x][node.y] == currentValue;
+		}
+	}
+	
+	// An OpenSet works by flagging each tile with an int, like the OpenSet.
+	// It also keeps a sorted PriorityQueue to retrieve the closest Node.
+	// The flag tiles are used because PriorityQueue::contains has O(n) time complexity,
+	// while using the flag tiles has time complexity O(1).
+	private static final class OpenSet {
+		private final PriorityQueue<Node> queue;
+		private int[][] values;
+		private int currentValue;
+		
+		public OpenSet(int worldWidth, int worldHeight) {
+			super();
+			reset(worldWidth, worldHeight);
+			
+			queue = new PriorityQueue<>(NODE_COMPARATOR);
+		}
+		
+		private void reset(int worldWidth, int worldHeight) {
+			this.values = new int[worldWidth][worldHeight];
+			this.currentValue = 1;
+		}
+		
+		public void clear() {
+			currentValue = (currentValue + 1) % Integer.MAX_VALUE;
+			if (currentValue == 0) {
+				reset(values.length, values[0].length);
+			}
+			
+			queue.clear();
+		}
+		
+		public void add(Node node) {
+			values[node.x][node.y] = currentValue;
+			
+			queue.add(node);
+		}
+		
+		public boolean contains(Node node) {
+			return values[node.x][node.y] == currentValue;
+		}
+		
+		public Node poll() {
+			return queue.poll();
+		}
+		
+		public boolean isEmpty() {
+			return queue.isEmpty();
 		}
 	}
 	
