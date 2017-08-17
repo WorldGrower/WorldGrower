@@ -20,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -52,10 +53,12 @@ import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JPanelFactory;
 import org.worldgrower.gui.util.JRadioButtonFactory;
 import org.worldgrower.gui.util.JTableFactory;
+import org.worldgrower.gui.util.ListData;
 import org.worldgrower.gui.util.TextComboBoxRenderer;
 
 public class ControlsDialog extends AbstractDialog {
 
+	private static final String ANIMATION_SPEED_TOOL_TIP = "Set the animation speed";
 	private static final String MUSIC_TOOL_TIP = "Play background music";
 	private static final String SOUND_TOOL_TIP = "Play sound effects";
 	
@@ -71,6 +74,7 @@ public class ControlsDialog extends AbstractDialog {
 		this.musicPlayer = musicPlayer;
 		
 		addKeyBindingsTable(keyBindings);
+		addPerformancePanel(keyBindings);
 		addMouseControlPanel(keyBindings);
 		addSoundControlPanel();
 		addButtonPane();
@@ -100,29 +104,54 @@ public class ControlsDialog extends AbstractDialog {
         });
         
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(15, 15, 368, 400);
+		scrollPane.setBounds(15, 15, 368, 280);
 		addComponent(scrollPane);
 		
 		SwingUtils.makeTransparant(table, scrollPane);
 	}
 	
+	private void addPerformancePanel(KeyBindings keyBindings) {
+		JPanel performancePanel = JPanelFactory.createJPanel("Performance");
+		performancePanel.setOpaque(false);
+		performancePanel.setBounds(15, 310, 368, 100);
+		performancePanel.setLayout(null);
+		
+		JLabel lblAnimationSpeed = JLabelFactory.createJLabel("Animation Speed:");
+		lblAnimationSpeed.setToolTipText(ANIMATION_SPEED_TOOL_TIP);
+		lblAnimationSpeed.setOpaque(false);
+		lblAnimationSpeed.setBounds(12, 25, 137, 25);
+		performancePanel.add(lblAnimationSpeed);
+
+		JComboBox<AnimationSpeed> cmbAnimationSpeed = JComboBoxFactory.createJComboBox(AnimationSpeed.values(), imageInfoReader);
+		cmbAnimationSpeed.setForeground(Color.BLACK);
+		cmbAnimationSpeed.setToolTipText(ANIMATION_SPEED_TOOL_TIP);
+		cmbAnimationSpeed.setSelectedItem(keyBindings.getAnimationSpeed());
+		cmbAnimationSpeed.setOpaque(false);
+		cmbAnimationSpeed.setBounds(228, 25, 127, 25);
+		performancePanel.add(cmbAnimationSpeed);
+		
+		cmbAnimationSpeed.addActionListener(e -> keyBindings.setAnimationSpeed((AnimationSpeed)cmbAnimationSpeed.getSelectedItem()));
+		
+		addComponent(performancePanel);
+	}
+	
 	private void addMouseControlPanel(KeyBindings keyBindings) {
 		JPanel mouseControlPanel = JPanelFactory.createJPanel("Mouse");
-		
+
 		mouseControlPanel.setOpaque(false);
-		mouseControlPanel.setBounds(12, 430, 368, 150);
+		mouseControlPanel.setBounds(15, 430, 368, 150);
 		mouseControlPanel.setLayout(null);
 		
 		JRadioButton defaultMouseControl = JRadioButtonFactory.createJRadioButton("<html>left-click: center map<br>right-click: show possible actions</html>");
 		defaultMouseControl.setSelected(keyBindings.leftMouseClickCentersMap());
 		defaultMouseControl.setOpaque(false);
-		defaultMouseControl.setBounds(12, 20, 360, 50);
+		defaultMouseControl.setBounds(12, 25, 360, 50);
 		mouseControlPanel.add(defaultMouseControl);
 		
 		JRadioButton alternateMouseControl = JRadioButtonFactory.createJRadioButton("<html>right-click: center map<br>left-click: show possible actions</html>");
 		alternateMouseControl.setSelected(!keyBindings.leftMouseClickCentersMap());
 		alternateMouseControl.setOpaque(false);
-		alternateMouseControl.setBounds(12, 80, 360, 50);
+		alternateMouseControl.setBounds(12, 85, 360, 50);
 		mouseControlPanel.add(alternateMouseControl);
 		
 		ButtonGroup buttonGroup = new ButtonGroup();
@@ -144,31 +173,31 @@ public class ControlsDialog extends AbstractDialog {
 		JPanel soundControlPanel = JPanelFactory.createJPanel("Sound");
 		
 		soundControlPanel.setOpaque(false);
-		soundControlPanel.setBounds(12, 600, 368, 110);
+		soundControlPanel.setBounds(15, 600, 368, 110);
 		soundControlPanel.setLayout(null);
 		
 		JCheckBox chkBackgroundMusic = JCheckBoxFactory.createJCheckBox("Music");
 		chkBackgroundMusic.setToolTipText(MUSIC_TOOL_TIP);
 		chkBackgroundMusic.setSelected(musicPlayer.isEnabled());
 		chkBackgroundMusic.setOpaque(false);
-		chkBackgroundMusic.setBounds(228, 20, 137, 25);
+		chkBackgroundMusic.setBounds(228, 25, 137, 25);
 		soundControlPanel.add(chkBackgroundMusic);
 		
 		JLabel lblPlayBackgroundMusic = JLabelFactory.createJLabel("Play background music:");
 		lblPlayBackgroundMusic.setToolTipText(MUSIC_TOOL_TIP);
-		lblPlayBackgroundMusic.setBounds(12, 20, 191, 26);
+		lblPlayBackgroundMusic.setBounds(12, 25, 191, 26);
 		soundControlPanel.add(lblPlayBackgroundMusic);
 		
 		JCheckBox chkSoundEffects = JCheckBoxFactory.createJCheckBox("Sound Effects");
 		chkSoundEffects.setToolTipText(SOUND_TOOL_TIP);
 		chkSoundEffects.setSelected(soundIdReader.isEnabled());
 		chkSoundEffects.setOpaque(false);
-		chkSoundEffects.setBounds(228, 60, 137, 25);
+		chkSoundEffects.setBounds(228, 65, 137, 25);
 		soundControlPanel.add(chkSoundEffects);
 		
 		JLabel lblPlaySoundEffects = JLabelFactory.createJLabel("Play sound effects:");
 		lblPlaySoundEffects.setToolTipText(SOUND_TOOL_TIP);
-		lblPlaySoundEffects.setBounds(12, 60, 191, 26);
+		lblPlaySoundEffects.setBounds(12, 65, 191, 26);
 		soundControlPanel.add(lblPlaySoundEffects);
 		
 		addComponent(soundControlPanel);

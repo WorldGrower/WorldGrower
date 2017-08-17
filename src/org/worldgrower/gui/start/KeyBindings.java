@@ -20,8 +20,10 @@ import java.util.prefs.Preferences;
 
 public class KeyBindings {
 	private static final String LEFT_MOUSE_CLICK_CENTERS_MAP = "leftMouseClickCentersMap";
+	private static final String ANIMATION_SPEED = "animationSpeed";
 	private List<GuiActionValue> keyBindings = new ArrayList<>();
 	private boolean leftMouseClickCentersMap;
+	private AnimationSpeed animationSpeed;
 	
 	public KeyBindings(List<GuiAction> guiActions, char... values) {
 		int index = 0;
@@ -44,6 +46,14 @@ public class KeyBindings {
 		this.leftMouseClickCentersMap = leftMouseClickCentersMap;
 	}
 	
+	public AnimationSpeed getAnimationSpeed() {
+		return animationSpeed;
+	}	
+	
+	public void setAnimationSpeed(AnimationSpeed animationSpeed) {
+		this.animationSpeed = animationSpeed;
+	}
+
 	public String getDescription(int index) {
 		return keyBindings.get(index).getGuiAction().getDescription();
 	}
@@ -114,6 +124,7 @@ public class KeyBindings {
 			preferences.put(guiActionValue.getGuiAction().name(), Character.toString(guiActionValue.getValue()));
 		}
 		preferences.putBoolean(LEFT_MOUSE_CLICK_CENTERS_MAP, leftMouseClickCentersMap);
+		preferences.putInt(ANIMATION_SPEED, animationSpeed.getSleepTime());
 	}
 	
 	public void loadSettings(Preferences preferences) {
@@ -122,5 +133,7 @@ public class KeyBindings {
 			guiActionValue.setValue(value.charAt(0));
 		}
 		leftMouseClickCentersMap = preferences.getBoolean(LEFT_MOUSE_CLICK_CENTERS_MAP, leftMouseClickCentersMap);
+		int animationSleepTime = preferences.getInt(ANIMATION_SPEED, AnimationSpeed.NORMAL.getSleepTime());
+		animationSpeed = AnimationSpeed.valueOf(animationSleepTime);
 	}
 }

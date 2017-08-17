@@ -20,12 +20,15 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.AnimatedAction;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.LookDirection;
+import org.worldgrower.gui.start.KeyBindings;
 
 public class AnimationPainter {
 	private ActionListener guiAfterMoveAction;
 	private boolean moveMode = false;
 	private int moveStep = 0;
 	private int moveIndex = 0;
+	
+	private final KeyBindings keyBindings;
 	
 	private List<WorldObject> worldObjects = new ArrayList<>();
 	private List<WorldObject> deadWorldObjects = new ArrayList<>();
@@ -35,8 +38,9 @@ public class AnimationPainter {
 	private List<WorldObject> magicCasters = new ArrayList<>();
 	private List<MagicTarget> magicTargets = new ArrayList<>();
 	
-	public AnimationPainter(WorldPanel worldPanel) {
+	public AnimationPainter(WorldPanel worldPanel, KeyBindings keyBindings) {
 		initializeWorldObjects(worldPanel);
+		this.keyBindings = keyBindings;
 	}
 	
 	public void viewChanged(WorldPanel worldPanel) {
@@ -152,11 +156,7 @@ public class AnimationPainter {
 	public void drawWorldObjects(Graphics g, WorldPanel worldPanel, ImageInfoReader imageInfoReader, World world) {
 		//System.out.println("drawWorldObjects: moveStep = " + moveStep + ", moveMode = " + moveMode);
 		if (moveStep > 0 && moveStep < 48) {
-			try {
-				Thread.sleep(8);
-			} catch (InterruptedException e) {
-				throw new IllegalStateException(e);
-			}
+			sleep();
 		}
 		
 		boolean drawAnimation = moveMode && moveStep < 48;
@@ -184,6 +184,14 @@ public class AnimationPainter {
 			if (this.guiAfterMoveAction != null) {
 				this.guiAfterMoveAction.actionPerformed(null);
 			}
+		}
+	}
+
+	private void sleep() {
+		try {
+			Thread.sleep(keyBindings.getAnimationSpeed().getSleepTime());
+		} catch (InterruptedException e) {
+			throw new IllegalStateException(e);
 		}
 	}
 	

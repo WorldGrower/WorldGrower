@@ -147,7 +147,7 @@ public final class WorldPanel extends JPanel implements ImageFactory, MouseLocat
         
         this.playerCharacter = playerCharacter;
         this.world = world;
-        this.animationPainter = new AnimationPainter(this);
+        this.animationPainter = new AnimationPainter(this, keyBindings);
         Image grassBackground = imageInfoReader.getImage(ImageIds.GRASS_BACKGROUND, null);
         Image grassFlowersBackground = imageInfoReader.getImage(ImageIds.SMALL_FLOWERS, null);
 		this.backgroundPainter = new BackgroundPainter(grassBackground, grassFlowersBackground, imageInfoReader, world);
