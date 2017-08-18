@@ -108,7 +108,7 @@ public class PropertyKnowledge implements Serializable, Knowledge {
 
 	@Override
 	public String toString() {
-		return managedProperty.getName() + ":" + value + ",id=" + id + ",subjectId=" + subjectId;
+		return managedProperty.getName() + ":" + (value != null ? value.getClass().getName() : "") + ",id=" + id + ",subjectId=" + subjectId;
 	}
 
 	@Override
