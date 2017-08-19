@@ -108,6 +108,7 @@ public class GroupPropertyUtils {
 	
 	public static WorldObject findTaxCollectorToBeFired(WorldObject performer, World world) {
 		Map<Integer, Integer> goldCollectedMap = buildGoldCollectedMap(world);
+		removePerformer(performer, goldCollectedMap);
 		
 		int taxCollectorWage = getVillagersOrganization(world).getProperty(Constants.TAX_COLLECTOR_WAGE);
 		Entry<Integer, Integer> lowestEntry = getLowestValue(goldCollectedMap);
@@ -121,6 +122,10 @@ public class GroupPropertyUtils {
 		return null;
 	}
 	
+	private static void removePerformer(WorldObject performer, Map<Integer, Integer> goldCollectedMap) {
+		goldCollectedMap.remove(performer.getProperty(Constants.ID));
+	}
+
 	private static Entry<Integer, Integer> getLowestValue(Map<Integer, Integer> map) {
 		Entry<Integer, Integer> min = null;
 		for (Entry<Integer, Integer> entry : map.entrySet()) {

@@ -574,6 +574,21 @@ public class UTestGroupPropertyUtils {
 		
 		assertEquals(10, GroupPropertyUtils.findTaxCollectorToBeFired(performer, world).getProperty(Constants.ID).intValue());
 	}
+	
+	@Test
+	public void testFindTaxCollectorToBeFiredNotSelf() {
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(6, "test");
+		world.addWorldObject(performer);
+
+		createVillagersOrganization(world);
+		worldNextTurn(500, world);
+		
+		performer.setProperty(Constants.PROFESSION_START_TURN, 0);
+		performer.setProperty(Constants.CAN_COLLECT_TAXES, Boolean.TRUE);
+		
+		assertEquals(null, GroupPropertyUtils.findTaxCollectorToBeFired(performer, world));
+	}
 
 	private void worldNextTurn(int amount, World world) {
 		for(int i=0; i<amount; i++) {
