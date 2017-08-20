@@ -178,7 +178,7 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 	// if the int is expected the tile is in the closed set.
 	// to avoid clearing the flags each iteration, the expected int value is increased.
 	// This way the performance of the contains and add method is improved over using a HashSet. 
-	private static final class ClosedSet {
+	private static final class ClosedSet implements Serializable {
 		private int[][] values;
 		private int currentValue;
 		
@@ -212,7 +212,7 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 	// It also keeps a sorted PriorityQueue to retrieve the closest Node.
 	// The flag tiles are used because PriorityQueue::contains has O(n) time complexity,
 	// while using the flag tiles has time complexity O(1).
-	private static final class OpenSet {
+	private static final class OpenSet implements Serializable {
 		private final PriorityQueue<Node> queue;
 		private int[][] values;
 		private int currentValue;
@@ -257,7 +257,7 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 		}
 	}
 	
-	private static final class NodeComparator implements Comparator<Node> {
+	private static final class NodeComparator implements Comparator<Node>, Serializable {
 
 		@Override
 		public int compare(Node node1, Node node2) {
