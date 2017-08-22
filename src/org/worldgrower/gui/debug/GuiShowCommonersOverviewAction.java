@@ -251,12 +251,7 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 				StringBuilder inventoryDescriptionBuilder = new StringBuilder("<html>");
 				WorldObjectContainer inventory = npc.getProperty(Constants.INVENTORY);
 				if (inventory != null) {
-					for(int i=0; i<inventory.size(); i++) {
-						WorldObject inventoryItem = inventory.get(i);
-						if (inventoryItem != null) {
-							inventoryDescriptionBuilder.append(inventoryItem).append("<br>");
-						}
-					}
+					inventory.iterate((item, index) -> inventoryDescriptionBuilder.append(item).append("<br>"));
 				}
 				inventoryDescriptionBuilder.append("</html>");
 				return inventoryDescriptionBuilder.toString();

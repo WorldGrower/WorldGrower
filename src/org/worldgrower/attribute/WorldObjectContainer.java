@@ -18,6 +18,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.ObjIntConsumer;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
@@ -25,7 +26,7 @@ import org.worldgrower.WorldObject;
 /**
  * A WorldObjectContainer holds a list of WorldObjects and provides methods for manipulating them.
  */
-public class WorldObjectContainer implements Serializable {
+public final class WorldObjectContainer implements Serializable {
 
 	private final List<WorldObject> worldObjects = new ArrayList<>(); 
 	
@@ -37,8 +38,14 @@ public class WorldObjectContainer implements Serializable {
 		return worldObjects.set(index, null);
 	}
 	
-	public int size() {
-		return worldObjects.size();
+	public void iterate(ObjIntConsumer<WorldObject> consumer) {
+		int size = worldObjects.size();
+		for(int index=0; index<size; index++) {
+			WorldObject object = worldObjects.get(index);
+			if (object != null) {
+				consumer.accept(object, index);
+			}
+		}		
 	}
 
 	public WorldObject get(int index) {
@@ -276,15 +283,27 @@ public class WorldObjectContainer implements Serializable {
 	}
 
 	public void moveItemsFrom(WorldObjectContainer otherInventory) {
-		for(int index=0; index<otherInventory.size(); index++) {
-			WorldObject otherWorldObject = otherInventory.get(index);
-			if (otherWorldObject != null) {
-				if (otherWorldObject.getProperty(Constants.QUANTITY) == null) {
-					throw new IllegalStateException("otherWorldObject.getProperty(Constants.QUANTITY) is null: " + otherWorldObject);
+		otherInventory.iterate((otherWorldObject, index) ->
+		{
+			if (otherWorldObject.getProperty(Constants.QUANTITY) == null) {
+				throw new IllegalStateException("otherWorldObject.getProperty(Constants.QUANTITY) is null: " + otherWorldObject);
+			}
+			addQuantity(otherWorldObject, otherWorldObject.getProperty(Constants.QUANTITY));
+			otherInventory.remove(index);
+		});
+	}
+	
+	public int getUnmodifiedTotalWeight() {
+		int totalWeight = 0;
+		for(WorldObject worldObject : worldObjects) {
+			if (worldObject != null) {
+				Integer weight = worldObject.getProperty(Constants.WEIGHT);
+				if (weight != null) {
+					int quantity = worldObject.getProperty(Constants.QUANTITY);
+					totalWeight += (weight.intValue() * quantity);
 				}
-				addQuantity(otherWorldObject, otherWorldObject.getProperty(Constants.QUANTITY));
-				otherInventory.remove(index);
 			}
 		}
+		return totalWeight;
 	}
 }

@@ -36,20 +36,22 @@ public class SellUnusedItemsGoal implements Goal {
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
-		for(int i=0; i<inventory.size(); i++) {
-			WorldObject inventoryItem = inventory.get(i);
-			if (inventoryItem != null) {
-				Item item = inventoryItem.getProperty(Constants.ITEM_ID);
-				ItemType itemType = item.getItemType();
-				if (itemType == ItemType.TOOL || itemType == ItemType.BOOK) {
-					int price = performer.getProperty(Constants.PRICES).getPrice(item);
-					int[] args = new int[] { i, price };
-					return new OperationInfo(performer, performer, args, Actions.MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION);
-				}
-			}
-		}
+		int index = inventory.getIndexFor(inventoryItem ->
+		{
+			Item item = inventoryItem.getProperty(Constants.ITEM_ID);
+			ItemType itemType = item.getItemType();
+			return (itemType == ItemType.TOOL || itemType == ItemType.BOOK);
+		});
 		
-		return null;
+		if (index != -1) {
+			WorldObject inventoryItem = inventory.get(index);
+			Item item = inventoryItem.getProperty(Constants.ITEM_ID);
+			int price = performer.getProperty(Constants.PRICES).getPrice(item);
+			int[] args = new int[] { index, price };
+			return new OperationInfo(performer, performer, args, Actions.MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION);
+		} else {
+			return null;
+		}
 	}
 	
 	@Override

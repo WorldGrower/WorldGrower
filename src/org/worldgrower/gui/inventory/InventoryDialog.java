@@ -633,12 +633,7 @@ public final class InventoryDialog extends AbstractDialog {
 	
 	private static List<InventoryItem> getInventoryList(WorldObjectContainer inventory) {
 		List<InventoryItem> inventoryList = new ArrayList<>();
-		for(int index=0; index < inventory.size(); index++) {
-			WorldObject inventoryItem = inventory.get(index);
-			if (inventoryItem != null) {
-				inventoryList.add(new InventoryItem(index, inventoryItem));
-			}
-		}
+		inventory.iterate((inventoryItem, index) -> inventoryList.add(new InventoryItem(index, inventoryItem)));
 		return inventoryList;
 	}
 	

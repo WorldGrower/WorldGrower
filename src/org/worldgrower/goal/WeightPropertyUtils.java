@@ -22,7 +22,8 @@ import org.worldgrower.condition.Condition;
 public class WeightPropertyUtils {
 
 	public static int getTotalWeight(WorldObject worldObject) {
-		int totalWeight = getUnmodifiedTotalWeight(worldObject);
+		WorldObjectContainer inventory = worldObject.getProperty(Constants.INVENTORY);
+		int totalWeight = inventory.getUnmodifiedTotalWeight();
 		if (worldObject.getProperty(Constants.CONDITIONS).hasCondition(Condition.BURDENED_CONDITION)) {
 			totalWeight *= 2;
 		}
@@ -33,22 +34,6 @@ public class WeightPropertyUtils {
 		return totalWeight;
 	}
 
-	private static int getUnmodifiedTotalWeight(WorldObject worldObject) {
-		int totalWeight = 0;
-		WorldObjectContainer inventory = worldObject.getProperty(Constants.INVENTORY);
-		for(int i=0; i<inventory.size(); i++) {
-			WorldObject inventoryWorldObject = inventory.get(i);
-			if (inventoryWorldObject != null) {
-				Integer weight = inventoryWorldObject.getProperty(Constants.WEIGHT);
-				if (weight != null) {
-					int quantity = inventoryWorldObject.getProperty(Constants.QUANTITY);
-					totalWeight += (weight.intValue() * quantity);
-				}
-			}
-		}
-		return totalWeight;
-	}
-	
 	public static boolean isCarryingTooMuch(WorldObject worldObject) {
 		int totalWeight = getTotalWeight(worldObject);
 		int carryingCapacity = getCarryingCapacity(worldObject);

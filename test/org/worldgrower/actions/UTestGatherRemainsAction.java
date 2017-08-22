@@ -26,6 +26,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.CommonerGenerator;
+import org.worldgrower.generator.Item;
 
 public class UTestGatherRemainsAction {
 
@@ -45,8 +46,8 @@ public class UTestGatherRemainsAction {
 		
 		Actions.GATHER_REMAINS_ACTION.execute(performer, target, Args.EMPTY, world);
 		
-		assertEquals(1, performer.getProperty(Constants.INVENTORY).size());
 		assertEquals(false, performer.getProperty(Constants.INVENTORY).get(0).hasProperty(Constants.GOLD));
+		assertEquals(Item.REMAINS, performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.ITEM_ID));
 		assertEquals(120, performer.getProperty(Constants.GOLD).intValue());
 	}
 	

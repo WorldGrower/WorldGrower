@@ -64,7 +64,12 @@ public class UTestCommonerGenerator {
 		originalWorldObject.setProperty(Constants.Y, 5);
 		originalWorldObject.setProperty(Constants.WIDTH, 1);
 		originalWorldObject.setProperty(Constants.HEIGHT, 1);
-		originalWorldObject.setProperty(Constants.INVENTORY, new WorldObjectContainer());
+		WorldObjectContainer inventory = new WorldObjectContainer();
+		WorldObject wood = Item.WOOD.generate(1f);
+		wood.setProperty(Constants.SELLABLE, Boolean.TRUE);
+		inventory.add(wood);
+		inventory.add(null);
+		originalWorldObject.setProperty(Constants.INVENTORY, inventory);
 		originalWorldObject.setProperty(Constants.GOLD, 50);
 		originalWorldObject.setProperty(Constants.ORGANIZATION_GOLD, 0);
 		originalWorldObject.setProperty(Constants.DEATH_REASON, "dead");
@@ -76,5 +81,6 @@ public class UTestCommonerGenerator {
 		assertEquals(5, skeletalRemains.getProperty(Constants.X).intValue());
 		assertEquals(5, skeletalRemains.getProperty(Constants.Y).intValue());
 		assertEquals(50, skeletalRemains.getProperty(Constants.GOLD).intValue());
+		assertEquals(null, skeletalRemains.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.SELLABLE));
 	}
 }

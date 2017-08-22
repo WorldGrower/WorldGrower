@@ -119,16 +119,14 @@ public class StealGoal implements Goal {
 	private static Map<Integer, Float> getPricePerWeightMap(WorldObject target) {
 		Map<Integer, Float> pricePerWeightMap = new HashMap<>();
 		WorldObjectContainer inventory = target.getProperty(Constants.INVENTORY);
-		for(int index=0; index<inventory.size(); index++) {
-			WorldObject inventoryItem = inventory.get(index);
-			if (inventoryItem != null) {
-				if (inventoryItem.getProperty(Constants.PRICE) == null) { throw new IllegalStateException("price is null for " + inventoryItem); }
-				int price = inventoryItem.getProperty(Constants.PRICE);
-				int weight = inventoryItem.hasProperty(Constants.WEIGHT) ? inventoryItem.getProperty(Constants.WEIGHT) : 0;
-				float pricePerWeight = (price) / (weight + 1.0f);
-				pricePerWeightMap.put(index, pricePerWeight);
-			}
-		}
+		inventory.iterate((item, index) ->
+		{
+			if (item.getProperty(Constants.PRICE) == null) { throw new IllegalStateException("price is null for " + item); }
+			int price = item.getProperty(Constants.PRICE);
+			int weight = item.hasProperty(Constants.WEIGHT) ? item.getProperty(Constants.WEIGHT) : 0;
+			float pricePerWeight = (price) / (weight + 1.0f);
+			pricePerWeightMap.put(index, pricePerWeight);
+		});
 		return pricePerWeightMap;
 	}
 

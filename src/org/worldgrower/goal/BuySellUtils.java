@@ -294,11 +294,9 @@ public class BuySellUtils {
     private static int getIndexOfSellableWorldObject(WorldObject seller, List<ManagedProperty<?>> buyingProperties) {
     	WorldObjectContainer sellerInventory = seller.getProperty(Constants.INVENTORY);
 		for(ManagedProperty<?> buyingProperty : buyingProperties) {
-			for(int i=0; i<sellerInventory.size(); i++) {
-				WorldObject sellableWorldObject = sellerInventory.get(i);
-				if (sellableWorldObject != null && sellableWorldObject.hasProperty(buyingProperty)) {
-					return i;
-				}
+			int index = sellerInventory.getIndexFor(buyingProperty);
+			if (index != -1) {
+				return index;
 			}
 		}
 		return -1;

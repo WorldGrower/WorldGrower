@@ -32,7 +32,6 @@ public class UTestWorldObjectContainer {
 		container.remove(0);
 		container.add(TestUtils.createWorldObject(2, "Test3"));
 		
-		assertEquals(3, container.size());
 		assertEquals(null, container.get(0));
 		assertEquals("Test2", container.get(1).getProperty(Constants.NAME));
 		assertEquals("Test3", container.get(2).getProperty(Constants.NAME));
@@ -44,7 +43,6 @@ public class UTestWorldObjectContainer {
 		container.addQuantity(Item.WOOD.generate(1f), 2);
 		container.addQuantity(Item.WOOD.generate(1f), 3);
 		
-		assertEquals(1, container.size());
 		assertEquals(5, container.get(0).getProperty(Constants.QUANTITY).intValue());
 	}
 	
@@ -54,7 +52,6 @@ public class UTestWorldObjectContainer {
 		container.addQuantity(Item.WOOD.generate(1f), 2);
 		container.addQuantity(0);
 		
-		assertEquals(1, container.size());
 		assertEquals(3, container.get(0).getProperty(Constants.QUANTITY).intValue());
 	}
 	
@@ -65,7 +62,6 @@ public class UTestWorldObjectContainer {
 		container.addQuantity(TestUtils.createWorldObject(0, "Weapon"));
 		container.addQuantity(TestUtils.createWorldObject(0, "Shield"));
 		
-		assertEquals(2, container.size());
 		assertEquals(2, container.get(0).getProperty(Constants.QUANTITY).intValue());
 		assertEquals(1, container.get(1).getProperty(Constants.QUANTITY).intValue());
 	}
@@ -76,7 +72,6 @@ public class UTestWorldObjectContainer {
 		container.addQuantity(Item.WOOD.generate(1f), 4);
 		container.removeQuantity(Constants.WOOD, 1);
 		
-		assertEquals(1, container.size());
 		assertEquals(3, container.get(0).getProperty(Constants.QUANTITY).intValue());
 	}
 	
@@ -232,11 +227,9 @@ public class UTestWorldObjectContainer {
 		
 		container.moveItemsFrom(container2);
 		
-		assertEquals(2, container.size());
 		assertEquals(4, container.getQuantityFor(Constants.WOOD));
 		assertEquals(2, container.getQuantityFor(Constants.STONE));
 		
-		assertEquals(2, container2.size());
 		assertEquals(null, container2.get(0));
 		assertEquals(null, container2.get(1));
 	}

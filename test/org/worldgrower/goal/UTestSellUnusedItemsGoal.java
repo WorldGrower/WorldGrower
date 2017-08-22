@@ -44,9 +44,21 @@ public class UTestSellUnusedItemsGoal {
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.SCYTHE.generate(1f), 3);
 		
-		
 		assertEquals(Actions.MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(0, goal.calculateGoal(performer, world).getArgs()[0]);
+		assertEquals(20, goal.calculateGoal(performer, world).getArgs()[1]);
+	}
+	
+	@Test
+	public void testCalculateBook() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_BOOTS.generate(1f), 3);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.SPELLBOOK.generate(1f), 3);
+		
+		assertEquals(Actions.MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(1, goal.calculateGoal(performer, world).getArgs()[0]);
+		assertEquals(100, goal.calculateGoal(performer, world).getArgs()[1]);
 	}
 	
 	@Test
