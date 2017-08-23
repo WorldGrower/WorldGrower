@@ -68,7 +68,6 @@ public class UTestCommonerGenerator {
 		WorldObject wood = Item.WOOD.generate(1f);
 		wood.setProperty(Constants.SELLABLE, Boolean.TRUE);
 		inventory.add(wood);
-		inventory.add(null);
 		originalWorldObject.setProperty(Constants.INVENTORY, inventory);
 		originalWorldObject.setProperty(Constants.GOLD, 50);
 		originalWorldObject.setProperty(Constants.ORGANIZATION_GOLD, 0);
