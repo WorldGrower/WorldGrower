@@ -53,4 +53,9 @@ class JailCache implements WorldObjectsCache, Serializable {
 	public void update(WorldObject worldObject, int newX, int newY, int newWidth, int newHeight) {
 		throw new IllegalStateException("operation update not supported");
 	}
+
+	@Override
+	public boolean hasWorldObjects(int value1, int value2) {
+		throw new IllegalStateException("operation hasWorldObjects not supported");
+	}
 }

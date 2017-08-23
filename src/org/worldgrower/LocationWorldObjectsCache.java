@@ -131,5 +131,19 @@ class LocationWorldObjectsCache implements WorldObjectsCache, Serializable {
 		public List<WorldObject> getWorldObjects() {
 			return Collections.unmodifiableList(worldObjects);
 		}
+
+		public boolean hasWorldObjects() {
+			for(WorldObject worldObject : worldObjects) {
+				if (!isPassable(worldObject)) {
+					return true;
+				}
+			}
+			return false;
+		}
+	}
+
+	@Override
+	public boolean hasWorldObjects(int x, int y) {
+		return cache[x][y].hasWorldObjects();
 	}
 }

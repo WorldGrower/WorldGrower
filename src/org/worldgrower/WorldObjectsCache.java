@@ -23,4 +23,5 @@ public interface WorldObjectsCache {
 	public void update(WorldObject worldObject, int value1, int value2);
 	public void update(WorldObject worldObject, int value1, int value2, int value3, int value4);
 	public List<WorldObject> getWorldObjectsFor(int value1, int value2);
+	public boolean hasWorldObjects(int value1, int value2);
 }

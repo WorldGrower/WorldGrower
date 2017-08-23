@@ -140,7 +140,7 @@ public class GoalUtils {
 				if (LocationUtils.areInvalidCoordinates(x, y, world)) {
 					return false;
 				} else {
-					if (LocationPropertyUtils.getWorldObjects(x, y, world).size() > 0) {
+					if (LocationPropertyUtils.hasWorldObjects(x, y, world)) {
 						return false;
 					}
 				}

@@ -17,6 +17,9 @@ package org.worldgrower;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.TerrainGenerator;
 
 public class UTestLocationWorldObjectsCache {
 
@@ -29,6 +32,27 @@ public class UTestLocationWorldObjectsCache {
 		assertEquals(1, cache.getWorldObjectsFor(2, 2).size());
 		assertEquals(0, cache.getWorldObjectsFor(1, 1).size());
 		assertEquals(0, cache.getWorldObjectsFor(3, 3).size());
+	}
+	
+	@Test
+	public void tesHasWorldObjects() {
+		LocationWorldObjectsCache cache = new LocationWorldObjectsCache(10, 10);
+		WorldObject worldObject = TestUtils.createWorldObject(2, 2, 1, 1, Constants.ID, 2);
+		cache.add(worldObject);
+		
+		WorldObject worldObject2 = TestUtils.createWorldObject(5, 5, 1, 1, Constants.ID, 2);
+		worldObject2.setProperty(Constants.PASSABLE, Boolean.TRUE);
+		cache.add(worldObject2);
+		
+		WorldObject worldObject3 = TestUtils.createWorldObject(6, 6, 1, 1, Constants.ID, 2);
+		worldObject3.setProperty(Constants.PASSABLE, Boolean.FALSE);
+		cache.add(worldObject3);
+		
+		assertEquals(true, cache.hasWorldObjects(2, 2));
+		assertEquals(false, cache.hasWorldObjects(1, 1));
+		assertEquals(false, cache.hasWorldObjects(3, 3));
+		assertEquals(false, cache.hasWorldObjects(5, 5));
+		assertEquals(true, cache.hasWorldObjects(6, 6));
 	}
 	
 	@Test
