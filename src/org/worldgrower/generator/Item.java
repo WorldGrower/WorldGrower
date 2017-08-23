@@ -1386,8 +1386,10 @@ public enum Item {
 		return DEFAULT_WORLD_OBJECTS.get(this).getProperty(Constants.LONG_DESCRIPTION);
 	}
 	
+	private static final Item[] ALL_ITEMS = Item.values(); 
+	
 	public static Item value(int index) {
-		return Item.values()[index];
+		return ALL_ITEMS[index];
 	}
 
 	public ItemType getItemType() {

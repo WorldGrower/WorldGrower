@@ -14,6 +14,10 @@
  *******************************************************************************/
 package org.worldgrower.attribute;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap.Entry;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectIterator;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,25 +31,22 @@ import org.worldgrower.WorldObject;
  * A WorldObjectContainer holds a list of WorldObjects and provides methods for manipulating them.
  */
 public final class WorldObjectContainer implements Serializable {
-
-	private final List<WorldObject> worldObjects = new ArrayList<>(); 
+	private final Int2ObjectOpenHashMap<WorldObject> worldObjects = new Int2ObjectOpenHashMap<WorldObject>();
+	private int currentIndex = 0;
 	
 	public void add(WorldObject worldObject) {
-		worldObjects.add(worldObject);
+		worldObjects.put(currentIndex++, worldObject);
 	}
 	
 	public WorldObject remove(int index) {
-		return worldObjects.set(index, null);
+		return worldObjects.remove(index);
 	}
 	
 	public void iterate(ObjIntConsumer<WorldObject> consumer) {
-		int size = worldObjects.size();
-		for(int index=0; index<size; index++) {
-			WorldObject object = worldObjects.get(index);
-			if (object != null) {
-				consumer.accept(object, index);
-			}
-		}		
+		for(Entry<WorldObject> entry : worldObjects.int2ObjectEntrySet()) {
+			WorldObject object = entry.getValue();
+			consumer.accept(object, entry.getIntKey());
+		}
 	}
 
 	public WorldObject get(int index) {
@@ -68,13 +69,12 @@ public final class WorldObjectContainer implements Serializable {
 	public void addQuantity(WorldObject worldObject, int quantity) {
 		String name = worldObject.getProperty(Constants.NAME);
 		boolean found = false;
-		for(WorldObject object : worldObjects) {
-			if (object != null) {
-				if (object.getProperty(Constants.NAME).equals(name)) {
-					object.setProperty(Constants.QUANTITY, object.getProperty(Constants.QUANTITY) + quantity);
-					found = true;
-					return;
-				}
+		for(Entry<WorldObject> entry : worldObjects.int2ObjectEntrySet()) {
+			WorldObject object = entry.getValue();
+			if (object.getProperty(Constants.NAME).equals(name)) {
+				object.setProperty(Constants.QUANTITY, object.getProperty(Constants.QUANTITY) + quantity);
+				found = true;
+				return;
 			}
 		}
 		
@@ -85,26 +85,35 @@ public final class WorldObjectContainer implements Serializable {
 	}
 	
 	public<T> void removeQuantity(ManagedProperty<T> propertyKey, int quantity) {
-		for(int i=0; i<worldObjects.size(); i++) {
-			WorldObject object = worldObjects.get(i);
-			if (object != null) {
-				if (object.hasProperty(propertyKey)) {
-					object.increment(Constants.QUANTITY, -quantity);
-					
-					if (object.getProperty(Constants.QUANTITY) == 0) {
-						worldObjects.set(i, null);
-					}
-					
-					return;
+		for(Entry<WorldObject> entry : worldObjects.int2ObjectEntrySet()) {
+			WorldObject object = entry.getValue();
+			if (object.hasProperty(propertyKey)) {
+				object.increment(Constants.QUANTITY, -quantity);
+				
+				if (object.getProperty(Constants.QUANTITY) == 0) {
+					worldObjects.remove(entry.getIntKey());
 				}
+				
+				return;
 			}
 		}
 	}
 	
 	public<T> int getQuantityFor(ManagedProperty<T> propertyKey) {
-		for(WorldObject worldObject : worldObjects) {
-			if (worldObject != null) {
-				if (worldObject.hasProperty(propertyKey)) {
+		for(Entry<WorldObject> entry : worldObjects.int2ObjectEntrySet()) {
+			WorldObject worldObject = entry.getValue();
+			if (worldObject.hasProperty(propertyKey)) {
+				return worldObject.getProperty(Constants.QUANTITY);
+			}
+		}
+		return 0;
+	}
+	
+	public int getQuantityFor(ManagedProperty<?> propertyKey1, ManagedProperty<?> propertyKey2, Function<WorldObject, Boolean> testFunction) {
+		for(Entry<WorldObject> entry : worldObjects.int2ObjectEntrySet()) {
+			WorldObject worldObject = entry.getValue();
+			if (worldObject.hasProperty(propertyKey1) && worldObject.hasProperty(propertyKey2)) {
+				if (testFunction.apply(worldObject)) {
 					return worldObject.getProperty(Constants.QUANTITY);
 				}
 			}
@@ -112,32 +121,17 @@ public final class WorldObjectContainer implements Serializable {
 		return 0;
 	}
 	
-	public int getQuantityFor(ManagedProperty<?> propertyKey1, ManagedProperty<?> propertyKey2, Function<WorldObject, Boolean> testFunction) {
-		for(WorldObject worldObject : worldObjects) {
-			if (worldObject != null) {
-				if (worldObject.hasProperty(propertyKey1) && worldObject.hasProperty(propertyKey2)) {
-					if (testFunction.apply(worldObject)) {
-						return worldObject.getProperty(Constants.QUANTITY);
-					}
-				}
-			}
-		}
-		return 0;
-	}
-	
 	public<T> int getQuantityFor(ManagedProperty<T> propertyKey1, ManagedProperty<T> propertyKey2) {
-		
 		return getQuantityFor(propertyKey1, propertyKey2, w -> true);
 	}
 	
 	public<T> List<WorldObject> getWorldObjects(ManagedProperty<T> propertyKey, T value) {
 		List<WorldObject> result = new ArrayList<>();
-		for(WorldObject worldObject : worldObjects) {
-			if (worldObject != null) {
-				if (worldObject.hasProperty(propertyKey)) {
-					if (worldObject.getProperty(propertyKey) == value) {
-						result.add(worldObject);
-					}
+		for(Entry<WorldObject> entry : worldObjects.int2ObjectEntrySet()) {
+			WorldObject worldObject = entry.getValue();
+			if (worldObject.hasProperty(propertyKey)) {
+				if (worldObject.getProperty(propertyKey) == value) {
+					result.add(worldObject);
 				}
 			}
 		}
@@ -146,12 +140,11 @@ public final class WorldObjectContainer implements Serializable {
 	
 	public List<WorldObject> getWorldObjectsByFunction(ManagedProperty<?> propertyKey, Function<WorldObject, Boolean> testFunction) {
 		List<WorldObject> result = new ArrayList<>();
-		for(WorldObject worldObject : worldObjects) {
-			if (worldObject != null) {
-				if (worldObject.hasProperty(propertyKey)) {
-					if (testFunction.apply(worldObject)) {
-						result.add(worldObject);
-					}
+		for(Entry<WorldObject> entry : worldObjects.int2ObjectEntrySet()) {
+			WorldObject worldObject = entry.getValue();
+			if (worldObject.hasProperty(propertyKey)) {
+				if (testFunction.apply(worldObject)) {
+					result.add(worldObject);
 				}
 			}
 		}
@@ -164,81 +157,65 @@ public final class WorldObjectContainer implements Serializable {
 	}
 
 	public<T> int getIndexFor(Function<WorldObject, Boolean> testFunction) {
-		int index = 0; 
-		for(WorldObject worldObject : worldObjects) {
-			if (worldObject != null) {
-				if (testFunction.apply(worldObject)) {
-					return index;
-				}
+		for(Entry<WorldObject> entry : worldObjects.int2ObjectEntrySet()) {
+			WorldObject worldObject = entry.getValue();
+			if (testFunction.apply(worldObject)) {
+				return entry.getIntKey();
 			}
-			index++;
 		}
 		return -1;
 	}
 	
 	public<T> int getIndexFor(ManagedProperty<T> propertyKey) {
-		int index = 0; 
-		for(WorldObject worldObject : worldObjects) {
-			if (worldObject != null) {
-				if (worldObject.hasProperty(propertyKey)) {
-					return index;
-				}
+		for(Entry<WorldObject> entry : worldObjects.int2ObjectEntrySet()) {
+			WorldObject worldObject = entry.getValue();
+			if (worldObject.hasProperty(propertyKey)) {
+				return entry.getIntKey();
 			}
-			index++;
 		}
 		return -1;
 	}
 	
 	public<T> int getIndexFor(ManagedProperty<T> propertyKey, T value) {
-		int index = 0; 
-		for(WorldObject worldObject : worldObjects) {
-			if (worldObject != null) {
-				if (worldObject.hasProperty(propertyKey) && worldObject.getProperty(propertyKey) == value) {
-					return index;
-				}
+		for(Entry<WorldObject> entry : worldObjects.int2ObjectEntrySet()) {
+			WorldObject worldObject = entry.getValue();
+			if (worldObject.hasProperty(propertyKey) && worldObject.getProperty(propertyKey) == value) {
+				return entry.getIntKey();
 			}
-			index++;
 		}
 		return -1;
 	}
 	
 	public<T> int getIndexFor(ManagedProperty<T> propertyKey, T value, Function<WorldObject, Boolean> testFunction) {
-		int index = 0; 
-		for(WorldObject worldObject : worldObjects) {
-			if (worldObject != null) {
-				if (worldObject.hasProperty(propertyKey) && (worldObject.getProperty(propertyKey) == value) && testFunction.apply(worldObject)) {
-					return index;
-				}
+		for(Entry<WorldObject> entry : worldObjects.int2ObjectEntrySet()) {
+			WorldObject worldObject = entry.getValue();
+			if (worldObject.hasProperty(propertyKey) && (worldObject.getProperty(propertyKey) == value) && testFunction.apply(worldObject)) {
+				return entry.getIntKey();
 			}
-			index++;
 		}
 		return -1;
 	}
 
 	public<T> void removeAllQuantity(ManagedProperty<T> propertyKey) {
-		for(int i=0; i<worldObjects.size(); i++) {
-			WorldObject object = worldObjects.get(i);
-			if (object != null) {
-				if (object.hasProperty(propertyKey)) {
-					worldObjects.set(i, null);
-					return;
-				}
+		for(Entry<WorldObject> entry : worldObjects.int2ObjectEntrySet()) {
+			WorldObject worldObject = entry.getValue();
+			if (worldObject.hasProperty(propertyKey)) {
+				worldObjects.remove(entry.getIntKey());
+				return;
 			}
 		}
 	}
 
 	public void addDemands(WorldObjectContainer demands) {
-		for(WorldObject worldObject : demands.worldObjects) {
-			this.addQuantity(worldObject);
-		}
+		demands.iterate((worldObject, index) -> this.addQuantity(worldObject));
 	}
 	
 	public WorldObjectContainer copy() {
 		WorldObjectContainer result = new WorldObjectContainer();
-		for(WorldObject worldObject : worldObjects) {
-			if (worldObject != null) {
-				result.add(worldObject.deepCopy());
-			}
+		result.currentIndex = currentIndex;
+		for(Entry<WorldObject> entry : worldObjects.int2ObjectEntrySet()) {
+			WorldObject worldObject = entry.getValue();
+			result.worldObjects.put(entry.getIntKey(), worldObject.deepCopy());
 		}
 		return result;
 	}
@@ -248,26 +225,22 @@ public final class WorldObjectContainer implements Serializable {
 	}
 
 	public int getIndexFor(StringProperty property, String value, Function<WorldObject, Boolean> testFunction) {
-		int index = 0;
-		for(WorldObject worldObject : worldObjects) {
-			if (worldObject != null) {
-				if (worldObject.hasProperty(property) && worldObject.getProperty(property).equals(value)) {
-					if (testFunction.apply(worldObject)) {
-						return index;
-					}
+		for(Entry<WorldObject> entry : worldObjects.int2ObjectEntrySet()) {
+			WorldObject worldObject = entry.getValue();
+			if (worldObject.hasProperty(property) && worldObject.getProperty(property).equals(value)) {
+				if (testFunction.apply(worldObject)) {
+					return entry.getIntKey();
 				}
 			}
-			index++;
 		}
 		return -1;
 	}
 	
 	public boolean contains(WorldObject worldObjectToFind) {
-		for(WorldObject worldObject : worldObjects) {
-			if (worldObject != null) {
-				if (worldObject == worldObjectToFind) {
-					return true;
-				}
+		for(Entry<WorldObject> entry : worldObjects.int2ObjectEntrySet()) {
+			WorldObject worldObject = entry.getValue();
+			if (worldObject == worldObjectToFind) {
+				return true;
 			}
 		}
 		return false;
@@ -278,30 +251,32 @@ public final class WorldObjectContainer implements Serializable {
 		object.increment(Constants.QUANTITY, -quantity);
 			
 		if (object.getProperty(Constants.QUANTITY) == 0) {
-			worldObjects.set(index, null);
+			worldObjects.remove(index);
 		}
 	}
 
 	public void moveItemsFrom(WorldObjectContainer otherInventory) {
-		otherInventory.iterate((otherWorldObject, index) ->
-		{
+		ObjectIterator<Entry<WorldObject>> iterator = otherInventory.worldObjects.int2ObjectEntrySet().fastIterator();
+		while(iterator.hasNext()) {
+			Entry<WorldObject> otherEntry = iterator.next();
+			WorldObject otherWorldObject = otherEntry.getValue();
+		
 			if (otherWorldObject.getProperty(Constants.QUANTITY) == null) {
 				throw new IllegalStateException("otherWorldObject.getProperty(Constants.QUANTITY) is null: " + otherWorldObject);
 			}
 			addQuantity(otherWorldObject, otherWorldObject.getProperty(Constants.QUANTITY));
-			otherInventory.remove(index);
-		});
+			iterator.remove();
+		}
 	}
 	
 	public int getUnmodifiedTotalWeight() {
 		int totalWeight = 0;
-		for(WorldObject worldObject : worldObjects) {
-			if (worldObject != null) {
-				Integer weight = worldObject.getProperty(Constants.WEIGHT);
-				if (weight != null) {
-					int quantity = worldObject.getProperty(Constants.QUANTITY);
-					totalWeight += (weight.intValue() * quantity);
-				}
+		for(Entry<WorldObject> entry : worldObjects.int2ObjectEntrySet()) {
+			WorldObject worldObject = entry.getValue();
+			Integer weight = worldObject.getProperty(Constants.WEIGHT);
+			if (weight != null) {
+				int quantity = worldObject.getProperty(Constants.QUANTITY);
+				totalWeight += (weight.intValue() * quantity);
 			}
 		}
 		return totalWeight;
