@@ -50,7 +50,7 @@ public class NightShadeOnTurn implements OnTurn {
 	private static int calculateNightShadeProduced(WorldObject worldObject, World world) {
 		int x = worldObject.getProperty(Constants.X);
 		int y = worldObject.getProperty(Constants.Y);
-		TerrainType terrainType = world.getTerrain().getTerrainInfo(x, y).getTerrainType();
+		TerrainType terrainType = world.getTerrain().getTerrainType(x, y);
 		return DEFAULT_NIGHTSHADE_INCREASE + terrainType.getBonus(TerrainResource.NIGHTSHADE);
 	}
 	

@@ -29,7 +29,7 @@ public class DrownUtils {
 		int y = worldObject.getProperty(Constants.Y);
 		
 		if (!LocationUtils.areInvalidCoordinates(x, y, world)) {
-			TerrainType terrainType = world.getTerrain().getTerrainInfo(x, y).getTerrainType();
+			TerrainType terrainType = world.getTerrain().getTerrainType(x, y);
 			if (terrainType == TerrainType.WATER) {
 				Conditions conditions = worldObject.getProperty(Constants.CONDITIONS);
 				boolean hasWaterWalkCondition = conditions != null ? conditions.hasCondition(Condition.WATER_WALK_CONDITION) : false;

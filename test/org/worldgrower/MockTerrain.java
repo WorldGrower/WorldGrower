@@ -17,7 +17,6 @@ package org.worldgrower;
 import java.awt.Rectangle;
 
 import org.worldgrower.terrain.Terrain;
-import org.worldgrower.terrain.TerrainInfo;
 import org.worldgrower.terrain.TerrainType;
 
 public class MockTerrain implements Terrain {
@@ -36,8 +35,8 @@ public class MockTerrain implements Terrain {
 	}
 
 	@Override
-	public TerrainInfo getTerrainInfo(int x, int y) {
-		return new TerrainInfo(terrainTypes[x][y]);
+	public TerrainType getTerrainType(int x, int y) {
+		return terrainTypes[x][y];
 	}
 
 	@Override

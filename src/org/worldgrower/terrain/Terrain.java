@@ -22,7 +22,7 @@ import java.awt.Rectangle;
  */
 public interface Terrain {
 
-	public TerrainInfo getTerrainInfo(int x, int y);
+	public TerrainType getTerrainType(int x, int y);
 	public int getWidth();
 	public int getHeight();
 	

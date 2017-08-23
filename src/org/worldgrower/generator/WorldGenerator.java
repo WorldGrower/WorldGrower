@@ -70,7 +70,7 @@ public class WorldGenerator {
 				int x = random.nextInt(world.getWidth()-1);
 				int y = random.nextInt(world.getHeight()-1);
 				
-				TerrainType terrainType = world.getTerrain().getTerrainInfo(x, y).getTerrainType();
+				TerrainType terrainType = world.getTerrain().getTerrainType(x, y);
 				
 				if (terrainType == preferredTerrainType) {
 					if (GoalUtils.isOpenSpace(x, y, width, height, world)) {

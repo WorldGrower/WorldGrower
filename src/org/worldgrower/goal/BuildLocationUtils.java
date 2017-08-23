@@ -160,7 +160,7 @@ public class BuildLocationUtils {
 		}
 
 		private int calculateInitialValue(int x, int y) {
-			return terrain.getTerrainInfo(x, y).getTerrainType().getBonus(terrainResource);
+			return terrain.getTerrainType(x, y).getBonus(terrainResource);
 		}		
 	}
 }

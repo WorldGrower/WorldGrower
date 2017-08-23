@@ -636,7 +636,7 @@ public final class WorldPanel extends JPanel implements ImageFactory, MouseLocat
 		int actualX = x-offsetX;
 		int actualY = y-offsetY;
 		if (worldObjectIsExplored(actualX, actualY, 1, 1)) {
-			TerrainType terrainType = world.getTerrain().getTerrainInfo(actualX, actualY).getTerrainType();
+			TerrainType terrainType = world.getTerrain().getTerrainType(actualX, actualY);
 			StringBuilder terrainTooltipBuilder = new StringBuilder();
 			terrainTooltipBuilder.append("<html>");
 			terrainTooltipBuilder.append(terrainType.getDescription()).append("<br>");

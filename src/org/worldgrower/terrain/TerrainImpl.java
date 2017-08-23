@@ -23,14 +23,14 @@ public class TerrainImpl implements Terrain, Serializable {
 	private final int width;
 	private final int height;
 	
-	private final TerrainInfo[][] terrainInfos;
+	private final TerrainType[][] terrainTypes;
 	private final boolean[][] explored;
 	private Rectangle exploredBounds;
 	
 	public TerrainImpl(int width, int height, TerrainMapper terrainMapper) {
 		this.width = width;
 		this.height = height;
-		this.terrainInfos = new TerrainInfo[width][height];
+		this.terrainTypes = new TerrainType[width][height];
 		fillTerrainInfo(terrainMapper);
 		this.explored = new boolean[width][height];
 	}
@@ -42,7 +42,7 @@ public class TerrainImpl implements Terrain, Serializable {
 		for(int x=0; x<width; x++) {
 			for(int y=0; y<height; y++) {
 				double terrainHeight = heights[counter++];
-				terrainInfos[x][y] = new TerrainInfo(terrainMapper.map(terrainHeight));
+				terrainTypes[x][y] = terrainMapper.map(terrainHeight);
 			}
 		}
 	}
@@ -58,8 +58,8 @@ public class TerrainImpl implements Terrain, Serializable {
 	}
 
 	@Override
-	public TerrainInfo getTerrainInfo(int x, int y) {
-		return terrainInfos[x][y];
+	public TerrainType getTerrainType(int x, int y) {
+		return terrainTypes[x][y];
 	}
 
 	@Override

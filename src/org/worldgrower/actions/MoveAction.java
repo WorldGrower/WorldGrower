@@ -99,7 +99,7 @@ public class MoveAction implements ManagedOperation {
 	}
 	
 	public static boolean performerCanMoveOnTerrain(WorldObject performer, int newX, int newY, Terrain terrain) {
-		TerrainType terrainType = terrain.getTerrainInfo(newX, newY).getTerrainType();
+		TerrainType terrainType = terrain.getTerrainType(newX, newY);
 		if (terrainType == TerrainType.WATER) {
 			boolean hasWaterWalkCondition = performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.WATER_WALK_CONDITION);
 			if (hasWaterWalkCondition) {

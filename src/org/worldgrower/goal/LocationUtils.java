@@ -58,7 +58,7 @@ public class LocationUtils {
 		for(int x=tileX-1; x<=tileX+1; x++) {
 			for(int y=tileY-1; y<=tileY+1; y++) {
 				if (!areInvalidCoordinates(x, y, world)) {
-					if (world.getTerrain().getTerrainInfo(x, y).getTerrainType() == TerrainType.WATER) {
+					if (world.getTerrain().getTerrainType(x, y) == TerrainType.WATER) {
 						Location tile = new Location(x, y);
 						surroundingTiles.add(tile);
 					}

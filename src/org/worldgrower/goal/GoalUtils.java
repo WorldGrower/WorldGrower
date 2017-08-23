@@ -112,7 +112,7 @@ public class GoalUtils {
 		int currentDistance = Integer.MAX_VALUE;
 		for(int x=0; x<=world.getWidth()-width; x++) {
 			for(int y=0; y<=world.getHeight()-height; y++) {
-				if (world.getTerrain().getTerrainInfo(x, y).getTerrainType() != TerrainType.WATER) {
+				if (world.getTerrain().getTerrainType(x, y) != TerrainType.WATER) {
 					if (isOpenSpace(x, y, width, height, world)) {
 						int distance = Reach.distance(x, y, performerY, performerY);
 						if (distance < currentDistance) {
@@ -131,7 +131,7 @@ public class GoalUtils {
 	}
 	
 	public static boolean isNonWaterOpenSpace(int openSpaceX, int openSpaceY, int width, int height, World world) {
-		return isOpenSpace(openSpaceX, openSpaceY, width, height, world) && world.getTerrain().getTerrainInfo(openSpaceX, openSpaceY).getTerrainType() != TerrainType.WATER;
+		return isOpenSpace(openSpaceX, openSpaceY, width, height, world) && world.getTerrain().getTerrainType(openSpaceX, openSpaceY) != TerrainType.WATER;
 	}
 	
 	public static boolean isOpenSpace(int openSpaceX, int openSpaceY, int width, int height, World world) {

@@ -54,7 +54,7 @@ public class LightningBoltAttackAction implements MagicSpell, DeadlyAction, Anim
 	
 		int targetX = target.getProperty(Constants.X);
 		int targetY = target.getProperty(Constants.Y);
-		TerrainType terrainType = world.getTerrain().getTerrainInfo(targetX, targetY).getTerrainType();
+		TerrainType terrainType = world.getTerrain().getTerrainType(targetX, targetY);
 		
 		if (terrainType == TerrainType.WATER) {
 			List<WorldObject> worldObjectsInSurroundingWater = LocationUtils.findWorldObjectsInSurroundingWater(targetX, targetY, world);

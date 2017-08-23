@@ -66,7 +66,7 @@ public class BackgroundPainter {
 		hasFlowers = new boolean[world.getWidth()][world.getHeight()];
 		for(int x = 0; x<world.getWidth() ;x++) {
 			for(int y = 0; y<world.getHeight(); y++) {
-				TerrainType terrainType = world.getTerrain().getTerrainInfo(x, y).getTerrainType();
+				TerrainType terrainType = world.getTerrain().getTerrainType(x, y);
 				if (terrainTypeHasFlowers(terrainType) && surroundingTilesHaveSameType(world.getTerrain(), x, y, world)) {
 					if (Math.random() < 0.07f) {
 						hasFlowers[x][y] = true;
@@ -143,7 +143,7 @@ public class BackgroundPainter {
 		for(int x = 0; x<world.getWidth() ;x++) {
 			for(int y = 0; y<world.getHeight(); y++) {
 				Terrain terrain = world.getTerrain();
-				TerrainType terrainType = terrain.getTerrainInfo(x, y).getTerrainType();
+				TerrainType terrainType = terrain.getTerrainType(x, y);
 				int index = calculateIndex(x, y);
 				BackgroundTransitionKey key = getKeyForBackgroundTransitionMap(index, terrain, x, y, world);
 				if(backgroundTransitionMap.get(key) == null) {
@@ -222,7 +222,7 @@ public class BackgroundPainter {
 	}
 	
 	private BackgroundTransitionKey getKeyForBackgroundTransitionMap(int index, Terrain terrain, int x, int y, World world) {
-		TerrainType terrainType = terrain.getTerrainInfo(x, y).getTerrainType();
+		TerrainType terrainType = terrain.getTerrainType(x, y);
 		
 		TerrainType left = getTerrainTypeFor(terrain, x-1, y, world, terrainType);
 		TerrainType right = getTerrainTypeFor(terrain, x+1, y, world, terrainType);
@@ -238,7 +238,7 @@ public class BackgroundPainter {
 	}
 	
 	private boolean surroundingTilesHaveSameType(Terrain terrain, int x, int y, World world) {
-		TerrainType terrainType = terrain.getTerrainInfo(x, y).getTerrainType();
+		TerrainType terrainType = terrain.getTerrainType(x, y);
 		
 		TerrainType left = getTerrainTypeFor(terrain, x-1, y, world, terrainType);
 		TerrainType right = getTerrainTypeFor(terrain, x+1, y, world, terrainType);
@@ -308,7 +308,7 @@ public class BackgroundPainter {
 		if (LocationUtils.areInvalidCoordinates(x, y, world)) {
 			terrainTypeForLocation = terrainType;
 		} else {
-			terrainTypeForLocation = terrain.getTerrainInfo(x, y).getTerrainType();
+			terrainTypeForLocation = terrain.getTerrainType(x, y);
 		}
 		return terrainTypeForLocation;
 	}
@@ -372,7 +372,7 @@ public class BackgroundPainter {
 		public void draw(int x, int y) {
 			if (terrain.isExplored(x, y)) {
 				if (hasFlowers[x][y]) {
-					worldPanel.drawBackgroundImage(g, getFlowerImage(terrain.getTerrainInfo(x, y).getTerrainType()), x, y);
+					worldPanel.drawBackgroundImage(g, getFlowerImage(terrain.getTerrainType(x, y)), x, y);
 				} else {
 					int index = calculateIndex(x, y);
 					Image image = backgroundTransitionMap.get(getKeyForBackgroundTransitionMap(index, terrain, x, y, world));

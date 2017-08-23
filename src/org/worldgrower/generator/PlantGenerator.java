@@ -146,7 +146,7 @@ public class PlantGenerator {
 	
 	public static int generateAnyTree(int x, int y, World world) {
 		final TreeType treeType;
-		TerrainType terrainType = world.getTerrain().getTerrainInfo(x, y).getTerrainType();
+		TerrainType terrainType = world.getTerrain().getTerrainType(x, y);
 		if (terrainType == TerrainType.HILL || terrainType == TerrainType.MOUNTAIN) {
 			treeType = TreeType.BOREAL;
 		} else if (terrainType == TerrainType.GRASLAND) {
@@ -236,7 +236,7 @@ public class PlantGenerator {
 
 	private static TreeType getTreeType(int x, int y, World world) {
 		final TreeType treeType;
-		TerrainType terrainType = world.getTerrain().getTerrainInfo(x, y).getTerrainType();
+		TerrainType terrainType = world.getTerrain().getTerrainType(x, y);
 		if (terrainType == TerrainType.HILL || terrainType == TerrainType.MOUNTAIN) {
 			treeType = TreeType.BOREAL;
 		} else {
