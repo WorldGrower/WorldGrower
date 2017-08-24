@@ -118,7 +118,7 @@ public class GuiGotoAction extends AbstractAction {
 			if (performerX == destinationTargetX && performerY == destinationTargetY) {
 				return 0;
 			} else {
-				return Reach.evaluateTarget(performer, null, destinationTarget, 1) + 1;
+				return Reach.evaluateTarget(performer, destinationTarget, 1) + 1;
 			}
 		}
 

@@ -20,7 +20,7 @@ package org.worldgrower;
 public class Reach {
 
 	//TODO: add reach 2, 3, etc
-	public static int evaluateTarget(WorldObject performer, int[] args, WorldObject target, int reach) {
+	public static int evaluateTarget(WorldObject performer, WorldObject target, int reach) {
 		if (performer == null) {
 			throw new IllegalArgumentException("performer is null");
 		}

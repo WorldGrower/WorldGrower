@@ -60,6 +60,6 @@ public class FishOnTurn implements OnTurn {
 	}
 	
 	private List<WorldObject> getSurroundingWorldObjects(WorldObject worldObject, World world) {
-		return world.findWorldObjectsByProperty(Constants.FOOD_SOURCE, w -> Reach.evaluateTarget(worldObject, null, w, 1) == 0);
+		return world.findWorldObjectsByProperty(Constants.FOOD_SOURCE, w -> Reach.evaluateTarget(worldObject, w, 1) == 0);
 	}
 }

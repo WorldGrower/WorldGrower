@@ -47,7 +47,7 @@ public class NonLethalMeleeAttackAction implements ManagedOperation, AnimatedAct
 	
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, 1);
+		return Reach.evaluateTarget(performer, target, 1);
 	}
 	
 	@Override

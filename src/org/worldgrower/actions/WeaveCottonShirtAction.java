@@ -45,7 +45,7 @@ public class WeaveCottonShirtAction implements CraftEquipmentAction, AnimatedAct
 	
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, DISTANCE);
+		return Reach.evaluateTarget(performer, target, DISTANCE);
 	}
 	
 	@Override

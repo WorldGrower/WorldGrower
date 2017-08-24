@@ -26,32 +26,32 @@ public class UTestReach {
 	public void testEvaluateTargetNextToTarget() {
 		WorldObject performer = createWorldObject(2, 2, 1, 1);
 
-		assertEquals(0, Reach.evaluateTarget(performer, null, createWorldObject(3, 3, 1, 1), 1));
-		assertEquals(0, Reach.evaluateTarget(performer, null, createWorldObject(1, 1, 1, 1), 1));
-		assertEquals(0, Reach.evaluateTarget(performer, null, createWorldObject(1, 3, 1, 1), 1));
-		assertEquals(0, Reach.evaluateTarget(performer, null, createWorldObject(3, 1, 1, 1), 1));
+		assertEquals(0, Reach.evaluateTarget(performer, createWorldObject(3, 3, 1, 1), 1));
+		assertEquals(0, Reach.evaluateTarget(performer, createWorldObject(1, 1, 1, 1), 1));
+		assertEquals(0, Reach.evaluateTarget(performer, createWorldObject(1, 3, 1, 1), 1));
+		assertEquals(0, Reach.evaluateTarget(performer, createWorldObject(3, 1, 1, 1), 1));
 	}
 	
 	@Test
 	public void testEvaluateTargetNextToLargeTarget() {
 		WorldObject target = createWorldObject(3, 3, 2, 2);
 		// squares 3,3 3,4 4,3 and 4,4 contain target. All squares around it should have distance 0.
-		assertEquals(0, Reach.evaluateTarget(createWorldObject(2, 2, 1, 1), null, target, 1));
-		assertEquals(0, Reach.evaluateTarget(createWorldObject(2, 3, 1, 1), null, target, 1));
-		assertEquals(0, Reach.evaluateTarget(createWorldObject(2, 4, 1, 1), null, target, 1));
-		assertEquals(0, Reach.evaluateTarget(createWorldObject(2, 5, 1, 1), null, target, 1));
+		assertEquals(0, Reach.evaluateTarget(createWorldObject(2, 2, 1, 1), target, 1));
+		assertEquals(0, Reach.evaluateTarget(createWorldObject(2, 3, 1, 1), target, 1));
+		assertEquals(0, Reach.evaluateTarget(createWorldObject(2, 4, 1, 1), target, 1));
+		assertEquals(0, Reach.evaluateTarget(createWorldObject(2, 5, 1, 1), target, 1));
 		
-		assertEquals(0, Reach.evaluateTarget(createWorldObject(3, 5, 1, 1), null, target, 1));
-		assertEquals(0, Reach.evaluateTarget(createWorldObject(4, 5, 1, 1), null, target, 1));
-		assertEquals(0, Reach.evaluateTarget(createWorldObject(5, 5, 1, 1), null, target, 1));
+		assertEquals(0, Reach.evaluateTarget(createWorldObject(3, 5, 1, 1), target, 1));
+		assertEquals(0, Reach.evaluateTarget(createWorldObject(4, 5, 1, 1), target, 1));
+		assertEquals(0, Reach.evaluateTarget(createWorldObject(5, 5, 1, 1), target, 1));
 		
-		assertEquals(0, Reach.evaluateTarget(createWorldObject(5, 4, 1, 1), null, target, 1));
-		assertEquals(0, Reach.evaluateTarget(createWorldObject(5, 3, 1, 1), null, target, 1));
-		assertEquals(0, Reach.evaluateTarget(createWorldObject(5, 2, 1, 1), null, target, 1));
+		assertEquals(0, Reach.evaluateTarget(createWorldObject(5, 4, 1, 1), target, 1));
+		assertEquals(0, Reach.evaluateTarget(createWorldObject(5, 3, 1, 1), target, 1));
+		assertEquals(0, Reach.evaluateTarget(createWorldObject(5, 2, 1, 1), target, 1));
 		
-		assertEquals(0, Reach.evaluateTarget(createWorldObject(4, 2, 1, 1), null, target, 1));
-		assertEquals(0, Reach.evaluateTarget(createWorldObject(3, 2, 1, 1), null, target, 1));
-		assertEquals(0, Reach.evaluateTarget(createWorldObject(2, 2, 1, 1), null, target, 1));
+		assertEquals(0, Reach.evaluateTarget(createWorldObject(4, 2, 1, 1), target, 1));
+		assertEquals(0, Reach.evaluateTarget(createWorldObject(3, 2, 1, 1), target, 1));
+		assertEquals(0, Reach.evaluateTarget(createWorldObject(2, 2, 1, 1), target, 1));
 		
 		/*   2,2  3,2  4,2  5,2
 		 *   2,3  3,3  4,3  5,3
@@ -72,7 +72,7 @@ public class UTestReach {
 	@Test
 	public void testEvaluateTargetPerformerNull() {
 		try {
-			assertEquals(0, Reach.evaluateTarget(null, null, createWorldObject(3, 3, 1, 1), 1));
+			assertEquals(0, Reach.evaluateTarget(null, createWorldObject(3, 3, 1, 1), 1));
 			fail("method should fail");
 		} catch(IllegalArgumentException e) {
 			assertEquals("performer is null", e.getMessage());
@@ -82,7 +82,7 @@ public class UTestReach {
 	@Test
 	public void testEvaluateTargetTargetNull() {
 		try {
-			assertEquals(0, Reach.evaluateTarget(createWorldObject(3, 3, 1, 1), null, null, 1));
+			assertEquals(0, Reach.evaluateTarget(createWorldObject(3, 3, 1, 1), null, 1));
 			fail("method should fail");
 		} catch(IllegalArgumentException e) {
 			assertEquals("target is null", e.getMessage());
