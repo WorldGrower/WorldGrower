@@ -54,7 +54,7 @@ public class CreateHouseGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE).size() > 1;
+		return performer.getProperty(Constants.BUILDINGS).count(BuildingType.HOUSE) > 1;
 	}
 	
 	@Override
@@ -69,6 +69,6 @@ public class CreateHouseGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE).size();
+		return performer.getProperty(Constants.BUILDINGS).count(BuildingType.HOUSE);
 	}
 }

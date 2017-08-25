@@ -88,8 +88,8 @@ public class MateGoal implements Goal {
 
 		@Override
 		public int compare(WorldObject w1, WorldObject w2) {
-			int houseCount1 = w1.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE).size();
-			int houseCount2 = w2.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE).size();
+			int houseCount1 = w1.getProperty(Constants.BUILDINGS).count(BuildingType.HOUSE);
+			int houseCount2 = w2.getProperty(Constants.BUILDINGS).count(BuildingType.HOUSE);
 			
 			if (houseCount1 == houseCount2) {
 				boolean performerIsGreedy = performer.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.GREEDY) > 100;

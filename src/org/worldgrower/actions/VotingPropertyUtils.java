@@ -115,7 +115,7 @@ public class VotingPropertyUtils {
 		
 		boolean canVote = true;
 		if (onlyOwnersCanVote) {
-			canVote = canVote && worldObject.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK, BuildingType.HOUSE).size() > 0;
+			canVote = canVote && worldObject.getProperty(Constants.BUILDINGS).count(BuildingType.SHACK, BuildingType.HOUSE) > 0;
 		}
 		if (onlyMalesCanVote) {
 			canVote = canVote && GenderPropertyUtils.isMale(worldObject);

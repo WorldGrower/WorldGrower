@@ -75,6 +75,6 @@ public class ApothecaryGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.APOTHECARY).size();
+		return performer.getProperty(Constants.BUILDINGS).count(BuildingType.APOTHECARY);
 	}
 }

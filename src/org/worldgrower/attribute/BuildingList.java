@@ -51,7 +51,7 @@ public class BuildingList implements Serializable, IdContainer {
 		remove(worldObject.getProperty(Constants.ID));
 	}
 	
-	public List<Integer> getIds(BuildingType buildingType) {
+	public Iterable<Integer> getIds(BuildingType buildingType) {
 		List<Integer> idList = new ArrayList<>();
 		for(Building building : buildings) {
 			if (building.getBuildingType() == buildingType) {
@@ -60,6 +60,36 @@ public class BuildingList implements Serializable, IdContainer {
 		}
 		
 		return idList;
+	}
+	
+	public int count(BuildingType buildingType) {
+		int count = 0;
+		for(Building building : buildings) {
+			if (building.getBuildingType() == buildingType) {
+				count++;
+			}
+		}
+		return count;
+	}
+	
+	public int getFirstId(BuildingType buildingType) {
+		for(Building building : buildings) {
+			if (building.getBuildingType() == buildingType) {
+				return building.getId();
+			}
+		}
+		
+		throw new IllegalStateException("No entries found for buildingType " + buildingType);
+	}
+	
+	public Integer getFirstIdOrNull(BuildingType buildingType) {
+		for(Building building : buildings) {
+			if (building.getBuildingType() == buildingType) {
+				return building.getId();
+			}
+		}
+		
+		return null;
 	}
 	
 	public List<Integer> getIds(BuildingType buildingType1, BuildingType buildingType2) {
@@ -71,6 +101,16 @@ public class BuildingList implements Serializable, IdContainer {
 		}
 		
 		return idList;
+	}
+	
+	public int count(BuildingType buildingType1, BuildingType buildingType2) {
+		int count = 0;
+		for(Building building : buildings) {
+			if (building.getBuildingType() == buildingType1 || building.getBuildingType() == buildingType2) {
+				count++;
+			}
+		}
+		return count;
 	}
 	
 	private static class Building implements Serializable {

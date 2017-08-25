@@ -65,7 +65,7 @@ public class HousePropertyUtils {
 	}
 	
 	public static boolean hasBuildings(WorldObject performer, BuildingType buildingType) {
-		return performer.hasProperty(Constants.BUILDINGS) && performer.getProperty(Constants.BUILDINGS).getIds(buildingType).size() > 0;
+		return performer.hasProperty(Constants.BUILDINGS) && performer.getProperty(Constants.BUILDINGS).count(buildingType) > 0;
 	}
 
 	public static boolean hasBuildingForSale(WorldObject target, BuildingType buildingType, World world) {
@@ -75,8 +75,7 @@ public class HousePropertyUtils {
 
 	public static WorldObject getBuildingForSale(WorldObject target, BuildingType buildingType, World world) {
 		if (target.hasProperty(Constants.BUILDINGS)) {
-			List<Integer> buildingIds = target.getProperty(Constants.BUILDINGS).getIds(buildingType);
-			for(int buildingId : buildingIds) {
+			for(int buildingId : target.getProperty(Constants.BUILDINGS).getIds(buildingType)) {
 				WorldObject building = world.findWorldObjectById(buildingId);
 				if (building.hasProperty(Constants.SELLABLE) && building.getProperty(Constants.SELLABLE)) {
 					return building;
@@ -87,9 +86,8 @@ public class HousePropertyUtils {
 	}
 
 	public static boolean allHousesButFirstSellable(WorldObject performer, World world) {
-		List<Integer> houseIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE);
 		boolean isFirstHouse = true;
-		for(int houseId : houseIds) {
+		for(int houseId : performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE)) {
 			WorldObject house = world.findWorldObjectById(houseId);
 			
 			if (!isFirstHouse) {
@@ -127,16 +125,16 @@ public class HousePropertyUtils {
 	public static int getOwnedBuildingCount(BuildingType buildingType, World world) {
 		int ownedBuildingCount = 0;
 		for(WorldObject owner : world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.hasProperty(Constants.BUILDINGS))) {
-			ownedBuildingCount += owner.getProperty(Constants.BUILDINGS).getIds(buildingType).size();
+			ownedBuildingCount += owner.getProperty(Constants.BUILDINGS).count(buildingType);
 		}
 		return ownedBuildingCount;
 	}
 	
 	
 	public static void removeShack(WorldObject performer, World world) {
-		List<Integer> currentHouseIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK);
-		if (currentHouseIds.size() > 0) {
-			int currentHouseId = currentHouseIds.get(0);
+		Integer currentHouseIdValue = performer.getProperty(Constants.BUILDINGS).getFirstIdOrNull(BuildingType.SHACK);
+		if (currentHouseIdValue != null) {
+			int currentHouseId = currentHouseIdValue.intValue();
 			WorldObject shack = world.findWorldObjectById(currentHouseId);
 			shack.setProperty(Constants.HIT_POINTS, 0);
 		}

@@ -22,6 +22,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.BuildingList;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
@@ -34,7 +35,8 @@ public class RestGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (performer.hasProperty(Constants.BUILDINGS) && performer.getProperty(Constants.BUILDINGS) != null && performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK, BuildingType.HOUSE).size() > 0) {
+		BuildingList performerBuildings = performer.getProperty(Constants.BUILDINGS);
+		if (performerBuildings != null && performerBuildings.count(BuildingType.SHACK, BuildingType.HOUSE) > 0) {
 			WorldObject bestHouse = HousePropertyUtils.getBestHouse(performer, world);
 			return new OperationInfo(performer, bestHouse, Args.EMPTY, Actions.SLEEP_ACTION);
 		} else {

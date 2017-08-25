@@ -75,6 +75,6 @@ public class BreweryGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.BREWERY).size();
+		return performer.getProperty(Constants.BUILDINGS).count(BuildingType.BREWERY);
 	}
 }

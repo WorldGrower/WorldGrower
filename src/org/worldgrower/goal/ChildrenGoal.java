@@ -56,7 +56,7 @@ public class ChildrenGoal implements Goal {
 	}
 
 	boolean ownsHousing(WorldObject w) {
-		return w.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK, BuildingType.HOUSE).size() > 0;
+		return w.getProperty(Constants.BUILDINGS).count(BuildingType.SHACK, BuildingType.HOUSE) > 0;
 	}
 	
 	@Override

@@ -54,7 +54,7 @@ public class UTestLockUtils {
 		for(int i=0; i<256; i++) { world.generateUniqueId(); }
 		
 		Actions.BUILD_HOUSE_ACTION.execute(performer, target, Args.EMPTY, world);
-		int houseId = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE).get(0);
+		int houseId = performer.getProperty(Constants.BUILDINGS).getFirstId(BuildingType.HOUSE);
 		WorldObject house = world.findWorldObjectById(houseId);
 
 		assertEquals(true, LockUtils.performerHasKey(performer, house));

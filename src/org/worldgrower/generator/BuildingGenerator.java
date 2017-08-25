@@ -895,57 +895,27 @@ public class BuildingGenerator {
 	}
 	
 	public static Integer getSmithId(WorldObject performer) {
-		List<Integer> smithIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.SMITH);
-		if (smithIds.size() > 0) {
-			return smithIds.get(0);
-		} else {
-			return null;
-		}
+		return performer.getProperty(Constants.BUILDINGS).getFirstIdOrNull(BuildingType.SMITH);
 	}
 	
 	public static Integer getBreweryId(WorldObject performer) {
-		List<Integer> breweryIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.BREWERY);
-		if (breweryIds.size() > 0) {
-			return breweryIds.get(0);
-		} else {
-			return null;
-		}
+		return performer.getProperty(Constants.BUILDINGS).getFirstIdOrNull(BuildingType.BREWERY);
 	}
 	
 	public static Integer getWorkbenchId(WorldObject performer) {
-		List<Integer> workbenchIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.WORKBENCH);
-		if (workbenchIds.size() > 0) {
-			return workbenchIds.get(0);
-		} else {
-			return null;
-		}
+		return performer.getProperty(Constants.BUILDINGS).getFirstIdOrNull(BuildingType.WORKBENCH);
 	}
 	
 	public static Integer getPapermillId(WorldObject performer) {
-		List<Integer> papermillIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.PAPERMILL);
-		if (papermillIds.size() > 0) {
-			return papermillIds.get(0);
-		} else {
-			return null;
-		}
+		return performer.getProperty(Constants.BUILDINGS).getFirstIdOrNull(BuildingType.PAPERMILL);
 	}
 	
 	public static Integer getWeaveryId(WorldObject performer) {
-		List<Integer> weaveryIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.WEAVERY);
-		if (weaveryIds.size() > 0) {
-			return weaveryIds.get(0);
-		} else {
-			return null;
-		}
+		return performer.getProperty(Constants.BUILDINGS).getFirstIdOrNull(BuildingType.WEAVERY);
 	}
 	
 	public static Integer getApothecaryId(WorldObject performer) {
-		List<Integer> apothecaryIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.APOTHECARY);
-		if (apothecaryIds.size() > 0) {
-			return apothecaryIds.get(0);
-		} else {
-			return null;
-		}
+		return performer.getProperty(Constants.BUILDINGS).getFirstIdOrNull(BuildingType.APOTHECARY);
 	}
 	
 	public static List<WorldObject> findUnownedBuildingsForClaiming(WorldObject performer, IntProperty property, Function<WorldObject, Boolean> testFunction, World world) {

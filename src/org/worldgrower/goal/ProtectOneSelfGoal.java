@@ -111,18 +111,22 @@ public class ProtectOneSelfGoal implements Goal {
 		} else if (w.getProperty(Constants.CREATURE_TYPE) == CreatureType.COW_CREATURE_TYPE) {
 			return false;
 		} else {
-			WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
-			if (performer.getProperty(Constants.GROUP).contains(villagersOrganization)) {
-				boolean isEnemy = GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w);
-				if (isEnemy) {
-					if (worldObjectIsInJail(w, world)) {
-						isEnemy = false;
-					}
+			return isIntelligentCharacterEnemy(performer, w, world);
+		}
+	}
+
+	private boolean isIntelligentCharacterEnemy(WorldObject performer, WorldObject w, World world) {
+		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
+		if (performer.getProperty(Constants.GROUP).contains(villagersOrganization)) {
+			boolean isEnemy = GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w);
+			if (isEnemy) {
+				if (worldObjectIsInJail(w, world)) {
+					isEnemy = false;
 				}
-				return isEnemy;
-			} else {
-				return performer.getProperty(Constants.RELATIONSHIPS).getValue(w) < 0;
 			}
+			return isEnemy;
+		} else {
+			return performer.getProperty(Constants.RELATIONSHIPS).getValue(w) < 0;
 		}
 	}
 	

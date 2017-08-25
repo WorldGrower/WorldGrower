@@ -22,6 +22,7 @@ import java.util.List;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
@@ -137,7 +138,8 @@ public class WorldFacade implements World {
 	}
 
 	boolean isInvisible(WorldObject worldObject) {
-		return worldObject.hasProperty(Constants.CONDITIONS) && worldObject.getProperty(Constants.CONDITIONS).hasCondition(Condition.INVISIBLE_CONDITION);
+		Conditions conditions = worldObject.getProperty(Constants.CONDITIONS);
+		return (conditions != null) && conditions.hasCondition(Condition.INVISIBLE_CONDITION);
 	}
 
 	@Override

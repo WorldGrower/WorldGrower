@@ -14,12 +14,12 @@
  *******************************************************************************/
 package org.worldgrower.attribute;
 
+import it.unimi.dsi.fastutil.ints.Int2IntMap;
+import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
+
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.function.Predicate;
 
 import org.worldgrower.Constants;
@@ -27,14 +27,14 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
 public abstract class AbstractIdMap implements IdMap {
-
+	
+	private final Int2IntOpenHashMap idsToValue = new Int2IntOpenHashMap();
 	private final boolean normalize;
 	
 	public AbstractIdMap(boolean normalize) {
+		this.idsToValue.defaultReturnValue(0);
 		this.normalize = normalize;
 	}
-
-	private final Map<Integer, Integer> idsToValue = new HashMap<>();
 	
 	@Override
 	public final void incrementValue(int id, int value) {
@@ -49,8 +49,7 @@ public abstract class AbstractIdMap implements IdMap {
 	
 	@Override
 	public final int getValue(int id) {
-		Integer value = idsToValue.get(id);
-		return value != null ? value.intValue() : 0;
+		return idsToValue.get(id);
 	}
 	
 	@Override
@@ -61,8 +60,8 @@ public abstract class AbstractIdMap implements IdMap {
 	@Override
 	public final int getSumOfAllValues() {
 		int sumOfAllValues = 0;
-		for(Entry<Integer, Integer> entry : idsToValue.entrySet()) {
-			sumOfAllValues += entry.getValue();
+		for(Int2IntMap.Entry entry : idsToValue.int2IntEntrySet()) {
+			sumOfAllValues += entry.getIntValue();
 		}
 		return sumOfAllValues;
 	}
@@ -71,9 +70,9 @@ public abstract class AbstractIdMap implements IdMap {
 	public final int findBestId(Predicate<WorldObject> predicate, World world) {
 		int bestId = -1;
 		int bestRelationshipValue = Integer.MIN_VALUE;
-		for(Entry<Integer, Integer> entry : idsToValue.entrySet()) {
-			int id = entry.getKey();
-			int relationshipValue = entry.getValue();
+		for(Int2IntMap.Entry entry : idsToValue.int2IntEntrySet()) {
+			int id = entry.getIntKey();
+			int relationshipValue = entry.getIntValue();
 			
 			// id may not exist in world because it's filtered out by
 			// WorldFacade, for example being invisible
@@ -94,9 +93,9 @@ public abstract class AbstractIdMap implements IdMap {
 	public final int findWorstId(World world) {
 		int worstId = -1;
 		int worstRelationshipValue = Integer.MAX_VALUE;
-		for(Entry<Integer, Integer> entry : idsToValue.entrySet()) {
-			int id = entry.getKey();
-			int relationshipValue = entry.getValue();
+		for(Int2IntMap.Entry entry : idsToValue.int2IntEntrySet()) {
+			int id = entry.getIntKey();
+			int relationshipValue = entry.getIntValue();
 			
 			if (relationshipValue < worstRelationshipValue) {
 				worstRelationshipValue = relationshipValue;
@@ -110,8 +109,8 @@ public abstract class AbstractIdMap implements IdMap {
 	@Override
 	public final int findBestId(Predicate<WorldObject> predicate, Comparator<WorldObject> comparator,  World world) {
 		WorldObject bestPerson = null;
-		for(Entry<Integer, Integer> entry : idsToValue.entrySet()) {
-			int id = entry.getKey();
+		for(Int2IntMap.Entry entry : idsToValue.int2IntEntrySet()) {
+			int id = entry.getIntKey();
 			// id may not exist in world because it's filtered out by
 			// WorldFacade, for example being invisible
 			if (world.exists(id)) {
@@ -166,7 +165,7 @@ public abstract class AbstractIdMap implements IdMap {
 	
 	@Override
 	public final void remove(WorldObject worldObject) {
-		idsToValue.remove(worldObject.getProperty(Constants.ID));
+		idsToValue.remove(worldObject.getProperty(Constants.ID).intValue());
 	}
 	
 	protected final void copyContent(AbstractIdMap idMap) {

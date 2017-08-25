@@ -45,7 +45,7 @@ public class SellBuildingConversation implements Conversation {
 		WorldObject target = conversationContext.getTarget();
 		World world = conversationContext.getWorld();
 		
-		int buildingId = performer.getProperty(Constants.BUILDINGS).getIds(buildingType).get(0);
+		int buildingId = performer.getProperty(Constants.BUILDINGS).getFirstId(buildingType);
 		WorldObject building = world.findWorldObjectById(buildingId);
 		
 		boolean targetWillBuy = BuySellUtils.buyerWillBuyGoods(performer, target, building, world);
@@ -85,7 +85,7 @@ public class SellBuildingConversation implements Conversation {
 		World world = conversationContext.getWorld();
 		
 		if (replyIndex == YES) {
-			int buildingId = performer.getProperty(Constants.BUILDINGS).getIds(buildingType).get(0);
+			int buildingId = performer.getProperty(Constants.BUILDINGS).getFirstId(buildingType);
 			Item buildingTypeItem = Item.mapBuildingTypeToItem(buildingType);
 			int price = performer.getProperty(Constants.PRICES).getPrice(buildingTypeItem);
 			

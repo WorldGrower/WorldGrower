@@ -60,9 +60,9 @@ public class HouseGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		List<Integer> houseIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE);
-		if (houseIds.size() > 0) {
-			int houseId = houseIds.get(0);
+		Integer houseIdValue = performer.getProperty(Constants.BUILDINGS).getFirstIdOrNull(BuildingType.HOUSE);
+		if (houseIdValue != null) {
+			int houseId = houseIdValue.intValue();
 			WorldObject house = world.findWorldObjectById(houseId);
 			return (BuildingGenerator.isHouse(house));
 		} else {
@@ -82,6 +82,6 @@ public class HouseGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE).size();
+		return performer.getProperty(Constants.BUILDINGS).count(BuildingType.HOUSE);
 	}
 }

@@ -62,7 +62,7 @@ public class ShackGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK, BuildingType.HOUSE).size() > 0;
+		return performer.getProperty(Constants.BUILDINGS).count(BuildingType.SHACK, BuildingType.HOUSE) > 0;
 	}
 	
 	@Override
@@ -77,7 +77,7 @@ public class ShackGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK).size()
+		return performer.getProperty(Constants.BUILDINGS).count(BuildingType.SHACK)
 				+ performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD);
 	}
 

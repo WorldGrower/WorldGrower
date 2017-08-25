@@ -103,6 +103,20 @@ public class UTestIdMap {
 	}
 	
 	@Test
+	public void testGetIds() {
+		IdMap idMap = new IdToIntegerMap();
+		WorldObject person1 = TestUtils.createWorldObject(1, "Test1");
+		WorldObject person2 = TestUtils.createWorldObject(2, "Test2");
+		
+		idMap.incrementValue(person1, 60);
+		idMap.incrementValue(person2, 80);
+		
+		assertEquals(2, idMap.getIds().size());
+		assertEquals(true, idMap.getIds().contains(1));
+		assertEquals(true, idMap.getIds().contains(2));
+	}
+	
+	@Test
 	public void testGetIdsWithoutTarget() {
 		IdMap idMap = new IdToIntegerMap();
 		WorldObject person1 = TestUtils.createWorldObject(1, "Test1");
@@ -121,6 +135,7 @@ public class UTestIdMap {
 		idMap.incrementValue(1, 2000);
 		
 		assertEquals(1000, idMap.getValue(1));
+		assertEquals(0, idMap.getValue(90));
 	}
 	
 	@Test
@@ -134,5 +149,17 @@ public class UTestIdMap {
 		idMap.remove(person, Constants.RELATIONSHIPS, 6);
 		assertEquals(0, idMap.getValue(6));
 		assertEquals(false, idMap.contains(person2));
+	}
+	
+	@Test
+	public void testRemoveWorldObject() {
+		IdMap idMap = new IdRelationshipMap();
+		WorldObject person = TestUtils.createWorldObject(6, "Test");
+		idMap.incrementValue(person, 10);
+		assertEquals(10, idMap.getValue(person));
+		
+		idMap.remove(person);
+		assertEquals(0, idMap.getValue(person));
+		assertEquals(false, idMap.contains(person));
 	}
 }

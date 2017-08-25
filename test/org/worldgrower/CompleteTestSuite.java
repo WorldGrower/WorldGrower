@@ -70,6 +70,7 @@ import org.worldgrower.actions.magic.UTestTrapContainerMagicSpellAction;
 import org.worldgrower.actions.magic.UTestTurnUndeadAction;
 import org.worldgrower.actions.magic.UTestUnlockMagicSpellAction;
 import org.worldgrower.actions.magic.UTestWaterWalkAction;
+import org.worldgrower.attribute.UTestBuildingList;
 import org.worldgrower.attribute.UTestIdList;
 import org.worldgrower.attribute.UTestIdMap;
 import org.worldgrower.attribute.UTestIntProperty;
@@ -857,7 +858,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestFireTaxCollectorGoal.class,
 	UTestProfessionPropertyUtils.class,
 	UTestWantedProfessionGoal.class,
-	UTestLocationPropertyUtils.class
+	UTestLocationPropertyUtils.class,
+	UTestBuildingList.class
 })
 public class CompleteTestSuite {
 }

@@ -51,7 +51,7 @@ public class FindSecludedLocationGoal implements Goal {
 
 	
 	private static boolean isSomeoneWithinRange(WorldObject performer, WorldObject w, World world) {
-		return w.hasProperty(Constants.CREATURE_TYPE) && w.getProperty(Constants.CREATURE_TYPE) == CreatureType.HUMAN_CREATURE_TYPE && !w.equals(performer) && Reach.distance(performer, w) < RANGE;
+		return w.getProperty(Constants.CREATURE_TYPE) == CreatureType.HUMAN_CREATURE_TYPE && !w.equals(performer) && Reach.distance(performer, w) < RANGE;
 	}
 	
 	@Override

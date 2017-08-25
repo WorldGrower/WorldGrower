@@ -40,11 +40,11 @@ public class UTestClaimBuildingAction {
 		performer.setProperty(Constants.BUILDINGS, new BuildingList());
 		
 		WorldObject brewery = generateBrewery(world, performer);
-		assertEquals(0, performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.BREWERY).size());
+		assertEquals(0, performer.getProperty(Constants.BUILDINGS).count(BuildingType.BREWERY));
 		
 		action.execute(performer, brewery, Args.EMPTY, world);
 		
-		assertEquals(brewery.getProperty(Constants.ID).intValue(), performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.BREWERY).get(0).intValue());
+		assertEquals(brewery.getProperty(Constants.ID).intValue(), performer.getProperty(Constants.BUILDINGS).getFirstId(BuildingType.BREWERY));
 	}
 	
 	@Test

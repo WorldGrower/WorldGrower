@@ -54,9 +54,9 @@ public class TutorialAdditionalManagedOperationListenerFactory implements Additi
 		public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object value) {
 			if (managedOperation == Actions.READ_ACTION) {
 				setStatusMessage("Well done. Now use the right arrow key to move your player character to the right, next to the tree.\n Then left-click on the tree to cut wood from it.", "Reading signpost", target);
-			} else if (managedOperation == Actions.CUT_WOOD_ACTION && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 6 && performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK).size() == 0) {
+			} else if (managedOperation == Actions.CUT_WOOD_ACTION && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 6 && performer.getProperty(Constants.BUILDINGS).count(BuildingType.SHACK) == 0) {
 				setStatusMessage("You can keep cutting wood six times, so that you can build somewhere to sleep.", "Cutting Wood", target);
-			} else if (managedOperation == Actions.CUT_WOOD_ACTION && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= 6 && performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK).size() == 0) {
+			} else if (managedOperation == Actions.CUT_WOOD_ACTION && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= 6 && performer.getProperty(Constants.BUILDINGS).count(BuildingType.SHACK) == 0) {
 				setStatusMessage("Now left-click on your character and choose build - build shack. Choose an empty space around your character and place the shack. \nMove next to the shack and left-click on it to sleep in it.", "Building Shack", target);
 			} else if (managedOperation == Actions.SLEEP_ACTION) {
 				setStatusMessage("Resting restores energy, which is used for some actions like cutting wood. Energy is indicated by the green bar at the lower right of the screen. \nNow use the down arrow to move down to the berry bush and left-click on it to harvest food from it.", "Harvesting food", target);
