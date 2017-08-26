@@ -25,6 +25,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.CommonerGenerator;
 
 public class UTestCatchThievesGoal {
@@ -43,6 +44,19 @@ public class UTestCatchThievesGoal {
 	}
 	
 	@Test
+	public void testCalculateGoalNoJail() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		
+		WorldObject performer = createCommoner(world, villagersOrganization);
+		performer.setProperty(Constants.CAN_ATTACK_CRIMINALS, Boolean.TRUE);
+		WorldObject target = createCommoner(world, villagersOrganization);
+		villagersOrganization.getProperty(Constants.BOUNTY).incrementValue(target, 1000);
+		
+		assertEquals(Actions.PLANT_TREE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
 	public void testCalculateGoalTalkWithThief() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject villagersOrganization = createVillagersOrganization(world);
@@ -51,6 +65,8 @@ public class UTestCatchThievesGoal {
 		performer.setProperty(Constants.CAN_ATTACK_CRIMINALS, Boolean.TRUE);
 		WorldObject target = createCommoner(world, villagersOrganization);
 		villagersOrganization.getProperty(Constants.BOUNTY).incrementValue(target, 1000);
+		
+		BuildingGenerator.generateJail(5, 5, world, 1f);
 		
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
@@ -65,6 +81,9 @@ public class UTestCatchThievesGoal {
 		performer.setProperty(Constants.CAN_ATTACK_CRIMINALS, Boolean.TRUE);
 		WorldObject villagersOrganization = createVillagersOrganization(world);
 		
+		assertEquals(false, goal.isGoalMet(performer, world));
+		
+		BuildingGenerator.generateJail(5, 5, world, 1f);
 		assertEquals(true, goal.isGoalMet(performer, world));
 		
 		WorldObject target = createCommoner(world, organization);

@@ -23,6 +23,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.goal.BountyPropertyUtils;
 import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
@@ -103,7 +104,7 @@ public class CollectBountyFromThievesConversation implements Conversation {
 
 	@Override
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world) {
-		return hasBounty(target, world) && BountyPropertyUtils.canForgiveBounty(performer);
+		return hasBounty(target, world) && BountyPropertyUtils.canForgiveBounty(performer) && BuildingGenerator.getJails(world).size() > 0;
 	}
 
 	boolean hasBounty(WorldObject target, World world) {

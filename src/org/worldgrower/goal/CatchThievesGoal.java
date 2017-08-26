@@ -23,6 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
@@ -34,15 +35,19 @@ public class CatchThievesGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		int thiefId = findThiefId(performer, world);
-		
-		if (thiefId != -1) {
-			WorldObject thief = GoalUtils.findNearestPersonLookingLike(performer, thiefId, world);
-			int[] args = Conversations.createArgs(Conversations.COLLECT_BOUNTY_FROM_THIEVES_CONVERSATION);
-			return new OperationInfo(performer, thief, args, Actions.TALK_ACTION);
+		WorldObject jail = BuildingGenerator.findEmptyJail(world);
+		if (jail != null) {
+			int thiefId = findThiefId(performer, world);
+			
+			if (thiefId != -1) {
+				WorldObject thief = GoalUtils.findNearestPersonLookingLike(performer, thiefId, world);
+				int[] args = Conversations.createArgs(Conversations.COLLECT_BOUNTY_FROM_THIEVES_CONVERSATION);
+				return new OperationInfo(performer, thief, args, Actions.TALK_ACTION);
+			}
 		} else {
-			return null;
+			return Goals.JAIL_GOAL.calculateGoal(performer, world);
 		}
+		return null;
 	}
 
 	@Override
@@ -51,7 +56,12 @@ public class CatchThievesGoal implements Goal {
 	
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return findThiefId(performer, world) == -1;
+		WorldObject jail = BuildingGenerator.findEmptyJail(world);
+		if (jail != null) {
+			return findThiefId(performer, world) == -1;
+		} else {
+			return false;
+		}
 	}
 
 	private int findThiefId(WorldObject performer, World world) {

@@ -127,55 +127,21 @@ public class UTestBuyClothesGoal {
 	}
 	
 	@Test
-	public void testIsGoalMetNoTargets() {
+	public void testIsGoalMet() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 
-		assertEquals(true, goal.isGoalMet(performer, world));
-	}
-
-	@Test
-	public void testIsGoalMetTargetsWithoutClothesToSell() {
-		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
-
-		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
-		world.addWorldObject(target);
-		
-		assertEquals(true, goal.isGoalMet(performer, world));
-	}
-	
-	@Test
-	public void testIsGoalMetTargetsWithClothesToSell() {
-		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
-		performer.setProperty(Constants.GOLD, 1000);
-		
-		WorldObject target = createTargetWithSellableCottonShirt(2);
-		world.addWorldObject(target);
-		
 		assertEquals(false, goal.isGoalMet(performer, world));
-	}
-	
-	@Test
-	public void testIsGoalMetTargetsWithClothesToSellAndAlreadyClothed() {
-		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
-		performer.setProperty(Constants.GOLD, 1000);
+		
 		addCottonShirt(performer);
+		assertEquals(false, goal.isGoalMet(performer, world));
+		
 		addCottonPants(performer);
+		assertEquals(false, goal.isGoalMet(performer, world));
+		
 		addCottonBoots(performer);
-		
-		WorldObject target = createTargetWithSellableCottonShirt(2);
-		world.addWorldObject(target);
-		
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 
-	private WorldObject createTargetWithSellableCottonShirt(int id) {
-		WorldObject target = TestUtils.createIntelligentWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
-		target.getProperty(Constants.INVENTORY).addQuantity(Item.COTTON_SHIRT.generate(1f), 10);
-		target.getProperty(Constants.INVENTORY).get(0).setProperty(Constants.SELLABLE, Boolean.TRUE);
-		return target;
-	}
+
 }

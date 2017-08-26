@@ -64,11 +64,15 @@ public class UTestCapturePersonAction {
 	
 	@Test
 	public void testIsActionPossible() {
-		World world = new WorldImpl(1, 1, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		target.setProperty(Constants.CONDITIONS, new Conditions());
 		Conditions.add(target, Condition.UNCONSCIOUS_CONDITION, 8, world);
+		
+		assertEquals(false, Actions.CAPTURE_PERSON_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
+		
+		BuildingGenerator.generateJail(5, 5, world, 1f);
 		
 		assertEquals(true, Actions.CAPTURE_PERSON_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
@@ -84,8 +88,8 @@ public class UTestCapturePersonAction {
 	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
-		performer.setProperty(Constants.X, 0);
-		performer.setProperty(Constants.Y, 0);
+		performer.setProperty(Constants.X, 1);
+		performer.setProperty(Constants.Y, 1);
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
 		return performer;

@@ -49,7 +49,8 @@ public class CapturePersonAction implements ManagedOperation {
 
 	@Override
 	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
-		return target.getProperty(Constants.CONDITIONS).hasCondition(Condition.UNCONSCIOUS_CONDITION);
+		return target.getProperty(Constants.CONDITIONS).hasCondition(Condition.UNCONSCIOUS_CONDITION)
+				&& BuildingGenerator.getJails(world).size() > 0;
 	}
 	
 	@Override
@@ -59,7 +60,7 @@ public class CapturePersonAction implements ManagedOperation {
 	
 	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1, "only unconscious people can be captures");
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1, "only unconscious people can be captures", "a jail must exist");
 	}
 	
 	@Override

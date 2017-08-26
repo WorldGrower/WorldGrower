@@ -14,7 +14,6 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.worldgrower.Constants;
@@ -75,44 +74,41 @@ public class BuyClothesGoal implements Goal {
 		boolean hasPants = hasPants(inventory);
 		boolean hasBoots = hasBoots(inventory);
 		
-		BuyTargets buyTargets = getTargetsToBuyFrom(performer, world, hasShirt, hasPants, hasBoots);
-		
-		if (buyTargets != null) {
-			return (hasShirt && hasPants && hasBoots);
-		} else {
-			return true;
-		}
+		return (hasShirt && hasPants && hasBoots);
 	}
 	
 	private BuyTargets getTargetsToBuyFrom(WorldObject performer, World world, boolean hasShirt, boolean hasPants, boolean hasBoots) {
-		List<BuyTargets> buyTargetsList = new ArrayList<>();
+		BuyTargets buyTargets;
 		if (!hasShirt) {
-			buyTargetsList.add(getBuyTargets(performer, Item.LEATHER_SHIRT, world));
-			buyTargetsList.add(getBuyTargets(performer, Item.COTTON_SHIRT, world));
+			buyTargets = getBuyTargets(performer, Item.LEATHER_SHIRT, world);
+			if (buyTargets.hasTargets()) { return buyTargets; }
+			
+			buyTargets = getBuyTargets(performer, Item.COTTON_SHIRT, world);
+			if (buyTargets.hasTargets()) { return buyTargets; }
 		}
 		
 		if (!hasPants) {
-			buyTargetsList.add(getBuyTargets(performer, Item.LEATHER_PANTS, world));
-			buyTargetsList.add(getBuyTargets(performer, Item.COTTON_PANTS, world));
+			buyTargets = getBuyTargets(performer, Item.LEATHER_PANTS, world);
+			if (buyTargets.hasTargets()) { return buyTargets; }
+			
+			buyTargets = getBuyTargets(performer, Item.COTTON_PANTS, world);
+			if (buyTargets.hasTargets()) { return buyTargets; }
 		}
 		
 		if (!hasBoots) {
-			buyTargetsList.add(getBuyTargets(performer, Item.LEATHER_BOOTS, world));
-			buyTargetsList.add(getBuyTargets(performer, Item.COTTON_BOOTS, world));
+			buyTargets = getBuyTargets(performer, Item.LEATHER_BOOTS, world);
+			if (buyTargets.hasTargets()) { return buyTargets; }
+			
+			buyTargets = getBuyTargets(performer, Item.COTTON_BOOTS, world);
+			if (buyTargets.hasTargets()) { return buyTargets; }
 		}
 		
-		for(BuyTargets buyTargets : buyTargetsList) {
-			if (buyTargets.hasTargets()) {
-				return buyTargets;
-			}
-		}
 		return null;
 	}
 
 	private BuyTargets getBuyTargets(WorldObject performer, Item item, World world) {
 		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, item, QUANTITY_TO_BUY, world);
-		BuyTargets buyTargets = new BuyTargets(item, targets);
-		return buyTargets;
+		return new BuyTargets(item, targets);
 	}
 	
 	private static class BuyTargets {
