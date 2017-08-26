@@ -33,8 +33,7 @@ import org.worldgrower.profession.Professions;
 public class BuySellUtils {
 
 	public static List<WorldObject> findBuyTargets(WorldObject performer, ManagedProperty<?> property, int quantity, World world) {
-		List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.BUY_ACTION, Constants.STRENGTH, w -> isBuyTarget(performer, property, quantity, w), world);
-		return targets;
+		return GoalUtils.findNearestTargetsByProperty(performer, Actions.BUY_ACTION, Constants.STRENGTH, w -> isBuyTarget(performer, property, quantity, w), world);
 	}
 
 	private static boolean isBuyTarget(WorldObject performer, ManagedProperty<?> property, int quantity, WorldObject w) {
@@ -46,8 +45,7 @@ public class BuySellUtils {
 	}
 	
 	public static List<WorldObject> findBuyTargets(WorldObject performer, Item item, int quantity, World world) {
-		List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.BUY_ACTION, Constants.STRENGTH, w -> targetHasSellableItem(w, item) && buyerCanPay(performer, w, item, quantity), world);
-		return targets;
+		return GoalUtils.findNearestTargetsByProperty(performer, Actions.BUY_ACTION, Constants.STRENGTH, w -> targetHasSellableItem(w, item) && buyerCanPay(performer, w, item, quantity), world);
 	}
 	
 	private static boolean buyerCanPay(WorldObject buyer, WorldObject seller, ManagedProperty property, int quantity) {
@@ -214,8 +212,7 @@ public class BuySellUtils {
 
 	private static int calculatePrice(WorldObject target, int indexOfProperty) {
 		Item item = target.getProperty(Constants.INVENTORY).get(indexOfProperty).getProperty(Constants.ITEM_ID);
-		int price = target.getProperty(Constants.PRICES).getPrice(item);
-		return price;
+		return target.getProperty(Constants.PRICES).getPrice(item);
 	}
 	
 	public static OperationInfo create(WorldObject performer, WorldObject target, Item item, int quantity, World world) {

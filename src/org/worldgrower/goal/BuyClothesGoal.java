@@ -130,8 +130,7 @@ public class BuyClothesGoal implements Goal {
 		}
 
 		public int getTargetInventoryIndex() {
-			int targetInventoryIndex = BuySellUtils.getIndexFor(targets.get(0), item);
-			return targetInventoryIndex;
+			return BuySellUtils.getIndexFor(targets.get(0), item);
 		}
 		
 		public boolean hasTargets() {
