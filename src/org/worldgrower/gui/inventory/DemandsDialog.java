@@ -151,7 +151,7 @@ public final class DemandsDialog extends AbstractDialog {
 		
 		public DemandsModel(PropertyCountMap<ManagedProperty<?>> demands) {
 			super();
-			for(ManagedProperty<?> property : Constants.getPossibleDemandProperties()) {
+			for(ManagedProperty<?> property : Constants.POSSIBLE_DEMAND_PROPERTIES) {
 				int quantityDemanded = demands.count(property);
 				demandItems.add(new DemandItem(property, quantityDemanded));
 			}

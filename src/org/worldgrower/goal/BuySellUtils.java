@@ -140,7 +140,7 @@ public class BuySellUtils {
 		boolean demandsGoods = false;
 		if (target.hasProperty(Constants.DEMANDS)) {
 			for(ManagedProperty<?> property : propertyKeys) {
-				if (Constants.getPossibleDemandProperties().contains(property)) {
+				if (Constants.POSSIBLE_DEMAND_PROPERTIES.contains(property)) {
 					demandsGoods = demandsGoods || hasDemandForInventoryItemGood(target, property);
 				}
 			}

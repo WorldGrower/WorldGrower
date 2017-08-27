@@ -16,7 +16,10 @@ package org.worldgrower;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Iterator;
+
 import org.junit.Test;
+import org.worldgrower.attribute.ManagedProperty;
 
 public class UTestConstants {
 
@@ -32,5 +35,20 @@ public class UTestConstants {
 		assertEquals(false, Constants.getToolProperties().contains(Constants.HIT_POINTS));
 		assertEquals(true, Constants.getToolProperties().contains(Constants.REPAIR_QUALITY));
 		assertEquals(true, Constants.getToolProperties().contains(Constants.SAW_QUALITY));
+	}
+	
+	@Test
+	public void testPossibleDemandPropertiesContains() {
+		assertEquals(true, Constants.POSSIBLE_DEMAND_PROPERTIES.contains(Constants.WOOD));
+		assertEquals(false, Constants.POSSIBLE_DEMAND_PROPERTIES.contains(Constants.ALCHEMY_SKILL));
+	}
+	
+	@Test
+	public void testPossibleDemandPropertiesIterate() {
+		Iterator<ManagedProperty<?>> iterator = Constants.POSSIBLE_DEMAND_PROPERTIES.iterator();
+		assertEquals(Constants.FOOD, iterator.next());
+		assertEquals(Constants.WATER, iterator.next());
+		assertEquals(Constants.WOOD, iterator.next());
+		assertEquals(Constants.STONE, iterator.next());
 	}
 }

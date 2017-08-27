@@ -15,6 +15,7 @@
 package org.worldgrower.goal;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
@@ -34,13 +35,25 @@ public class UTestGoal {
 	public void testDefaultGoalMetOrNot() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
-		performer.setProperty(Constants.DEMANDS, new PropertyCountMap<>());
 		
+		performer.removeProperty(Constants.DEMANDS);
+		goal.defaultGoalMetOrNot(performer, world, false, Constants.FOOD);
+		assertEquals(null, performer.getProperty(Constants.DEMANDS));
+		
+		performer.setProperty(Constants.DEMANDS, new PropertyCountMap<>());
 		goal.defaultGoalMetOrNot(performer, world, false, Constants.FOOD);
 		assertEquals(1, performer.getProperty(Constants.DEMANDS).count(Constants.FOOD));
 		
 		goal.defaultGoalMetOrNot(performer, world, true, Constants.FOOD);
 		assertEquals(0, performer.getProperty(Constants.DEMANDS).count(Constants.FOOD));
+		
+		try {
+			goal.defaultGoalMetOrNot(performer, world, false, Constants.ALCHEMY_SKILL);
+			fail("method should fail");
+		} catch(IllegalStateException e) {
+			assertEquals("property alchemy isn't found in list of possible demands", e.getMessage());
+		}
+		
 	}
 	
 	@Test
