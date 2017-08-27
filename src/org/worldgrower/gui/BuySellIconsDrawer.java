@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.generator.Item;
@@ -82,8 +83,8 @@ public class BuySellIconsDrawer {
     private List<Image> getBuyingImages(WorldObject worldObject) {
     	if (canAdvertiseBuying(worldObject)) {
     		List<Image> images = new ArrayList<>();
-	    	for(ManagedProperty<?> managedProperty : BuySellUtils.getBuyingProperties(worldObject).propertyKeys()) {
-	    		Item item = Item.getItemFor(managedProperty);
+	    	for(IntProperty property : BuySellUtils.getBuyingProperties(worldObject)) {
+	    		Item item = Item.getItemFor(property);
 	    		images.add(itemImages.get(item));
 	    	}
 			return images; 

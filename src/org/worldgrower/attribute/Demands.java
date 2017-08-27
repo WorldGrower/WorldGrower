@@ -15,9 +15,10 @@
 package org.worldgrower.attribute;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
 
-public class Demands implements Serializable {
+public final class Demands implements Serializable, Iterable<IntProperty> {
 	private PropertyCountMap<ManagedProperty<?>> properties = new PropertyCountMap<>();
 
 	public void add(IntProperty propertyKey, int quantity) {
@@ -43,5 +44,10 @@ public class Demands implements Serializable {
 
 	public int size() {
 		return properties.size();
+	}
+
+	@Override
+	public Iterator<IntProperty> iterator() {
+		return (Iterator<IntProperty>) propertyKeys().iterator();
 	}	
 }

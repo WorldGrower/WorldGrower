@@ -24,8 +24,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.Demands;
-import org.worldgrower.attribute.ManagedProperty;
-import org.worldgrower.attribute.PropertyCountMap;
+import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.text.TextId;
 
@@ -57,7 +56,7 @@ public class DemandsConversation implements Conversation {
 		WorldObject target = conversationContext.getTarget();
 		Demands demands = target.getProperty(Constants.DEMANDS);
 		StringBuilder demandsBuilder = new StringBuilder();
-		List<ManagedProperty<?>> demandsList = getDemandsList(demands);
+		List<IntProperty> demandsList = getDemandsList(demands);
 		for(int i=0; i<demandsList.size(); i++) {
 			demandsBuilder.append(demandsList.get(i).getName());
 			if ((demandsList.size() > 1) && (i == demandsList.size() - 2)) {
@@ -72,8 +71,8 @@ public class DemandsConversation implements Conversation {
 			);
 	}
 
-	private List<ManagedProperty<?>> getDemandsList(Demands demands) {
-		List<ManagedProperty<?>> demandsList = new ArrayList<>(demands.propertyKeys());
+	private List<IntProperty> getDemandsList(Demands demands) {
+		List<IntProperty> demandsList = new ArrayList<>(demands.propertyKeys());
 		Collections.sort(demandsList, new DemandsComparator());
 		return demandsList;
 	}
@@ -92,10 +91,10 @@ public class DemandsConversation implements Conversation {
 		return "asking me what I want to buy";
 	}
 	
-	private static class DemandsComparator implements Comparator<ManagedProperty<?>> {
+	private static class DemandsComparator implements Comparator<IntProperty> {
 
 		@Override
-		public int compare(ManagedProperty<?> o1, ManagedProperty<?> o2) {
+		public int compare(IntProperty o1, IntProperty o2) {
 			return o1.getName().compareTo(o2.getName());
 		}
 		

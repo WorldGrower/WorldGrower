@@ -30,6 +30,19 @@ public class UTestDemandsConversation {
 	private DemandsConversation conversation = new DemandsConversation();
 	
 	@Test
+	public void testGetReplyPhrase() {
+		Demands demands = new Demands();
+		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.DEMANDS, demands);
+		ConversationContext conversationContext = new ConversationContext(null, target, null, null, null, 0);
+		Response response = conversation.getReplyPhrase(conversationContext);
+		assertEquals(1, response.getId());
+		
+		demands.add(Constants.FOOD, 1);
+		response = conversation.getReplyPhrase(conversationContext);
+		assertEquals(0, response.getId());
+	}
+	
+	@Test
 	public void testGetQuestionPhrases() {
 		Demands demands = new Demands();
 		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.DEMANDS, demands);

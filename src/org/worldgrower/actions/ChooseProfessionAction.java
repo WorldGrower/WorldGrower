@@ -415,7 +415,7 @@ public class ChooseProfessionAction implements ManagedOperation {
 	public static int getNumberOfMatchingDemands(Demands demands, World world) {
 		PropertyCountMap<ManagedProperty<?>> supply = calculateSupply(demands, world);
 		int matchingDemands = 0;
-		for(IntProperty managedProperty : demands.propertyKeys()) {
+		for(IntProperty managedProperty : demands) {
 			int totalDemand = demands.count(managedProperty);
 			int totalSupply = supply.count(managedProperty);
 			
@@ -428,12 +428,12 @@ public class ChooseProfessionAction implements ManagedOperation {
 	static PropertyCountMap<ManagedProperty<?>> calculateSupply(Demands demands, World world) {
 		List<WorldObject> potentialSellers = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.hasProperty(Constants.INVENTORY));
 		PropertyCountMap<ManagedProperty<?>> sellings = new PropertyCountMap<>();
-		for(ManagedProperty<?> managedProperty : demands.propertyKeys()) {
+		for(IntProperty property : demands) {
 			for(WorldObject potentialSeller : potentialSellers) {
 				WorldObjectContainer inventory = potentialSeller.getProperty(Constants.INVENTORY);
-				int index = inventory.getIndexFor(w -> w.hasProperty(managedProperty) && w.hasProperty(Constants.SELLABLE) && w.getProperty(Constants.SELLABLE));
+				int index = inventory.getIndexFor(w -> w.hasProperty(property) && w.hasProperty(Constants.SELLABLE) && w.getProperty(Constants.SELLABLE));
 				if (index != -1) {
-					sellings.add(managedProperty, inventory.get(index).getProperty(Constants.QUANTITY));
+					sellings.add(property, inventory.get(index).getProperty(Constants.QUANTITY));
 				}
 			}
 		}
