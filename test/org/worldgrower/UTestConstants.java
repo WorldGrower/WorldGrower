@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Iterator;
 
 import org.junit.Test;
-import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.IntProperty;
 
 public class UTestConstants {
 
@@ -45,7 +45,7 @@ public class UTestConstants {
 	
 	@Test
 	public void testPossibleDemandPropertiesIterate() {
-		Iterator<ManagedProperty<?>> iterator = Constants.POSSIBLE_DEMAND_PROPERTIES.iterator();
+		Iterator<IntProperty> iterator = Constants.POSSIBLE_DEMAND_PROPERTIES.iterator();
 		assertEquals(Constants.FOOD, iterator.next());
 		assertEquals(Constants.WATER, iterator.next());
 		assertEquals(Constants.WOOD, iterator.next());

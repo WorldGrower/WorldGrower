@@ -20,7 +20,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.personality.PersonalityTrait;
 import org.worldgrower.text.FormattableText;
 
@@ -37,7 +37,7 @@ public interface Goal extends Serializable {
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet);
 	public int evaluate(WorldObject performer, World world);
 	
-	public default void defaultGoalMetOrNot(WorldObject performer, World world, boolean goalMet, ManagedProperty<?> property) {
+	public default void defaultGoalMetOrNot(WorldObject performer, World world, boolean goalMet, IntProperty property) {
 		if (performer.hasProperty(Constants.DEMANDS)) {
 			if (goalMet) {
 				performer.getProperty(Constants.DEMANDS).remove(property);

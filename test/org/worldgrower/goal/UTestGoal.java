@@ -23,7 +23,7 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.PropertyCountMap;
+import org.worldgrower.attribute.Demands;
 import org.worldgrower.personality.Personality;
 import org.worldgrower.personality.PersonalityTrait;
 
@@ -40,7 +40,7 @@ public class UTestGoal {
 		goal.defaultGoalMetOrNot(performer, world, false, Constants.FOOD);
 		assertEquals(null, performer.getProperty(Constants.DEMANDS));
 		
-		performer.setProperty(Constants.DEMANDS, new PropertyCountMap<>());
+		performer.setProperty(Constants.DEMANDS, new Demands());
 		goal.defaultGoalMetOrNot(performer, world, false, Constants.FOOD);
 		assertEquals(1, performer.getProperty(Constants.DEMANDS).count(Constants.FOOD));
 		
@@ -48,10 +48,10 @@ public class UTestGoal {
 		assertEquals(0, performer.getProperty(Constants.DEMANDS).count(Constants.FOOD));
 		
 		try {
-			goal.defaultGoalMetOrNot(performer, world, false, Constants.ALCHEMY_SKILL);
+			goal.defaultGoalMetOrNot(performer, world, false, Constants.CONSTITUTION);
 			fail("method should fail");
 		} catch(IllegalStateException e) {
-			assertEquals("property alchemy isn't found in list of possible demands", e.getMessage());
+			assertEquals("property CON isn't found in list of possible demands", e.getMessage());
 		}
 		
 	}

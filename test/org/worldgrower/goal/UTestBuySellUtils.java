@@ -28,9 +28,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.Demands;
 import org.worldgrower.attribute.ItemCountMap;
-import org.worldgrower.attribute.ManagedProperty;
-import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 
@@ -47,7 +46,7 @@ public class UTestBuySellUtils {
 	
 	@Test
 	public void testGetDemandGoods() {
-		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.DEMANDS, new Demands());
 		performer.setProperty(Constants.INVENTORY, new WorldObjectContainer());
 		WorldObject inventoryItem = Item.BERRIES.generate(1f);
 		
@@ -145,7 +144,7 @@ public class UTestBuySellUtils {
 		
 		assertEquals(false, BuySellUtils.buyerWillBuyGoods(performer, target, 0, world));
 		
-		target.setProperty(Constants.DEMANDS, new PropertyCountMap<>());
+		target.setProperty(Constants.DEMANDS, new Demands());
 		target.getProperty(Constants.DEMANDS).add(Constants.FOOD, 1);
 		assertEquals(true, BuySellUtils.buyerWillBuyGoods(performer, target, 0, world));
 	}

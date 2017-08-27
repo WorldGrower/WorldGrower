@@ -82,7 +82,7 @@ public class BuySellIconsDrawer {
     private List<Image> getBuyingImages(WorldObject worldObject) {
     	if (canAdvertiseBuying(worldObject)) {
     		List<Image> images = new ArrayList<>();
-	    	for(ManagedProperty<?> managedProperty : BuySellUtils.getBuyingProperties(worldObject)) {
+	    	for(ManagedProperty<?> managedProperty : BuySellUtils.getBuyingProperties(worldObject).propertyKeys()) {
 	    		Item item = Item.getItemFor(managedProperty);
 	    		images.add(itemImages.get(item));
 	    	}
@@ -97,7 +97,7 @@ public class BuySellIconsDrawer {
 	}
     
     private List<String> getBuyingDescriptions(WorldObject worldObject) {
-    	return BuySellUtils.getBuyingProperties(worldObject).stream().map(m -> m.getName()).collect(Collectors.toList());
+    	return BuySellUtils.getBuyingProperties(worldObject).propertyKeys().stream().map(m -> m.getName()).collect(Collectors.toList());
     }
     
     private List<Image> getSellingImages(WorldObject worldObject) {

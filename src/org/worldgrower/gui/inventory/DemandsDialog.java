@@ -35,8 +35,8 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellEditor;
 
 import org.worldgrower.Constants;
-import org.worldgrower.attribute.ManagedProperty;
-import org.worldgrower.attribute.PropertyCountMap;
+import org.worldgrower.attribute.Demands;
+import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ImageIds;
@@ -50,9 +50,9 @@ import org.worldgrower.gui.util.JTableFactory;
 import org.worldgrower.gui.util.JTextFieldFactory;
 
 public final class DemandsDialog extends AbstractDialog {
-	private final PropertyCountMap<ManagedProperty<?>> demands;
+	private final Demands demands;
 	
-	public DemandsDialog(PropertyCountMap<ManagedProperty<?>> demands, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
+	public DemandsDialog(Demands demands, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
 		super(450, 800, imageInfoReader);
 		this.demands = demands;
 		
@@ -133,11 +133,11 @@ public final class DemandsDialog extends AbstractDialog {
 		setVisible(true);
 	}
 	
-	private void addActionHandlers(JButton okButton, DemandsModel model, JDialog dialog, PropertyCountMap<ManagedProperty<?>> demands) {
+	private void addActionHandlers(JButton okButton, DemandsModel model, JDialog dialog, Demands demands) {
 		okButton.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent event) {
 				model.apply(demands);
 				dialog.dispose();
 			}
@@ -149,15 +149,15 @@ public final class DemandsDialog extends AbstractDialog {
 	private static class DemandsModel extends AbstractTableModel {
 		private List<DemandItem> demandItems = new ArrayList<>();
 		
-		public DemandsModel(PropertyCountMap<ManagedProperty<?>> demands) {
+		public DemandsModel(Demands demands) {
 			super();
-			for(ManagedProperty<?> property : Constants.POSSIBLE_DEMAND_PROPERTIES) {
+			for(IntProperty property : Constants.POSSIBLE_DEMAND_PROPERTIES) {
 				int quantityDemanded = demands.count(property);
 				demandItems.add(new DemandItem(property, quantityDemanded));
 			}
 		}
 
-		public void apply(PropertyCountMap<ManagedProperty<?>> demands) {
+		public void apply(Demands demands) {
 			for(DemandItem demandItem : demandItems) {
 				if (demandItem.getQuantityDemanded() > 0) {
 					demands.add(demandItem.getProperty(), demandItem.getQuantityDemanded());
@@ -231,15 +231,15 @@ public final class DemandsDialog extends AbstractDialog {
 	}
 	
 	private static class DemandItem {
-		private ManagedProperty<?> property;
+		private IntProperty property;
 		private int quantityDemanded;
 		
-		public DemandItem(ManagedProperty<?> property, int quantityDemanded) {
+		public DemandItem(IntProperty property, int quantityDemanded) {
 			super();
 			this.property = property;
 			this.quantityDemanded = quantityDemanded;
 		}
-		public ManagedProperty<?> getProperty() {
+		public IntProperty getProperty() {
 			return property;
 		}
 		public int getQuantityDemanded() {

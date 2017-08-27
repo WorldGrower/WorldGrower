@@ -14,21 +14,19 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
-import java.util.List;
-
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.Demands;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
 public class TradeGoal implements Goal {
 
 	private static final int DISTANCE = 20;
-	private final List<ManagedProperty<?>> buyingProperties;
+	private final Demands buyingProperties;
 	
-	public TradeGoal(List<ManagedProperty<?>> buyingProperties) {
+	public TradeGoal(Demands buyingProperties) {
 		this.buyingProperties = buyingProperties;
 	}
 

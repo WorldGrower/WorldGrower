@@ -19,21 +19,21 @@ import java.util.List;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
 public class MarkNonEquipedItemsAsSellableGoal implements Goal {
 	
-	private final List<ManagedProperty<?>> sellingProperties;
+	private final List<? extends IntProperty> sellingProperties;
 	
-	public MarkNonEquipedItemsAsSellableGoal(List<ManagedProperty<?>> sellingProperties) {
+	public MarkNonEquipedItemsAsSellableGoal(List<? extends IntProperty> sellingProperties) {
 		this.sellingProperties = sellingProperties;
 	}
 
 	@Override
 	public final OperationInfo calculateGoal(WorldObject performer, World world) {
-		for(ManagedProperty<?> propertyToSell : sellingProperties) {
+		for(IntProperty propertyToSell : sellingProperties) {
 			OperationInfo sellOperationInfo = SellablePropertyUtils.calculateGoal(performer, propertyToSell, world);
 			if (sellOperationInfo != null) {
 				return sellOperationInfo;
@@ -53,7 +53,7 @@ public class MarkNonEquipedItemsAsSellableGoal implements Goal {
 
 	@Override
 	public final boolean isGoalMet(WorldObject performer, World world) {
-		for(ManagedProperty<?> propertyToSell : sellingProperties) {
+		for(IntProperty propertyToSell : sellingProperties) {
 			boolean hasNoItemToMarkSellable = SellablePropertyUtils.hasNoItemToMarkSellable(performer, propertyToSell, world);
 			if (!hasNoItemToMarkSellable) {
 				return false;

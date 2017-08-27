@@ -23,6 +23,7 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.Demands;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.history.HistoryItem;
@@ -37,7 +38,7 @@ public class DemandsConversation implements Conversation {
 	public Response getReplyPhrase(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
 		final int replyId;
-		PropertyCountMap<ManagedProperty<?>> demands = target.getProperty(Constants.DEMANDS);
+		Demands demands = target.getProperty(Constants.DEMANDS);
 		if (demands.size() > 0) {
 			replyId = YES;
 		} else {
@@ -54,14 +55,14 @@ public class DemandsConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
-		PropertyCountMap<ManagedProperty<?>> demands = target.getProperty(Constants.DEMANDS);
+		Demands demands = target.getProperty(Constants.DEMANDS);
 		StringBuilder demandsBuilder = new StringBuilder();
 		List<ManagedProperty<?>> demandsList = getDemandsList(demands);
 		for(int i=0; i<demandsList.size(); i++) {
 			demandsBuilder.append(demandsList.get(i).getName());
-			if ((demands.size() > 1) && (i == demands.size() - 2)) {
+			if ((demandsList.size() > 1) && (i == demandsList.size() - 2)) {
 				demandsBuilder.append(" and ");
-			} else if (i < demands.size() - 1) {
+			} else if (i < demandsList.size() - 1) {
 				demandsBuilder.append(", ");
 			}
 		}
@@ -71,8 +72,8 @@ public class DemandsConversation implements Conversation {
 			);
 	}
 
-	private List<ManagedProperty<?>> getDemandsList(PropertyCountMap<ManagedProperty<?>> demands) {
-		List<ManagedProperty<?>> demandsList = new ArrayList<>(demands.keySet());
+	private List<ManagedProperty<?>> getDemandsList(Demands demands) {
+		List<ManagedProperty<?>> demandsList = new ArrayList<>(demands.propertyKeys());
 		Collections.sort(demandsList, new DemandsComparator());
 		return demandsList;
 	}

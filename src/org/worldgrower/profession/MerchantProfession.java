@@ -19,7 +19,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.Constants;
-import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.Demands;
+import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goal;
@@ -30,20 +31,28 @@ import org.worldgrower.gui.ImageIds;
 
 public class MerchantProfession implements Profession {
 
-	private final List<ManagedProperty<?>> buyingProperties = 
-			Arrays.asList(
-					Constants.FOOD, 
-					Constants.WATER, 
-					Constants.WOOD, 
-					Constants.STONE, 
-					Constants.ALCOHOL_LEVEL, 
-					Constants.ORE, 
-					Constants.GOLD, 
-					Constants.COTTON
-			);
+	private final Demands buyingProperties;
 	
 	public MerchantProfession(List<Profession> allProfessions) {
 		allProfessions.add(this);
+		
+		buyingProperties = new Demands();
+		List<IntProperty> properties = 
+				Arrays.asList(
+						Constants.FOOD, 
+						Constants.WATER, 
+						Constants.WOOD, 
+						Constants.STONE, 
+						Constants.ALCOHOL_LEVEL, 
+						Constants.ORE, 
+						Constants.GOLD, 
+						Constants.COTTON
+				);
+		
+		for(IntProperty property : properties) {
+			buyingProperties.add(property, 1);
+		}
+		
 	}
 
 	@Override
@@ -54,7 +63,7 @@ public class MerchantProfession implements Profession {
 	@Override
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
-				new MarkNonEquipedItemsAsSellableGoal(buyingProperties),
+				new MarkNonEquipedItemsAsSellableGoal(buyingProperties.propertyKeys()),
 				Goals.ADJUST_PRICES_GOAL,
 				new TradeGoal(buyingProperties)
 				);
@@ -82,10 +91,6 @@ public class MerchantProfession implements Profession {
 	@Override
 	public List<Item> getSellItems() {
 		return Arrays.asList(Item.BERRIES, Item.MEAT, Item.WINE);
-	}
-
-	public List<ManagedProperty<?>> getBuyingProperties() {
-		return buyingProperties;
 	}
 
 	@Override

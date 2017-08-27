@@ -28,10 +28,10 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.Demands;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.attribute.ManagedProperty;
-import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Conditions;
@@ -84,7 +84,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.ENERGY, 1000);
 		properties.put(Constants.GROUP, new IdList().add(organization));
 		properties.put(Constants.GOLD, 0);
-		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
+		properties.put(Constants.DEMANDS, new Demands());
 		properties.put(Constants.CHILDREN, new IdList());
 		properties.put(Constants.SOCIAL, 500);
 		properties.put(Constants.GENDER, generateGender());
@@ -143,7 +143,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.ENERGY, 1000);
 		properties.put(Constants.GROUP, new IdList().add(organization));
 		properties.put(Constants.GOLD, 0);
-		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
+		properties.put(Constants.DEMANDS, new Demands());
 		properties.put(Constants.CHILDREN, new IdList());
 		properties.put(Constants.SOCIAL, 500);
 		properties.put(Constants.GENDER, generateGender());
@@ -192,7 +192,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.ENERGY, 1000);
 		properties.put(Constants.GROUP, new IdList().add(organization));
 		properties.put(Constants.GOLD, 0);
-		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
+		properties.put(Constants.DEMANDS, new Demands());
 		properties.put(Constants.CHILDREN, new IdList());
 		properties.put(Constants.SOCIAL, 500);
 		properties.put(Constants.GENDER, generateGender());
@@ -242,7 +242,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.ENERGY, 1000);
 		properties.put(Constants.GROUP, new IdList());
 		properties.put(Constants.GOLD, 0);
-		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
+		properties.put(Constants.DEMANDS, new Demands());
 		properties.put(Constants.CHILDREN, new IdList());
 		properties.put(Constants.SOCIAL, 500);
 		properties.put(Constants.GENDER, "male");
@@ -327,7 +327,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.ENERGY, 1000);
 		properties.put(Constants.GROUP, new IdList().add(organization));
 		properties.put(Constants.GOLD, 0);
-		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
+		properties.put(Constants.DEMANDS, new Demands());
 		properties.put(Constants.CHILDREN, new IdList());
 		properties.put(Constants.SOCIAL, 500);
 		properties.put(Constants.GENDER, gender);
@@ -375,7 +375,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.ENERGY, 1000);
 		properties.put(Constants.GROUP, new IdList().add(organization));
 		properties.put(Constants.GOLD, 0);
-		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
+		properties.put(Constants.DEMANDS, new Demands());
 		properties.put(Constants.CHILDREN, new IdList());
 		properties.put(Constants.SOCIAL, 500);
 		properties.put(Constants.GENDER, gender);
@@ -413,7 +413,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.ENERGY, 1000);
 		properties.put(Constants.GROUP, new IdList().add(organization));
 		properties.put(Constants.GOLD, 0);
-		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
+		properties.put(Constants.DEMANDS, new Demands());
 		properties.put(Constants.CHILDREN, new IdList());
 		properties.put(Constants.SOCIAL, 500);
 		properties.put(Constants.CREATURE_TYPE, CreatureType.CONSTRUCT_CREATURE_TYPE);

@@ -29,6 +29,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.attribute.Background;
+import org.worldgrower.attribute.Demands;
+import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.ProfessionExplanation;
 import org.worldgrower.attribute.PropertyCountMap;
@@ -288,7 +290,7 @@ public class ChooseProfessionAction implements ManagedOperation {
 	static List<ProfessionEvaluation> getProfessionEvaluationsByDemand(WorldObject performer, World world) {
 		List<WorldObject> worldObjects = GroupPropertyUtils.findWorldObjectsInSameGroup(performer, world);
 		
-		PropertyCountMap<ManagedProperty<?>> mergedDemands = new PropertyCountMap<ManagedProperty<?>>();
+		Demands mergedDemands = new Demands();
 		for(WorldObject worldObject : worldObjects) {
 			if (worldObject.hasProperty(Constants.DEMANDS)) {
 				mergedDemands.addAll(worldObject.getProperty(Constants.DEMANDS));
@@ -300,7 +302,7 @@ public class ChooseProfessionAction implements ManagedOperation {
 
 	// When demands are used, they should be divided by populationCount
 	// Otherwise demands may result in 1 profession overshadowing the others
-	static List<ProfessionEvaluation> mapDemandsToProfessions(WorldObject performer, PropertyCountMap<ManagedProperty<?>> demands, World world) {
+	static List<ProfessionEvaluation> mapDemandsToProfessions(WorldObject performer, Demands demands, World world) {
 		List<ProfessionEvaluation> result = new ArrayList<>();
 		int populationCount = OperationStatistics.getPopulationCount(world);
 		
@@ -410,10 +412,10 @@ public class ChooseProfessionAction implements ManagedOperation {
 		return unclaimedCattle.size() >= 2 && maleUnclaimedCattleCount > 0 && femaleUnclaimedCattleCount > 0;
 	}
 
-	public static int getNumberOfMatchingDemands(PropertyCountMap<ManagedProperty<?>> demands, World world) {
+	public static int getNumberOfMatchingDemands(Demands demands, World world) {
 		PropertyCountMap<ManagedProperty<?>> supply = calculateSupply(demands, world);
 		int matchingDemands = 0;
-		for(ManagedProperty<?> managedProperty : demands.keySet()) {
+		for(IntProperty managedProperty : demands.propertyKeys()) {
 			int totalDemand = demands.count(managedProperty);
 			int totalSupply = supply.count(managedProperty);
 			
@@ -423,10 +425,10 @@ public class ChooseProfessionAction implements ManagedOperation {
 		return matchingDemands;
 	}
 
-	static PropertyCountMap<ManagedProperty<?>> calculateSupply(PropertyCountMap<ManagedProperty<?>> demands, World world) {
+	static PropertyCountMap<ManagedProperty<?>> calculateSupply(Demands demands, World world) {
 		List<WorldObject> potentialSellers = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.hasProperty(Constants.INVENTORY));
 		PropertyCountMap<ManagedProperty<?>> sellings = new PropertyCountMap<>();
-		for(ManagedProperty<?> managedProperty : demands.keySet()) {
+		for(ManagedProperty<?> managedProperty : demands.propertyKeys()) {
 			for(WorldObject potentialSeller : potentialSellers) {
 				WorldObjectContainer inventory = potentialSeller.getProperty(Constants.INVENTORY);
 				int index = inventory.getIndexFor(w -> w.hasProperty(managedProperty) && w.hasProperty(Constants.SELLABLE) && w.getProperty(Constants.SELLABLE));

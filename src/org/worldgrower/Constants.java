@@ -27,6 +27,7 @@ import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.BuildingsListProperty;
 import org.worldgrower.attribute.ConditionsProperty;
 import org.worldgrower.attribute.DamageType;
+import org.worldgrower.attribute.Demands;
 import org.worldgrower.attribute.IdContainer;
 import org.worldgrower.attribute.IdListProperty;
 import org.worldgrower.attribute.IdMapProperty;
@@ -195,7 +196,7 @@ public class Constants {
 	public static final BooleanProperty SELLABLE = new BooleanProperty("sellable", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty QUANTITY = new IntProperty("quantity", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty GOLD = new IntProperty("gold", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final PropertyCountMapProperty<ManagedProperty<?>> DEMANDS = new PropertyCountMapProperty<ManagedProperty<?>>("demands", ALL_PROPERTIES);
+	public static final UnCheckedProperty<Demands> DEMANDS = new UnCheckedProperty<Demands>("demands", ALL_PROPERTIES);
 	
 	public static final UnCheckedProperty<Profession> PROFESSION = new UnCheckedProperty<Profession>("profession", ALL_PROPERTIES);
 
@@ -366,8 +367,8 @@ public class Constants {
 		return toolProperties;
 	}
 	
-	public static final class PossibleDemandProperties implements Iterable<ManagedProperty<?>> {
-		private final List<ManagedProperty<?>> properties = 
+	public static final class PossibleDemandProperties implements Iterable<IntProperty> {
+		private final List<IntProperty> properties = 
 				Arrays.asList(
 				Constants.FOOD, 
 				Constants.WATER,
@@ -407,7 +408,7 @@ public class Constants {
 		}
 
 		@Override
-		public Iterator<ManagedProperty<?>> iterator() {
+		public Iterator<IntProperty> iterator() {
 			return properties.iterator();
 		}
 	}

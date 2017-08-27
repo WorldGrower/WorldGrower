@@ -58,6 +58,7 @@ import javax.swing.table.TableRowSorter;
 
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.Demands;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.Prices;
 import org.worldgrower.attribute.PropertyCountMap;
@@ -552,7 +553,7 @@ public final class InventoryDialog extends AbstractDialog {
 		return weightString;
 	}
 
-	private void setInventoryActions(Consumer<int[]> setPricesAction, PropertyCountMap<ManagedProperty<?>> demands, Prices pricesOnPlayer) {
+	private void setInventoryActions(Consumer<int[]> setPricesAction, Demands demands, Prices pricesOnPlayer) {
 		demandsButton.addActionListener(e -> new DemandsDialog(demands, imageInfoReader, soundIdReader).showMe());
 		pricesButton.addActionListener(e -> new PricesDialog(setPricesAction, pricesOnPlayer, imageInfoReader, soundIdReader).showMe());
 	}

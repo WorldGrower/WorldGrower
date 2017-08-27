@@ -16,8 +16,6 @@ package org.worldgrower.goal;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Arrays;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.worldgrower.Constants;
@@ -26,12 +24,19 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.Demands;
 import org.worldgrower.generator.Item;
 import org.worldgrower.profession.Professions;
 
 public class UTestTradeGoal {
 
-	private TradeGoal goal = new TradeGoal(Arrays.asList(Constants.FOOD));
+	private final TradeGoal goal;
+	
+	public UTestTradeGoal() {
+		Demands demands = new Demands();
+		demands.add(Constants.FOOD, 1);
+		goal = new TradeGoal(demands);
+	}
 	
 	@Test
 	public void testCalculateGoalNull() {

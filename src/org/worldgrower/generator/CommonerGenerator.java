@@ -32,6 +32,7 @@ import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.AttributeGenerator;
 import org.worldgrower.attribute.BackgroundImpl;
 import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.Demands;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.attribute.ItemCountMap;
@@ -126,7 +127,7 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.ENERGY, 1000);
 		properties.put(Constants.PROFESSION, null);
 		properties.put(Constants.INVENTORY, new WorldObjectContainer());
-		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
+		properties.put(Constants.DEMANDS, new Demands());
 		properties.put(Constants.RELATIONSHIPS, new IdRelationshipMap());
 		properties.put(Constants.REASONS, new ReasonsImpl());
 		properties.put(Constants.CHILDREN, new IdList());
@@ -191,7 +192,7 @@ public class CommonerGenerator implements Serializable {
 		
 		WorldObjectContainer inventory = new WorldObjectContainer();
 		properties.put(Constants.INVENTORY, inventory);
-		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
+		properties.put(Constants.DEMANDS, new Demands());
 		properties.put(Constants.GOLD, 100);
 		properties.put(Constants.ORGANIZATION_GOLD, 0);
 		properties.put(Constants.PRICES, new Prices());

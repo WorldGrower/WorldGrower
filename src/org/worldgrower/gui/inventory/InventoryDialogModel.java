@@ -22,9 +22,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MarkInventoryItemAsSellableAction;
-import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.Demands;
 import org.worldgrower.attribute.Prices;
-import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.WeightPropertyUtils;
 import org.worldgrower.gui.ImageIds;
@@ -139,7 +138,7 @@ public class InventoryDialogModel {
 		
 	}
 
-	public PropertyCountMap<ManagedProperty<?>> getPlayerCharacterDemands() {
+	public Demands getPlayerCharacterDemands() {
 		return playerCharacter.getProperty(Constants.DEMANDS);
 	}
 	

@@ -23,8 +23,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.TestUtils;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.ManagedProperty;
-import org.worldgrower.attribute.PropertyCountMap;
+import org.worldgrower.attribute.Demands;
 
 public class UTestDemandsConversation {
 
@@ -32,7 +31,7 @@ public class UTestDemandsConversation {
 	
 	@Test
 	public void testGetQuestionPhrases() {
-		PropertyCountMap<ManagedProperty<?>> demands = new PropertyCountMap<>();
+		Demands demands = new Demands();
 		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.DEMANDS, demands);
 		List<Question> questions = conversation.getQuestionPhrases(null, target, null, null, null);
 		assertEquals(1, questions.size());
@@ -41,7 +40,7 @@ public class UTestDemandsConversation {
 	
 	@Test
 	public void testGetReplyPhrasesNoDemands() {
-		List<Response> replyPhrases = getReplyPhrases(new PropertyCountMap<>());
+		List<Response> replyPhrases = getReplyPhrases(new Demands());
 		assertEquals(2, replyPhrases.size());
 		assertEquals("I'd like to buy ", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 		assertEquals("I'm not looking for anything to buy right now", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
@@ -49,7 +48,7 @@ public class UTestDemandsConversation {
 	
 	@Test
 	public void testGetReplyPhrasesOneDemand() {
-		PropertyCountMap<ManagedProperty<?>> demands = new PropertyCountMap<>();
+		Demands demands = new Demands();
 		demands.add(Constants.FOOD, 1);
 		List<Response> replyPhrases = getReplyPhrases(demands);
 		assertEquals("I'd like to buy food", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
@@ -57,7 +56,7 @@ public class UTestDemandsConversation {
 	
 	@Test
 	public void testGetReplyPhrasesTwoDemands() {
-		PropertyCountMap<ManagedProperty<?>> demands = new PropertyCountMap<>();
+		Demands demands = new Demands();
 		demands.add(Constants.FOOD, 1);
 		demands.add(Constants.WATER, 1);
 		List<Response> replyPhrases = getReplyPhrases(demands);
@@ -66,7 +65,7 @@ public class UTestDemandsConversation {
 	
 	@Test
 	public void testGetReplyPhrasesThreeDemands() {
-		PropertyCountMap<ManagedProperty<?>> demands = new PropertyCountMap<>();
+		Demands demands = new Demands();
 		demands.add(Constants.FOOD, 1);
 		demands.add(Constants.WATER, 1);
 		demands.add(Constants.WINE, 1);
@@ -74,8 +73,8 @@ public class UTestDemandsConversation {
 		assertEquals("I'd like to buy food, water and wine", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
-	private List<Response> getReplyPhrases(PropertyCountMap<ManagedProperty<?>> propertyCountMap) {
-		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.DEMANDS, propertyCountMap);
+	private List<Response> getReplyPhrases(Demands demands) {
+		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.DEMANDS, demands);
 		ConversationContext conversationContext = new ConversationContext(null, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(conversationContext);
 		return replyPhrases;
