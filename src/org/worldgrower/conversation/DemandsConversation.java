@@ -14,10 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.conversation;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.worldgrower.Constants;
@@ -56,7 +53,7 @@ public class DemandsConversation implements Conversation {
 		WorldObject target = conversationContext.getTarget();
 		Demands demands = target.getProperty(Constants.DEMANDS);
 		StringBuilder demandsBuilder = new StringBuilder();
-		List<IntProperty> demandsList = getDemandsList(demands);
+		List<IntProperty> demandsList = demands.getSortedDemands();
 		for(int i=0; i<demandsList.size(); i++) {
 			demandsBuilder.append(demandsList.get(i).getName());
 			if ((demandsList.size() > 1) && (i == demandsList.size() - 2)) {
@@ -71,12 +68,6 @@ public class DemandsConversation implements Conversation {
 			);
 	}
 
-	private List<IntProperty> getDemandsList(Demands demands) {
-		List<IntProperty> demandsList = new ArrayList<>(demands.propertyKeys());
-		Collections.sort(demandsList, new DemandsComparator());
-		return demandsList;
-	}
-
 	@Override
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world) {
 		return true;
@@ -89,14 +80,5 @@ public class DemandsConversation implements Conversation {
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
 		return "asking me what I want to buy";
-	}
-	
-	private static class DemandsComparator implements Comparator<IntProperty> {
-
-		@Override
-		public int compare(IntProperty o1, IntProperty o2) {
-			return o1.getName().compareTo(o2.getName());
-		}
-		
 	}
 }

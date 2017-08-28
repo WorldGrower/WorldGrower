@@ -15,6 +15,9 @@
 package org.worldgrower.attribute;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -49,5 +52,19 @@ public final class Demands implements Serializable, Iterable<IntProperty> {
 	@Override
 	public Iterator<IntProperty> iterator() {
 		return (Iterator<IntProperty>) propertyKeys().iterator();
-	}	
+	}
+	
+	public List<IntProperty> getSortedDemands() {
+		List<IntProperty> demandsList = new ArrayList<>(propertyKeys());
+		Collections.sort(demandsList, new DemandsComparator());
+		return demandsList;
+	}
+	
+	private static class DemandsComparator implements Comparator<IntProperty> {
+
+		@Override
+		public int compare(IntProperty o1, IntProperty o2) {
+			return o1.getName().compareTo(o2.getName());
+		}	
+	}
 }

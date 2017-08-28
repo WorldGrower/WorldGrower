@@ -27,7 +27,6 @@ import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.LookDirection;
-import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.BuySellUtils;
 import org.worldgrower.gui.util.ImageUtils;
