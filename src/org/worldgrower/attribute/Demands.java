@@ -22,7 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public final class Demands implements Serializable, Iterable<IntProperty> {
-	private PropertyCountMap<ManagedProperty<?>> properties = new PropertyCountMap<>();
+	private PropertyCountMap<IntProperty> properties = new PropertyCountMap<>();
 
 	public void add(IntProperty propertyKey, int quantity) {
 		properties.add(propertyKey, quantity);
@@ -41,8 +41,8 @@ public final class Demands implements Serializable, Iterable<IntProperty> {
 		
 	}
 
-	public List<? extends IntProperty> propertyKeys() {
-		return (List<? extends IntProperty>) properties.keySet();
+	public List<IntProperty> propertyKeys() {
+		return properties.keySet();
 	}
 
 	public int size() {
@@ -51,7 +51,7 @@ public final class Demands implements Serializable, Iterable<IntProperty> {
 
 	@Override
 	public Iterator<IntProperty> iterator() {
-		return (Iterator<IntProperty>) propertyKeys().iterator();
+		return propertyKeys().iterator();
 	}
 	
 	public List<IntProperty> getSortedDemands() {
