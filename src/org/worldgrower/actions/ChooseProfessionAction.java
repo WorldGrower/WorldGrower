@@ -338,6 +338,9 @@ public class ChooseProfessionAction implements ManagedOperation {
 		int scytheDemand = demands.count(Constants.SCYTHE_QUALITY);
 		result.add(new ProfessionEvaluation(Professions.CARPENTER_PROFESSION, (houseDemand + pickaxeDemand + scytheDemand) / populationCount));
 		
+		int lightArmorDemand = demands.count(Constants.BOOTS_LIGHT_ARMOR) + demands.count(Constants.SHIRT_LIGHT_ARMOR) + demands.count(Constants.PANTS_LIGHT_ARMOR);
+		result.add(new ProfessionEvaluation(Professions.WEAVER_PROFESSION, lightArmorDemand / populationCount));
+		
 		List<WorldObject> remains = getRemains(world);
 		if (remains.size() > 0) {
 			result.add(new ProfessionEvaluation(Professions.GRAVE_DIGGER_PROFESSION, remains.size()));

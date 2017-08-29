@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.Demands;
 import org.worldgrower.attribute.Prices;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
@@ -143,5 +144,37 @@ public class UTestBuyClothesGoal {
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 
-
+	@Test
+	public void testGoalMetOrNot() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.DEMANDS, new Demands());
+		
+		goal.goalMetOrNot(performer, world, false);
+		
+		assertEquals(1, performer.getProperty(Constants.DEMANDS).count(Constants.BOOTS_LIGHT_ARMOR));
+		assertEquals(1, performer.getProperty(Constants.DEMANDS).count(Constants.SHIRT_LIGHT_ARMOR));
+		assertEquals(1, performer.getProperty(Constants.DEMANDS).count(Constants.PANTS_LIGHT_ARMOR));
+		
+		addCottonBoots(performer);
+		goal.goalMetOrNot(performer, world, false);
+		
+		assertEquals(0, performer.getProperty(Constants.DEMANDS).count(Constants.BOOTS_LIGHT_ARMOR));
+		assertEquals(2, performer.getProperty(Constants.DEMANDS).count(Constants.SHIRT_LIGHT_ARMOR));
+		assertEquals(2, performer.getProperty(Constants.DEMANDS).count(Constants.PANTS_LIGHT_ARMOR));
+	
+		addCottonShirt(performer);
+		goal.goalMetOrNot(performer, world, false);
+		
+		assertEquals(0, performer.getProperty(Constants.DEMANDS).count(Constants.BOOTS_LIGHT_ARMOR));
+		assertEquals(0, performer.getProperty(Constants.DEMANDS).count(Constants.SHIRT_LIGHT_ARMOR));
+		assertEquals(3, performer.getProperty(Constants.DEMANDS).count(Constants.PANTS_LIGHT_ARMOR));
+		
+		addCottonPants(performer);
+		goal.goalMetOrNot(performer, world, false);
+		
+		assertEquals(0, performer.getProperty(Constants.DEMANDS).count(Constants.BOOTS_LIGHT_ARMOR));
+		assertEquals(0, performer.getProperty(Constants.DEMANDS).count(Constants.SHIRT_LIGHT_ARMOR));
+		assertEquals(0, performer.getProperty(Constants.DEMANDS).count(Constants.PANTS_LIGHT_ARMOR));
+	}
 }

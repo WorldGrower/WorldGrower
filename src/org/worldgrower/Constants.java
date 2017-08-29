@@ -313,7 +313,7 @@ public class Constants {
 	public static final BooleanProperty SECRET_CHEST = new BooleanProperty("secretChest", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdProperty CHEST_ID = new IdProperty("chestId", ALL_PROPERTIES);
 	public static final IdListProperty ANIMAL_ENEMIES = new IdListProperty("animalEnemies", ALL_PROPERTIES);
-	public static final IntProperty HIT_POINTS_HEALED = new IntProperty("hitPointsHealed", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty HIT_POINTS_HEALED = new IntProperty("healing potion", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty VOTING_CANDIDATE_TURNS = new IntProperty("votingCandidateTurns", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty VOTING_TOTAL_TURNS = new IntProperty("votingTotalTurns", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final BooleanProperty CURE_POISON = new BooleanProperty("curePoison", NOT_NULLABLE, ALL_PROPERTIES);
@@ -326,6 +326,10 @@ public class Constants {
 	public static final UnCheckedProperty<TreeType> TREE_TYPE = new UnCheckedProperty<>("treeType", ALL_PROPERTIES);
 	public static final UnCheckedProperty<DeityAttributes> DEITY_ATTRIBUTES = new UnCheckedProperty<>("deityAttributes", ALL_PROPERTIES);
 	public static final UnCheckedProperty<WantedProfession> WANTED_PROFESSION = new UnCheckedProperty<>("wantedProfession", ALL_PROPERTIES);
+	
+	public static final IntProperty BOOTS_LIGHT_ARMOR = new IntProperty("light armor boots", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty SHIRT_LIGHT_ARMOR = new IntProperty("light armor shirt", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty PANTS_LIGHT_ARMOR = new IntProperty("light armor pants", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	//special property not used in WorldObject
 	public static final IntProperty DISTANCE = new IntProperty("distance", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
@@ -370,37 +374,40 @@ public class Constants {
 	public static final class PossibleDemandProperties implements Iterable<IntProperty> {
 		private final List<IntProperty> properties = 
 				Arrays.asList(
-				Constants.FOOD, 
-				Constants.WATER,
-				Constants.WOOD,
-				Constants.STONE,
-				Constants.ORE,
-				Constants.COTTON,
-				Constants.ALCOHOL_LEVEL,
-				Constants.GOLD,
-				Constants.GRAPE,
-				Constants.OIL,
-				Constants.PAPER,
-				Constants.POISON_DAMAGE,
-				Constants.SOUL_GEM,
-				Constants.FISHING_POLE_QUALITY,
-				Constants.REPAIR_QUALITY,
-				Constants.PICKAXE_QUALITY,
-				Constants.SCYTHE_QUALITY,
-				Constants.SAW_QUALITY,
-				Constants.WOOD_CUTTING_QUALITY,
-				Constants.LOCKPICK_QUALITY,
-				Constants.SLEEP_COMFORT,
-				Constants.BREWERY_QUALITY,
-				Constants.SMITH_QUALITY,
-				Constants.WORKBENCH_QUALITY,
-				Constants.PAPER_MILL_QUALITY,
-				Constants.WEAVERY_QUALITY,
-				Constants.APOTHECARY_QUALITY,
-				Constants.BUTCHER_QUALITY,
-				Constants.HIT_POINTS_HEALED,
-				Constants.LEATHER,
-				Constants.STEEL
+				FOOD, 
+				WATER,
+				WOOD,
+				STONE,
+				ORE,
+				COTTON,
+				ALCOHOL_LEVEL,
+				GOLD,
+				GRAPE,
+				OIL,
+				PAPER,
+				POISON_DAMAGE,
+				SOUL_GEM,
+				FISHING_POLE_QUALITY,
+				REPAIR_QUALITY,
+				PICKAXE_QUALITY,
+				SCYTHE_QUALITY,
+				SAW_QUALITY,
+				WOOD_CUTTING_QUALITY,
+				LOCKPICK_QUALITY,
+				SLEEP_COMFORT,
+				BREWERY_QUALITY,
+				SMITH_QUALITY,
+				WORKBENCH_QUALITY,
+				PAPER_MILL_QUALITY,
+				WEAVERY_QUALITY,
+				APOTHECARY_QUALITY,
+				BUTCHER_QUALITY,
+				HIT_POINTS_HEALED,
+				LEATHER,
+				STEEL,
+				BOOTS_LIGHT_ARMOR,
+				SHIRT_LIGHT_ARMOR,
+				PANTS_LIGHT_ARMOR
 				);
 		
 		public boolean contains(ManagedProperty<?> property) {

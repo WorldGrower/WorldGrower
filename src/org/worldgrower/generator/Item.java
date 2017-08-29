@@ -567,6 +567,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.COTTON_SHIRT);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
+			properties.put(Constants.SHIRT_LIGHT_ARMOR, 0);
 			properties.put(Constants.LONG_DESCRIPTION, "A cotton shirt is a piece of torso armor.");
 			return new WorldObjectImpl(properties);
 		});
@@ -597,6 +598,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.FEET_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.COTTON_BOOTS);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
+			properties.put(Constants.BOOTS_LIGHT_ARMOR, 0);
 			properties.put(Constants.LONG_DESCRIPTION, "cotton boots are a piece of feet armor.");
 			return new WorldObjectImpl(properties);
 		});
@@ -627,6 +629,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEGS_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.COTTON_PANTS);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
+			properties.put(Constants.PANTS_LIGHT_ARMOR, 0);
 			properties.put(Constants.LONG_DESCRIPTION, "cotton pants are a piece of leg armor.");
 			return new WorldObjectImpl(properties);
 		});
@@ -913,6 +916,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.LEATHER_SHIRT);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
+			properties.put(Constants.SHIRT_LIGHT_ARMOR, 0);
 			properties.put(Constants.LONG_DESCRIPTION, "A leather shirt is a piece of torso armor.");
 			return new WorldObjectImpl(properties);
 		});
@@ -943,6 +947,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.FEET_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.LEATHER_BOOTS);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
+			properties.put(Constants.BOOTS_LIGHT_ARMOR, 0);
 			properties.put(Constants.LONG_DESCRIPTION, "leather boots are a piece of feet armor.");
 			return new WorldObjectImpl(properties);
 		});
@@ -973,6 +978,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEGS_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.LEATHER_PANTS);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
+			properties.put(Constants.PANTS_LIGHT_ARMOR, 0);
 			properties.put(Constants.LONG_DESCRIPTION, "leather pants are a piece of leg armor.");
 			return new WorldObjectImpl(properties);
 		});

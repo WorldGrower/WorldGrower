@@ -65,6 +65,14 @@ public class BuyClothesGoal implements Goal {
 	
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
+		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY); 
+		boolean hasShirt = hasShirt(inventory);
+		boolean hasPants = hasPants(inventory);
+		boolean hasBoots = hasBoots(inventory);
+		
+		defaultGoalMetOrNot(performer, world, hasShirt, Constants.SHIRT_LIGHT_ARMOR);
+		defaultGoalMetOrNot(performer, world, hasPants, Constants.PANTS_LIGHT_ARMOR);
+		defaultGoalMetOrNot(performer, world, hasBoots, Constants.BOOTS_LIGHT_ARMOR);
 	}
 
 	@Override
