@@ -20,8 +20,8 @@ import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.Item;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
@@ -45,22 +45,24 @@ public class BuyClothesGoal implements Goal {
 		if (buyTargets != null) {
 			int targetInventoryIndex = buyTargets.getTargetInventoryIndex();
 			if (targetInventoryIndex != -1) {
-				return BuySellUtils.create(performer, buyTargets.getTargets().get(0), buyTargets.getItem(), QUANTITY_TO_BUY, world);
+				WorldObject target = buyTargets.getTargets().get(0);
+				WorldObject targetWorldObjectToBuy = target.getProperty(Constants.INVENTORY).get(targetInventoryIndex);
+				return BuySellUtils.create(performer, target, targetWorldObjectToBuy.getProperty(Constants.ITEM_ID), QUANTITY_TO_BUY, world);
 			}
 		}
 		return null;
 	}
 
 	private boolean hasBoots(WorldObjectContainer inventory) {
-		return (inventory.getIndexFor(Constants.ITEM_ID, Item.COTTON_BOOTS) != -1) || inventory.getIndexFor(Constants.ITEM_ID, Item.LEATHER_BOOTS) != -1;
+		return (inventory.getIndexFor(Constants.BOOTS_LIGHT_ARMOR)) != -1;
 	}
 
 	private boolean hasPants(WorldObjectContainer inventory) {
-		return (inventory.getIndexFor(Constants.ITEM_ID, Item.COTTON_PANTS) != -1) || inventory.getIndexFor(Constants.ITEM_ID, Item.LEATHER_PANTS) != -1;
+		return (inventory.getIndexFor(Constants.PANTS_LIGHT_ARMOR)) != -1;
 	}
 
 	private boolean hasShirt(WorldObjectContainer inventory) {
-		return (inventory.getIndexFor(Constants.ITEM_ID, Item.COTTON_SHIRT) != -1) || (inventory.getIndexFor(Constants.ITEM_ID, Item.LEATHER_SHIRT) != -1);
+		return (inventory.getIndexFor(Constants.SHIRT_LIGHT_ARMOR)) != -1;
 	}
 	
 	@Override
@@ -88,49 +90,40 @@ public class BuyClothesGoal implements Goal {
 	private BuyTargets getTargetsToBuyFrom(WorldObject performer, World world, boolean hasShirt, boolean hasPants, boolean hasBoots) {
 		BuyTargets buyTargets;
 		if (!hasShirt) {
-			buyTargets = getBuyTargets(performer, Item.LEATHER_SHIRT, world);
-			if (buyTargets.hasTargets()) { return buyTargets; }
-			
-			buyTargets = getBuyTargets(performer, Item.COTTON_SHIRT, world);
+			buyTargets = getBuyTargets(performer, Constants.SHIRT_LIGHT_ARMOR, world);
 			if (buyTargets.hasTargets()) { return buyTargets; }
 		}
 		
 		if (!hasPants) {
-			buyTargets = getBuyTargets(performer, Item.LEATHER_PANTS, world);
-			if (buyTargets.hasTargets()) { return buyTargets; }
-			
-			buyTargets = getBuyTargets(performer, Item.COTTON_PANTS, world);
+			buyTargets = getBuyTargets(performer, Constants.PANTS_LIGHT_ARMOR, world);
 			if (buyTargets.hasTargets()) { return buyTargets; }
 		}
 		
 		if (!hasBoots) {
-			buyTargets = getBuyTargets(performer, Item.LEATHER_BOOTS, world);
-			if (buyTargets.hasTargets()) { return buyTargets; }
-			
-			buyTargets = getBuyTargets(performer, Item.COTTON_BOOTS, world);
+			buyTargets = getBuyTargets(performer, Constants.BOOTS_LIGHT_ARMOR, world);
 			if (buyTargets.hasTargets()) { return buyTargets; }
 		}
 		
 		return null;
 	}
 
-	private BuyTargets getBuyTargets(WorldObject performer, Item item, World world) {
-		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, item, QUANTITY_TO_BUY, world);
-		return new BuyTargets(item, targets);
+	private BuyTargets getBuyTargets(WorldObject performer, IntProperty property, World world) {
+		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, property, QUANTITY_TO_BUY, world);
+		return new BuyTargets(property, targets);
 	}
 	
 	private static class BuyTargets {
-		private final Item item;
+		private final IntProperty property;
 		private final List<WorldObject> targets;
 		
-		public BuyTargets(Item item, List<WorldObject> targets) {
+		public BuyTargets(IntProperty property, List<WorldObject> targets) {
 			super();
-			this.item = item;
+			this.property = property;
 			this.targets = targets;
 		}
-		
-		public Item getItem() {
-			return item;
+
+		public IntProperty getProperty() {
+			return property;
 		}
 
 		public List<WorldObject> getTargets() {
@@ -138,7 +131,7 @@ public class BuyClothesGoal implements Goal {
 		}
 
 		public int getTargetInventoryIndex() {
-			return BuySellUtils.getIndexFor(targets.get(0), item);
+			return BuySellUtils.getIndexFor(targets.get(0), property);
 		}
 		
 		public boolean hasTargets() {

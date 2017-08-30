@@ -176,6 +176,16 @@ public final class WorldObjectContainer implements Serializable {
 		return -1;
 	}
 	
+	public<T> int getIndexFor(ManagedProperty<T> propertyKey, Function<WorldObject, Boolean> testFunction) {
+		for(Entry<WorldObject> entry : worldObjects.int2ObjectEntrySet()) {
+			WorldObject worldObject = entry.getValue();
+			if (worldObject.hasProperty(propertyKey) && testFunction.apply(worldObject)) {
+				return entry.getIntKey();
+			}
+		}
+		return -1;
+	}
+	
 	public<T> int getIndexFor(ManagedProperty<T> propertyKey, T value) {
 		for(Entry<WorldObject> entry : worldObjects.int2ObjectEntrySet()) {
 			WorldObject worldObject = entry.getValue();

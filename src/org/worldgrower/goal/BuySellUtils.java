@@ -176,8 +176,8 @@ public class BuySellUtils {
 		return  w.hasProperty(Constants.INVENTORY) && w.getProperty(Constants.INVENTORY).getWorldObjects(Constants.SELLABLE, Boolean.TRUE).size() > 0;
 	}
 
-	public static int getIndexFor(WorldObject target, Item item) {
-		return target.getProperty(Constants.INVENTORY).getIndexFor(Constants.ITEM_ID, item, inventoryItem -> isInventoryItemSellable(inventoryItem));
+	public static int getIndexFor(WorldObject target, ManagedProperty<?> property) {
+		return target.getProperty(Constants.INVENTORY).getIndexFor(property, inventoryItem -> isInventoryItemSellable(inventoryItem));
 	}
 	
 	public static OperationInfo getBuyOperationInfo(WorldObject performer, ManagedProperty<?> propertyToBuy, int quantity, World world) {
