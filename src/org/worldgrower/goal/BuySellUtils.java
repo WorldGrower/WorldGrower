@@ -15,6 +15,7 @@
 package org.worldgrower.goal;
 
 import java.util.List;
+import java.util.function.Function;
 
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
@@ -177,7 +178,7 @@ public class BuySellUtils {
 	}
 
 	public static int getIndexFor(WorldObject target, ManagedProperty<?> property) {
-		return target.getProperty(Constants.INVENTORY).getIndexFor(property, inventoryItem -> isInventoryItemSellable(inventoryItem));
+		return target.getProperty(Constants.INVENTORY).getIndexFor(property, (Function<WorldObject, Boolean>)inventoryItem -> isInventoryItemSellable(inventoryItem));
 	}
 	
 	public static OperationInfo getBuyOperationInfo(WorldObject performer, ManagedProperty<?> propertyToBuy, int quantity, World world) {
