@@ -14,21 +14,21 @@ It focuses on skills, dialogue, economy and society.
 
 ### Binary installation using installer
 
-*   [Windows 32-bit](https://github.com/WorldGrower/WorldGrower/releases/download/1.4.0/WorldGrower_windows_1_4_0_32bit.exe)
-*   [Windows 64-bit](https://github.com/WorldGrower/WorldGrower/releases/download/1.4.0/WorldGrower_windows-x64_1_4_0.exe)
-*   [MacOS X](https://github.com/WorldGrower/WorldGrower/releases/download/1.4.0/WorldGrower_macos_1_4_0.dmg)
-*   [Linux DEB 32-Bit (Debian, Ubuntu, Mint, etc)](https://github.com/WorldGrower/WorldGrower/releases/download/1.4.0/WorldGrower_linux_1_4_0_32bit.deb)
-*   [Linux DEB 64-Bit (Debian, Ubuntu, Mint, etc)](https://github.com/WorldGrower/WorldGrower/releases/download/1.4.0/WorldGrower_linux_1_4_0.deb)
-*   [Linux RPM 32-Bit (Fedora, Mandriva, openSUSE, Red Hat, etc)](https://github.com/WorldGrower/WorldGrower/releases/download/1.4.0/WorldGrower_linux_1_4_0_32bit.rpm)
-*   [Linux RPM 64-Bit (Fedora, Mandriva, openSUSE, Red Hat, etc)](https://github.com/WorldGrower/WorldGrower/releases/download/1.4.0/WorldGrower_linux_1_4_0.rpm)
-*   [Linux 32-Bit (Other Linux distributions)](https://github.com/WorldGrower/WorldGrower/releases/download/1.4.0/WorldGrower_unix_1_4_0_32bit.sh)
-*   [Linux 64-Bit (Other Linux distributions)](https://github.com/WorldGrower/WorldGrower/releases/download/1.4.0/WorldGrower_unix_1_4_0_64bit.sh)
+*   [Windows 32-bit](https://github.com/WorldGrower/WorldGrower/releases/download/1.4.1/WorldGrower_windows_1_4_1_32bit.exe)
+*   [Windows 64-bit](https://github.com/WorldGrower/WorldGrower/releases/download/1.4.1/WorldGrower_windows-x64_1_4_1.exe)
+*   [MacOS X](https://github.com/WorldGrower/WorldGrower/releases/download/1.4.1/WorldGrower_macos_1_4_1.dmg)
+*   [Linux DEB 32-Bit (Debian, Ubuntu, Mint, etc)](https://github.com/WorldGrower/WorldGrower/releases/download/1.4.1/WorldGrower_linux_1_4_1_32bit.deb)
+*   [Linux DEB 64-Bit (Debian, Ubuntu, Mint, etc)](https://github.com/WorldGrower/WorldGrower/releases/download/1.4.1/WorldGrower_linux_1_4_1.deb)
+*   [Linux RPM 32-Bit (Fedora, Mandriva, openSUSE, Red Hat, etc)](https://github.com/WorldGrower/WorldGrower/releases/download/1.4.1/WorldGrower_linux_1_4_1_32bit.rpm)
+*   [Linux RPM 64-Bit (Fedora, Mandriva, openSUSE, Red Hat, etc)](https://github.com/WorldGrower/WorldGrower/releases/download/1.4.1/WorldGrower_linux_1_4_1.rpm)
+*   [Linux 32-Bit (Other Linux distributions)](https://github.com/WorldGrower/WorldGrower/releases/download/1.4.1/WorldGrower_unix_1_4_1_32bit.sh)
+*   [Linux 64-Bit (Other Linux distributions)](https://github.com/WorldGrower/WorldGrower/releases/download/1.4.1/WorldGrower_unix_1_4_1_64bit.sh)
 
 *These installers contain the game and will install the game when executed.*
 
 ### Binary installation of .zip file
 
-*   [Download .zip file](https://github.com/WorldGrower/WorldGrower/releases/download/1.4.0/worldgrower-1.4.0.zip)
+*   [Download .zip file](https://github.com/WorldGrower/WorldGrower/releases/download/1.4.1/worldgrower-1.4.1.zip)
 *   Extract the .zip file on the local filesystem
 *   Make sure [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) is installed.
 	If you're not sure, you can check your java version [here](https://www.java.com/verify).
