@@ -24,10 +24,12 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MoveAction;
 import org.worldgrower.terrain.Terrain;
 
-public class TaskCalculatorImpl implements TaskCalculator, Serializable {
+public final class TaskCalculatorImpl implements TaskCalculator, Serializable {
 
-	private int maxDepth = 50;
+	private static final int MAX_DEPTH = 50;
 	private static final NodeComparator NODE_COMPARATOR = new NodeComparator();
+	private static final List<OperationInfo> NO_PATH_FOUND = new ArrayList<>();
+	
 	private final OpenSet openSet;
 	private final ClosedSet closedSet;
 	
@@ -61,7 +63,7 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 			
 			closedSet.add(current);
 			
-			if (current.g < maxDepth) {
+			if (current.g < MAX_DEPTH) {
 				for(Node neighbourNode : neighbourNodes(current, copyPerformer, terrain, zone)) {
 					if (!closedSet.contains(neighbourNode)) {
 						if (!openSet.contains(neighbourNode)) {
@@ -75,8 +77,7 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 			}
 		}
 		
-		//throw new IllegalStateException("performer " + performer + " cannot calculate tasks to goal " + goal);
-		return new ArrayList<>();
+		return NO_PATH_FOUND;
 	}
 
 	private List<OperationInfo> constructTasks(WorldObject performer, OperationInfo goal, Node current) {
