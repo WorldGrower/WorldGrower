@@ -39,7 +39,7 @@ public class MateGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		int bestId = getBestMate(performer, world);
 		
-		if ((bestId != -1) && (Conversations.PROPOSE_MATE_CONVERSATION.targetAccepts(world.findWorldObjectById(bestId), performer))) {
+		if (performerWillPropose(performer, bestId, world)) {
 			WorldObject target = GoalUtils.findNearestPersonLookingLike(performer, bestId, world);
 			return new OperationInfo(performer, target, Conversations.createArgs(Conversations.PROPOSE_MATE_CONVERSATION), Actions.TALK_ACTION);
 		} else if (bestId != -1) {
@@ -52,6 +52,16 @@ public class MateGoal implements Goal {
 			} else {
 				return null;
 			}
+		}
+	}
+	
+	private boolean performerWillPropose(WorldObject performer, int bestId, World world) {
+		if (bestId != -1) {
+			boolean performerLikesTarget = performer.getProperty(Constants.RELATIONSHIPS).getValue(bestId) > 0;
+			boolean targetLikesPerformer = Conversations.PROPOSE_MATE_CONVERSATION.targetAccepts(world.findWorldObjectById(bestId), performer);
+			return performerLikesTarget && targetLikesPerformer;
+		} else {
+			return false;
 		}
 	}
 	

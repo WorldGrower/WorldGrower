@@ -95,6 +95,23 @@ public class UTestMateGoal {
 	}
 	
 	@Test
+	public void testCalculateGoalOneTargetWithBadRelationship() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createCommoner(world, organization);
+		WorldObject target = createCommoner(world, organization);
+		
+		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, -900);
+		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, 900);
+		performer.setProperty(Constants.GENDER, "male");
+		target.setProperty(Constants.GENDER, "female");
+		
+		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
+		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.COMPLIMENT_CONVERSATION);
+	}
+	
+	@Test
 	public void testCalculateGoalUnknownTarget() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
