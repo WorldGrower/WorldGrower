@@ -105,6 +105,7 @@ public class UTestGiveMoneyConversation {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		target.setProperty(Constants.PERSONALITY, new Personality());
 		
 		performer.setProperty(Constants.GOLD, 200);
 		target.setProperty(Constants.GOLD, 200);
@@ -117,12 +118,34 @@ public class UTestGiveMoneyConversation {
 		assertEquals(100, performer.getProperty(Constants.GOLD).intValue());
 		assertEquals(300, target.getProperty(Constants.GOLD).intValue());
 	}
+	
+	@Test
+	public void testHandleResponse0Greedy() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		Personality personality = new Personality();
+		personality.changeValue(PersonalityTrait.GREEDY, 1000, "hungry");
+		target.setProperty(Constants.PERSONALITY, personality);
+		
+		performer.setProperty(Constants.GOLD, 200);
+		target.setProperty(Constants.GOLD, 200);
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		
+		conversation.handleResponse(0, context);
+		assertEquals(15, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
+		assertEquals(15, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
+		assertEquals(100, performer.getProperty(Constants.GOLD).intValue());
+		assertEquals(300, target.getProperty(Constants.GOLD).intValue());
+	}
 
 	@Test
 	public void testHandleResponse1() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		target.setProperty(Constants.PERSONALITY, new Personality());
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		
@@ -136,6 +159,7 @@ public class UTestGiveMoneyConversation {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		target.setProperty(Constants.PERSONALITY, new Personality());
 		
 		performer.setProperty(Constants.GOLD, 200);
 		target.setProperty(Constants.GOLD, 200);

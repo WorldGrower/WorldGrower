@@ -82,6 +82,13 @@ public class GiveMoneyConversation implements Conversation {
 				relationshipBonus = 10;
 			}
 			
+			if (target.hasProperty(Constants.PERSONALITY)) {
+				int targetGreediness = target.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.GREEDY);
+				if (targetGreediness > 100) {
+					relationshipBonus += (targetGreediness / 100);
+				}
+			}
+			
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, relationshipBonus, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 			
 			performerGivesMoneyToTarget(performer, target, 100);
