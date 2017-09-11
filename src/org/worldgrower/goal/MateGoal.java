@@ -37,10 +37,9 @@ public class MateGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		IdMap relationships = performer.getProperty(Constants.RELATIONSHIPS);
 		int bestId = getBestMate(performer, world);
 		
-		if ((bestId != -1) && (relationships.getValue(bestId) > 750)) {
+		if ((bestId != -1) && (Conversations.PROPOSE_MATE_CONVERSATION.targetAccepts(world.findWorldObjectById(bestId), performer))) {
 			WorldObject target = GoalUtils.findNearestPersonLookingLike(performer, bestId, world);
 			return new OperationInfo(performer, target, Conversations.createArgs(Conversations.PROPOSE_MATE_CONVERSATION), Actions.TALK_ACTION);
 		} else if (bestId != -1) {

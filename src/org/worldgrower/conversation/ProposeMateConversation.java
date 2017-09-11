@@ -62,7 +62,7 @@ public class ProposeMateConversation implements Conversation {
 		return getReply(getReplyPhrases(conversationContext), replyId);
 	}
 	
-	private boolean targetAccepts(WorldObject target, WorldObject performer) {
+	public boolean targetAccepts(WorldObject target, WorldObject performer) {
 		int relationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
 		return relationshipValue >= 750;
 	}

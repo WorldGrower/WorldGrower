@@ -85,6 +85,7 @@ public class UTestMateGoal {
 		WorldObject target = createCommoner(world, organization);
 		
 		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 900);
+		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, 900);
 		performer.setProperty(Constants.GENDER, "male");
 		target.setProperty(Constants.GENDER, "female");
 		

@@ -21,7 +21,8 @@ import org.worldgrower.conversation.Conversations;
 
 public class AssertUtils {
 
-	public static void assertConversation(OperationInfo operationInfo, Conversation conversation) {
-		assertEquals(true, operationInfo.firstArgsIs(Conversations.createArgs(conversation)[0]));
+	public static void assertConversation(OperationInfo operationInfo, Conversation expectedConversation) {
+		Conversation actualConversation = Conversations.getConversation(operationInfo.getArgs()[0]);
+		assertEquals(expectedConversation, actualConversation);
 	}
 }
