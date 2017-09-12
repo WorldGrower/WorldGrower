@@ -25,6 +25,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.KnowledgeMapPropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.personality.PersonalityTrait;
 import org.worldgrower.text.TextId;
 
 public class ProposeMateConversation implements Conversation {
@@ -63,6 +64,14 @@ public class ProposeMateConversation implements Conversation {
 	}
 	
 	public boolean targetAccepts(WorldObject target, WorldObject performer) {
+		if (target.hasProperty(Constants.PERSONALITY)) {
+			boolean isTargetHonorable = target.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.HONORABLE) > 100;
+			boolean targetAlreadyHasMate = target.getProperty(Constants.MATE_ID) != null;
+		
+			if (isTargetHonorable && targetAlreadyHasMate) {
+				return false;
+			}
+		}
 		int relationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
 		return relationshipValue >= 750;
 	}

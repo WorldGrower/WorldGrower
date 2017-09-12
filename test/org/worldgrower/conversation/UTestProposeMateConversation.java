@@ -29,6 +29,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.history.Turn;
+import org.worldgrower.personality.Personality;
+import org.worldgrower.personality.PersonalityTrait;
 
 public class UTestProposeMateConversation {
 
@@ -138,5 +140,27 @@ public class UTestProposeMateConversation {
 		conversation.handleResponse(1, context);
 		assertEquals(-50, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
 		assertEquals(-50, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
+	}
+	
+	@Test
+	public void testTargetAcceptsHonorableTarget() {
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		
+		assertEquals(false, conversation.targetAccepts(target, performer));
+		
+		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, 1000);
+		assertEquals(true, conversation.targetAccepts(target, performer));
+		
+		Personality personality = new Personality();
+		personality.changeValue(PersonalityTrait.HONORABLE, 1000, "betrayed");
+		target.setProperty(Constants.PERSONALITY, personality);
+		assertEquals(true, conversation.targetAccepts(target, performer));
+		
+		target.setProperty(Constants.MATE_ID, 8);
+		assertEquals(false, conversation.targetAccepts(target, performer));
+		
+		personality.changeValue(PersonalityTrait.HONORABLE, -2000, "betrayed");
+		assertEquals(true, conversation.targetAccepts(target, performer));
 	}
 }
