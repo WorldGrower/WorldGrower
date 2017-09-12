@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.goal.RebellionPropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.text.TextId;
@@ -40,11 +41,10 @@ public class StartRebellionConversation implements Conversation {
 		World world = conversationContext.getWorld();
 		WorldObject leader = GroupPropertyUtils.getLeaderOfVillagers(world);
 		final int replyId;
-		int leaderRelationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(leader);
 		int performerRelationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
 		if (performerRelationshipValue < 0) {
 			replyId = GET_LOST;
-		} else if (Constants.RELATIONSHIP_VALUE.isAtMin(leaderRelationshipValue) && !Constants.RELATIONSHIP_VALUE.isAtMin(performerRelationshipValue)) {
+		} else if (RebellionPropertyUtils.wantsToRebel(target, leader) && !Constants.RELATIONSHIP_VALUE.isAtMin(performerRelationshipValue)) {
 			replyId = YES;
 		} else {
 			replyId = NO;
