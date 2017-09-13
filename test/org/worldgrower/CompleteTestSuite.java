@@ -859,7 +859,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestProfessionPropertyUtils.class,
 	UTestWantedProfessionGoal.class,
 	UTestLocationPropertyUtils.class,
-	UTestBuildingList.class
+	UTestBuildingList.class,
+	UTestRebellionPropertyUtils.class
 })
 public class CompleteTestSuite {
 }

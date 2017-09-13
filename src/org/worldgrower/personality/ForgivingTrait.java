@@ -18,6 +18,7 @@ import java.io.ObjectStreamException;
 import java.util.List;
 
 import org.worldgrower.WorldObject;
+import org.worldgrower.goal.Goals;
 
 public class ForgivingTrait implements PersonalityTrait {
 
@@ -52,7 +53,8 @@ public class ForgivingTrait implements PersonalityTrait {
 
 	@Override
 	public int calculateInitialValue(WorldObject performer) {
-		return 0;
+		int sign = Goals.FOOD_GOAL.calculateSign(performer, this);
+		return sign * 500;
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

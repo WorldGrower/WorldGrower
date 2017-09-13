@@ -16,11 +16,20 @@ package org.worldgrower.goal;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
+import org.worldgrower.personality.PersonalityTrait;
 
 public class RebellionPropertyUtils {
 
 	public static boolean wantsToRebel(WorldObject performer, WorldObject leader) {
 		int relationshipValue = performer.getProperty(Constants.RELATIONSHIPS).getValue(leader);
+		
+		if (performer.hasProperty(Constants.PERSONALITY)) {
+			boolean isForgiving = performer.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.FORGIVING) > 100;
+			if (!isForgiving) {
+				relationshipValue = Constants.RELATIONSHIP_VALUE.normalize(relationshipValue - 100);
+			}
+		}
+		
 		return Constants.RELATIONSHIP_VALUE.isAtMin(relationshipValue);
 	}
 }
