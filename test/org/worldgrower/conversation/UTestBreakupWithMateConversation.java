@@ -26,6 +26,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdRelationshipMap;
+import org.worldgrower.personality.Personality;
+import org.worldgrower.personality.PersonalityTrait;
 
 public class UTestBreakupWithMateConversation {
 
@@ -100,5 +102,45 @@ public class UTestBreakupWithMateConversation {
 		conversation.breakup(performer, target, world);
 		assertEquals(null, performer.getProperty(Constants.MATE_ID));
 		assertEquals(null, target.getProperty(Constants.MATE_ID));
+		assertEquals(-500, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
+		assertEquals(-500, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
+	}
+	
+	@Test
+	public void testBreakupWithForgivingTarget() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.NAME, "performer");
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.NAME, "target");
+		
+		performer.setProperty(Constants.MATE_ID, 2);
+		target.setProperty(Constants.MATE_ID, 1);
+		Personality personality = new Personality();
+		personality.changeValue(PersonalityTrait.FORGIVING, 1000, "forgiving");
+		target.setProperty(Constants.PERSONALITY, personality);
+		
+		conversation.breakup(performer, target, world);
+		assertEquals(null, performer.getProperty(Constants.MATE_ID));
+		assertEquals(null, target.getProperty(Constants.MATE_ID));
+		assertEquals(-400, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
+		assertEquals(-400, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
+	}
+	
+	@Test
+	public void testBreakupWithUnforgivingTarget() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.NAME, "performer");
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.NAME, "target");
+		
+		performer.setProperty(Constants.MATE_ID, 2);
+		target.setProperty(Constants.MATE_ID, 1);
+		Personality personality = new Personality();
+		personality.changeValue(PersonalityTrait.FORGIVING, -1000, "unforgiving");
+		target.setProperty(Constants.PERSONALITY, personality);
+		
+		conversation.breakup(performer, target, world);
+		assertEquals(null, performer.getProperty(Constants.MATE_ID));
+		assertEquals(null, target.getProperty(Constants.MATE_ID));
+		assertEquals(-600, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
+		assertEquals(-600, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
 	}
 }

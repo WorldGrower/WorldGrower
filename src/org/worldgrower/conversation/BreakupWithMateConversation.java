@@ -25,10 +25,11 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.KnowledgeMapPropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.personality.PersonalityTrait;
 import org.worldgrower.text.TextId;
 
 public class BreakupWithMateConversation implements Conversation {
-	private static final int BREAKUP_RELATIONSHIP_PENALTY = -500; 
+	private static final int DEFAULT_BREAKUP_RELATIONSHIP_PENALTY = -500; 
 	
 	private static final int OK = 0;
 	
@@ -67,7 +68,9 @@ public class BreakupWithMateConversation implements Conversation {
 	}
 
 	public void breakup(WorldObject performer, WorldObject target, World world) {
-		RelationshipPropertyUtils.changeRelationshipValue(performer, target, BREAKUP_RELATIONSHIP_PENALTY, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+		int breakupRelationshipPenalty = calculateBreakupRelationshipPenalty(target);
+		
+		RelationshipPropertyUtils.changeRelationshipValue(performer, target, breakupRelationshipPenalty, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		if (performer.getProperty(Constants.MATE_ID).intValue() == target.getProperty(Constants.ID).intValue()) {
 			performer.setProperty(Constants.MATE_ID, null);
 		}
@@ -77,6 +80,19 @@ public class BreakupWithMateConversation implements Conversation {
 		
 		world.logAction(Actions.TALK_ACTION, performer, target, Args.EMPTY, performer.getProperty(Constants.NAME) + " and " + target.getProperty(Constants.NAME) + " are no longer mates");
 		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfEvent(performer, target, world);
+	}
+
+	private int calculateBreakupRelationshipPenalty(WorldObject target) {
+		int breakupRelationshipPenalty = DEFAULT_BREAKUP_RELATIONSHIP_PENALTY;
+		if (target.hasProperty(Constants.PERSONALITY)) {
+			boolean isForgiving = target.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.FORGIVING) > 100;
+			if (isForgiving) {
+				breakupRelationshipPenalty += 100;
+			} else {
+				breakupRelationshipPenalty -= 100;
+			}
+		}
+		return breakupRelationshipPenalty;
 	}
 	
 	@Override
