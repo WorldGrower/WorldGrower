@@ -53,15 +53,8 @@ public interface Goal extends Serializable {
 	
 	public default void changePersonality(WorldObject performer, PersonalityTrait personalityTrait, int value, boolean goalMet, String reason, World world) {
 		if (!goalMet && !isUrgentGoalMet(performer, world) && performer.hasProperty(Constants.PERSONALITY)) {
-			int sign = calculateSign(performer, personalityTrait);
+			int sign = personalityTrait.calculateSign(performer);
 			performer.getProperty(Constants.PERSONALITY).changeValue(personalityTrait, sign * value, reason);
 		}
-	}
-
-	public default int calculateSign(WorldObject performer, PersonalityTrait personalityTrait) {
-		String performerName = performer.getProperty(Constants.NAME);
-		String traitName = personalityTrait.getClass().getSimpleName();
-		int firstChars = performerName.charAt(0) + traitName.charAt(0);
-		return firstChars % 2 == 0 ? 1 : -1;
 	}
 }

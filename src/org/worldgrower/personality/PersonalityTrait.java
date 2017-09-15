@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 
 /**
@@ -45,10 +46,16 @@ public interface PersonalityTrait extends Serializable {
 		throw new IllegalStateException("Profession with class " + clazz + " not found");
 	}
 	
+	public default int calculateSign(WorldObject performer) {
+		String performerName = performer.getProperty(Constants.NAME);
+		String traitName = this.getClass().getSimpleName();
+		int firstChars = performerName.charAt(0) + traitName.charAt(0);
+		return firstChars % 2 == 0 ? 1 : -1;
+	}
+	
 	public static final PersonalityTrait GREEDY = new GreedyTrait(ALL_TRAITS);
 	public static final PersonalityTrait POWER_HUNGRY = new PowerHungryTrait(ALL_TRAITS);
 	public static final PersonalityTrait HONORABLE = new HonorableTrait(ALL_TRAITS);
-	
-	//TODO: implement
 	public static final PersonalityTrait FORGIVING = new ForgivingTrait(ALL_TRAITS);
+	public static final PersonalityTrait COURAGEOUS = new CourageousTrait(ALL_TRAITS);
 }

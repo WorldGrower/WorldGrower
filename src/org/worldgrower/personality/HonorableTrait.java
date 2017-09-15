@@ -18,7 +18,6 @@ import java.io.ObjectStreamException;
 import java.util.List;
 
 import org.worldgrower.WorldObject;
-import org.worldgrower.goal.Goals;
 
 public class HonorableTrait implements PersonalityTrait {
 
@@ -53,7 +52,7 @@ public class HonorableTrait implements PersonalityTrait {
 
 	@Override
 	public int calculateInitialValue(WorldObject performer) {
-		int sign = Goals.FOOD_GOAL.calculateSign(performer, this);
+		int sign = calculateSign(performer);
 		return sign * 500;
 	}
 	

@@ -19,9 +19,9 @@ import java.util.List;
 
 import org.worldgrower.WorldObject;
 
-public class PowerHungryTrait implements PersonalityTrait {
+public class CourageousTrait implements PersonalityTrait {
 
-	public PowerHungryTrait(List<PersonalityTrait> allTraits) {
+	public CourageousTrait(List<PersonalityTrait> allTraits) {
 		allTraits.add(this);
 	}
 
@@ -29,23 +29,23 @@ public class PowerHungryTrait implements PersonalityTrait {
 	public String getAdjective(int value, int relationshipValue) {
 		if (value > 0) {
 			if (relationshipValue < 0) {
-				return "power hungry";
+				return "impulsive";
 			} else if (relationshipValue < 250) {
-				return "power-loving";
+				return "bold";
 			} else if (relationshipValue < 500) {
-				return "determined";
+				return "dauntless";
 			} else {
-				return "ambitious";
+				return "courageous";
 			}
 		} else {
 			if (relationshipValue < 0) {
-				return "lazy";
+				return "spineless";
 			} else if (relationshipValue < 250) {
-				return "relaxed";
+				return "cowardly";
 			} else if (relationshipValue < 500) {
-				return "calm";
+				return "timid";
 			} else {
-				return "easy-going";
+				return "cautious";
 			}
 		}
 	}
@@ -59,9 +59,9 @@ public class PowerHungryTrait implements PersonalityTrait {
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}
-	
+
 	@Override
 	public String getDescription() {
-		return "Power hungry";
+		return "Courageous";
 	}
 }

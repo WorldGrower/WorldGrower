@@ -61,10 +61,10 @@ public class UTestGoal {
 		WorldObject performer = createPerformer();
 		performer.setProperty(Constants.NAME, "performer");
 		
-		assertEquals(-1, goal.calculateSign(performer, PersonalityTrait.GREEDY));
+		assertEquals(-1, PersonalityTrait.GREEDY.calculateSign(performer));
 		
-		performer.setProperty(Constants.NAME, "qerformer");
-		assertEquals(1, goal.calculateSign(performer, PersonalityTrait.GREEDY));
+		performer.setProperty(Constants.NAME, "gerformer");
+		assertEquals(1, PersonalityTrait.GREEDY.calculateSign(performer));
 	}
 	
 	@Test
