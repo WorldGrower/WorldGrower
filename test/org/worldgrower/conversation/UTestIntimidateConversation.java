@@ -27,6 +27,9 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
+import org.worldgrower.attribute.Skill;
+import org.worldgrower.personality.Personality;
+import org.worldgrower.personality.PersonalityTrait;
 
 public class UTestIntimidateConversation {
 
@@ -45,12 +48,72 @@ public class UTestIntimidateConversation {
 	}
 	
 	@Test
-	public void testGetReplyPhrase() {
+	public void testGetReplyPhraseGetLost() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1);
 		WorldObject target = TestUtils.createSkilledWorldObject(2);
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		assertEquals(-999, conversation.getReplyPhrase(context).getId());
+	}
+	
+	@Test
+	public void testGetReplyPhraseComply() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(1);
+		WorldObject target = TestUtils.createSkilledWorldObject(2);
+		
+		performer.setProperty(Constants.RELATIONSHIPS, new IdRelationshipMap());
+		target.setProperty(Constants.RELATIONSHIPS, new IdRelationshipMap());
+		
+		performer.setProperty(Constants.INTIMIDATE_SKILL, new Skill(20));
+		performer.setProperty(Constants.INSIGHT_SKILL, new Skill(10));
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		assertEquals(0, conversation.getReplyPhrase(context).getId());
+	}
+	
+	@Test
+	public void testGetReplyPhraseCowardlyTarget() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(1);
+		WorldObject target = TestUtils.createSkilledWorldObject(2);
+		
+		performer.setProperty(Constants.RELATIONSHIPS, new IdRelationshipMap());
+		target.setProperty(Constants.RELATIONSHIPS, new IdRelationshipMap());
+		
+		performer.setProperty(Constants.INTIMIDATE_SKILL, new Skill(10));
+		performer.setProperty(Constants.INSIGHT_SKILL, new Skill(11));
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		assertEquals(-999, conversation.getReplyPhrase(context).getId());
+		
+		Personality personality = new Personality();
+		personality.changeValue(PersonalityTrait.COURAGEOUS, -1000, "cowardly");
+		target.setProperty(Constants.PERSONALITY, personality);
+		
+		assertEquals(0, conversation.getReplyPhrase(context).getId());
+	}
+	
+	@Test
+	public void testGetReplyPhraseCourageousTarget() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(1);
+		WorldObject target = TestUtils.createSkilledWorldObject(2);
+		
+		performer.setProperty(Constants.RELATIONSHIPS, new IdRelationshipMap());
+		target.setProperty(Constants.RELATIONSHIPS, new IdRelationshipMap());
+		
+		performer.setProperty(Constants.INTIMIDATE_SKILL, new Skill(11));
+		performer.setProperty(Constants.INSIGHT_SKILL, new Skill(10));
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		assertEquals(0, conversation.getReplyPhrase(context).getId());
+		
+		Personality personality = new Personality();
+		personality.changeValue(PersonalityTrait.COURAGEOUS, 1000, "courageous");
+		target.setProperty(Constants.PERSONALITY, personality);
+		
 		assertEquals(-999, conversation.getReplyPhrase(context).getId());
 	}
 	
@@ -73,8 +136,8 @@ public class UTestIntimidateConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		
 		conversation.handleResponse(0, context);
-		assertEquals(50, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
-		assertEquals(-1000, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
+		assertEquals(1000, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
+		assertEquals(50, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
 	}
 
 	@Test

@@ -24,9 +24,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
-import org.worldgrower.gui.conversation.ConversationFormatterImpl;
-import org.worldgrower.gui.conversation.TextConversationArgumentFormatter;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.personality.PersonalityTrait;
 import org.worldgrower.text.TextId;
 
 public class IntimidateConversation implements Conversation {
@@ -43,16 +42,32 @@ public class IntimidateConversation implements Conversation {
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
 		World world = conversationContext.getWorld();
-		int performerIntimidate = SkillUtils.useSkillLevel(conversationContext.getPerformer(), Constants.INTIMIDATE_SKILL, world.getWorldStateChangedListeners());
-		int targetInsight = SkillUtils.useSkillLevel(conversationContext.getTarget(), Constants.INSIGHT_SKILL, world.getWorldStateChangedListeners());
+		WorldObject performer = conversationContext.getPerformer();
+		int performerIntimidate = SkillUtils.useSkillLevel(performer, Constants.INTIMIDATE_SKILL, world.getWorldStateChangedListeners());
+		WorldObject target = conversationContext.getTarget();
+		int targetInsight = calculateTargetInsight(world, target);
 		
 		if (performerIntimidate > targetInsight) {
-			conversationContext.getTarget().getProperty(Constants.RELATIONSHIPS).incrementValue(conversationContext.getPerformer(), 1000);
-		
 			return parentConversation.getReplyPhrase(conversationContext);
 		} else {
 			return getReply(getReplyPhrases(conversationContext), GET_LOST);
 		}
+	}
+
+	private int calculateTargetInsight(World world, WorldObject target) {
+		int targetInsight = SkillUtils.useSkillLevel(target, Constants.INSIGHT_SKILL, world.getWorldStateChangedListeners());
+		
+		if (target.hasProperty(Constants.PERSONALITY)) {
+			boolean isCourageous = target.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.COURAGEOUS) > 100;
+			boolean isCowardly = target.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.COURAGEOUS) < -100;
+			if (isCourageous) {
+				targetInsight++;
+			}
+			if (isCowardly) {
+				targetInsight--;
+			}
+		}
+		return targetInsight;
 	}
 
 	@Override
@@ -88,7 +103,7 @@ public class IntimidateConversation implements Conversation {
 		if (replyIndex == GET_LOST) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		} else if (replyIndex == I_LL_COMPLY) {
-			RelationshipPropertyUtils.changeRelationshipValue(performer, target, 50, -1000, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, 1000, 50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
 	}
 	
