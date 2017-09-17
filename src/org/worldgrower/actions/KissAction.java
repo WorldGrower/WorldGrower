@@ -23,6 +23,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.conversation.Conversations;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.RacePropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
@@ -31,7 +32,7 @@ import org.worldgrower.gui.music.SoundIds;
 
 public class KissAction implements ManagedOperation, AnimatedAction {
 
-	public static final int REQUIRED_RELATIONSHIP_VALUE = 10;
+	
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
@@ -69,7 +70,7 @@ public class KissAction implements ManagedOperation, AnimatedAction {
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		if (target.hasProperty(Constants.RELATIONSHIPS)) {
-			return (target.hasIntelligence() && (target.getProperty(Constants.RELATIONSHIPS).getValue(performer) > REQUIRED_RELATIONSHIP_VALUE)  && !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, target));
+			return (target.hasIntelligence() && Conversations.KISS_CONVERSATION.targetAccepts(target, performer) && !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, target));
 		} else {
 			return RacePropertyUtils.hasSameRace(performer, target);
 		}

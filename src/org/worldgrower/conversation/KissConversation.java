@@ -20,12 +20,14 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.KissAction;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.personality.PersonalityTrait;
 import org.worldgrower.text.TextId;
 
 public class KissConversation implements Conversation {
 
+	private static final int REQUIRED_RELATIONSHIP_VALUE = 10;
+	
 	private static final int YES = 0;
 	private static final int NO = 1;
 	private static final int ALREADY_ASKED_SAME = 2;
@@ -58,9 +60,18 @@ public class KissConversation implements Conversation {
 		return getReply(getReplyPhrases(conversationContext), replyId);
 	}
 
-	private boolean targetAccepts(WorldObject target, WorldObject performer) {
+	public boolean targetAccepts(WorldObject target, WorldObject performer) {
+		if (target.hasProperty(Constants.PERSONALITY)) {
+			boolean isTargetHonorable = target.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.HONORABLE) > 100;
+			boolean targetAlreadyHasMate = target.getProperty(Constants.MATE_ID) != null;
+		
+			if (isTargetHonorable && targetAlreadyHasMate) {
+				return false;
+			}
+		}
+		
 		int relationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
-		return relationshipValue > KissAction.REQUIRED_RELATIONSHIP_VALUE;
+		return relationshipValue > REQUIRED_RELATIONSHIP_VALUE;
 	}
 	
 	@Override
