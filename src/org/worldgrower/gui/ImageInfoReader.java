@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+import javax.swing.GrayFilter;
 
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.generator.BuildingGenerator;
@@ -848,7 +849,16 @@ public class ImageInfoReader implements SmallImageTagFactory {
 		addCharacter(ImageIds.FEMALE_LILA_CHAR, characterFemaleLila, 0, 0, 1, 1);
 		addCharacter(ImageIds.FEMALE_CLOVER_CHAR, characterFemaleClover, 0, 0, 1, 1);
 		
+		addCharacter(ImageIds.KNIGHT_GHOST, createGhostImage(sprites), 0, 0, 1, 1);
+		
     }
+
+	private Sprites createGhostImage(Sprites sprites) {
+		ImageFilter filter = new GrayFilter(true, 50);  
+		ImageProducer producer = new FilteredImageSource(sprites.bufferedImage.getSource(), filter);  
+		Image image = Toolkit.getDefaultToolkit().createImage(producer);  
+		return new Sprites(ImageUtils.toBufferedImage(image), sprites.imageWidth, sprites.imageHeight);
+	}
 
 	private Image createTileTransition(Sprites tileMask, int posX, int posY) {
 		BufferedImage newImage = toCompatibleImage(new BufferedImage(48, 48, BufferedImage.TYPE_INT_ARGB));

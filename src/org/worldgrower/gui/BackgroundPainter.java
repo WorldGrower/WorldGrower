@@ -85,7 +85,7 @@ public class BackgroundPainter {
 	}
 	
 	private Color calculateColorForImage(Image image) {
-		BufferedImage bufferedImage = toBufferedImage(image);
+		BufferedImage bufferedImage = ImageUtils.toBufferedImage(image);
 		long redBucket = 0;
 		long greenBucket = 0;
 		long blueBucket = 0;
@@ -115,8 +115,8 @@ public class BackgroundPainter {
 			Color currentColor = entry.getValue();
 			
 			if (terrainType == TerrainType.GRASLAND) {
-				addBackgroundImage(terrainType, ImageUtils.cropImage(toBufferedImage(grassBackgroundImage), 48, 48));
-				grassFlowerImage = toBufferedImage(filterImage(grassFlowerImage, new AddNoiseFilter()));
+				addBackgroundImage(terrainType, ImageUtils.cropImage(ImageUtils.toBufferedImage(grassBackgroundImage), 48, 48));
+				grassFlowerImage = ImageUtils.toBufferedImage(filterImage(grassFlowerImage, new AddNoiseFilter()));
 				addFlowerImage(terrainType, grassFlowerImage);
 			} else {
 				BufferedImage coloredBackgroundImage = colorizeToColor(grassBackgroundImage, currentColor);
@@ -136,7 +136,7 @@ public class BackgroundPainter {
 		int deltaBlue = currentColor.getBlue() - grassColor.getBlue();
 		
 		Image filteredImage = filterImage(image, new ColorFilter(deltaRed, deltaGreen, deltaBlue));
-		return toBufferedImage(filteredImage); 
+		return ImageUtils.toBufferedImage(filteredImage); 
 	}
 
 	private void fillBackgroundTransitionMap(World world) {
@@ -166,9 +166,9 @@ public class BackgroundPainter {
 						Image image = getBackgroundImage(terrainType);
 						//Image newImage = filterImage(image, new TerrainTransitionFilter(terrainType, left, right, up, down, terrainTypesToColor));
 						Image newImage = createTransitionImage(image, terrainType, left, right, up, down, leftUp, rightUp, downLeft, downRight, terrainTypesToColor);
-						BufferedImage bufferedImage = toBufferedImage(newImage); 
+						BufferedImage bufferedImage = ImageUtils.toBufferedImage(newImage); 
 		
-						bufferedImage = toBufferedImage(filterImage(bufferedImage, new AddNoiseFilter()));
+						bufferedImage = ImageUtils.toBufferedImage(filterImage(bufferedImage, new AddNoiseFilter()));
 						backgroundTransitionMap.put(key, bufferedImage);
 					}
 				}
@@ -216,7 +216,7 @@ public class BackgroundPainter {
 	}
 	
 	private Image createTransition(Image sourceImage, TerrainType backgroundTerrainType, TerrainType transitionTerrainType, ImageIds imageId) {
-		BufferedImage transitionImage = toBufferedImage(imageInfoReader.getImage(imageId, null));
+		BufferedImage transitionImage = ImageUtils.toBufferedImage(imageInfoReader.getImage(imageId, null));
 		transitionImage = colorizeToColor(transitionImage, terrainTypesToColor.get(backgroundTerrainType));
 		return transitionImage;
 	}
@@ -327,25 +327,6 @@ public class BackgroundPainter {
 	
 	private Image getBackgroundImage(TerrainType terrainType) {
 		return backgroundImages[terrainType.ordinal()];
-	}
-
-	public static BufferedImage toBufferedImage(Image img)
-	{
-	    if (img instanceof BufferedImage)
-	    {
-	        return (BufferedImage) img;
-	    }
-
-	    // Create a buffered image with transparency
-	    BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-
-	    // Draw the image on to the buffered image
-	    Graphics2D bGr = bimage.createGraphics();
-	    bGr.drawImage(img, 0, 0, null);
-	    bGr.dispose();
-
-	    // Return the buffered image
-	    return bimage;
 	}
 
 	public void paint(Graphics g, World world, WorldPanel worldPanel) {
