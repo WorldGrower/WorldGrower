@@ -46,6 +46,7 @@ public class ImageInfoReader implements SmallImageTagFactory {
 
 	private final Map<ImageIds, List<Image>> idToImages = new HashMap<>();
 	private final List<ImageIds> characterImageIds = new ArrayList<>();
+	private final Map<ImageIds, ImageIds> ghostImageIds = new HashMap<>();
 	private ToolTipImageHandler toolTipImageHandler;
 	
     public ImageInfoReader() throws IOException {
@@ -849,15 +850,33 @@ public class ImageInfoReader implements SmallImageTagFactory {
 		addCharacter(ImageIds.FEMALE_LILA_CHAR, characterFemaleLila, 0, 0, 1, 1);
 		addCharacter(ImageIds.FEMALE_CLOVER_CHAR, characterFemaleClover, 0, 0, 1, 1);
 		
-		addCharacter(ImageIds.KNIGHT_GHOST, createGhostImage(sprites), 0, 0, 1, 1);
+		createGhostImage(ImageIds.KNIGHT_GHOST, ImageIds.KNIGHT);
+		createGhostImage(ImageIds.GUARD_GHOST, ImageIds.GUARD);
+		createGhostImage(ImageIds.FEMALE_COMMONER_GHOST, ImageIds.FEMALE_COMMONER);
 		
     }
+    
+    public ImageIds getGhostImageIdFor(ImageIds imageId) {
+    	return ghostImageIds.get(imageId);
+    }
 
-	private Sprites createGhostImage(Sprites sprites) {
+	private void createGhostImage(ImageIds newImageId, ImageIds imageId) {
+		List<Image> images = idToImages.get(imageId);
+		List<Image> convertedImages = new ArrayList<>();
+		
+		for(Image image : images) {
+			convertedImages.add(createGhostImage(image));
+		}
+		
+		idToImages.put(newImageId, convertedImages);
+		ghostImageIds.put(imageId, newImageId);
+	}
+	
+	private BufferedImage createGhostImage(Image image) {
 		ImageFilter filter = new GrayFilter(true, 50);  
-		ImageProducer producer = new FilteredImageSource(sprites.bufferedImage.getSource(), filter);  
-		Image image = Toolkit.getDefaultToolkit().createImage(producer);  
-		return new Sprites(ImageUtils.toBufferedImage(image), sprites.imageWidth, sprites.imageHeight);
+		ImageProducer producer = new FilteredImageSource(image.getSource(), filter);  
+		Image toolkitImage = Toolkit.getDefaultToolkit().createImage(producer);  
+		return ImageUtils.toBufferedImage(toolkitImage);
 	}
 
 	private Image createTileTransition(Sprites tileMask, int posX, int posY) {
