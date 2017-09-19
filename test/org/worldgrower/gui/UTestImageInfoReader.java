@@ -15,6 +15,7 @@
 package org.worldgrower.gui;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 
@@ -27,4 +28,24 @@ public class UTestImageInfoReader {
 		ImageInfoReader imageInfoReader = new ImageInfoReader();
 		assertEquals(true, imageInfoReader.getCharacterImageIds().size() > 0);
 	}
+	
+	 @Test
+	 public void testGhostImages() throws IOException {
+		 ImageInfoReader imageInfoReader = new ImageInfoReader();
+		 assertEquals(ImageIds.KNIGHT_GHOST, imageInfoReader.getGhostImageIdFor(ImageIds.KNIGHT));
+	 
+		 CommonerImageIds commonerImageIds = new CommonerImageIds();
+		 
+		 ImageIds imageId = null;
+		 while(imageId != ImageIds.BLUE_HAIRED_COMMONER) {
+			 imageId = commonerImageIds.getNextMaleCommonerImageId();
+			 assertNotNull("No ghost imageId found for " + imageId, imageInfoReader.getGhostImageIdFor(imageId));	 
+		 }
+		 /*
+		 while(imageId != ImageIds.FEMALE_COMMONER_GHOST) {
+			 imageId = commonerImageIds.getNextFemaleCommonerImageId();
+			 assertNotNull("No ghost imageId found for " + imageId, imageInfoReader.getGhostImageIdFor(imageId));	 
+		 }
+		 */
+	 }
 }
