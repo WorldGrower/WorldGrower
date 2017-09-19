@@ -41,11 +41,11 @@ public class UTestImageInfoReader {
 			 imageId = commonerImageIds.getNextMaleCommonerImageId();
 			 assertNotNull("No ghost imageId found for " + imageId, imageInfoReader.getGhostImageIdFor(imageId));	 
 		 }
-		 /*
-		 while(imageId != ImageIds.FEMALE_COMMONER_GHOST) {
+		 
+		 while(imageId != ImageIds.BLACK_HAIRED_FEMALE_COMMONER) {
 			 imageId = commonerImageIds.getNextFemaleCommonerImageId();
 			 assertNotNull("No ghost imageId found for " + imageId, imageInfoReader.getGhostImageIdFor(imageId));	 
 		 }
-		 */
+		 
 	 }
 }

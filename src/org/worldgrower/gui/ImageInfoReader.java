@@ -943,8 +943,72 @@ public class ImageInfoReader implements SmallImageTagFactory {
 		createGhostImage(ImageIds.MALE_MAX_CHAR_GHOST, ImageIds.MALE_MAX_CHAR);
 		
 		createGhostImage(ImageIds.FEMALE_COMMONER_GHOST, ImageIds.FEMALE_COMMONER);
-		
-		
+		createGhostImage(ImageIds.BLACK_HAIRED_FEMALE_COMMONER_GHOST, ImageIds.BLACK_HAIRED_FEMALE_COMMONER);
+		createGhostImage(ImageIds.PURPLE_HAIRED_MALE_GIRL_GHOST, ImageIds.PURPLE_HAIRED_MALE_GIRL);
+		createGhostImage(ImageIds.PURPLE_HAT_COMMONER_GHOST, ImageIds.PURPLE_HAT_COMMONER);
+		createGhostImage(ImageIds.PINK_HAT_FEMALE_COMMONER_GHOST, ImageIds.PINK_HAT_FEMALE_COMMONER);
+		createGhostImage(ImageIds.RED_HAIR_FEMALE_COMMONER_GHOST, ImageIds.RED_HAIR_FEMALE_COMMONER);
+		createGhostImage(ImageIds.FEMALE_NUN_COMMONER_GHOST, ImageIds.FEMALE_NUN_COMMONER);
+		createGhostImage(ImageIds.BLUE_DRESS_FEMALE_COMMONER_GHOST, ImageIds.BLUE_DRESS_FEMALE_COMMONER);
+		createGhostImage(ImageIds.FEMALE_BRIDE_COMMONER_GHOST, ImageIds.FEMALE_BRIDE_COMMONER);
+		createGhostImage(ImageIds.FEMALE_SENATOR_GHOST, ImageIds.FEMALE_SENATOR);
+		createGhostImage(ImageIds.FEMALE_RED_EYE_GHOST, ImageIds.FEMALE_RED_EYE);
+		createGhostImage(ImageIds.FEMALE_BUNNY_GHOST, ImageIds.FEMALE_BUNNY);
+		createGhostImage(ImageIds.FEMALE_MAID_GHOST, ImageIds.FEMALE_MAID);
+		createGhostImage(ImageIds.FEMALE_RED_HAIRED_SAILOR_GHOST, ImageIds.FEMALE_RED_HAIRED_SAILOR);
+		createGhostImage(ImageIds.FEMALE_SAILOR_GHOST, ImageIds.FEMALE_SAILOR);
+		createGhostImage(ImageIds.FEMALE_OLD_COMMONER_GHOST, ImageIds.FEMALE_OLD_COMMONER);
+		createGhostImage(ImageIds.FEMALE_BLOND_COMMONER_GHOST, ImageIds.FEMALE_BLOND_COMMONER);
+		createGhostImage(ImageIds.FEMALE_ORANGE_GIRL_GHOST, ImageIds.FEMALE_ORANGE_GIRL);
+		createGhostImage(ImageIds.FEMALE_ORANGE_HAIR_GIRL_COMMONER_GHOST, ImageIds.FEMALE_ORANGE_HAIR_GIRL_COMMONER);
+		createGhostImage(ImageIds.FEMALE_OLDER_COMMONER_GHOST, ImageIds.FEMALE_OLDER_COMMONER);
+		createGhostImage(ImageIds.FEMALE_MILKER_COMMONER_GHOST, ImageIds.FEMALE_MILKER_COMMONER);
+		createGhostImage(ImageIds.FEMALE_BLOND_GIRL_GHOST, ImageIds.FEMALE_BLOND_GIRL);
+		createGhostImage(ImageIds.FEMALE_BLUE_HAIR_GIRL_COMMONER_GHOST, ImageIds.FEMALE_BLUE_HAIR_GIRL_COMMONER);
+		createGhostImage(ImageIds.FEMALE_3C_1_GHOST, ImageIds.FEMALE_3C_1);
+		createGhostImage(ImageIds.FEMALE_3C_2_GHOST, ImageIds.FEMALE_3C_2);
+		createGhostImage(ImageIds.FEMALE_3C_3_GHOST, ImageIds.FEMALE_3C_3);
+		createGhostImage(ImageIds.FEMALE_3C_4_GHOST, ImageIds.FEMALE_3C_4);
+		createGhostImage(ImageIds.FEMALE_3D_1_GHOST, ImageIds.FEMALE_3D_1);
+		createGhostImage(ImageIds.FEMALE_3D_2_GHOST, ImageIds.FEMALE_3D_2);
+		createGhostImage(ImageIds.FEMALE_3D_3_GHOST, ImageIds.FEMALE_3D_3);
+		createGhostImage(ImageIds.FEMALE_3E_1_GHOST, ImageIds.FEMALE_3E_1);
+		createGhostImage(ImageIds.FEMALE_3E_2_GHOST, ImageIds.FEMALE_3E_2);
+		createGhostImage(ImageIds.FEMALE_3E_3_GHOST, ImageIds.FEMALE_3E_3);
+		createGhostImage(ImageIds.FEMALE_3E_4_GHOST, ImageIds.FEMALE_3E_4);
+		createGhostImage(ImageIds.FEMALE_3F_1_GHOST, ImageIds.FEMALE_3F_1);
+		createGhostImage(ImageIds.FEMALE_3F_2_GHOST, ImageIds.FEMALE_3F_2);
+		createGhostImage(ImageIds.FEMALE_3F_3_GHOST, ImageIds.FEMALE_3F_3);
+		createGhostImage(ImageIds.FEMALE_3F_4_GHOST, ImageIds.FEMALE_3F_4);
+		createGhostImage(ImageIds.FEMALE_3G_1_GHOST, ImageIds.FEMALE_3G_1);
+		createGhostImage(ImageIds.FEMALE_3G_2_GHOST, ImageIds.FEMALE_3G_2);
+		createGhostImage(ImageIds.FEMALE_3G_3_GHOST, ImageIds.FEMALE_3G_3);
+		createGhostImage(ImageIds.FEMALE_3G_4_GHOST, ImageIds.FEMALE_3G_4);
+		createGhostImage(ImageIds.FEMALE_01_1_GHOST, ImageIds.FEMALE_01_1);
+		createGhostImage(ImageIds.FEMALE_01_2_GHOST, ImageIds.FEMALE_01_2);
+		createGhostImage(ImageIds.FEMALE_01_3_GHOST, ImageIds.FEMALE_01_3);
+		createGhostImage(ImageIds.FEMALE_01_4_GHOST, ImageIds.FEMALE_01_4);
+		createGhostImage(ImageIds.FEMALE_AKTOR1_1_GHOST, ImageIds.FEMALE_AKTOR1_1);
+		createGhostImage(ImageIds.FEMALE_AKTOR1_2_GHOST, ImageIds.FEMALE_AKTOR1_2);
+		createGhostImage(ImageIds.FEMALE_AKTOR1_3_GHOST, ImageIds.FEMALE_AKTOR1_3);
+		createGhostImage(ImageIds.FEMALE_AKTOR1_4_GHOST, ImageIds.FEMALE_AKTOR1_4);
+		createGhostImage(ImageIds.FEMALE_AKTOR3_1_GHOST, ImageIds.FEMALE_AKTOR3_1);
+		createGhostImage(ImageIds.FEMALE_AKTOR3_2_GHOST, ImageIds.FEMALE_AKTOR3_2);
+		createGhostImage(ImageIds.FEMALE_AKTOR3_3_GHOST, ImageIds.FEMALE_AKTOR3_3);
+		createGhostImage(ImageIds.FEMALE_AKTOR3_4_GHOST, ImageIds.FEMALE_AKTOR3_4);
+		createGhostImage(ImageIds.FEMALE_HERO_GHOST, ImageIds.FEMALE_HERO);
+		createGhostImage(ImageIds.SOPHIE_NPC_GHOST, ImageIds.SOPHIE_NPC);
+		createGhostImage(ImageIds.FEMALE_PIRATE_GHOST, ImageIds.FEMALE_PIRATE);
+		createGhostImage(ImageIds.FEMALE_PIRATE52_GHOST, ImageIds.FEMALE_PIRATE52);
+		createGhostImage(ImageIds.FEMALE_PIRATE02_GHOST, ImageIds.FEMALE_PIRATE02);
+		createGhostImage(ImageIds.FEMALE_PIRATE03_GHOST, ImageIds.FEMALE_PIRATE03);
+		createGhostImage(ImageIds.FEMALE_ITALY_GHOST, ImageIds.FEMALE_ITALY);
+		createGhostImage(ImageIds.FEMALE_FRANCE_GHOST, ImageIds.FEMALE_FRANCE);
+		createGhostImage(ImageIds.FEMALE_VELIA_GHOST, ImageIds.FEMALE_VELIA);
+		createGhostImage(ImageIds.FEMALE_CHAR_A1_GHOST, ImageIds.FEMALE_CHAR_A1);
+		createGhostImage(ImageIds.FEMALE_ELLIE_CHAR_GHOST, ImageIds.FEMALE_ELLIE_CHAR);
+		createGhostImage(ImageIds.FEMALE_LILA_CHAR_GHOST, ImageIds.FEMALE_LILA_CHAR);
+		createGhostImage(ImageIds.FEMALE_CLOVER_CHAR_GHOST, ImageIds.FEMALE_CLOVER_CHAR);
 		
     }
     
