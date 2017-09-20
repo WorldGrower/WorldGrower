@@ -27,6 +27,7 @@ import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.BuildingsListProperty;
 import org.worldgrower.attribute.ConditionsProperty;
 import org.worldgrower.attribute.DamageType;
+import org.worldgrower.attribute.DeathInformation;
 import org.worldgrower.attribute.Demands;
 import org.worldgrower.attribute.IdContainer;
 import org.worldgrower.attribute.IdListProperty;
@@ -279,6 +280,7 @@ public class Constants {
 	
 	public static final IntProperty VAMPIRE_BLOOD_LEVEL = new IntProperty("vampireBloodLevel", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final StringProperty DEATH_REASON = new StringProperty("deathReason", NOT_NULLABLE, ALL_PROPERTIES);
+	public static final UnCheckedProperty<DeathInformation> DEATH_INFORMATION = new UnCheckedProperty<>("deathInformation", ALL_PROPERTIES);
 	public static final IdProperty SACRIFICIAL_ALTAR_CREATOR_ID = new IdProperty("sacrificialAltarCreatorId", ALL_PROPERTIES);
 	public static final IntProperty GHOUL_MEAT_LEVEL = new IntProperty("ghoulMeatLevel", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	

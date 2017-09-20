@@ -32,6 +32,7 @@ import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.AttributeGenerator;
 import org.worldgrower.attribute.BackgroundImpl;
 import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.DeathInformation;
 import org.worldgrower.attribute.Demands;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
@@ -268,6 +269,7 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.ARMOR, 10);
 		properties.put(Constants.DECEASED_WORLD_OBJECT, Boolean.TRUE);
 		properties.put(Constants.DEATH_REASON, originalWorldObject.getProperty(Constants.DEATH_REASON));
+		properties.put(Constants.DEATH_INFORMATION, new DeathInformation(world.getCurrentTurn().getValue(), originalWorldObject.getProperty(Constants.IMAGE_ID), originalWorldObject.getProperty(Constants.NAME)));
 		properties.put(Constants.PRICE, 1);
 		properties.put(Constants.WEIGHT, 1);//TODO: calculate weight?
 		properties.put(Constants.SELLABLE, false);
@@ -280,7 +282,7 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.GOLD, originalWorldObject.getProperty(Constants.GOLD) + (organizationGold != null ? organizationGold.intValue() : 0));
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
-		WorldObject creature = new WorldObjectImpl(properties);
+		WorldObject creature = new WorldObjectImpl(properties, new RemainsOnTurn());
 		world.addWorldObject(creature);
 		unmarkSellableWorldObjects(creature);
 		return id;

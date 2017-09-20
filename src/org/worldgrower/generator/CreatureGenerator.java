@@ -37,6 +37,7 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.ImageInfoReader;
 
 public class CreatureGenerator implements Serializable {
 	private final WorldObject organization;
@@ -262,6 +263,53 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.DAMAGE_RESIST, 8);
 		
 		return new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new DoNothingOnTurn(), new MinotaurWorldEvaluationFunction());
+	}
+	
+	public static int generateGhost(int x, int y, World world, ImageInfoReader imageInfoReader, ImageIds originalImageId, String originalName) {
+		
+		int id = world.generateUniqueId();
+		WorldObject ghost = generateGhost(x, y, id, imageInfoReader, originalImageId, originalName);
+		world.addWorldObject(ghost);
+		
+		return id;
+	}
+	
+	private static WorldObject generateGhost(int x, int y, int id, ImageInfoReader imageInfoReader, ImageIds originalImageId, String originalName) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 1);
+		properties.put(Constants.HIT_POINTS, 15 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 20 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.NAME, originalName + "'s ghost");
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, imageInfoReader.getGhostImageIdFor(originalImageId));
+		properties.put(Constants.FOOD, 500);
+		properties.put(Constants.WATER, 500);
+		properties.put(Constants.ENERGY, 1000);
+		properties.put(Constants.GROUP, new IdList());
+		properties.put(Constants.GOLD, 0);
+		properties.put(Constants.DEMANDS, new Demands());
+		properties.put(Constants.CHILDREN, new IdList());
+		properties.put(Constants.SOCIAL, 500);
+		properties.put(Constants.GENDER, "male");
+		properties.put(Constants.CREATURE_TYPE, CreatureType.GHOST_CREATURE_TYPE);
+		properties.put(Constants.CONDITIONS, new Conditions());
+		
+		properties.put(Constants.ARMOR, 10);
+		
+		properties.put(Constants.STRENGTH, 12);
+		properties.put(Constants.DEXTERITY, 8);
+		properties.put(Constants.CONSTITUTION, 16);
+		properties.put(Constants.INTELLIGENCE, 6);
+		properties.put(Constants.WISDOM, 12);
+		properties.put(Constants.CHARISMA, 6);
+		
+		properties.put(Constants.DAMAGE, 3 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.DAMAGE_RESIST, 8);
+		
+		return new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new DoNothingOnTurn(), new GhostWorldEvaluationFunction());
 	}
 	
 	public int generateSkeleton(int x, int y, World world, WorldObject performer) {

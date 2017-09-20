@@ -59,10 +59,10 @@ public class CommonerOnTurn implements OnTurn {
 	}
 
 	@Override
-	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
+	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners worldStateChangedListeners) {
 		propertiesOnTurn(worldObject, world);
 		
-		worldObject.getProperty(Constants.CONDITIONS).onTurn(worldObject, world, creatureTypeChangedListeners);
+		worldObject.getProperty(Constants.CONDITIONS).onTurn(worldObject, world, worldStateChangedListeners);
 		Background background = worldObject.getProperty(Constants.BACKGROUND);
 		if (background != null) {
 			background.checkForNewGoals(worldObject, world);
