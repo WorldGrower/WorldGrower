@@ -26,7 +26,9 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.worldgrower.attribute.IdContainerUtils;
@@ -60,6 +62,8 @@ public class WorldImpl implements World, Serializable {
 	private transient WorldStateChangedListeners worldStateChangedListeners = new WorldStateChangedListeners();
 	private final LocationWorldObjectsCache locationWorldObjectsCache;
 	private final JailCache jailCache = new JailCache();
+	
+	private final Map<Class<?>, Object> userData = new HashMap<>();
 	
 	//TODO: temporary for debugging purposes
 	private transient List<Integer> removedIds = new ArrayList<>();
@@ -319,5 +323,14 @@ public class WorldImpl implements World, Serializable {
 				removeWorldObject(worldObject);
 			}
 		}
+	}
+
+	@Override
+	public <T> T getUserData(Class<T> clazz) {
+		return (T) userData.get(clazz);
+	}
+	
+	public void addUserData(Object object) {
+		userData.put(object.getClass(), object);
 	}
 }

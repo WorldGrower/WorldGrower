@@ -40,6 +40,7 @@ import org.worldgrower.actions.ArenaFightOnTurn;
 import org.worldgrower.actions.BrawlListener;
 import org.worldgrower.actions.DrinkingContestListener;
 import org.worldgrower.actions.OrganizationRebelsOnTurn;
+import org.worldgrower.attribute.GhostImageIds;
 import org.worldgrower.condition.ConditionListener;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.curse.CurseListener;
@@ -77,7 +78,7 @@ public class Game {
 
 	private static JFrame frame = null;
 	
-	public static void run(CharacterAttributes characterAttributes, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, ImageIds playerCharacterImageId, GameParameters gameParameters, KeyBindings keyBindings) throws Exception {
+	public static void run(CharacterAttributes characterAttributes, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, ImageIds playerCharacterImageId, GameParameters gameParameters, KeyBindings keyBindings, GhostImageIds ghostImageIds) throws Exception {
 		int seed = gameParameters.getSeed();
 		int startTurn = gameParameters.getStartTurn();
 		int worldWidth = gameParameters.getWorldWidth();
@@ -85,7 +86,8 @@ public class Game {
 		DungeonMaster dungeonMaster = new DungeonMaster(worldWidth, worldHeight);
 		WorldOnTurnImpl worldOnTurn = new WorldOnTurnImpl(new DeityWorldOnTurn(), new ArenaFightOnTurn(), new OrganizationRebelsOnTurn());
 		Terrain terrain = new TerrainImpl(worldWidth, worldHeight, new TerrainMapper(gameParameters.getWaterCutoff()));
-		World world = new WorldImpl(terrain, dungeonMaster, worldOnTurn);
+		WorldImpl world = new WorldImpl(terrain, dungeonMaster, worldOnTurn);
+		world.addUserData(ghostImageIds);
 		int playerCharacterId = world.generateUniqueId();
 		
 		final CommonerImageIds commonerImageIds = new CommonerImageIds(playerCharacterImageId);

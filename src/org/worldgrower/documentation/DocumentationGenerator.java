@@ -29,6 +29,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.magic.MagicSpell;
+import org.worldgrower.attribute.GhostImageIds;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.SkillProperty;
@@ -57,7 +58,7 @@ public class DocumentationGenerator {
 
 	public static void main(String[] args) throws IOException {
 		File outputDir = new File(args[0]);
-		ImageInfoReader imageInfoReader = new ImageInfoReader();
+		ImageInfoReader imageInfoReader = new ImageInfoReader(new GhostImageIds());
 
 		generateMagicSpellOverview(outputDir, imageInfoReader);
 		generateToolsOverview(outputDir, imageInfoReader);

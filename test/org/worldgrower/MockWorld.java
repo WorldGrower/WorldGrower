@@ -187,4 +187,9 @@ public class MockWorld implements World {
 	public void removeDeadWorldObjects() {
 		
 	}
+
+	@Override
+	public <T> T getUserData(Class<T> clazz) {
+		return null;
+	}
 }

@@ -29,6 +29,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.Demands;
+import org.worldgrower.attribute.GhostImageIds;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.attribute.ManagedProperty;
@@ -37,7 +38,6 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.gui.ImageIds;
-import org.worldgrower.gui.ImageInfoReader;
 
 public class CreatureGenerator implements Serializable {
 	private final WorldObject organization;
@@ -265,16 +265,16 @@ public class CreatureGenerator implements Serializable {
 		return new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new DoNothingOnTurn(), new MinotaurWorldEvaluationFunction());
 	}
 	
-	public static int generateGhost(int x, int y, World world, ImageInfoReader imageInfoReader, ImageIds originalImageId, String originalName) {
+	public static int generateGhost(int x, int y, World world, GhostImageIds ghostImageIds, ImageIds originalImageId, String originalName) {
 		
 		int id = world.generateUniqueId();
-		WorldObject ghost = generateGhost(x, y, id, imageInfoReader, originalImageId, originalName);
+		WorldObject ghost = generateGhost(x, y, id, ghostImageIds, originalImageId, originalName);
 		world.addWorldObject(ghost);
 		
 		return id;
 	}
 	
-	private static WorldObject generateGhost(int x, int y, int id, ImageInfoReader imageInfoReader, ImageIds originalImageId, String originalName) {
+	private static WorldObject generateGhost(int x, int y, int id, GhostImageIds ghostImageIds, ImageIds originalImageId, String originalName) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
@@ -284,7 +284,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.HIT_POINTS_MAX, 20 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.NAME, originalName + "'s ghost");
 		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, imageInfoReader.getGhostImageIdFor(originalImageId));
+		properties.put(Constants.IMAGE_ID, ghostImageIds.getGhostImageIdFor(originalImageId));
 		properties.put(Constants.FOOD, 500);
 		properties.put(Constants.WATER, 500);
 		properties.put(Constants.ENERGY, 1000);

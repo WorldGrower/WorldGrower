@@ -65,6 +65,7 @@ public interface World {
 	
 	public WorldObjectsCache getWorldObjectsCache(IntProperty intProperty1, IntProperty intProperty2);
 	public WorldObjectsCache getWorldObjectsCache();
+	public <T> T getUserData(Class<T> clazz);
 	
 	public void removeDeadWorldObjects();
 }

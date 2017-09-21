@@ -19,14 +19,14 @@ import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.DeathInformation;
+import org.worldgrower.attribute.GhostImageIds;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.gui.ImageIds;
-import org.worldgrower.gui.ImageInfoReader;
 
 public class RemainsOnTurn implements OnTurn {
 
 	private static final int GHOST_SPAWN_TIME = 100;
-	
+
 	@Override
 	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners worldStateChangedListeners) {
 		DeathInformation deathInformation = worldObject.getProperty(Constants.DEATH_INFORMATION);
@@ -37,8 +37,8 @@ public class RemainsOnTurn implements OnTurn {
 			int y = worldObject.getProperty(Constants.Y);
 			ImageIds originalImageId = deathInformation.getOriginalImageId();
 			String originalName = deathInformation.getOriginalName();
-			ImageInfoReader imageInfoReader = null; //TODO
-			CreatureGenerator.generateGhost(x, y, world, imageInfoReader, originalImageId, originalName);
+			GhostImageIds ghostImageIds = world.getUserData(GhostImageIds.class);
+			CreatureGenerator.generateGhost(x, y, world, ghostImageIds, originalImageId, originalName);
 
 			deathInformation.setGhostSpawned(true);
 		}

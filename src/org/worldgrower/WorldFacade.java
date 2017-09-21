@@ -285,4 +285,9 @@ public class WorldFacade implements World {
 	public void removeDeadWorldObjects() {
 		throw new IllegalStateException("WorldFacade is read-only, cannot removeDeadWorldObjects");
 	}
+
+	@Override
+	public <T> T getUserData(Class<T> clazz) {
+		return world.getUserData(clazz);
+	}
 }

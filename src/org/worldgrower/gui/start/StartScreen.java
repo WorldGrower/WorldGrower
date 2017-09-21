@@ -43,6 +43,7 @@ import javax.swing.plaf.FontUIResource;
 
 import org.worldgrower.Version;
 import org.worldgrower.World;
+import org.worldgrower.attribute.GhostImageIds;
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ColorPalette;
 import org.worldgrower.gui.ExceptionHandler;
@@ -87,7 +88,8 @@ public class StartScreen implements SaveGameHandler {
 	
 	private static ImageInfoReader imageInfoReader = null;
 	private static SoundIdReader soundIdReader = null;
-	private static MusicPlayer musicPlayer = null; 
+	private static MusicPlayer musicPlayer = null;
+	private static GhostImageIds ghostImageIds;
 	
 	/**
 	 * Launch the application.
@@ -118,7 +120,7 @@ public class StartScreen implements SaveGameHandler {
 		
 		Preferences preferences = Preferences.userNodeForPackage(StartScreen.class);
 		loadDefaultSoundOutput(preferences);
-		loadImages();
+		ghostImageIds = loadImages();
 		loadSounds(preferences);
 		loadMusic(preferences);
 		CustomPopupFactory.setPopupFactory();
@@ -139,13 +141,15 @@ public class StartScreen implements SaveGameHandler {
 		System.setProperty("sun.java2d.opengl", "true");
 	}
 
-	private static void loadImages() {
+	private static GhostImageIds loadImages() {
+		GhostImageIds ghostImageIds = new GhostImageIds();
 		try {
-			imageInfoReader = new ImageInfoReader();
+			imageInfoReader = new ImageInfoReader(ghostImageIds);
 			TiledImageComboPopup.initializeImageInfoReader(imageInfoReader);
 		} catch (Exception e) {
 			ExceptionHandler.handle(e);
 		}
+		return ghostImageIds;
 	}
 	
 	private static void loadSounds(Preferences preferences) {
@@ -297,7 +301,7 @@ public class StartScreen implements SaveGameHandler {
 			new Thread() {
 				public void run() {
 					try {
-						Game.run(new CharacterAttributes(10, 10, 10, 10, 10, 10), imageInfoReader, soundIdReader, musicPlayer, ImageIds.KNIGHT, new TutorialGameParameters(), keyBindings);
+						Game.run(new CharacterAttributes(10, 10, 10, 10, 10, 10), imageInfoReader, soundIdReader, musicPlayer, ImageIds.KNIGHT, new TutorialGameParameters(), keyBindings, ghostImageIds);
 					} catch (Exception e1) {
 						ExceptionHandler.handle(e1);
 					}
@@ -318,7 +322,7 @@ public class StartScreen implements SaveGameHandler {
 			new Thread() {
 				public void run() {
 					try {
-						Game.run(new CharacterAttributes(12, 12, 12, 12, 12, 12), imageInfoReader, soundIdReader, musicPlayer, ImageIds.KNIGHT, new CustomGameParameters(), keyBindings);
+						Game.run(new CharacterAttributes(12, 12, 12, 12, 12, 12), imageInfoReader, soundIdReader, musicPlayer, ImageIds.KNIGHT, new CustomGameParameters(), keyBindings, ghostImageIds);
 					} catch (Exception e1) {
 						ExceptionHandler.handle(e1);
 					}
@@ -337,7 +341,7 @@ public class StartScreen implements SaveGameHandler {
 		public void actionPerformed(ActionEvent event) {
 			frame.setVisible(false);
 			try {
-				CharacterCustomizationScreen characterCustomizationScreen = new CharacterCustomizationScreen(imageInfoReader, soundIdReader, musicPlayer, keyBindings, parentFrame);
+				CharacterCustomizationScreen characterCustomizationScreen = new CharacterCustomizationScreen(imageInfoReader, soundIdReader, musicPlayer, keyBindings, ghostImageIds, parentFrame);
 				characterCustomizationScreen.setVisible(true);
 			} catch (Exception e1) {
 				ExceptionHandler.handle(e1);

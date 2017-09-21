@@ -38,6 +38,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import org.worldgrower.Constants;
+import org.worldgrower.attribute.GhostImageIds;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.gui.GuiAttributeDescription;
 import org.worldgrower.gui.ImageIds;
@@ -86,7 +87,7 @@ public class CharacterCustomizationScreen extends JFrame {
 	
 	private final ImageInfoReader imageInfoReader;
 	
-	public CharacterCustomizationScreen(ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, KeyBindings keyBindings, JFrame parentFrame) {
+	public CharacterCustomizationScreen(ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, KeyBindings keyBindings, GhostImageIds ghostImageIds, JFrame parentFrame) {
 		super("Character Customization");
 		this.imageInfoReader = imageInfoReader;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -395,7 +396,7 @@ public class CharacterCustomizationScreen extends JFrame {
 					
 					String gender = maleRadioButton.isSelected() ? "male" : "female";
 					PlayerCharacterInfo playerCharacterInfo = new PlayerCharacterInfo(playerNameTextField.getText(), playerProfessionTextField.getText(), gender, (ImageIds)cmbImage.getSelectedItem());
-					OptionsScreen window = new OptionsScreen(characterAttributes, playerCharacterInfo, imageInfoReader, soundIdReader, musicPlayer, keyBindings, parentFrame);
+					OptionsScreen window = new OptionsScreen(characterAttributes, playerCharacterInfo, imageInfoReader, soundIdReader, musicPlayer, keyBindings, ghostImageIds, parentFrame);
 					window.setVisible(true);
 				} else {
 					ErrorDialog.showErrors(errors, imageInfoReader, soundIdReader, CharacterCustomizationScreen.this);

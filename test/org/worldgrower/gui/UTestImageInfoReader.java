@@ -20,31 +20,33 @@ import static org.junit.Assert.assertNotNull;
 import java.io.IOException;
 
 import org.junit.Test;
+import org.worldgrower.attribute.GhostImageIds;
 
 public class UTestImageInfoReader {
 
 	@Test
 	public void testInitialize() throws IOException {
-		ImageInfoReader imageInfoReader = new ImageInfoReader();
+		ImageInfoReader imageInfoReader = new ImageInfoReader(new GhostImageIds());
 		assertEquals(true, imageInfoReader.getCharacterImageIds().size() > 0);
 	}
 	
 	 @Test
 	 public void testGhostImages() throws IOException {
-		 ImageInfoReader imageInfoReader = new ImageInfoReader();
-		 assertEquals(ImageIds.KNIGHT_GHOST, imageInfoReader.getGhostImageIdFor(ImageIds.KNIGHT));
+		 GhostImageIds ghostImageIds = new GhostImageIds();
+		 new ImageInfoReader(ghostImageIds);
+		 assertEquals(ImageIds.KNIGHT_GHOST, ghostImageIds.getGhostImageIdFor(ImageIds.KNIGHT));
 	 
 		 CommonerImageIds commonerImageIds = new CommonerImageIds();
 		 
 		 ImageIds imageId = null;
 		 while(imageId != ImageIds.BLUE_HAIRED_COMMONER) {
 			 imageId = commonerImageIds.getNextMaleCommonerImageId();
-			 assertNotNull("No ghost imageId found for " + imageId, imageInfoReader.getGhostImageIdFor(imageId));	 
+			 assertNotNull("No ghost imageId found for " + imageId, ghostImageIds.getGhostImageIdFor(imageId));	 
 		 }
 		 
 		 while(imageId != ImageIds.BLACK_HAIRED_FEMALE_COMMONER) {
 			 imageId = commonerImageIds.getNextFemaleCommonerImageId();
-			 assertNotNull("No ghost imageId found for " + imageId, imageInfoReader.getGhostImageIdFor(imageId));	 
+			 assertNotNull("No ghost imageId found for " + imageId, ghostImageIds.getGhostImageIdFor(imageId));	 
 		 }
 		 
 	 }

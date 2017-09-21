@@ -32,6 +32,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.worldgrower.attribute.GhostImageIds;
 import org.worldgrower.gui.ExceptionHandler;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
@@ -76,6 +77,7 @@ public class OptionsScreen {
 	private final MusicPlayer musicPlayer;
 	
 	private final KeyBindings keyBindings;
+	private final GhostImageIds ghostImageIds;
 	private JTextField startTurnTextField;
 	private JComboBox<ResourceMultiplier> stoneResourceMultipliersComboBox;
 	private JComboBox<ResourceMultiplier> oreResourceMultipliersComboBox;
@@ -83,12 +85,13 @@ public class OptionsScreen {
 	private JComboBox<ResourceMultiplier> oilResourceMultipliersComboBox;
 	private JComboBox<WaterCutoff> waterCutoffComboBox;
 	
-	public OptionsScreen(CharacterAttributes characterAttributes, PlayerCharacterInfo playerCharacterInfo, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, KeyBindings keyBindings, JFrame parentFrame) {
+	public OptionsScreen(CharacterAttributes characterAttributes, PlayerCharacterInfo playerCharacterInfo, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, KeyBindings keyBindings, GhostImageIds ghostImageIds, JFrame parentFrame) {
 		this.characterAttributes = characterAttributes;
 		this.playerCharacterInfo = playerCharacterInfo;
 		this.soundIdReader = soundIdReader;
 		this.musicPlayer = musicPlayer;
 		this.keyBindings = keyBindings;
+		this.ghostImageIds = ghostImageIds;
 		
 		initialize(imageInfoReader, parentFrame);
 	}
@@ -270,7 +273,7 @@ public class OptionsScreen {
 						new Thread() {
 							public void run() {
 								try {
-									Game.run(characterAttributes, imageInfoReader, soundIdReader, musicPlayer, playerCharacterInfo.getImageId(), customGameParameters, keyBindings);
+									Game.run(characterAttributes, imageInfoReader, soundIdReader, musicPlayer, playerCharacterInfo.getImageId(), customGameParameters, keyBindings, ghostImageIds);
 								} catch (Exception e) {
 									ExceptionHandler.handle(e);
 								}
