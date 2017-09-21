@@ -23,6 +23,8 @@ public final class DeathInformation implements Serializable {
 	private final ImageIds originalImageId;
 	private final String originalName;
 	
+	private boolean ghostSpawned = false;
+	
 	public DeathInformation(int deathTurn, ImageIds originalImageId, String originalName) {
 		this.deathTurn = deathTurn;
 		this.originalImageId = originalImageId;
@@ -39,5 +41,13 @@ public final class DeathInformation implements Serializable {
 
 	public String getOriginalName() {
 		return originalName;
-	}	
+	}
+
+	public boolean isGhostSpawned() {
+		return ghostSpawned;
+	}
+
+	public void setGhostSpawned(boolean ghostSpawned) {
+		this.ghostSpawned = ghostSpawned;
+	}
 }

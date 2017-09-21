@@ -31,14 +31,16 @@ public class RemainsOnTurn implements OnTurn {
 	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners worldStateChangedListeners) {
 		DeathInformation deathInformation = worldObject.getProperty(Constants.DEATH_INFORMATION);
 		int deathTurn = deathInformation.getDeathTurn();
-		if (deathTurn + GHOST_SPAWN_TIME > world.getCurrentTurn().getValue()) {
+		boolean ghostCanSpawn = deathTurn + GHOST_SPAWN_TIME > world.getCurrentTurn().getValue();
+		if (ghostCanSpawn && !deathInformation.isGhostSpawned()) {
 			int x = worldObject.getProperty(Constants.X);
 			int y = worldObject.getProperty(Constants.Y);
 			ImageIds originalImageId = deathInformation.getOriginalImageId();
 			String originalName = deathInformation.getOriginalName();
 			ImageInfoReader imageInfoReader = null; //TODO
 			CreatureGenerator.generateGhost(x, y, world, imageInfoReader, originalImageId, originalName);
-			//TODO: make sure ghost only spawns once
+
+			deathInformation.setGhostSpawned(true);
 		}
 	}
 }
