@@ -16,23 +16,30 @@ package org.worldgrower.attribute;
 
 import java.io.Serializable;
 
+import org.worldgrower.Constants;
+import org.worldgrower.World;
+import org.worldgrower.WorldObject;
 import org.worldgrower.gui.ImageIds;
 
 public final class DeathInformation implements Serializable {
+	
+	private static final int GHOST_SPAWN_TIME = 100;
+	
 	private final int deathTurn;
 	private final ImageIds originalImageId;
 	private final String originalName;
 	
 	private boolean ghostSpawned = false;
 	
-	public DeathInformation(int deathTurn, ImageIds originalImageId, String originalName) {
-		this.deathTurn = deathTurn;
-		this.originalImageId = originalImageId;
-		this.originalName = originalName;
+	public DeathInformation(WorldObject originalWorldObject, World world) {
+		this.deathTurn = world.getCurrentTurn().getValue();
+		this.originalImageId = originalWorldObject.getProperty(Constants.IMAGE_ID);
+		this.originalName = originalWorldObject.getProperty(Constants.NAME);
 	}
-
-	public int getDeathTurn() {
-		return deathTurn;
+	
+	public boolean shouldSpawnGhost(World world) {
+		boolean ghostCanSpawn = world.getCurrentTurn().getValue() > deathTurn + GHOST_SPAWN_TIME;
+		return (ghostCanSpawn && !ghostSpawned);
 	}
 
 	public ImageIds getOriginalImageId() {
@@ -41,10 +48,6 @@ public final class DeathInformation implements Serializable {
 
 	public String getOriginalName() {
 		return originalName;
-	}
-
-	public boolean isGhostSpawned() {
-		return ghostSpawned;
 	}
 
 	public void setGhostSpawned(boolean ghostSpawned) {

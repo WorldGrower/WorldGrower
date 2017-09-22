@@ -25,14 +25,10 @@ import org.worldgrower.gui.ImageIds;
 
 public class RemainsOnTurn implements OnTurn {
 
-	private static final int GHOST_SPAWN_TIME = 100;
-
 	@Override
 	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners worldStateChangedListeners) {
 		DeathInformation deathInformation = worldObject.getProperty(Constants.DEATH_INFORMATION);
-		int deathTurn = deathInformation.getDeathTurn();
-		boolean ghostCanSpawn = deathTurn + GHOST_SPAWN_TIME > world.getCurrentTurn().getValue();
-		if (ghostCanSpawn && !deathInformation.isGhostSpawned()) {
+		if (deathInformation.shouldSpawnGhost(world)) {
 			int x = worldObject.getProperty(Constants.X);
 			int y = worldObject.getProperty(Constants.Y);
 			ImageIds originalImageId = deathInformation.getOriginalImageId();

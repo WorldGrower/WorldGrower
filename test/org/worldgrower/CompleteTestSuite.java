@@ -192,6 +192,7 @@ import org.worldgrower.generator.UTestIllusionOnTurn;
 import org.worldgrower.generator.UTestItem;
 import org.worldgrower.generator.UTestNightShadeOnTurn;
 import org.worldgrower.generator.UTestPlantOnTurn;
+import org.worldgrower.generator.UTestRemainsOnTurn;
 import org.worldgrower.generator.UTestSkeletonEvaluationFunction;
 import org.worldgrower.generator.UTestVotingOnTurn;
 import org.worldgrower.goal.*;
@@ -860,7 +861,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestWantedProfessionGoal.class,
 	UTestLocationPropertyUtils.class,
 	UTestBuildingList.class,
-	UTestRebellionPropertyUtils.class
+	UTestRebellionPropertyUtils.class,
+	UTestRemainsOnTurn.class
 })
 public class CompleteTestSuite {
 }
