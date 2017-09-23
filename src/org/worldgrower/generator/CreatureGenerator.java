@@ -310,7 +310,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.DAMAGE, 3 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.DAMAGE_RESIST, 8);
 		
-		return new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new DoNothingOnTurn(), new GhostWorldEvaluationFunction());
+		return new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new GhostOnTurn(), new GhostWorldEvaluationFunction());
 	}
 	
 	public int generateSkeleton(int x, int y, World world, WorldObject performer) {

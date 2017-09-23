@@ -188,6 +188,7 @@ import org.worldgrower.generator.UTestCowOnTurn;
 import org.worldgrower.generator.UTestCreatureGenerator;
 import org.worldgrower.generator.UTestFiretrapOnTurn;
 import org.worldgrower.generator.UTestFishOnTurn;
+import org.worldgrower.generator.UTestGhostOnTurn;
 import org.worldgrower.generator.UTestIllusionOnTurn;
 import org.worldgrower.generator.UTestItem;
 import org.worldgrower.generator.UTestNightShadeOnTurn;
@@ -862,7 +863,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestLocationPropertyUtils.class,
 	UTestBuildingList.class,
 	UTestRebellionPropertyUtils.class,
-	UTestRemainsOnTurn.class
+	UTestRemainsOnTurn.class,
+	UTestGhostOnTurn.class
 })
 public class CompleteTestSuite {
 }
