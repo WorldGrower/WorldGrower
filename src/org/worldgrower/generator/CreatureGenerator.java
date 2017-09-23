@@ -265,16 +265,16 @@ public class CreatureGenerator implements Serializable {
 		return new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new DoNothingOnTurn(), new MinotaurWorldEvaluationFunction());
 	}
 	
-	public static int generateGhost(int x, int y, World world, GhostImageIds ghostImageIds, ImageIds originalImageId, String originalName) {
+	public static int generateGhost(int x, int y, World world, int remainsId, GhostImageIds ghostImageIds, ImageIds originalImageId, String originalName) {
 		
 		int id = world.generateUniqueId();
-		WorldObject ghost = generateGhost(x, y, id, ghostImageIds, originalImageId, originalName);
+		WorldObject ghost = generateGhost(x, y, id, remainsId, ghostImageIds, originalImageId, originalName);
 		world.addWorldObject(ghost);
 		
 		return id;
 	}
 	
-	private static WorldObject generateGhost(int x, int y, int id, GhostImageIds ghostImageIds, ImageIds originalImageId, String originalName) {
+	private static WorldObject generateGhost(int x, int y, int id, int remainsId, GhostImageIds ghostImageIds, ImageIds originalImageId, String originalName) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
@@ -296,6 +296,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.GENDER, "male");
 		properties.put(Constants.CREATURE_TYPE, CreatureType.GHOST_CREATURE_TYPE);
 		properties.put(Constants.CONDITIONS, new Conditions());
+		properties.put(Constants.REMAINS_ID, remainsId);
 		
 		properties.put(Constants.ARMOR, 10);
 		

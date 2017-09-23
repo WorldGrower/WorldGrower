@@ -18,26 +18,17 @@ import org.worldgrower.Constants;
 import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.DeathInformation;
-import org.worldgrower.attribute.GhostImageIds;
 import org.worldgrower.condition.WorldStateChangedListeners;
-import org.worldgrower.gui.ImageIds;
 
-public class RemainsOnTurn implements OnTurn {
+public class GhostOnTurn implements OnTurn {
 
 	@Override
 	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners worldStateChangedListeners) {
-		DeathInformation deathInformation = worldObject.getProperty(Constants.DEATH_INFORMATION);
-		if (deathInformation.shouldSpawnGhost(world)) {
-			int x = worldObject.getProperty(Constants.X);
-			int y = worldObject.getProperty(Constants.Y);
-			ImageIds originalImageId = deathInformation.getOriginalImageId();
-			String originalName = deathInformation.getOriginalName();
-			int remainsId = worldObject.getProperty(Constants.ID);
-			GhostImageIds ghostImageIds = world.getUserData(GhostImageIds.class);
-			CreatureGenerator.generateGhost(x, y, world, remainsId, ghostImageIds, originalImageId, originalName);
-
-			deathInformation.setGhostSpawned(true);
+		worldObject.getProperty(Constants.CONDITIONS).onTurn(worldObject, world, worldStateChangedListeners);
+		
+		Integer remainsId = worldObject.getProperty(Constants.REMAINS_ID);
+		if (remainsId == null) {
+			world.removeWorldObject(worldObject);
 		}
 	}
 }
