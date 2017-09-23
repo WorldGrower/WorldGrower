@@ -21,7 +21,7 @@ public class CreatureTypeUtils {
 
 	public static boolean isUndead(WorldObject worldObject) {
 		CreatureType creatureType = worldObject.getProperty(Constants.CREATURE_TYPE);
-		return creatureType.isUndead();
+		return (creatureType != null) && creatureType.isUndead();
 	}
 	
 	public static boolean isHumanoid(WorldObject target) {
