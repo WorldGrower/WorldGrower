@@ -48,6 +48,13 @@ public interface CreatureType extends Serializable {
 	public static final MinotaurCreatureType MINOTAUR_CREATURE_TYPE = new MinotaurCreatureType(ALL_CREATURE_TYPES);
 	public static final GhostCreatureType GHOST_CREATURE_TYPE = new GhostCreatureType(ALL_CREATURE_TYPES);
 	
+	public default boolean isUndead() {
+		return this == VAMPIRE_CREATURE_TYPE
+			|| this == LICH_CREATURE_TYPE
+			|| this == GHOUL_CREATURE_TYPE
+			|| this == GHOST_CREATURE_TYPE;
+	}
+	
 	public default Object readResolveImpl() throws ObjectStreamException {
 		Class<?> clazz = getClass();
 		List<CreatureType> allCreatureTypes = ALL_CREATURE_TYPES;

@@ -21,9 +21,7 @@ public class CreatureTypeUtils {
 
 	public static boolean isUndead(WorldObject worldObject) {
 		CreatureType creatureType = worldObject.getProperty(Constants.CREATURE_TYPE);
-		return creatureType == CreatureType.VAMPIRE_CREATURE_TYPE
-				 || creatureType == CreatureType.LICH_CREATURE_TYPE
-				 || creatureType == CreatureType.GHOUL_CREATURE_TYPE;
+		return creatureType.isUndead();
 	}
 	
 	public static boolean isHumanoid(WorldObject target) {
