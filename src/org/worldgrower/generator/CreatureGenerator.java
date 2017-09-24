@@ -297,6 +297,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.CREATURE_TYPE, CreatureType.GHOST_CREATURE_TYPE);
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.REMAINS_ID, remainsId);
+		properties.put(Constants.LOOK_DIRECTION, LookDirection.SOUTH);
 		
 		properties.put(Constants.ARMOR, 10);
 		
