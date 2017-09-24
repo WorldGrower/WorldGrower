@@ -249,6 +249,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.GENDER, "male");
 		properties.put(Constants.CREATURE_TYPE, CreatureType.MINOTAUR_CREATURE_TYPE);
 		properties.put(Constants.CONDITIONS, new Conditions());
+		properties.put(Constants.LOOK_DIRECTION, LookDirection.SOUTH);
 		
 		properties.put(Constants.ARMOR, 10);
 		
