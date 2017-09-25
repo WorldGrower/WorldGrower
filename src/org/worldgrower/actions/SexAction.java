@@ -86,7 +86,7 @@ public class SexAction implements ManagedOperation, AnimatedAction {
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		if (performer.hasProperty(Constants.RELATIONSHIPS) && target.hasProperty(Constants.RELATIONSHIPS)) {
-			//TODO: this method indirectly invokes skill:use method, which shoumdn't be the case
+			//TODO: this method indirectly invokes skill:use method, which shouldn't be the case
 			WorldObject performerFacade = createFacade(performer, performer, target, world);
 			WorldObject targetFacade = createFacade(target, performer, target, world);
 			return (target.hasIntelligence() && (targetFacade.getProperty(Constants.RELATIONSHIPS).getValue(performerFacade) > 100) && !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, targetFacade));

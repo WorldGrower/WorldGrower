@@ -35,6 +35,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.goal.ChildrenPropertyUtils;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
+import org.worldgrower.personality.PersonalityTrait;
 import org.worldgrower.profession.Professions;
 
 public class BackgroundImpl implements Background, Serializable {
@@ -56,9 +57,10 @@ public class BackgroundImpl implements Background, Serializable {
 		}
 		
 		if (isHarmed(performer)) {
+			boolean isCourageous = performer.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.COURAGEOUS) > 100;
 			if (performer.getProperty(Constants.WISDOM) > performer.getProperty(Constants.STRENGTH)) {
 				return new ProfessionExplanation(Professions.PRIEST_PROFESSION, "I wanted to be able to heal myself");
-			} else {
+			} else if (isCourageous) {
 				return new ProfessionExplanation(Professions.SHERIFF_PROFESSION, "I wanted to be able to protect myself");
 			}
 		}
