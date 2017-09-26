@@ -54,6 +54,10 @@ public class CreatureGenerator implements Serializable {
 		creatures.add(generateSlime(0, 0, 0));
 		creatures.add(generateMinotaur(0, 0, 0));
 		
+		GhostImageIds ghostImageIds = new GhostImageIds();
+		ghostImageIds.addGhostImageId(ImageIds.KNIGHT, ImageIds.KNIGHT_GHOST);
+		creatures.add(generateGhost(0, 0, 0, 0, ghostImageIds, ImageIds.KNIGHT, "character"));
+		
 		creatures = creatures.stream().filter(w -> w.getProperty(Constants.WIDTH) == width && w.getProperty(Constants.HEIGHT) == height).collect(Collectors.toList());
 		
 		return creatures;

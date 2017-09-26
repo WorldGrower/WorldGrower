@@ -42,13 +42,13 @@ import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.BerryBushOnTurn;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.CottonPlantOnTurn;
+import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.generator.GrapeVineOnTurn;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.ItemType;
 import org.worldgrower.generator.NightShadeOnTurn;
 import org.worldgrower.generator.TreeOnTurn;
 import org.worldgrower.gui.ImageInfoReader;
-import org.worldgrower.terrain.Terrain;
 import org.worldgrower.terrain.TerrainType;
 import org.worldgrower.text.ConversationDescription;
 import org.worldgrower.text.TextId;
@@ -72,6 +72,7 @@ public class DocumentationGenerator {
 		generateResourcesOverview(outputDir, imageInfoReader);
 		generateCursesOverview(outputDir, imageInfoReader);
 		generateTerrainOverview(outputDir, imageInfoReader);
+		generateCreaturesOverview(outputDir, imageInfoReader);
 	}
 
 	private static void generateMagicSpellOverview(File outputDir, ImageInfoReader imageInfoReader) {
@@ -367,11 +368,39 @@ public class DocumentationGenerator {
 		createHtmlFile(title, description, outputFile, imageInfoReader, headerFields, tableValues);
 	}
 	
+	private static void generateCreaturesOverview(File outputDir, ImageInfoReader imageInfoReader) {
+		String title = "WorldGrower:Creatures";
+		String description = "Creatures are intelligent beings besides other people that exist in the world.";
+		File outputFile = new File(outputDir, "gen_creatures.html");
+		List<String> headerFields = Arrays.asList("Image", "Name", "Hit points", "Damage", "Armor");
+		List<List<String>> tableValues = new ArrayList<List<String>>();
+		CreatureGenerator creatureGenerator = new CreatureGenerator(createOrganization());
+		for(WorldObject creature : creatureGenerator.getCreatures(1, 1)) {
+			List<String> tableRow = new ArrayList<>();
+			String filename = "gen_" + creature.getProperty(Constants.NAME) + ".png";
+			saveImage(creature.getProperty(Constants.IMAGE_ID), imageInfoReader, new File(outputDir, filename));
+
+			tableRow.add(imageTag(filename, creature.getProperty(Constants.NAME)));
+			tableRow.add(creature.getProperty(Constants.NAME));
+			tableRow.add(creature.getProperty(Constants.HIT_POINTS).toString());
+			tableRow.add(creature.getProperty(Constants.DAMAGE).toString());
+			tableRow.add(creature.getProperty(Constants.ARMOR).toString());
+			
+			tableValues.add(tableRow);
+		}
+		createHtmlFile(title, description, outputFile, imageInfoReader, headerFields, tableValues);
+	}
+	
 	public static WorldObject createBuildingOwner() {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.NAME, "character");
-		WorldObject buildingOwner = new WorldObjectImpl(properties);
-		return buildingOwner;
+		return new WorldObjectImpl(properties);
+	}
+	
+	public static WorldObject createOrganization() {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.ID, 7);
+		return new WorldObjectImpl(properties);
 	}
 
 	private static String getPropertyValue(Item item, IntProperty property) {
