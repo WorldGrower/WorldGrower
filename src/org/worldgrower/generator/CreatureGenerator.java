@@ -54,6 +54,10 @@ public class CreatureGenerator implements Serializable {
 		creatures.add(generateSlime(0, 0, 0));
 		creatures.add(generateMinotaur(0, 0, 0));
 		
+		WorldObject performer = createCharacter();
+		creatures.add(generateSkeleton(0, 0, performer, 0));
+		creatures.add(generateAnimatedSuitOfArmor(0, 0, performer, 0));
+		
 		GhostImageIds ghostImageIds = new GhostImageIds();
 		ghostImageIds.addGhostImageId(ImageIds.KNIGHT, ImageIds.KNIGHT_GHOST);
 		creatures.add(generateGhost(0, 0, 0, 0, ghostImageIds, ImageIds.KNIGHT, "character"));
@@ -61,6 +65,13 @@ public class CreatureGenerator implements Serializable {
 		creatures = creatures.stream().filter(w -> w.getProperty(Constants.WIDTH) == width && w.getProperty(Constants.HEIGHT) == height).collect(Collectors.toList());
 		
 		return creatures;
+	}
+
+	private WorldObject createCharacter() {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, "character");
+		WorldObject performer = new WorldObjectImpl(properties);
+		return performer;
 	}
 
 	public int generateRat(int x, int y, World world) {
@@ -271,11 +282,9 @@ public class CreatureGenerator implements Serializable {
 	}
 	
 	public static int generateGhost(int x, int y, World world, int remainsId, GhostImageIds ghostImageIds, ImageIds originalImageId, String originalName) {
-		
 		int id = world.generateUniqueId();
 		WorldObject ghost = generateGhost(x, y, id, remainsId, ghostImageIds, originalImageId, originalName);
 		world.addWorldObject(ghost);
-		
 		return id;
 	}
 	
@@ -320,9 +329,14 @@ public class CreatureGenerator implements Serializable {
 	}
 	
 	public int generateSkeleton(int x, int y, World world, WorldObject performer) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
-		
+		WorldObject skeleton = generateSkeleton(x, y, performer, id);
+		world.addWorldObject(skeleton);
+		return id;
+	}
+
+	private WorldObject generateSkeleton(int x, int y, WorldObject performer, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
@@ -356,17 +370,20 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.DAMAGE_RESIST, 10);
 		
 		WorldObject skeleton = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new SkeletonOnTurn(), new SkeletonWorldEvaluationFunction());
-		world.addWorldObject(skeleton);
+		return skeleton;
+	}
+	
+	public int generateFish(int x, int y, World world) {		
+		int id = world.generateUniqueId();
+		WorldObject fish = generateFish(x, y, id);
+		world.addWorldObject(fish);
 		
 		return id;
 	}
-	
-	public int generateFish(int x, int y, World world) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-		int id = world.generateUniqueId();
-		
+
+	private WorldObject generateFish(int x, int y, int id) {
 		final String gender = generateGender();
-		
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
@@ -394,16 +411,19 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.DAMAGE, 2 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
-		WorldObject fish = new WorldObjectImpl(properties, new FishOnTurn(this::generateFish));
-		world.addWorldObject(fish);
-		
-		return id;
+		return new WorldObjectImpl(properties, new FishOnTurn(this::generateFish));
 	}
 	
 	public int generateCow(int x, int y, World world) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-		int id = world.generateUniqueId();
 		
+		int id = world.generateUniqueId();
+		WorldObject cow = generateCow(x, y, id);
+		world.addWorldObject(cow);
+		
+		return id;
+	}
+
+	private WorldObject generateCow(int x, int y, int id) {
 		final ImageIds imageId;
 		final String gender;
 		if (random.nextFloat() > 0.5f) {
@@ -413,7 +433,7 @@ public class CreatureGenerator implements Serializable {
 			gender = "male";
 			imageId = ImageIds.BULL;
 		}
-		
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
@@ -444,16 +464,18 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.DAMAGE, 2 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
-		WorldObject cow = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new CowOnTurn(this::generateCow), new CowWorldEvaluationFunction());
-		world.addWorldObject(cow);
-		
-		return id;
+		return new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new CowOnTurn(this::generateCow), new CowWorldEvaluationFunction());
 	}
 	
 	public int generateAnimatedSuitOfArmor(int x, int y, World world, WorldObject performer) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
-		
+		WorldObject construct = generateAnimatedSuitOfArmor(x, y, performer, id);
+		world.addWorldObject(construct);		
+		return id;
+	}
+
+	private WorldObject generateAnimatedSuitOfArmor(int x, int y, WorldObject performer, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
@@ -481,9 +503,14 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.DAMAGE, 2 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
-		WorldObject construct = new WorldObjectImpl(properties, new ConstructOnTurn());
-		world.addWorldObject(construct);
+		return new WorldObjectImpl(properties, new ConstructOnTurn());
+	}
+	
+	public List<WorldObject> getNonCombatCreatures() {
+		List<WorldObject> creatures = new ArrayList<>();
+		creatures.add(generateFish(0, 0, 0));
+		creatures.add(generateCow(0, 0, 0));
 		
-		return id;
+		return creatures;
 	}
 }

@@ -388,6 +388,20 @@ public class DocumentationGenerator {
 			
 			tableValues.add(tableRow);
 		}
+		for(WorldObject creature : creatureGenerator.getNonCombatCreatures()) {
+			List<String> tableRow = new ArrayList<>();
+			String filename = "gen_" + creature.getProperty(Constants.NAME) + ".png";
+			saveImage(creature.getProperty(Constants.IMAGE_ID), imageInfoReader, new File(outputDir, filename));
+
+			tableRow.add(imageTag(filename, creature.getProperty(Constants.NAME)));
+			tableRow.add(creature.getProperty(Constants.NAME));
+			tableRow.add(creature.getProperty(Constants.HIT_POINTS).toString());
+			tableRow.add("N/A");
+			tableRow.add("N/A");
+			
+			tableValues.add(tableRow);
+		}
+		
 		createHtmlFile(title, description, outputFile, imageInfoReader, headerFields, tableValues);
 	}
 	
