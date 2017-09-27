@@ -255,7 +255,7 @@ public class PlantGenerator {
 		properties.put(Constants.HIT_POINTS, 15 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 15 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.NAME, "DemonTree");
-		properties.put(Constants.ID, world.generateUniqueId());
+		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.TREE);
 		properties.put(Constants.ENERGY, 1000);
 		properties.put(Constants.GROUP, new IdList().add(organization));

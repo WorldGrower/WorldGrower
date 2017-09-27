@@ -192,6 +192,7 @@ import org.worldgrower.generator.UTestGhostOnTurn;
 import org.worldgrower.generator.UTestIllusionOnTurn;
 import org.worldgrower.generator.UTestItem;
 import org.worldgrower.generator.UTestNightShadeOnTurn;
+import org.worldgrower.generator.UTestPlantGenerator;
 import org.worldgrower.generator.UTestPlantOnTurn;
 import org.worldgrower.generator.UTestRemainsOnTurn;
 import org.worldgrower.generator.UTestSkeletonEvaluationFunction;
@@ -864,7 +865,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestBuildingList.class,
 	UTestRebellionPropertyUtils.class,
 	UTestRemainsOnTurn.class,
-	UTestGhostOnTurn.class
+	UTestGhostOnTurn.class,
+	UTestPlantGenerator.class
 })
 public class CompleteTestSuite {
 }
