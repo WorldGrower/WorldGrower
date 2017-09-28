@@ -24,12 +24,14 @@ import org.worldgrower.gui.ImageIds;
 
 public class WerewolfUtils {
 
+	private static final ImageIds WEREWOLF_IMAGE_ID = ImageIds.WEREWOLF;
+
 	public static void makePersonIntoWerewolf(WorldObject worldObject, World world) {
 		worldObject.setProperty(Constants.CREATURE_TYPE, CreatureType.WEREWOLF_CREATURE_TYPE);
 		worldObject.setProperty(Constants.CURSE, Curse.WEREWOLF_CURSE);
 
 		GroupPropertyUtils.throwPerformerOutOfAllGroups(worldObject, world);
-		worldObject.setProperty(Constants.IMAGE_ID, ImageIds.WEREWOLF);
+		worldObject.setProperty(Constants.IMAGE_ID, WEREWOLF_IMAGE_ID);
 		
 		world.getWorldStateChangedListeners().fireCreatureTypeChanged(worldObject, CreatureType.WEREWOLF_CREATURE_TYPE, "Your teeth and nails grow, you are covered in fur, you must have become a werewolf");
 	}
@@ -40,5 +42,9 @@ public class WerewolfUtils {
 	
 	public static int getWerewolfCount(World world) {
 		return world.findWorldObjects(w -> w.hasProperty(Constants.CURSE) && w.getProperty(Constants.CURSE) == Curse.WEREWOLF_CURSE).size();
+	}
+	
+	public static ImageIds getImageId() {
+		return WEREWOLF_IMAGE_ID;
 	}
 }

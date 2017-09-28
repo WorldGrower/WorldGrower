@@ -35,6 +35,8 @@ import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.LichUtils;
+import org.worldgrower.condition.WerewolfUtils;
 import org.worldgrower.conversation.ConversationCategory;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.curse.Curse;
@@ -48,6 +50,7 @@ import org.worldgrower.generator.Item;
 import org.worldgrower.generator.ItemType;
 import org.worldgrower.generator.NightShadeOnTurn;
 import org.worldgrower.generator.TreeOnTurn;
+import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.terrain.TerrainType;
 import org.worldgrower.text.ConversationDescription;
@@ -370,7 +373,7 @@ public class DocumentationGenerator {
 	
 	private static void generateCreaturesOverview(File outputDir, ImageInfoReader imageInfoReader) {
 		String title = "WorldGrower:Creatures";
-		String description = "Creatures are intelligent beings besides other people that exist in the world.";
+		String description = "Creatures are intelligent beings besides other people that exist in the world. <br> Vampires and ghouls aren't listed here because they have the same appearance and stats as regular people, only their behaviour is changed.";
 		File outputFile = new File(outputDir, "gen_creatures.html");
 		List<String> headerFields = Arrays.asList("Image", "Name", "Hit points", "Damage", "Armor");
 		List<List<String>> tableValues = new ArrayList<List<String>>();
@@ -402,7 +405,24 @@ public class DocumentationGenerator {
 			tableValues.add(tableRow);
 		}
 		
+		addRow(outputDir, imageInfoReader, tableValues, "Werewolf", WerewolfUtils.getImageId());
+		addRow(outputDir, imageInfoReader, tableValues, "Lich", LichUtils.getImageId());
+		
 		createHtmlFile(title, description, outputFile, imageInfoReader, headerFields, tableValues);
+	}
+
+	private static void addRow(File outputDir, ImageInfoReader imageInfoReader, List<List<String>> tableValues, String name, ImageIds imageId) {
+		List<String> tableRow = new ArrayList<>();
+		String filename = "gen_" + name + ".png";
+		saveImage(imageId, imageInfoReader, new File(outputDir, filename));
+
+		tableRow.add(imageTag(filename, name));
+		tableRow.add(name);
+		tableRow.add("same as character");
+		tableRow.add("same as character");
+		tableRow.add("same as character");
+		
+		tableValues.add(tableRow);
 	}
 	
 	public static WorldObject createBuildingOwner() {

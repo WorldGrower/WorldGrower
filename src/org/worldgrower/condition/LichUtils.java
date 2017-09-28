@@ -22,8 +22,10 @@ import org.worldgrower.gui.ImageIds;
 
 public class LichUtils {
 
+	private static final ImageIds LICH_IMAGE_ID = ImageIds.LICH;
+
 	public static void lichifyPerson(WorldObject worldObject, WorldStateChangedListeners creatureTypeChangedListeners) {
-		worldObject.setProperty(Constants.IMAGE_ID, ImageIds.LICH);
+		worldObject.setProperty(Constants.IMAGE_ID, LICH_IMAGE_ID);
 		worldObject.setProperty(Constants.CREATURE_TYPE, CreatureType.LICH_CREATURE_TYPE);
 		worldObject.setProperty(Constants.CURSE, Curse.LICH_CURSE);
 		
@@ -32,5 +34,9 @@ public class LichUtils {
 	
 	public static boolean isLich(WorldObject performer) {
 		return performer.getProperty(Constants.CURSE) == Curse.LICH_CURSE;
+	}
+	
+	public static ImageIds getImageId() {
+		return LICH_IMAGE_ID;
 	}
 }
