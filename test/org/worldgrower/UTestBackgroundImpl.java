@@ -24,11 +24,14 @@ import org.junit.Test;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.Background;
 import org.worldgrower.attribute.BackgroundImpl;
+import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.ProfessionExplanation;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.goal.RevengeGoal;
 import org.worldgrower.history.Turn;
+import org.worldgrower.personality.Personality;
+import org.worldgrower.personality.PersonalityTrait;
 import org.worldgrower.profession.Professions;
 
 public class UTestBackgroundImpl {
@@ -89,12 +92,40 @@ public class UTestBackgroundImpl {
 	public void testChooseProfessionDeadParent() {
 		Background background = new BackgroundImpl();
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = createWorldObject(0, "Tom");
+		WorldObject performer = createWorldObject(0, "Test");
 		world.addWorldObject(performer);
 
 		ProfessionExplanation professionExplanation = background.chooseProfession(performer, world);
 		assertEquals(Professions.GRAVE_DIGGER_PROFESSION, professionExplanation.getProfession());
 		assertEquals("one of my parents died", professionExplanation.getExplanation());
+	}
+	
+	@Test
+	public void testChooseProfessionHarmed() {
+		Background background = new BackgroundImpl();
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(0, Constants.PERSONALITY, new Personality());
+		performer.setProperty(Constants.CHILDREN, new IdList());
+		world.addWorldObject(performer);
+		
+		performer.setProperty(Constants.HIT_POINTS, 9);
+		performer.setProperty(Constants.HIT_POINTS_MAX, 10);
+		
+		performer.setProperty(Constants.WISDOM, 20);
+		
+		world.addWorldObject(TestUtils.createSkilledWorldObject(1, Constants.CHILDREN, new IdList().add(0)));
+		world.addWorldObject(TestUtils.createSkilledWorldObject(2, Constants.CHILDREN, new IdList().add(0)));
+	
+		ProfessionExplanation professionExplanation = background.chooseProfession(performer, world);
+		assertEquals(Professions.PRIEST_PROFESSION, professionExplanation.getProfession());
+		assertEquals("I wanted to be able to heal myself", professionExplanation.getExplanation());
+		
+		performer.setProperty(Constants.WISDOM, 0);
+		performer.getProperty(Constants.PERSONALITY).changeValue(PersonalityTrait.COURAGEOUS, 1000, "");
+		
+		professionExplanation = background.chooseProfession(performer, world);
+		assertEquals(Professions.SHERIFF_PROFESSION, professionExplanation.getProfession());
+		assertEquals("I wanted to be able to protect myself", professionExplanation.getExplanation());
 	}
 	
 	@Test
