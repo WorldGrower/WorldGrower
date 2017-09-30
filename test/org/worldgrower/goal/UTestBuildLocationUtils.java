@@ -28,7 +28,9 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.BuildingList;
 import org.worldgrower.attribute.BuildingType;
+import org.worldgrower.attribute.IdList;
 import org.worldgrower.generator.BuildingDimensions;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.terrain.TerrainResource;
 import org.worldgrower.terrain.TerrainType;
 
@@ -92,16 +94,16 @@ public class UTestBuildLocationUtils {
 	@Test
 	public void testFindOpenLocationAwayFromExistingProperty() {
 		World world = new WorldImpl(15, 15, null, null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.BUILDINGS, new BuildingList().add(3, BuildingType.HOUSE));
+		int houseId = BuildingGenerator.generateHouse(3, 3, world, TestUtils.createSkilledWorldObject(77));
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.BUILDINGS, new BuildingList().add(houseId, BuildingType.HOUSE));
+		performer.setProperty(Constants.GROUP, new IdList().add(1));
 		performer.setProperty(Constants.X, 4);
 		performer.setProperty(Constants.Y, 4);
-		
-		WorldObject house = TestUtils.createWorldObject(3, 3, 1, 1, Constants.ID, 3);
-		world.addWorldObject(house);
+		world.addWorldObject(performer);
 		
 		WorldObject location = BuildLocationUtils.findOpenLocationAwayFromExistingProperty(performer, 3, 3, world);
 		assertEquals(4, location.getProperty(Constants.X).intValue());
-		assertEquals(4, location.getProperty(Constants.Y).intValue());
+		assertEquals(6, location.getProperty(Constants.Y).intValue());
 	}
 	
 	@Test
