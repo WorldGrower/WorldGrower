@@ -508,13 +508,13 @@ public class CharacterCustomizationScreen extends JFrame {
 		attributePoints++;
 		attributeLabel.setText(Integer.toString(attributePoints));
 		
-		handleMinMaxValues();
-		
 		if (attributePoints > 0) {
 			for(JButton plusButton : plusButtons) {
 				plusButton.setEnabled(true);
 			}
 		}
+		
+		handleMinMaxValues();
 	}
 	
 	private List<String> validateInput() {
