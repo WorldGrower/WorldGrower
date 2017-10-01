@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.history;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,7 +37,7 @@ public class HistoryImpl implements History, Serializable {
 	private final Map<Integer, HistoryItemsForTarget> historyItemsByPerformer = new HashMap<>();
 	private final Map<ManagedOperation, List<HistoryItem>> historyItemsByOperations = new HashMap<>();
 	
-	private final Map<Integer, OperationInfo> lastPerformedOperationMap = new HashMap<>();
+	private final Int2ObjectOpenHashMap<OperationInfo> lastPerformedOperationMap = new Int2ObjectOpenHashMap<>();
 	private Object currentAdditionalValue = null;
 	
 	private final HistoryWorldObjects historyWorldObjects = new HistoryWorldObjects();

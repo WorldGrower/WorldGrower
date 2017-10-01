@@ -69,7 +69,12 @@ public class UTestHistoryImpl {
 	
 	@Test
 	public void testGetLastPerformedOperation() {
+		History history = new HistoryImpl();
+		history.actionPerformed(new OperationInfo(performer, target, Args.EMPTY, Actions.MELEE_ATTACK_ACTION), new Turn());
 		assertEquals(Actions.MELEE_ATTACK_ACTION, history.getLastPerformedOperation(performer).getManagedOperation());
+		
+		history.actionPerformed(new OperationInfo(performer, target, Args.EMPTY, Actions.TALK_ACTION), new Turn());
+		assertEquals(Actions.TALK_ACTION, history.getLastPerformedOperation(performer).getManagedOperation());
 	}
 
 	@Test
