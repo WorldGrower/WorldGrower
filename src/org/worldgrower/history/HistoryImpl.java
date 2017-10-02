@@ -34,7 +34,7 @@ public class HistoryImpl implements History, Serializable {
 
 	private final List<HistoryItem> historyItems = new ArrayList<>();
 	
-	private final Map<Integer, HistoryItemsForTarget> historyItemsByPerformer = new HashMap<>();
+	private final Int2ObjectOpenHashMap<HistoryItemsForTarget> historyItemsByPerformer = new Int2ObjectOpenHashMap<>();
 	private final Map<ManagedOperation, List<HistoryItem>> historyItemsByOperations = new HashMap<>();
 	
 	private final Int2ObjectOpenHashMap<OperationInfo> lastPerformedOperationMap = new Int2ObjectOpenHashMap<>();
@@ -66,7 +66,7 @@ public class HistoryImpl implements History, Serializable {
 	}
 
 	private void addAsLastPerformedOperation(OperationInfo operationInfo) {
-		Integer performerId = operationInfo.getPerformer().getProperty(Constants.ID);
+		int performerId = operationInfo.getPerformer().getProperty(Constants.ID).intValue();
 		lastPerformedOperationMap.put(performerId, operationInfo);
 	}
 
@@ -75,7 +75,7 @@ public class HistoryImpl implements History, Serializable {
 
 		historyItems.add(historyItem);
 		
-		Integer performerId = historyItem.getPerformerId();
+		int performerId = historyItem.getPerformerId();
 		HistoryItemsForTarget historyItemsForTarget = historyItemsByPerformer.get(performerId);
 		if (historyItemsForTarget == null) {
 			historyItemsForTarget = new HistoryItemsForTarget();
@@ -114,11 +114,10 @@ public class HistoryImpl implements History, Serializable {
 	@Override
 	public List<HistoryItem> findHistoryItems(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation) {
 		
-		Integer performerId = performer.getProperty(Constants.ID);
+		int performerId = performer.getProperty(Constants.ID).intValue();
 		HistoryItemsForTarget historyItemsForTarget = historyItemsByPerformer.get(performerId);
 		if (historyItemsForTarget != null) {
-			List<HistoryItem> foundItems = historyItemsForTarget.findHistoryItems(performer, target, args, managedOperation);
-			return foundItems;			
+			return historyItemsForTarget.findHistoryItems(performer, target, args, managedOperation);		
 		} else {
 			return new ArrayList<>();
 		}
@@ -126,11 +125,10 @@ public class HistoryImpl implements History, Serializable {
 	
 	@Override
 	public List<HistoryItem> findHistoryItemsForAnyPerformer(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation) {
-		Integer performerId = performer.getProperty(Constants.ID);
+		int performerId = performer.getProperty(Constants.ID).intValue();
 		HistoryItemsForTarget historyItemsForTarget = historyItemsByPerformer.get(performerId);
 		if (historyItemsForTarget != null) {
-			List<HistoryItem> foundItems = historyItemsForTarget.findHistoryItemsForAnyPerformer(performer, target, args, managedOperation);
-			return foundItems;			
+			return historyItemsForTarget.findHistoryItemsForAnyPerformer(performer, target, args, managedOperation);		
 		} else {
 			return new ArrayList<>();
 		}
@@ -144,7 +142,7 @@ public class HistoryImpl implements History, Serializable {
 	
 	@Override
 	public OperationInfo getLastPerformedOperation(WorldObject worldObject) {
-		return lastPerformedOperationMap.get(worldObject.getProperty(Constants.ID));
+		return lastPerformedOperationMap.get(worldObject.getProperty(Constants.ID).intValue());
 	}
 	
 	@Override
@@ -168,11 +166,11 @@ public class HistoryImpl implements History, Serializable {
 	}
 	
 	private static class HistoryItemsForTarget implements Serializable {
-		private final Map<Integer, HistoryItemsForAction> historyItemsByTarget = new HashMap<>();
+		private final Int2ObjectOpenHashMap<HistoryItemsForAction> historyItemsByTarget = new Int2ObjectOpenHashMap<>();
 		
 		public void addHistoryItem(HistoryItem historyItem) {
 				
-			Integer targetId = historyItem.getTargetId();
+			int targetId = historyItem.getTargetId();
 			HistoryItemsForAction historyItemsByTargetList = historyItemsByTarget.get(targetId);
 			if (historyItemsByTargetList == null) {
 				historyItemsByTargetList = new HistoryItemsForAction();
@@ -184,8 +182,7 @@ public class HistoryImpl implements History, Serializable {
 		public List<HistoryItem> findHistoryItemsForAnyPerformer(WorldObject performer, WorldObject target, int[] args, ManagedOperation action) {
 			HistoryItemsForAction historyItemsByTargetList = getHistoryItemsByTargetList(target);
 			if (historyItemsByTargetList != null) {
-				List<HistoryItem> foundItems = historyItemsByTargetList.findHistoryItemsForAnyPerformer(performer, target, args, action);
-				return foundItems;			
+				return historyItemsByTargetList.findHistoryItemsForAnyPerformer(performer, target, args, action);		
 			} else {
 				return new ArrayList<>();
 			}
@@ -194,8 +191,7 @@ public class HistoryImpl implements History, Serializable {
 		public List<HistoryItem> findHistoryItems(WorldObject performer, WorldObject target, int[] args, ManagedOperation action) {
 			HistoryItemsForAction historyItemsByTargetList = getHistoryItemsByTargetList(target);
 			if (historyItemsByTargetList != null) {
-				List<HistoryItem> foundItems = historyItemsByTargetList.findHistoryItems(performer, target, args, action);
-				return foundItems;			
+				return historyItemsByTargetList.findHistoryItems(performer, target, args, action);		
 			} else {
 				return new ArrayList<>();
 			}
@@ -204,17 +200,15 @@ public class HistoryImpl implements History, Serializable {
 		public List<HistoryItem> findHistoryItems(WorldObject performer, WorldObject target, ManagedOperation action) {
 			HistoryItemsForAction historyItemsByTargetList = getHistoryItemsByTargetList(target);
 			if (historyItemsByTargetList != null) {
-				List<HistoryItem> foundItems = historyItemsByTargetList.findHistoryItems(performer, target, action);
-				return foundItems;			
+				return historyItemsByTargetList.findHistoryItems(performer, target, action);		
 			} else {
 				return new ArrayList<>();
 			}
 		}
 
 		private HistoryItemsForAction getHistoryItemsByTargetList(WorldObject target) {
-			Integer targetId = target.getProperty(Constants.ID);
-			HistoryItemsForAction historyItemsByTargetList = historyItemsByTarget.get(targetId);
-			return historyItemsByTargetList;
+			int targetId = target.getProperty(Constants.ID);
+			return historyItemsByTarget.get(targetId);
 		}
 	}
 	
@@ -238,8 +232,7 @@ public class HistoryImpl implements History, Serializable {
 			
 			List<HistoryItem> historyItemsByTargetList = getHistoryItemsByActionList(action);
 			if (historyItemsByTargetList != null) {
-				List<HistoryItem> foundItems = historyItemsByTargetList.stream().filter(h -> h.isEqualUsingFacade(performerId, targetId, args, action)).collect(Collectors.toList());
-				return foundItems;			
+				return historyItemsByTargetList.stream().filter(h -> h.isEqualUsingFacade(performerId, targetId, args, action)).collect(Collectors.toList());		
 			} else {
 				return new ArrayList<>();
 			}
@@ -250,8 +243,7 @@ public class HistoryImpl implements History, Serializable {
 			
 			List<HistoryItem> historyItemsByTargetList = getHistoryItemsByActionList(action);
 			if (historyItemsByTargetList != null) {
-				List<HistoryItem> foundItems = historyItemsByTargetList.stream().filter(h -> h.isEqual(searchHistoryItem)).collect(Collectors.toList());
-				return foundItems;			
+				return historyItemsByTargetList.stream().filter(h -> h.isEqual(searchHistoryItem)).collect(Collectors.toList());	
 			} else {
 				return new ArrayList<>();
 			}
@@ -262,33 +254,29 @@ public class HistoryImpl implements History, Serializable {
 			int targetId = target.getProperty(Constants.ID).intValue();
 			List<HistoryItem> historyItemsByTargetList = getHistoryItemsByActionList(action);
 			if (historyItemsByTargetList != null) {
-				List<HistoryItem> foundItems = historyItemsByTargetList.stream().filter(h -> h.matches(performerId, targetId, action)).collect(Collectors.toList());
-				return foundItems;			
+				return historyItemsByTargetList.stream().filter(h -> h.matches(performerId, targetId, action)).collect(Collectors.toList());		
 			} else {
 				return new ArrayList<>();
 			}
 		}
 
 		private List<HistoryItem> getHistoryItemsByActionList(ManagedOperation action) {
-			List<HistoryItem> historyItemsByTargetList = historyItemsByAction.get(action);
-			return historyItemsByTargetList;
+			return historyItemsByAction.get(action);
 		}
 	}
 
 	@Override
 	public List<HistoryItem> findHistoryItems(WorldObject performer, ManagedOperation managedOperation) {
 		List<HistoryItem> historyItems = findHistoryItems(managedOperation);
-		historyItems = historyItems.stream().filter(h -> h.getPerformerId() == performer.getProperty(Constants.ID)).collect(Collectors.toList());
-		return historyItems;
+		return historyItems.stream().filter(h -> h.getPerformerId() == performer.getProperty(Constants.ID)).collect(Collectors.toList());
 	}
 
 	@Override
 	public List<HistoryItem> findHistoryItems(WorldObject performer,WorldObject target, ManagedOperation managedOperation) {
-		Integer performerId = performer.getProperty(Constants.ID);
+		int performerId = performer.getProperty(Constants.ID).intValue();
 		HistoryItemsForTarget historyItemsForTarget = historyItemsByPerformer.get(performerId);
 		if (historyItemsForTarget != null) {
-			List<HistoryItem> foundItems = historyItemsForTarget.findHistoryItems(performer, target, managedOperation);
-			return foundItems;			
+			return historyItemsForTarget.findHistoryItems(performer, target, managedOperation);	
 		} else {
 			return new ArrayList<>();
 		}		
