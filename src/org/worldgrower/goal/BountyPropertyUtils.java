@@ -23,8 +23,7 @@ public class BountyPropertyUtils {
 
 	public static int getBounty(WorldObject target, World world) {
 		IdMap bountyMap = GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.BOUNTY);
-		int bounty = bountyMap.getValue(target);
-		return bounty;
+		return bountyMap.getValue(target);
 	}
 	
 	public static boolean canForgiveBounty(WorldObject performer) {
