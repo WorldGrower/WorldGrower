@@ -22,8 +22,10 @@ import java.util.List;
 import java.util.Set;
 
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.IdMap;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
+import org.worldgrower.goal.GroupPropertyUtils;
 
 /**
  * The DungeonMaster class is responsible for executing actions, making sure they can be executed and making npc's
@@ -164,11 +166,18 @@ public class DungeonMaster implements Serializable {
 				boolean isValidTarget = lastTask.isValidTarget(world);
 				boolean isActionPossible = lastTask.isActionPossible(worldObject, world);
 				boolean canWorldObjectPerformAction = worldObject.canWorldObjectPerformAction(lastTask.getManagedOperation());
-				throw new IllegalStateException("WorldObject " + worldObject + " works towards task " + lastTask.getManagedOperation() + " which cannot be performed on target " + lastTask.getTarget() + " with args " + Arrays.toString(lastTask.getArgs()) + " for old goal " + metaInformation.getFinalGoal() + " isValidTarget = " + isValidTarget + " isActionPossible = " + isActionPossible + " canWorldObjectPerformAction=" + canWorldObjectPerformAction);
+				String villagersOrganizationString = getVillagersOrganizationString(world);
+				throw new IllegalStateException("Operation fails:\nperformer: " + worldObject + "\naction: " + lastTask.getManagedOperation() + "\ntarget: " + lastTask.getTarget() + "\nargs: " + Arrays.toString(lastTask.getArgs()) + "\nold goal: " + metaInformation.getFinalGoal() + "\nisValidTarget: " + isValidTarget + "\nisActionPossible: " + isActionPossible + "\ncanWorldObjectPerformAction: " + canWorldObjectPerformAction + "\nvillagersOrganization=" + villagersOrganizationString);
 			}
 		}
 		
 		metaInformation.setCurrentTask(tasks, goalChangedReason);
+	}
+
+	private String getVillagersOrganizationString(World world) {
+		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
+		IdMap bountyMap = villagersOrganization.getProperty(Constants.BOUNTY);
+		return "bounty: " + bountyMap.toString();
 	}
 
 	private void recalculateTasks(WorldObject worldObject, World world, MetaInformation metaInformation, GoalChangedReason goalChangedReason) {
