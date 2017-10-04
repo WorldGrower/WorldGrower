@@ -179,10 +179,6 @@ public class OperationInfo implements Serializable {
 		return managedOperation.isActionPossible(performer, target, args, world);
 	}
 
-	public OperationInfo copy() {
-		return new OperationInfo(performer.deepCopy(), target.deepCopy(), args, managedOperation);
-	}
-
 	public boolean firstArgsIs(int i) {
 		return args[0] == i;
 	}

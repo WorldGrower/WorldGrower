@@ -210,15 +210,13 @@ public class WorldObjectImpl implements WorldObject, Serializable {
 	@Override
 	public<T> WorldObject shallowCopy() {
 		WorldObjectProperties copiedProperties = properties.shallowCopy();
-		WorldObjectImpl copyWorldObject = new WorldObjectImpl(copiedProperties, operations, onTurn, worldObjectPriorities, false);
-		return copyWorldObject;
+		return new WorldObjectImpl(copiedProperties, operations, onTurn, worldObjectPriorities, false);
 	}
 	
 	@Override
 	public<T> WorldObject deepCopy() {
 		WorldObjectProperties copiedProperties = properties.deepCopy();
-		WorldObjectImpl copyWorldObject = new WorldObjectImpl(copiedProperties, operations, onTurn, worldObjectPriorities, false);
-		return copyWorldObject;
+		return new WorldObjectImpl(copiedProperties, operations, onTurn, worldObjectPriorities, false);
 	}
 	
 	@Override
