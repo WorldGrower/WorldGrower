@@ -14,10 +14,10 @@
  *******************************************************************************/
 package org.worldgrower;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.Goal;
@@ -29,7 +29,7 @@ import org.worldgrower.goal.Goal;
 public class GoalChangedCalculator {
 
 	private final GoalObstructedHandler goalObstructedHandler;
-	private Map<Integer, List<GoalEvaluation>> targetGoalEvaluations;
+	private Int2ObjectOpenHashMap<List<GoalEvaluation>> targetGoalEvaluations;
 	
 	public GoalChangedCalculator(GoalObstructedHandler goalObstructedHandler) {
 		this.goalObstructedHandler = goalObstructedHandler;
@@ -37,14 +37,14 @@ public class GoalChangedCalculator {
 
 	public void recordStartState(WorldObject performer, WorldObject target, World world) {
 		List<WorldObject> actors = getActors(performer, world);
-		targetGoalEvaluations = new HashMap<>();
+		targetGoalEvaluations = new Int2ObjectOpenHashMap<>();
 		for(WorldObject actor : actors) {
 			List<Goal> targetGoals = actor.getPriorities(world);
 			List<GoalEvaluation> actorGoalEvaluations = new ArrayList<>();
 			for(Goal targetGoal : targetGoals) {
 				actorGoalEvaluations.add(new GoalEvaluation(targetGoal, targetGoal.evaluate(actor, world)));
 			}
-			targetGoalEvaluations.put(actor.getProperty(Constants.ID), actorGoalEvaluations);
+			targetGoalEvaluations.put(actor.getProperty(Constants.ID).intValue(), actorGoalEvaluations);
 		}
 	}
 
@@ -56,7 +56,7 @@ public class GoalChangedCalculator {
 	public void recordEndState(WorldObject performer, WorldObject target, ManagedOperation managedOperation, int[] args, World world) {
 		List<WorldObject> actors = getActors(performer, world);
 		for(WorldObject actor : actors) {
-			List<GoalEvaluation> targetGoalEval = targetGoalEvaluations.get(actor.getProperty(Constants.ID));
+			List<GoalEvaluation> targetGoalEval = targetGoalEvaluations.get(actor.getProperty(Constants.ID).intValue());
 			
 			// targetGoalEval can be null in case of a newly created WorldObject
 			if (targetGoalEval != null) {
