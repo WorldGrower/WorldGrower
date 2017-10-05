@@ -71,6 +71,15 @@ public class UTestWorldObjectProperties {
 	}
 	
 	@Test
+	public void testToString() {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, "Test");
+		WorldObjectProperties worldObjectProperties = new WorldObjectProperties(properties);
+		
+		assertEquals("NAME=Test, ", worldObjectProperties.toString());
+	}
+	
+	@Test
 	public void testEntrySet() {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.NAME, "Test");
@@ -79,7 +88,30 @@ public class UTestWorldObjectProperties {
 		List<Entry<ManagedProperty<?>, Object>> entrySet = worldObjectProperties.entrySet();
 		assertEquals(1, entrySet.size());
 		assertEquals(Constants.NAME, entrySet.get(0).getKey());
-		assertEquals("Test", entrySet.get(0).getValue());
+		assertEquals("Test", entrySet.get(0).getValue());	
+	}
+	
+	@Test
+	public void testShallowCopy() {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		IdList originalGroup = new IdList().add(1);
+		properties.put(Constants.GROUP, originalGroup);
+		WorldObjectProperties worldObjectProperties = new WorldObjectProperties(properties);
+		WorldObjectProperties copyWorldObjectProperties = worldObjectProperties.shallowCopy();
 		
+		copyWorldObjectProperties.get(Constants.GROUP).add(2);
+		assertEquals(2, originalGroup.size());
+	}
+	
+	@Test
+	public void testDeepCopy() {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		IdList originalGroup = new IdList().add(1);
+		properties.put(Constants.GROUP, originalGroup);
+		WorldObjectProperties worldObjectProperties = new WorldObjectProperties(properties);
+		WorldObjectProperties copyWorldObjectProperties = worldObjectProperties.deepCopy();
+		
+		copyWorldObjectProperties.get(Constants.GROUP).add(2);
+		assertEquals(1, originalGroup.size());
 	}
 }

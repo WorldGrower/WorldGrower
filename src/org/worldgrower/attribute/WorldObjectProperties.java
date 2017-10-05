@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class WorldObjectProperties implements Serializable {
+public final class WorldObjectProperties implements Serializable {
 
 	private final WorldObjectProperty[] properties;
 	
@@ -41,7 +41,7 @@ public class WorldObjectProperties implements Serializable {
 	public<T> T get(ManagedProperty<T> propertyKey) {
 		WorldObjectProperty worldObjectProperty = this.properties[propertyKey.getOrdinal()];
 		if (worldObjectProperty != null) {
-			return (T) worldObjectProperty.value;
+			return (T) worldObjectProperty.getValue();
 		} else {
 			return null;
 		}
@@ -50,7 +50,7 @@ public class WorldObjectProperties implements Serializable {
 	public<T> void put(ManagedProperty<T> propertyKey, T value) {
 		WorldObjectProperty worldObjectProperty = this.properties[propertyKey.getOrdinal()];
 		if (worldObjectProperty != null) {
-			worldObjectProperty.value = value;
+			worldObjectProperty.setValue(value);
 		} else {
 			this.properties[propertyKey.getOrdinal()] = new WorldObjectProperty(propertyKey, value);
 		}
@@ -61,10 +61,11 @@ public class WorldObjectProperties implements Serializable {
 	}
 
 	public WorldObjectProperties shallowCopy() {
-		WorldObjectProperty[] copyOfProperties = new WorldObjectProperty[properties.length];
-		for(int i=0; i<properties.length; i++) {
+		int propertiesLength = properties.length;
+		WorldObjectProperty[] copyOfProperties = new WorldObjectProperty[propertiesLength];
+		for(int i=0; i<propertiesLength; i++) {
 			if (properties[i] != null) {
-				copyOfProperties[i] = new WorldObjectProperty(properties[i].managedProperty, properties[i].value);
+				copyOfProperties[i] = new WorldObjectProperty(properties[i]);
 			}
 		}
 		
@@ -72,11 +73,11 @@ public class WorldObjectProperties implements Serializable {
 	}
 	
 	public WorldObjectProperties deepCopy() {
-		WorldObjectProperty[] copyOfProperties = new WorldObjectProperty[properties.length];
-		for(int i=0; i<properties.length; i++) {
+		int propertiesLength = properties.length;
+		WorldObjectProperty[] copyOfProperties = new WorldObjectProperty[propertiesLength];
+		for(int i=0; i<propertiesLength; i++) {
 			if (properties[i] != null) {
-				ManagedProperty<?> managedProperty = properties[i].managedProperty;
-				copyOfProperties[i] = new WorldObjectProperty(managedProperty, managedProperty.copy(properties[i].value));
+				copyOfProperties[i] = properties[i].copy();
 			}
 		}
 		
@@ -87,7 +88,7 @@ public class WorldObjectProperties implements Serializable {
 		List<ManagedProperty<?>> keySet = new ArrayList<>();
 		for(int i=0; i<properties.length; i++) {
 			if (properties[i] != null) {
-				keySet.add(properties[i].managedProperty);
+				keySet.add(properties[i].getManagedProperty());
 			}
 		}
 		return keySet;
@@ -97,7 +98,7 @@ public class WorldObjectProperties implements Serializable {
 		List<Entry<ManagedProperty<?>, Object>> entrySet = new ArrayList<>();
 		for(int i=0; i<properties.length; i++) {
 			if (properties[i] != null) {
-				entrySet.add(new AbstractMap.SimpleEntry(properties[i].managedProperty, properties[i].value));
+				entrySet.add(properties[i].getMapEntry());
 			}
 		}
 		return entrySet;
@@ -108,27 +109,54 @@ public class WorldObjectProperties implements Serializable {
 		StringBuilder result = new StringBuilder();
 		for(int i=0; i<properties.length; i++) {
 			if (properties[i] != null) {
-				result.append(properties[i].managedProperty.getName()).append("=").append(properties[i].value).append(", ");
+				result.append(properties[i].toString()).append(", ");
 			}
 		}
 		return result.toString();
 	}
 
-
+	public<T> void remove(ManagedProperty<T> propertyKey) {
+		this.properties[propertyKey.getOrdinal()] = null;
+	}
 
 	private static class WorldObjectProperty implements Serializable {
+
+		private ManagedProperty<?> managedProperty;
+		private Object value;
+		
+		public WorldObjectProperty(WorldObjectProperty worldObjectProperty) {
+			this.managedProperty = worldObjectProperty.managedProperty;
+			this.value = worldObjectProperty.value;
+		}
+		
 		public WorldObjectProperty(ManagedProperty<?> managedProperty, Object value) {
 			this.managedProperty = managedProperty;
 			this.value = value;
 		}
 		
-		public ManagedProperty<?> managedProperty;
-		public Object value;
-	}
+		public WorldObjectProperty copy() {
+			return new WorldObjectProperty(managedProperty, managedProperty.copy(value));
+		}
 
+		public ManagedProperty<?> getManagedProperty() {
+			return managedProperty;
+		}
+		
+		public Map.Entry<ManagedProperty<?>, Object> getMapEntry() {
+			return new AbstractMap.SimpleEntry<ManagedProperty<?>, Object>(managedProperty, value);
+		}
 
+		public Object getValue() {
+			return value;
+		}
 
-	public<T> void remove(ManagedProperty<T> propertyKey) {
-		this.properties[propertyKey.getOrdinal()] = null;
+		public void setValue(Object value) {
+			this.value = value;
+		}
+
+		@Override
+		public String toString() {
+			return managedProperty.getName() + "=" + value;
+		}
 	}
 }
