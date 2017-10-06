@@ -17,6 +17,7 @@ package org.worldgrower.generator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -198,8 +199,8 @@ public enum Item {
 		this.itemType = itemType;
 	}
 	
-	private final static Map<Item, Function<Double, WorldObject>> ITEMS = new HashMap<>();
-	private final static Map<Item, WorldObject> DEFAULT_WORLD_OBJECTS = new HashMap<>();
+	private final static EnumMap<Item, Function<Double, WorldObject>> ITEMS = new EnumMap<>(Item.class);
+	private final static EnumMap<Item, WorldObject> DEFAULT_WORLD_OBJECTS = new EnumMap<>(Item.class);
 	
 	private static void addItem(Item identifier, Function<Double, WorldObject> function) {
 		ITEMS.put(identifier, function);
