@@ -128,8 +128,8 @@ public class WorldObjectImpl implements WorldObject, Serializable {
 	}
 	
 	@Override
-	public void onTurn(World world, WorldStateChangedListeners creatureTypeChangedListeners) {
-		onTurn.onTurn(this, world, creatureTypeChangedListeners);
+	public void onTurn(World world, WorldStateChangedListeners worldStateChangedListeners) {
+		onTurn.onTurn(this, world, worldStateChangedListeners);
 	}
 	
 	@Override

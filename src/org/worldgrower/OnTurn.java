@@ -23,5 +23,5 @@ import org.worldgrower.condition.WorldStateChangedListeners;
  */
 public interface OnTurn extends Serializable {
 
-	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners);
+	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners worldStateChangedListeners);
 }
