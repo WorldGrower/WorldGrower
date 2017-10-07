@@ -162,12 +162,8 @@ public class WorldObjectImpl implements WorldObject, Serializable {
 				} else {
 					return true;
 				}
-		} else if (operation == Actions.POISON_ATTACK_ACTION) {
-			//TODO
-			return this.getProperty(Constants.NAME).equals("Spider");
-		} else if (operation == Actions.COCOON_ACTION) {
-			//TODO
-			return this.getProperty(Constants.NAME).equals("Spider");
+		} else if (operation == Actions.POISON_ATTACK_ACTION || operation == Actions.COCOON_ACTION) {
+			return isSpider();
 		} else if (operation instanceof MagicSpell) {
 			return MagicSpellUtils.canCast(this, (MagicSpell)operation);
 		} else if (operation == Actions.DO_NOTHING_ACTION) {
@@ -180,6 +176,11 @@ public class WorldObjectImpl implements WorldObject, Serializable {
 				return false;
 			}
 		}
+	}
+
+	//TODO
+	private boolean isSpider() {
+		return this.getProperty(Constants.NAME).equals("Spider");
 	}
 	
 	@Override
