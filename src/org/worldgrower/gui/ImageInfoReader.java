@@ -173,6 +173,9 @@ public class ImageInfoReader implements SmallImageTagFactory {
     	Sprites tileMask = readSpritesTileMask();
     	
     	Sprites tools = readTools();
+    	Sprites chicken = readChicken();
+    	Sprites rooster = readRooster();
+    	Sprites egg = readEgg();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -1010,6 +1013,9 @@ public class ImageInfoReader implements SmallImageTagFactory {
 		createGhostImage(ImageIds.FEMALE_LILA_CHAR_GHOST, ImageIds.FEMALE_LILA_CHAR, ghostImageIds);
 		createGhostImage(ImageIds.FEMALE_CLOVER_CHAR_GHOST, ImageIds.FEMALE_CLOVER_CHAR, ghostImageIds);
 		
+		addCharacter(ImageIds.CHICKEN, chicken, 0, 0, 1, 1);
+		addCharacter(ImageIds.ROOSTER, rooster, 0, 0, 1, 1);
+		add(ImageIds.EGG, egg.getSubImage(1, 3, 1, 1));
     }
     
     private void createGhostImage(ImageIds newImageId, ImageIds imageId, GhostImageIds ghostImageIds) {
@@ -1664,6 +1670,18 @@ public class ImageInfoReader implements SmallImageTagFactory {
     
     private Sprites readSpritesCharactersFemaleClover() throws IOException {
     	return readImages("vx_ace_sprite___clover___free_download_by_rpgmakerworld-d9srcu2.png", 32, 48, 1, 1);
+	}
+    
+    private Sprites readChicken() throws IOException {
+    	return readImages("pine_chicken_edit_female.png", 48, 48, 1, 1);
+	}
+    
+    private Sprites readRooster() throws IOException {
+    	return readImages("pine_chicken_edit_male.png", 48, 48, 1, 1);
+	}
+    
+    private Sprites readEgg() throws IOException {
+    	return readImages("vcoimak.png", 48, 48, 1, 1);
 	}
     
     private Sprites readSpritesTileMask() throws IOException {
