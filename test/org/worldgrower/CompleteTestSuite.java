@@ -184,7 +184,7 @@ import org.worldgrower.generator.UTestBerryBushOnTurn;
 import org.worldgrower.generator.UTestBuildingGenerator;
 import org.worldgrower.generator.UTestCommonerGenerator;
 import org.worldgrower.generator.UTestCommonerOnTurn;
-import org.worldgrower.generator.UTestCowOnTurn;
+import org.worldgrower.generator.UTestCattleOnTurn;
 import org.worldgrower.generator.UTestCreatureGenerator;
 import org.worldgrower.generator.UTestFiretrapOnTurn;
 import org.worldgrower.generator.UTestFishOnTurn;
@@ -408,7 +408,7 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestCollectPayCheckGoal.class,
 	UTestCollectTaxesGoal.class,
 	UTestCommonerOnTurn.class,
-	UTestCowOnTurn.class,
+	UTestCattleOnTurn.class,
 	UTestFishOnTurn.class,
 	UTestVotingOnTurn.class,
 	UTestPlantOnTurn.class,

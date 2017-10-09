@@ -32,14 +32,14 @@ import org.worldgrower.goal.LocationPropertyUtils;
 import org.worldgrower.goal.LocationUtils;
 import org.worldgrower.terrain.TerrainType;
 
-public class CowOnTurn implements OnTurn {
+public class CattleOnTurn implements OnTurn {
 
 	private static final int PREGNANCY_DURATION = 600;
 	private static final int MAX_MEAT_SOURCE = 10;
 	
 	private final AddWorldObjectFunction addWorldObjectFunction;
 	
-	public CowOnTurn(AddWorldObjectFunction addWorldObjectFunction) {
+	public CattleOnTurn(AddWorldObjectFunction addWorldObjectFunction) {
 		this.addWorldObjectFunction = addWorldObjectFunction;
 	}
 	
@@ -59,8 +59,8 @@ public class CowOnTurn implements OnTurn {
 		checkLeash(worldObject, world);
 	}
 	
-	public static boolean cowIsFullyGrown(WorldObject cow) {
-		return cow.getProperty(Constants.MEAT_SOURCE).intValue() == MAX_MEAT_SOURCE;
+	public static boolean cattleIsFullyGrown(WorldObject cattle) {
+		return cattle.getProperty(Constants.MEAT_SOURCE).intValue() == MAX_MEAT_SOURCE;
 	}
 
 	private void checkLeash(WorldObject worldObject, World world) {

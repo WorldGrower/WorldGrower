@@ -464,7 +464,63 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.DAMAGE, 2 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
-		return new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new CowOnTurn(this::generateCow), new CowWorldEvaluationFunction());
+		return new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new CattleOnTurn(this::generateCow), new CattleWorldEvaluationFunction());
+	}
+	
+	public int generateChicken(int x, int y, World world) {
+		
+		int id = world.generateUniqueId();
+		WorldObject chicken = generateChicken(x, y, id);
+		world.addWorldObject(chicken);
+		
+		return id;
+	}
+	
+	private WorldObject generateChicken(int x, int y, int id) {
+		final ImageIds imageId;
+		final String gender;
+		final String name;
+		if (random.nextFloat() > 0.5f) {
+			gender = "female";
+			imageId = ImageIds.CHICKEN;
+			name = "chicken";
+		} else {
+			gender = "male";
+			imageId = ImageIds.ROOSTER;
+			name = "rooster";
+		}
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 1);
+		properties.put(Constants.STRENGTH, 10);
+		properties.put(Constants.HIT_POINTS, 4 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 5 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.NAME, name);
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, imageId);
+		properties.put(Constants.LOOK_DIRECTION, LookDirection.SOUTH);
+		properties.put(Constants.FOOD, 1000);
+		properties.put(Constants.WATER, 1000);
+		properties.put(Constants.ENERGY, 1000);
+		properties.put(Constants.GROUP, new IdList().add(organization));
+		properties.put(Constants.GOLD, 0);
+		properties.put(Constants.DEMANDS, new Demands());
+		properties.put(Constants.CHILDREN, new IdList());
+		properties.put(Constants.SOCIAL, 500);
+		properties.put(Constants.GENDER, gender);
+		properties.put(Constants.CREATURE_TYPE, CreatureType.CHICKEN_CREATURE_TYPE);
+		properties.put(Constants.CONDITIONS, new Conditions());
+		properties.put(Constants.MEAT_SOURCE, 1);
+		properties.put(Constants.ANIMAL_ENEMIES, new IdList());
+		
+		properties.put(Constants.ARMOR, 10);
+		
+		properties.put(Constants.DAMAGE, 2 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		
+		return new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new CattleOnTurn(this::generateChicken), new CattleWorldEvaluationFunction());
 	}
 	
 	public int generateAnimatedSuitOfArmor(int x, int y, World world, WorldObject performer) {
@@ -510,6 +566,7 @@ public class CreatureGenerator implements Serializable {
 		List<WorldObject> creatures = new ArrayList<>();
 		creatures.add(generateFish(0, 0, 0));
 		creatures.add(generateCow(0, 0, 0));
+		creatures.add(generateChicken(0, 0, 0));
 		
 		return creatures;
 	}

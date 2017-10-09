@@ -12,21 +12,38 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.generator;
+package org.worldgrower.creaturetype;
 
-import java.util.Arrays;
+import java.io.ObjectStreamException;
 import java.util.List;
 
-import org.worldgrower.World;
-import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectPriorities;
-import org.worldgrower.goal.Goal;
-import org.worldgrower.goal.Goals;
+public class ChickenCreatureType implements CreatureType {
 
-public class CowWorldEvaluationFunction implements WorldObjectPriorities {
+	public ChickenCreatureType(List<CreatureType> allCreatureTypes) {
+		allCreatureTypes.add(this);
+	}
 
 	@Override
-	public List<Goal> getPriorities(WorldObject performer, World world) {
-		return Arrays.asList(Goals.PROTECT_ONE_SELF_GOAL, Goals.OFFSPRING_GOAL, Goals.IDLE_GOAL);
+	public boolean canTalk() {
+		return false;
+	}
+
+	@Override
+	public boolean canMove() {
+		return true;
+	}
+	
+	@Override
+	public boolean canTrade() {
+		return false;
+	}
+	
+	public Object readResolve() throws ObjectStreamException {
+		return readResolveImpl();
+	}
+	
+	@Override
+	public String getDescription() {
+		return "chicken";
 	}
 }

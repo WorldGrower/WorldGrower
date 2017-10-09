@@ -25,7 +25,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.FoodPropertyUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.CowOnTurn;
+import org.worldgrower.generator.CattleOnTurn;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
@@ -56,7 +56,7 @@ public class ButcherOwnedCattleGoal implements Goal {
 	}
 
 	private List<WorldObject> getFullyGrownCattle(List<WorldObject> ownedCattle) {
-		return ownedCattle.stream().filter(w -> CowOnTurn.cowIsFullyGrown(w)).collect(Collectors.toList());
+		return ownedCattle.stream().filter(w -> CattleOnTurn.cattleIsFullyGrown(w)).collect(Collectors.toList());
 	}
 
 	private List<WorldObject> getOwnedCattle(WorldObject performer, World world) {

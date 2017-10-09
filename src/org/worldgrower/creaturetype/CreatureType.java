@@ -47,6 +47,7 @@ public interface CreatureType extends Serializable {
 	public static final SkeletonCreatureType SKELETON_CREATURE_TYPE = new SkeletonCreatureType(ALL_CREATURE_TYPES);
 	public static final MinotaurCreatureType MINOTAUR_CREATURE_TYPE = new MinotaurCreatureType(ALL_CREATURE_TYPES);
 	public static final GhostCreatureType GHOST_CREATURE_TYPE = new GhostCreatureType(ALL_CREATURE_TYPES);
+	public static final ChickenCreatureType CHICKEN_CREATURE_TYPE = new ChickenCreatureType(ALL_CREATURE_TYPES);
 	
 	public default boolean isUndead() {
 		return this == VAMPIRE_CREATURE_TYPE

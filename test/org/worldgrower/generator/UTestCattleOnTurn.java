@@ -29,7 +29,7 @@ import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.terrain.TerrainType;
 
-public class UTestCowOnTurn {
+public class UTestCattleOnTurn {
 
 	@Test
 	public void testOnTurnOfCommonAttributes() {
