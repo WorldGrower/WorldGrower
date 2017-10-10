@@ -26,7 +26,6 @@ import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
-import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
@@ -45,7 +44,7 @@ public class AnimalFriendshipSpellAction implements MagicSpell, AnimatedAction {
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.getProperty(Constants.CREATURE_TYPE) == CreatureType.COW_CREATURE_TYPE) && MagicSpellUtils.canCast(performer, this);
+		return target.hasProperty(Constants.CREATURE_TYPE) && target.getProperty(Constants.CREATURE_TYPE).isCattle() && MagicSpellUtils.canCast(performer, this);
 	}
 
 	@Override

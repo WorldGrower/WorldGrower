@@ -43,6 +43,11 @@ public class ChickenCreatureType implements CreatureType {
 	}
 	
 	@Override
+	public boolean isCattle() {
+		return true;
+	}
+	
+	@Override
 	public String getDescription() {
 		return "chicken";
 	}

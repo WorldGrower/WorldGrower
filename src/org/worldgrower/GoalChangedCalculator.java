@@ -19,7 +19,6 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.Goal;
 
 /**
@@ -49,8 +48,7 @@ public class GoalChangedCalculator {
 	}
 
 	private List<WorldObject> getActors(WorldObject performer, World world) {
-		List<WorldObject> actors = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.isControlledByAI() && w.hasIntelligence() && !w.equals(performer) && w.getProperty(Constants.CREATURE_TYPE) != CreatureType.COW_CREATURE_TYPE);
-		return actors;
+		return world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.isControlledByAI() && w.hasIntelligence() && !w.equals(performer) && !w.getProperty(Constants.CREATURE_TYPE).isCattle());
 	}
 	
 	public void recordEndState(WorldObject performer, WorldObject target, ManagedOperation managedOperation, int[] args, World world) {

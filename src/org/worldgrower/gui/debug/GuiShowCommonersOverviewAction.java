@@ -35,7 +35,6 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.GroupPropertyUtils;
@@ -97,7 +96,7 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 	}
 	
 	private List<WorldObject> getNPCs() {
-		return world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.isControlledByAI() && w.hasIntelligence() && w.getProperty(Constants.CREATURE_TYPE) != CreatureType.COW_CREATURE_TYPE);
+		return world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.isControlledByAI() && w.hasIntelligence() && !w.getProperty(Constants.CREATURE_TYPE).isCattle());
 	}
 	
 	private class WorldModel extends AbstractTableModel {

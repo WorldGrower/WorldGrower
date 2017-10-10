@@ -23,7 +23,6 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.gui.ImageIds;
 
 public class ClaimCattleAction implements ManagedOperation, AnimatedAction {
@@ -35,7 +34,7 @@ public class ClaimCattleAction implements ManagedOperation, AnimatedAction {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasProperty(Constants.CREATURE_TYPE) && target.getProperty(Constants.CREATURE_TYPE) == CreatureType.COW_CREATURE_TYPE);
+		return (target.hasProperty(Constants.CREATURE_TYPE) && target.getProperty(Constants.CREATURE_TYPE).isCattle());
 	}
 	
 	@Override

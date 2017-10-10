@@ -21,7 +21,6 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -37,7 +36,7 @@ public class LeashAction implements ManagedOperation {
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		return (target.hasProperty(Constants.CREATURE_TYPE)) 
-				&& (target.getProperty(Constants.CREATURE_TYPE) == CreatureType.COW_CREATURE_TYPE)
+				&& (target.getProperty(Constants.CREATURE_TYPE).isCattle())
 				&& target.getProperty(Constants.LEASH_ID) == null;
 	}
 

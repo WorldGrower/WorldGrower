@@ -23,7 +23,6 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.profession.Profession;
 import org.worldgrower.text.FormattableText;
@@ -106,9 +105,9 @@ public class ProtectOneSelfGoal implements Goal {
 	}
 	
 	private boolean isEnemy(WorldObject performer, WorldObject w, World world) {
-		if (performer.getProperty(Constants.CREATURE_TYPE) == CreatureType.COW_CREATURE_TYPE) {
+		if (performer.getProperty(Constants.CREATURE_TYPE).isCattle()) {
 			return performer.getProperty(Constants.ANIMAL_ENEMIES).contains(w);
-		} else if (w.getProperty(Constants.CREATURE_TYPE) == CreatureType.COW_CREATURE_TYPE) {
+		} else if (w.getProperty(Constants.CREATURE_TYPE).isCattle()) {
 			return false;
 		} else {
 			return isIntelligentCharacterEnemy(performer, w, world);

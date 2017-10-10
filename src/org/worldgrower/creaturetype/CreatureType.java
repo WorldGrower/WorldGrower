@@ -29,6 +29,10 @@ public interface CreatureType extends Serializable {
 		return true;
 	}
 	
+	public default boolean isCattle() {
+		return false;
+	}
+	
 	public static final List<CreatureType> ALL_CREATURE_TYPES = new ArrayList<>();
 	
 	public static final GhoulCreatureType GHOUL_CREATURE_TYPE = new GhoulCreatureType(ALL_CREATURE_TYPES);
