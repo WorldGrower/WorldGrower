@@ -306,3 +306,6 @@ pine_chicken_edit_male.png (recolor of pine_chicken_edit_female.png)
 
 egg sprites by Sinweaver at https://forums.rpgmakerweb.com/index.php?threads/sins-little-bit-of-everything.49255/
 vcoimak.png
+
+chicken sound by Dann93 at https://freesound.org/people/Dann93/sounds/192035/
+192035__dann93__chickens.wav.gz

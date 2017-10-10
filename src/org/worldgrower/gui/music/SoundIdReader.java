@@ -90,7 +90,7 @@ public class SoundIdReader {
 		readSound(SoundIds.CURSE4, "/sound/curse48bit.wav.gz");
 		readSound(SoundIds.MAGIC_DROP, "/sound/magicdrop8bit.wav.gz");
 		readSound(SoundIds.PLANT_GROWTH, "/sound/qubodupGrowthSpell01_8bit.wav.gz");
-		
+		readSound(SoundIds.CHICKEN, "/sound/192035__dann93__chickens.wav.gz");
 	}
 
 	public SoundIdReader(SoundOutput soundOutput, boolean enabled) throws SoundException {
