@@ -128,7 +128,7 @@ public class FireTrapAction implements MagicSpell, DeadlyAction, BuildAction {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.FLAMES;
 	}
 }

@@ -98,7 +98,7 @@ public class AbstractResearchKnowledgeSkillAction implements ResearchKnowledgeSk
 	}
 
 	@Override
-	public final SoundIds getSoundId() {
+	public final SoundIds getSoundId(WorldObject target) {
 		return SoundIds.PAPER;
 	}
 }

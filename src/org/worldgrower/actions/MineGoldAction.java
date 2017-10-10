@@ -97,7 +97,7 @@ public class MineGoldAction implements ManagedOperation, AnimatedAction {
 		return ImageIds.GOLD;
 	}
 	
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.MINE;
 	}
 	

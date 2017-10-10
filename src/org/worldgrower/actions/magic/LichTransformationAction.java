@@ -118,7 +118,7 @@ public class LichTransformationAction implements MagicSpell {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.ZAP2G;
 	}
 }

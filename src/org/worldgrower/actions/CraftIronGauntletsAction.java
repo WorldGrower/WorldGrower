@@ -90,7 +90,7 @@ public class CraftIronGauntletsAction implements CraftEquipmentAction, AnimatedA
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.SMITH;
 	}
 

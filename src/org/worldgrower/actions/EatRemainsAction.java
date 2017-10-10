@@ -87,7 +87,7 @@ public class EatRemainsAction implements ManagedOperation {
 		return ImageIds.EAT_REMAINS;
 	}
 	
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.EAT;
 	}
 }

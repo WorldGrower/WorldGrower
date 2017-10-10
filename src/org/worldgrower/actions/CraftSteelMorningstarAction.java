@@ -90,7 +90,7 @@ public class CraftSteelMorningstarAction implements CraftEquipmentAction, Animat
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.SMITH;
 	}
 

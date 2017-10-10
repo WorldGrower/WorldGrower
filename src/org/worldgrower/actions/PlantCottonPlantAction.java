@@ -102,7 +102,7 @@ public class PlantCottonPlantAction implements BuildAction {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.SHOVEL;
 	}
 }

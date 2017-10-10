@@ -131,7 +131,7 @@ public class DimensionDoorAction implements BuildAction, MagicSpell, DeadlyActio
 		return "killed by a teleportation accident";
 	}
 	
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.TELEPORT;
 	}
 }

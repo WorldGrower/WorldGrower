@@ -90,7 +90,7 @@ public class CraftSteelMaceAction implements CraftEquipmentAction, AnimatedActio
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.SMITH;
 	}
 

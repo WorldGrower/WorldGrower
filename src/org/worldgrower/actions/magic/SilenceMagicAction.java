@@ -111,7 +111,7 @@ public class SilenceMagicAction implements MagicSpell {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.CURSE_SPELL;
 	}
 }

@@ -90,7 +90,7 @@ public class CraftSteelGreatswordAction implements CraftEquipmentAction, Animate
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.SMITH;
 	}
 

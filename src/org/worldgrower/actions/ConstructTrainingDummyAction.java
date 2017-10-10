@@ -107,7 +107,7 @@ public class ConstructTrainingDummyAction implements BuildAction {
 		return ImageIds.TRAINING_DUMMY;
 	}
 	
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.BUILD_WOODEN_BUILDING;
 	}
 }

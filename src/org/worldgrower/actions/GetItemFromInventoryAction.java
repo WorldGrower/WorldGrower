@@ -94,7 +94,7 @@ public class GetItemFromInventoryAction implements ManagedOperation {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.DOOR_OPEN;
 	}
 }

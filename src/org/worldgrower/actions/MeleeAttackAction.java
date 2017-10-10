@@ -102,7 +102,7 @@ public class MeleeAttackAction implements DeadlyAction, AnimatedAction {
 		return ImageIds.IRON_CLAYMORE;
 	}
 	
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.SWING;
 	}
 

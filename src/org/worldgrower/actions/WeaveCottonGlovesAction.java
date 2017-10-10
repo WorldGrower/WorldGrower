@@ -88,7 +88,7 @@ public class WeaveCottonGlovesAction implements CraftEquipmentAction, AnimatedAc
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.CLOTH;
 	}
 

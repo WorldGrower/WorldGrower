@@ -78,7 +78,7 @@ public class EatFromInventoryAction extends InventoryAction {
 		return ImageIds.BERRY;
 	}
 	
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.EAT;
 	}
 }

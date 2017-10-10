@@ -98,7 +98,7 @@ public class CreateProfessionOrganizationAction implements ManagedOperation {
 	}
 
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.RANDOM1;
 	}	
 }

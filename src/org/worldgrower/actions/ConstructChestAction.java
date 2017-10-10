@@ -109,7 +109,7 @@ private static final int REQUIRED_WOOD = 3;
 		return ImageIds.CHEST;
 	}
 	
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.BUILD_WOODEN_BUILDING;
 	}
 }

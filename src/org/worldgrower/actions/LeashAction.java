@@ -21,6 +21,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.creaturetype.CattleCreatureType;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -85,7 +86,7 @@ public class LeashAction implements ManagedOperation {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
-		return SoundIds.COW;
+	public SoundIds getSoundId(WorldObject target) {
+		return ((CattleCreatureType)target.getProperty(Constants.CREATURE_TYPE)).getSoundId();
 	}
 }

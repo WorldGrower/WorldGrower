@@ -85,7 +85,7 @@ public class MarkAsSellableAction implements ManagedOperation {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.HANDLE_COINS;
 	}
 }

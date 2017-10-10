@@ -88,8 +88,8 @@ public class SecludedAction implements ManagedOperation {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
-		return action.getSoundId();
+	public SoundIds getSoundId(WorldObject target) {
+		return action.getSoundId(target);
 	}
 
 	@Override

@@ -142,7 +142,7 @@ public class FireBallAttackAction implements BuildAction, MagicSpell, DeadlyActi
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.FLAMES;
 	}
 

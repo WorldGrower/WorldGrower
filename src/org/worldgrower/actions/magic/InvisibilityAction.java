@@ -108,7 +108,7 @@ public class InvisibilityAction implements MagicSpell {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.FORCE_PULSE;
 	}
 }

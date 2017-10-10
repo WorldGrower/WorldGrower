@@ -95,7 +95,7 @@ public class DrinkAction implements ManagedOperation, AnimatedAction {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.DRINK;
 	}
 

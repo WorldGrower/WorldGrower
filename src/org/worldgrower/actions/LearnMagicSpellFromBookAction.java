@@ -75,7 +75,7 @@ public class LearnMagicSpellFromBookAction extends InventoryAction {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.PAPER;
 	}
 }

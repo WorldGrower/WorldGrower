@@ -87,7 +87,7 @@ public class ObfuscateDeathReasonAction implements ManagedOperation {
 	}
 
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.DYING;
 	}
 }

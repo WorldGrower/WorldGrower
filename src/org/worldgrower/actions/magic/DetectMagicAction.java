@@ -130,7 +130,7 @@ public class DetectMagicAction implements MagicSpell, AnimatedAction {
 	}
 
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.ENCHANT;
 	}
 

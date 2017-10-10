@@ -97,7 +97,7 @@ public class MineStoneAction implements ManagedOperation, AnimatedAction {
 		return ImageIds.STONE;
 	}
 	
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.MINE;
 	}
 

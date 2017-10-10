@@ -106,7 +106,7 @@ public class WaterWalkAction implements MagicSpell {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.MAGIC6;
 	}
 }

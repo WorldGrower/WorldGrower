@@ -139,7 +139,7 @@ public class LightningBoltAttackAction implements MagicSpell, DeadlyAction, Anim
 		return ImageIds.LIGHTNING_BOLT;
 	}
 	
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.SHOCK;
 	}
 

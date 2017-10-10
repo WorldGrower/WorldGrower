@@ -93,7 +93,7 @@ public class MintGoldAction implements CraftAction {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.SMITH;
 	}
 }

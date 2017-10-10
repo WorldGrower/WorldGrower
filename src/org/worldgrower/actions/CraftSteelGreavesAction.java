@@ -90,7 +90,7 @@ public class CraftSteelGreavesAction implements CraftEquipmentAction, AnimatedAc
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.SMITH;
 	}
 

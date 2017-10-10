@@ -115,7 +115,7 @@ public class BuildHouseAction implements BuildAction {
 		return BuildingType.HOUSE.getImageId();
 	}
 	
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.BUILD_STONE_BUILDING;
 	}
 }

@@ -98,7 +98,7 @@ public class CreateNewsPaperAction implements ManagedOperation {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.PAPER;
 	}
 }

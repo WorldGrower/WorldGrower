@@ -14,48 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.creaturetype;
 
-import java.io.ObjectStreamException;
-import java.util.List;
-
 import org.worldgrower.gui.music.SoundIds;
 
-public class CowCreatureType implements CattleCreatureType {
-
-	public CowCreatureType(List<CreatureType> allCreatureTypes) {
-		allCreatureTypes.add(this);
-	}
-
-	@Override
-	public boolean canTalk() {
-		return false;
-	}
-
-	@Override
-	public boolean canMove() {
-		return true;
-	}
-	
-	@Override
-	public boolean canTrade() {
-		return false;
-	}
-	
-	public Object readResolve() throws ObjectStreamException {
-		return readResolveImpl();
-	}
-	
-	@Override
-	public boolean isCattle() {
-		return true;
-	}
-
-	@Override
-	public String getDescription() {
-		return "cow";
-	}
-
-	@Override
-	public SoundIds getSoundId() {
-		return SoundIds.COW;
-	}
+public interface CattleCreatureType extends CreatureType {
+	public SoundIds getSoundId();
 }

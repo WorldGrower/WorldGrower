@@ -118,7 +118,7 @@ public class FeatherAction implements MagicSpell, AnimatedAction {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.ENCHANT2;
 	}
 

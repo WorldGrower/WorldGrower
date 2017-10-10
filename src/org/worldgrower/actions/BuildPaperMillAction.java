@@ -109,7 +109,7 @@ public class BuildPaperMillAction implements BuildAction {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.BUILD_WOODEN_BUILDING;
 	}
 

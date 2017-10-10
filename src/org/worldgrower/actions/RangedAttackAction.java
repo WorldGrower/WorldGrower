@@ -107,7 +107,7 @@ public class RangedAttackAction implements DeadlyAction, AnimatedAction {
 		return ImageIds.LONGBOW;
 	}
 	
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.BOW;
 	}
 	

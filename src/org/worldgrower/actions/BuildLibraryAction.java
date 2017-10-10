@@ -113,7 +113,7 @@ public class BuildLibraryAction implements BuildAction {
 		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= REQUIRED_WOOD;
 	}
 	
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.BUILD_WOODEN_BUILDING;
 	}
 }

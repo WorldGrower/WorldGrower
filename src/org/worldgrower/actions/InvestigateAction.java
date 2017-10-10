@@ -145,7 +145,7 @@ public class InvestigateAction implements ManagedOperation {
 	}
 
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.RUSTLE3;
 	}	
 }

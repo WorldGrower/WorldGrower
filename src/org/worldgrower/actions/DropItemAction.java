@@ -75,7 +75,7 @@ public class DropItemAction extends InventoryAction {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.DROP_LEATHER;
 	}
 }

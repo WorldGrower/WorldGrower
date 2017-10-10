@@ -109,7 +109,7 @@ public class BuildArenaAction implements BuildAction {
 		return ImageIds.ARENA_COMPLETE;
 	}
 	
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.BUILD_STONE_BUILDING;
 	}
 }

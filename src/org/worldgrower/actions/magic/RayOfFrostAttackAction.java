@@ -112,7 +112,7 @@ public class RayOfFrostAttackAction implements MagicSpell, DeadlyAction, Animate
 		return ImageIds.RAY_OF_FROST;
 	}
 	
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.FROST;
 	}
 

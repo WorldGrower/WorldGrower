@@ -126,7 +126,7 @@ public class ButcherAction implements ManagedOperation, AnimatedAction {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.KNIFE_SLICE;
 	}
 

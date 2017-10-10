@@ -80,7 +80,7 @@ public class RepairEquipmentInInventoryAction extends InventoryAction {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.SMITH;
 	}
 }

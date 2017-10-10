@@ -91,7 +91,7 @@ public class EatNightShadeAction implements ManagedOperation {
 		return ImageIds.NIGHT_SHADE;
 	}
 	
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.EAT;
 	}
 }

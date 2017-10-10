@@ -109,7 +109,7 @@ public class AnimateSuitOfArmorAction extends InventoryAction implements MagicSp
 	}
 
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.CURSE3;
 	}	
 }

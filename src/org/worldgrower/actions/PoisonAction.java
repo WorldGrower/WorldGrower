@@ -84,7 +84,7 @@ public class PoisonAction implements ManagedOperation {
 	}
 
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.POISON;
 	}	
 }

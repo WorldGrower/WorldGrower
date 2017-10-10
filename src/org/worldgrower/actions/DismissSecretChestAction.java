@@ -85,7 +85,7 @@ public class DismissSecretChestAction implements ManagedOperation {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.TELEPORT;
 	}
 }

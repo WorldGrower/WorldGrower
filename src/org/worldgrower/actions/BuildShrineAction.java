@@ -112,7 +112,7 @@ public class BuildShrineAction implements BuildAction {
 		}
 	}
 	
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.BUILD_STONE_BUILDING;
 	}
 	

@@ -126,7 +126,7 @@ public class SacredFlameAttackAction implements MagicSpell, DeadlyAction, Animat
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.BLESSING;
 	}
 

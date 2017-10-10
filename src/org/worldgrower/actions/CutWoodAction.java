@@ -103,7 +103,7 @@ public class CutWoodAction implements ManagedOperation, AnimatedAction {
 		return ImageIds.WOOD;
 	}
 	
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.CUT_WOOD;
 	}
 

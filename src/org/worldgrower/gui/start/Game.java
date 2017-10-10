@@ -326,7 +326,7 @@ public class Game {
     public static void executeAction(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, DungeonMaster dungeonMaster, WorldObject target, WorldPanel worldPanel, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
     	if (canActionExecute(playerCharacter, action, args, world, target)) {
     		dungeonMaster.executeAction(action, playerCharacter, target, args, world);
-    		worldPanel.playSound(action);
+    		worldPanel.playSound(action, target);
     		runWorld(playerCharacter, world, dungeonMaster, worldPanel);
     		checkToSkipTurn(playerCharacter, world, dungeonMaster, worldPanel, imageInfoReader, soundIdReader);
     	} else {

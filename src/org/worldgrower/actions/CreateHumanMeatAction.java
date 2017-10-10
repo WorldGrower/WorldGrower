@@ -89,7 +89,7 @@ public class CreateHumanMeatAction implements ManagedOperation {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.KNIFE_SLICE;
 	}
 }

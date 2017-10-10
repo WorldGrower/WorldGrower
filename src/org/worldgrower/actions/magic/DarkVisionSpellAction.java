@@ -113,7 +113,7 @@ public class DarkVisionSpellAction implements MagicSpell, AnimatedAction {
 		return ImageIds.DARKNESS_MAGIC_SPELL;
 	}
 	
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.DARKNESS;
 	}
 

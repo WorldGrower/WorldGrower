@@ -81,7 +81,7 @@ public class ReadAction implements ManagedOperation {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.BOOK_FLIP;
 	}
 }

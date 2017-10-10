@@ -680,8 +680,8 @@ public final class WorldPanel extends JPanel implements ImageFactory, MouseLocat
 		}
 	}
 
-	public void playSound(ManagedOperation action) {
-		SoundIds soundId = action.getSoundId();
+	public void playSound(ManagedOperation action, WorldObject target) {
+		SoundIds soundId = action.getSoundId(target);
 		if (soundId != null) {
 			soundIdReader.playSoundEffect(soundId);
 		}

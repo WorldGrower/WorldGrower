@@ -95,7 +95,7 @@ public class LifeStealAction implements DeadlyAction {
 	}
 
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.MAGIC1;
 	}
 }

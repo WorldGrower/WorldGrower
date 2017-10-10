@@ -98,7 +98,7 @@ public class CapturePersonAction implements ManagedOperation {
 	}
 
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.METAL_SMALL1;
 	}	
 }

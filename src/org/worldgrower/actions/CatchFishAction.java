@@ -100,7 +100,7 @@ public class CatchFishAction implements ManagedOperation {
 	}
 
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.SWISH;
 	}	
 }

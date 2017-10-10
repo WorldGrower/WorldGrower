@@ -177,7 +177,7 @@ public class PlantGrowthAction implements BuildAction, MagicSpell, AnimatedActio
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.PLANT_GROWTH;
 	}
 

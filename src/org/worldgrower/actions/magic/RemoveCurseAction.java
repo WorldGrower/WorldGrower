@@ -121,7 +121,7 @@ public class RemoveCurseAction implements MagicSpell, AnimatedAction {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.MAGIC_DROP;
 	}
 

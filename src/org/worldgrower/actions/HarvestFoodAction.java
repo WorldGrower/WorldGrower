@@ -99,7 +99,7 @@ public class HarvestFoodAction implements ManagedOperation, AnimatedAction {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.HANDLE_SMALL_LEATHER;
 	}
 

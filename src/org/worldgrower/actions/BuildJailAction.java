@@ -107,7 +107,7 @@ public class BuildJailAction implements BuildAction {
 		return ImageIds.JAIL_COMPLETE;
 	}
 	
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.BUILD_WOODEN_BUILDING;
 	}
 }

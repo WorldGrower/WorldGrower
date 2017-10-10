@@ -161,7 +161,7 @@ public class MoveAction implements ManagedOperation {
 	}
 
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.MOVE;
 	}	
 }

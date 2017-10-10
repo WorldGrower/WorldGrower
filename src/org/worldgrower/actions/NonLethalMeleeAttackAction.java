@@ -84,7 +84,7 @@ public class NonLethalMeleeAttackAction implements ManagedOperation, AnimatedAct
 		return ImageIds.IRON_CLAYMORE;
 	}
 	
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.SWING;
 	}
 	

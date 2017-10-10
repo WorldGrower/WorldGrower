@@ -110,7 +110,7 @@ public abstract class AbstractProtectionFromEnergyAction implements MagicSpell, 
 	public abstract ImageIds getImageIds(WorldObject performer);
 
 	@Override
-	public final SoundIds getSoundId() {
+	public final SoundIds getSoundId(WorldObject target) {
 		return SoundIds.MAGIC_SHIELD;
 	}
 

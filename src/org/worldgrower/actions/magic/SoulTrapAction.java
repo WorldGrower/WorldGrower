@@ -114,7 +114,7 @@ public class SoulTrapAction implements MagicSpell, AnimatedAction {
 	}
 
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.ZAP2G;
 	}
 

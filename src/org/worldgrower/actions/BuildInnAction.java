@@ -107,7 +107,7 @@ public class BuildInnAction implements BuildAction {
 		return ImageIds.INN;
 	}
 	
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.BUILD_STONE_BUILDING;
 	}
 }

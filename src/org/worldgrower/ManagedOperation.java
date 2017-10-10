@@ -97,7 +97,7 @@ public interface ManagedOperation extends Serializable {
 		
 		throw new IllegalStateException("ManagedProperty with class " + clazz + " not found");
 	}
-	public default SoundIds getSoundId() {
+	public default SoundIds getSoundId(WorldObject target) {
 		return null;
 	}
 }

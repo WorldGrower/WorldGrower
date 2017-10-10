@@ -113,7 +113,7 @@ public class BuildSmithAction implements BuildAction {
 	}
 
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.BUILD_STONE_BUILDING;
 	}
 	

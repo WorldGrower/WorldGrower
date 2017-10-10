@@ -17,7 +17,9 @@ package org.worldgrower.creaturetype;
 import java.io.ObjectStreamException;
 import java.util.List;
 
-public class ChickenCreatureType implements CreatureType {
+import org.worldgrower.gui.music.SoundIds;
+
+public class ChickenCreatureType implements CattleCreatureType {
 
 	public ChickenCreatureType(List<CreatureType> allCreatureTypes) {
 		allCreatureTypes.add(this);
@@ -50,5 +52,10 @@ public class ChickenCreatureType implements CreatureType {
 	@Override
 	public String getDescription() {
 		return "chicken";
+	}
+
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.CHICKEN;
 	}
 }

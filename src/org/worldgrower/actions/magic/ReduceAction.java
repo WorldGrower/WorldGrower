@@ -133,7 +133,7 @@ public class ReduceAction implements MagicSpell {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.MAGIC3;
 	}
 }

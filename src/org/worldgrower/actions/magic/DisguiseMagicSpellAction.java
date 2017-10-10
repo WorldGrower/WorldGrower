@@ -117,7 +117,7 @@ public class DisguiseMagicSpellAction implements MagicSpell, DisguiseTargetFacto
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.MAGIC7;
 	}
 }

@@ -110,7 +110,7 @@ public class BuildShackAction implements BuildAction {
 		return ImageIds.SHACK;
 	}
 	
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.BUILD_WOODEN_BUILDING;
 	}
 }

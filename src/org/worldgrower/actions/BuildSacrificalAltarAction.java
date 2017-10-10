@@ -111,7 +111,7 @@ public class BuildSacrificalAltarAction implements BuildAction {
 		return ImageIds.SACRIFIAL_ALTAR;
 	}
 	
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.BUILD_STONE_BUILDING;
 	}
 }

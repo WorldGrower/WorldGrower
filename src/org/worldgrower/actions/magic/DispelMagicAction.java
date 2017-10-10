@@ -111,7 +111,7 @@ public class DispelMagicAction implements MagicSpell, AnimatedAction {
 	}
 
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.DISENCHANT;
 	}
 

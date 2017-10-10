@@ -144,7 +144,7 @@ public class TurnUndeadAction implements BuildAction, MagicSpell, DeadlyAction, 
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.BLESSING;
 	}
 

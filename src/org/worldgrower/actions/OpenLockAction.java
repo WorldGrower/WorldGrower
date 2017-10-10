@@ -94,7 +94,7 @@ public class OpenLockAction implements ManagedOperation, AnimatedAction {
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
+	public SoundIds getSoundId(WorldObject target) {
 		return SoundIds.PICKLOCK;
 	}
 
