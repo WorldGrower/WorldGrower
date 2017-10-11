@@ -186,6 +186,7 @@ import org.worldgrower.generator.UTestCommonerGenerator;
 import org.worldgrower.generator.UTestCommonerOnTurn;
 import org.worldgrower.generator.UTestCattleOnTurn;
 import org.worldgrower.generator.UTestCreatureGenerator;
+import org.worldgrower.generator.UTestEggOnTurn;
 import org.worldgrower.generator.UTestFiretrapOnTurn;
 import org.worldgrower.generator.UTestFishOnTurn;
 import org.worldgrower.generator.UTestGhostOnTurn;
@@ -866,7 +867,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestRebellionPropertyUtils.class,
 	UTestRemainsOnTurn.class,
 	UTestGhostOnTurn.class,
-	UTestPlantGenerator.class
+	UTestPlantGenerator.class,
+	UTestEggOnTurn.class
 })
 public class CompleteTestSuite {
 }

@@ -27,10 +27,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.generator.WorldGenerator.AddWorldObjectFunction;
-import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.goal.LocationPropertyUtils;
-import org.worldgrower.goal.LocationUtils;
-import org.worldgrower.terrain.TerrainType;
 
 public class CattleOnTurn implements OnTurn {
 
@@ -55,7 +52,7 @@ public class CattleOnTurn implements OnTurn {
 
 		worldObject.getProperty(Constants.CONDITIONS).onTurn(worldObject, world, creatureTypeChangedListeners);
 		
-		checkPregnancy(worldObject, world, currentTurn);
+		PregnancyPropertyUtils.checkPregnancy(worldObject, world, currentTurn, PREGNANCY_DURATION, addWorldObjectFunction);
 		checkLeash(worldObject, world);
 	}
 	
@@ -78,33 +75,5 @@ public class CattleOnTurn implements OnTurn {
 			}
 		}
 		
-	}
-
-	private void checkPregnancy(WorldObject worldObject, World world, int currentTurn) {
-		Integer pregnancy = worldObject.getProperty(Constants.PREGNANCY);
-		if (pregnancy != null) {
-			pregnancy = pregnancy + 1;
-			worldObject.setProperty(Constants.PREGNANCY, pregnancy);
-			
-			if (pregnancy > PREGNANCY_DURATION) {
-				int performerX = worldObject.getProperty(Constants.X);
-				int performerY = worldObject.getProperty(Constants.Y);
-				int[] position = GoalUtils.findOpenSpace(worldObject, 1, 1, world);
-				if (position != null) {
-					int x = position[0] + performerX;
-					int y = position[1] + performerY;
-					if (!LocationUtils.areInvalidCoordinates(x, y, world)) {
-						TerrainType terrainType = world.getTerrain().getTerrainType(x, y);
-						if (terrainType != TerrainType.WATER) {
-							int childId = addWorldObjectFunction.addToWorld(x, y, world);
-							WorldObject child = world.findWorldObjectById(childId);
-							child.setProperty(Constants.CATTLE_OWNER_ID, worldObject.getProperty(Constants.CATTLE_OWNER_ID));
-							
-							worldObject.removeProperty(Constants.PREGNANCY);
-						}
-					}
-				}
-			}
-		}
 	}
 }

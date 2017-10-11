@@ -520,7 +520,38 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.DAMAGE, 2 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
-		return new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new CattleOnTurn(this::generateChicken), new CattleWorldEvaluationFunction());
+		return new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new CattleOnTurn(this::generateEgg), new CattleWorldEvaluationFunction());
+	}
+	
+	public int generateEgg(int x, int y, World world) {
+		
+		int id = world.generateUniqueId();
+		WorldObject egg = generateEgg(x, y, id);
+		world.addWorldObject(egg);
+		
+		return id;
+	}
+	
+	private WorldObject generateEgg(int x, int y, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 1);
+		properties.put(Constants.HIT_POINTS, 1 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 1 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.NAME, "egg");
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.EGG);
+		properties.put(Constants.CONDITIONS, new Conditions());
+		properties.put(Constants.PREGNANCY, 0);
+		
+		properties.put(Constants.ARMOR, 10);
+		
+		properties.put(Constants.DAMAGE, 2 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		
+		return new WorldObjectImpl(properties, new EggOnTurn(this::generateChicken));
 	}
 	
 	public int generateAnimatedSuitOfArmor(int x, int y, World world, WorldObject performer) {
