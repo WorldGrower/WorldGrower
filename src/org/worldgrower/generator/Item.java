@@ -137,7 +137,8 @@ public enum Item {
 	CHANGE_GENDER_POTION(ItemType.DRINK),
 	REMOVE_CURSE_POTION(ItemType.DRINK),
 	LAMP(ItemType.MISC),
-	SAW(ItemType.TOOL)
+	SAW(ItemType.TOOL),
+	EGG(ItemType.FOOD),
 	;
 
 	public static final int COMBAT_MULTIPLIER = 10;
@@ -1277,6 +1278,17 @@ public enum Item {
 			properties.put(Constants.SAW_QUALITY, (int)(2 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.SAW);
 			properties.put(Constants.LONG_DESCRIPTION, "A saw is used by carpenters for building buildings");
+			return new WorldObjectImpl(properties);
+		});
+		
+		addItem(Item.EGG, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, "egg");
+			properties.put(Constants.PRICE, 1);
+			properties.put(Constants.FOOD, 1);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.IMAGE_ID, ImageIds.EGG);
+			properties.put(Constants.LONG_DESCRIPTION, "Eggs can be harvested and eaten.");
 			return new WorldObjectImpl(properties);
 		});
 		
