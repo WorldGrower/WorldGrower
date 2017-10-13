@@ -56,7 +56,7 @@ public class CreateFoodSourcesGoal implements Goal {
 				performer, 
 				Actions.HARVEST_FOOD_ACTION, 
 				Constants.FOOD_SOURCE,
-				w -> (w.getProperty(Constants.FOOD_SOURCE) > 100) && (Reach.distance(performer, w) < 20), 
+				w -> (w.getProperty(Constants.FOOD_SOURCE).hasEnoughFood()) && (Reach.distance(performer, w) < 20), 
 				world);
 		return targets.size() > 0;
 	}

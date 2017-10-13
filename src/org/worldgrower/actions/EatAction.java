@@ -24,7 +24,6 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
-import org.worldgrower.generator.BerryBushImageCalculator;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -32,14 +31,8 @@ public class EatAction implements ManagedOperation, AnimatedAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int foodInTarget = target.getProperty(Constants.FOOD_SOURCE);
-		int foodIncrease = FoodPropertyUtils.FOOD_MULTIPLIER * FoodPropertyUtils.calculateFarmingQuantity(performer);
-		performer.increment(Constants.FOOD, foodIncrease);
-		target.setProperty(Constants.FOOD_SOURCE, foodInTarget - 100);
-
-		target.setProperty(Constants.IMAGE_ID, BerryBushImageCalculator.getImageId(target, world));
+		target.getProperty(Constants.FOOD_SOURCE).eat(performer, target, world);
 		
-		FoodPropertyUtils.checkFoodSourceExhausted(target);
 		SkillUtils.useSkill(performer, Constants.FARMING_SKILL, world.getWorldStateChangedListeners());
 	}
 
@@ -70,7 +63,7 @@ public class EatAction implements ManagedOperation, AnimatedAction {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return FoodPropertyUtils.foodSourceHasEnoughFood(target);
+		return target.hasProperty(Constants.FOOD_SOURCE) && target.getProperty(Constants.FOOD_SOURCE).hasEnoughFood();
 	}
 
 	@Override

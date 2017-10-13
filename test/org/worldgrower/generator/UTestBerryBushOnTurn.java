@@ -33,16 +33,17 @@ public class UTestBerryBushOnTurn {
 
 		WorldObject berryBush = createBerryBush(world);
 		
-		assertEquals(1, berryBush.getProperty(Constants.FOOD_SOURCE).intValue());
+		assertEquals(false, berryBush.getProperty(Constants.FOOD_SOURCE).hasEnoughFood());
 		
-		berryBush.onTurn(world, new WorldStateChangedListeners());
-		assertEquals(6, berryBush.getProperty(Constants.FOOD_SOURCE).intValue());
+		for(int i=0; i<20; i++) {
+			berryBush.onTurn(world, new WorldStateChangedListeners());
+		}
+		assertEquals(true, berryBush.getProperty(Constants.FOOD_SOURCE).hasEnoughFood());
 	}
 
 	private WorldObject createBerryBush(World world) {
 		int berryBushId = PlantGenerator.generateBerryBush(5, 5, world);
-		WorldObject berryBush = world.findWorldObjectById(berryBushId);
-		return berryBush;
+		return world.findWorldObjectById(berryBushId);
 	}
 	
 	@Test

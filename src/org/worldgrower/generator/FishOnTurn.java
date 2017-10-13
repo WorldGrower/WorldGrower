@@ -22,6 +22,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.generator.WorldGenerator.AddWorldObjectFunction;
 import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.goal.LocationUtils;
@@ -60,6 +61,6 @@ public class FishOnTurn implements OnTurn {
 	}
 	
 	private List<WorldObject> getSurroundingWorldObjects(WorldObject worldObject, World world) {
-		return world.findWorldObjectsByProperty(Constants.FOOD_SOURCE, w -> Reach.evaluateTarget(worldObject, w, 1) == 0);
+		return world.findWorldObjectsByProperty(Constants.CREATURE_TYPE, w -> w.getProperty(Constants.CREATURE_TYPE) == CreatureType.FISH_CREATURE_TYPE && Reach.evaluateTarget(worldObject, w, 1) == 0);
 	}
 }

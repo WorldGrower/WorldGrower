@@ -24,6 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.GroupPropertyUtils;
@@ -37,7 +38,7 @@ public class UTestCatchFishAction {
 		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, Item.FISHING_POLE.generate(1f));
 		WorldObject target = createFish(world);
 		
-		assertEquals(1, target.getProperty(Constants.FOOD_SOURCE).intValue());
+		assertEquals(CreatureType.FISH_CREATURE_TYPE, target.getProperty(Constants.CREATURE_TYPE));
 		Actions.CATCH_FISH_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(8, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD));

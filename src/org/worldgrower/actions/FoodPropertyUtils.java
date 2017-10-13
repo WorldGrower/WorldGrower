@@ -28,17 +28,6 @@ public class FoodPropertyUtils {
 
 	public static final int FOOD_MULTIPLIER = 175;
 	
-	public static void checkFoodSourceExhausted(WorldObject foodSource) {
-		int targetFoodSource = foodSource.getProperty(Constants.FOOD_SOURCE);
-		if (targetFoodSource <= 200 && Constants.FOOD_PRODUCED.isAtMax(foodSource)) {
-			foodSource.setProperty(Constants.HIT_POINTS, 0);
-		}
-	}
-	
-	public static boolean foodSourceHasEnoughFood(WorldObject target) {
-		return (target.hasProperty(Constants.FOOD_SOURCE)) && (target.getProperty(Constants.FOOD_SOURCE) >= 100);
-	}
-	
 	public static boolean leftHandContainsScythe(WorldObject performer) {
 		WorldObject leftHand = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
 		return (leftHand != null && leftHand.hasProperty(Constants.SCYTHE_QUALITY));

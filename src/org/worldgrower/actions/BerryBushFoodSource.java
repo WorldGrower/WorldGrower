@@ -46,7 +46,7 @@ public class BerryBushFoodSource implements FoodSource {
 	}
 
 	@Override
-	public void harvest(WorldObject performer, WorldObject target, World world) {
+	public WorldObject harvest(WorldObject performer, WorldObject target, World world) {
 		WorldObjectContainer inventoryPerformer = performer.getProperty(Constants.INVENTORY);
 		
 		WorldObject harvestedFood = Item.BERRIES.generate(1f);
@@ -57,6 +57,8 @@ public class BerryBushFoodSource implements FoodSource {
 		
 		target.setProperty(Constants.IMAGE_ID, BerryBushImageCalculator.getImageId(target, world));
 		checkFoodSourceExhausted(target);
+		
+		return harvestedFood;
 	}
 
 	@Override

@@ -68,7 +68,7 @@ public class UTestPlantGrowthAction {
 		
 		int berryBushId = PlantGenerator.generateBerryBush(0, 0, world);
 		WorldObject berryBush = world.findWorldObjectById(berryBushId);
-		assertEquals(1, berryBush.getProperty(Constants.FOOD_SOURCE).intValue());
+		assertEquals(false, berryBush.getProperty(Constants.FOOD_SOURCE).hasEnoughFood());
 		
 		int nightshadeId = PlantGenerator.generateNightShade(0, 0, world);
 		WorldObject nightshade = world.findWorldObjectById(nightshadeId);
@@ -85,7 +85,7 @@ public class UTestPlantGrowthAction {
 		action.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(500, tree.getProperty(Constants.WOOD_SOURCE).intValue());
-		assertEquals(500, berryBush.getProperty(Constants.FOOD_SOURCE).intValue());
+		assertEquals(true, berryBush.getProperty(Constants.FOOD_SOURCE).hasEnoughFood());
 		assertEquals(500, nightshade.getProperty(Constants.NIGHT_SHADE_SOURCE).intValue());
 		assertEquals(500, cottonPlant.getProperty(Constants.COTTON_SOURCE).intValue());
 		assertEquals(500, grapeVine.getProperty(Constants.GRAPE_SOURCE).intValue());

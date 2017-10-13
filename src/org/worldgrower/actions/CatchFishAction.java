@@ -77,7 +77,7 @@ public class CatchFishAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasProperty(Constants.FOOD_SOURCE)) && (target.getProperty(Constants.CREATURE_TYPE) == CreatureType.FISH_CREATURE_TYPE);
+		return (target.getProperty(Constants.CREATURE_TYPE) == CreatureType.FISH_CREATURE_TYPE);
 	}
 
 	@Override

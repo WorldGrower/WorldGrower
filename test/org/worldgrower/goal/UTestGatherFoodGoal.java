@@ -49,7 +49,7 @@ public class UTestGatherFoodGoal {
 		
 		int berryBushId = PlantGenerator.generateBerryBush(5, 5, world);
 		WorldObject berryBush = world.findWorldObjectById(berryBushId);
-		berryBush.setProperty(Constants.FOOD_SOURCE, 500);
+		berryBush.getProperty(Constants.FOOD_SOURCE).increaseFoodAmount(500, berryBush, world);
 		
 		createVillagersOrganization(world);
 		
@@ -63,7 +63,7 @@ public class UTestGatherFoodGoal {
 		
 		int berryBushId = PlantGenerator.generateBerryBush(20, 20, world);
 		WorldObject berryBush = world.findWorldObjectById(berryBushId);
-		berryBush.setProperty(Constants.FOOD_SOURCE, 500);
+		berryBush.getProperty(Constants.FOOD_SOURCE).increaseFoodAmount(500, berryBush, world);
 		
 		createVillagersOrganization(world);
 		

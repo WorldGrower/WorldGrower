@@ -394,7 +394,6 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.FISH_CREATURE);
 		properties.put(Constants.FOOD, 1000);
-		properties.put(Constants.FOOD_SOURCE, 1);
 		properties.put(Constants.WATER, 1000);
 		properties.put(Constants.ENERGY, 1000);
 		properties.put(Constants.GROUP, new IdList().add(organization));

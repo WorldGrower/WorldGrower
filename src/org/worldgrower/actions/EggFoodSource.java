@@ -29,13 +29,15 @@ public class EggFoodSource implements FoodSource {
 	}
 
 	@Override
-	public void harvest(WorldObject performer, WorldObject target, World world) {
+	public WorldObject harvest(WorldObject performer, WorldObject target, World world) {
 		WorldObjectContainer inventoryPerformer = performer.getProperty(Constants.INVENTORY);
 		
 		WorldObject harvestedFood = Item.EGG.generate(1f);
 		inventoryPerformer.addQuantity(harvestedFood, 1);
 
 		target.setProperty(Constants.HIT_POINTS, 0);
+		
+		return harvestedFood;
 	}
 
 	@Override

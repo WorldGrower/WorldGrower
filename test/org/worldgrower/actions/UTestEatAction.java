@@ -39,7 +39,12 @@ public class UTestEatAction {
 		Actions.EAT_ACTION.execute(performer, berryBush, Args.EMPTY, world);
 		
 		assertEquals(975, performer.getProperty(Constants.FOOD).intValue());
-		assertEquals(200, berryBush.getProperty(Constants.FOOD_SOURCE).intValue());
+		assertEquals(true, berryBush.getProperty(Constants.FOOD_SOURCE).hasEnoughFood());
+		
+		Actions.EAT_ACTION.execute(performer, berryBush, Args.EMPTY, world);
+		Actions.EAT_ACTION.execute(performer, berryBush, Args.EMPTY, world);
+		
+		assertEquals(false, berryBush.getProperty(Constants.FOOD_SOURCE).hasEnoughFood());
 	}
 	
 	@Test
@@ -50,7 +55,7 @@ public class UTestEatAction {
 		WorldObject berryBush = createBerryBush(world);
 		assertEquals(true, Actions.EAT_ACTION.isValidTarget(performer, berryBush, world));
 		
-		berryBush.setProperty(Constants.FOOD_SOURCE, 0);
+		berryBush.setProperty(Constants.FOOD_SOURCE, new BerryBushFoodSource());
 		assertEquals(false, Actions.EAT_ACTION.isValidTarget(performer, berryBush, world));
 	}
 
@@ -66,7 +71,7 @@ public class UTestEatAction {
 	private WorldObject createBerryBush(World world) {
 		int berryBushId = PlantGenerator.generateBerryBush(0, 0, world);
 		WorldObject berryBush = world.findWorldObjectById(berryBushId);
-		berryBush.setProperty(Constants.FOOD_SOURCE, 300);
+		berryBush.getProperty(Constants.FOOD_SOURCE).increaseFoodAmount(300, berryBush, world);
 		return berryBush;
 	}
 	

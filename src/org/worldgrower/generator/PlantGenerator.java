@@ -26,6 +26,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.BerryBushFoodSource;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.condition.Conditions;
@@ -56,8 +57,7 @@ public class PlantGenerator {
 		BuildingDimensions.BERRY_BUSH.addWidthHeight(properties);
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.BUSH);
-		properties.put(Constants.FOOD_SOURCE, 1);
-		properties.put(Constants.FOOD_PRODUCED, 1);
+		properties.put(Constants.FOOD_SOURCE, new BerryBushFoodSource());
 		properties.put(Constants.HIT_POINTS, 15 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 15 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);

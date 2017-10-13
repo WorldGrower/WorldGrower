@@ -34,11 +34,11 @@ public class UTestHarvestFoodAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createBerryBush(world);
 		
-		target.setProperty(Constants.FOOD_SOURCE, 500);
+		target.getProperty(Constants.FOOD_SOURCE).increaseFoodAmount(100, target, world);
 		Actions.HARVEST_FOOD_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD));
-		assertEquals(400, target.getProperty(Constants.FOOD_SOURCE).intValue());
+		assertEquals(false, target.getProperty(Constants.FOOD_SOURCE).hasEnoughFood());
 	}
 	
 	@Test
@@ -47,10 +47,10 @@ public class UTestHarvestFoodAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createBerryBush(world);
 		
-		target.setProperty(Constants.FOOD_SOURCE, 100);
+		target.getProperty(Constants.FOOD_SOURCE).increaseFoodAmount(100, target, world);
 		assertEquals(true, Actions.HARVEST_FOOD_ACTION.isValidTarget(performer, target, world));
 		
-		target.setProperty(Constants.FOOD_SOURCE, 0);
+		target.setProperty(Constants.FOOD_SOURCE, new BerryBushFoodSource());
 		assertEquals(false, Actions.HARVEST_FOOD_ACTION.isValidTarget(performer, target, world));
 	}
 	
@@ -60,7 +60,7 @@ public class UTestHarvestFoodAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createBerryBush(world);
 		
-		target.setProperty(Constants.FOOD_SOURCE, 100);
+		target.getProperty(Constants.FOOD_SOURCE).increaseFoodAmount(100, target, world);
 		assertEquals(true, Actions.HARVEST_FOOD_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	

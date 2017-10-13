@@ -27,7 +27,6 @@ import org.worldgrower.actions.BuildAction;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
-import org.worldgrower.generator.BerryBushOnTurn;
 import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.CottonPlantOnTurn;
 import org.worldgrower.generator.GrapeVineOnTurn;
@@ -59,7 +58,7 @@ public class PlantGrowthAction implements BuildAction, MagicSpell, AnimatedActio
 				TreeOnTurn.increaseWoodAmountToMax(spellTarget, world);
 			}
 			if (spellTarget.hasProperty(Constants.FOOD_SOURCE)) {
-				BerryBushOnTurn.increaseFoodAmountToMax(spellTarget, world);
+				spellTarget.getProperty(Constants.FOOD_SOURCE).increaseFoodAmountToMax(spellTarget, world);
 			}
 			if (spellTarget.hasProperty(Constants.COTTON_SOURCE)) {
 				CottonPlantOnTurn.increaseCottonAmountToMax(spellTarget, world);

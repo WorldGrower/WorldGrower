@@ -46,7 +46,7 @@ public class TutorialGameParameters implements GameParameters {
 		
 		int berryBushId = PlantGenerator.generateBerryBush(8, 11, world);
 		WorldObject berryBush = world.findWorldObjectById(berryBushId);
-		berryBush.setProperty(Constants.FOOD_SOURCE, 100);
+		berryBush.getProperty(Constants.FOOD_SOURCE).increaseFoodAmount(100, berryBush, world);
 		
 		int commonerId = commonerGenerator.generateCommoner(0, 10, world, organization, CommonerGenerator.NO_PARENT);
 		WorldObject commoner = world.findWorldObjectById(commonerId);

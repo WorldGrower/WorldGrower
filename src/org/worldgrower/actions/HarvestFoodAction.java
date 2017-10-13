@@ -24,9 +24,6 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
-import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.BerryBushImageCalculator;
-import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -34,18 +31,10 @@ public class HarvestFoodAction implements ManagedOperation, AnimatedAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		WorldObjectContainer inventoryPerformer = performer.getProperty(Constants.INVENTORY);
-		
-		WorldObject harvestedFood = Item.BERRIES.generate(1f);
-		int quantity = FoodPropertyUtils.calculateFarmingQuantity(performer);
-		inventoryPerformer.addQuantity(harvestedFood, quantity);
-
-		target.increment(Constants.FOOD_SOURCE, -100);
-		
-		target.setProperty(Constants.IMAGE_ID, BerryBushImageCalculator.getImageId(target, world));
-		FoodPropertyUtils.checkFoodSourceExhausted(target);
+		WorldObject harvestedFood = target.getProperty(Constants.FOOD_SOURCE).harvest(performer, target, world);
 		SkillUtils.useSkill(performer, Constants.FARMING_SKILL, world.getWorldStateChangedListeners());
 		
+		int quantity = harvestedFood.getProperty(Constants.QUANTITY);
 		world.logAction(this, performer, target, args, quantity + " "+ harvestedFood.getProperty(Constants.NAME) + " added to inventory");
 	}
 
@@ -76,7 +65,7 @@ public class HarvestFoodAction implements ManagedOperation, AnimatedAction {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return FoodPropertyUtils.foodSourceHasEnoughFood(target);
+		return target.hasProperty(Constants.FOOD_SOURCE) && target.getProperty(Constants.FOOD_SOURCE).hasEnoughFood();
 	}
 
 	@Override

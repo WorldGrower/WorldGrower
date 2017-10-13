@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import org.worldgrower.actions.FoodSource;
 import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.BackgroundProperty;
@@ -115,9 +116,9 @@ public class Constants {
 	public static final SkillProperty NECROMANCY_SKILL = new SkillProperty("necromancy", ALL_PROPERTIES, "Used for necromancy magic like dealing necrotic damage or animate spells");
 	public static final SkillProperty FISHING_SKILL = new SkillProperty("fishing", ALL_PROPERTIES, "Used by fishers when fishing");
 	
-	public static final UnCheckedProperty<CreatureType> CREATURE_TYPE = new UnCheckedProperty<CreatureType>("creatureType", ALL_PROPERTIES);
+	public static final UnCheckedProperty<CreatureType> CREATURE_TYPE = new UnCheckedProperty<>("creatureType", ALL_PROPERTIES);
 	
-	public static final IntProperty FOOD_SOURCE = new IntProperty("foodSource",0, 500, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final UnCheckedProperty<FoodSource> FOOD_SOURCE = new UnCheckedProperty<>("foodSource", ALL_PROPERTIES);
 	public static final IntProperty FOOD = new IntProperty("food", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty WATER = new IntProperty("water", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty WATER_SOURCE = new IntProperty("waterSource", 0, 2000, NOT_NULLABLE, ALL_PROPERTIES);
@@ -129,7 +130,6 @@ public class Constants {
 	public static final IntProperty COTTON_SOURCE = new IntProperty("cottonSource", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty COTTON = new IntProperty("cotton", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty MEAT_SOURCE = new IntProperty("meat", 0, 25, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty FOOD_PRODUCED = new IntProperty("foodProduced",0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty WOOD_PRODUCED = new IntProperty("woodProduced",0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final IntProperty WOOD = new IntProperty("wood", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);

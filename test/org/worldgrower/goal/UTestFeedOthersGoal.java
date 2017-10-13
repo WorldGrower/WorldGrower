@@ -69,7 +69,7 @@ public class UTestFeedOthersGoal {
 		target.setProperty(Constants.FOOD, 0);
 		int berryBushId = PlantGenerator.generateBerryBush(5, 5, world);
 		WorldObject berryBush = world.findWorldObjectById(berryBushId);
-		berryBush.setProperty(Constants.FOOD_SOURCE, 200);
+		berryBush.getProperty(Constants.FOOD_SOURCE).increaseFoodAmount(200, berryBush, world);
 		
 		createVillagersOrganization(world);
 		

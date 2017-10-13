@@ -18,9 +18,12 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.PlantGenerator;
 
 public class UTestFoodPropertyUtils {
@@ -29,28 +32,36 @@ public class UTestFoodPropertyUtils {
 	public void testFoodSourceExhausted() {
 		World world = new WorldImpl(1, 1, null, null);
 		int berryBushId = PlantGenerator.generateBerryBush(0, 0, world);
+		WorldObject performer = createPerformer(2);
 		WorldObject berryBush = world.findWorldObjectById(berryBushId);
 		
 		berryBush.setProperty(Constants.HIT_POINTS, 1);
-		berryBush.setProperty(Constants.FOOD_SOURCE, 0);
-		berryBush.setProperty(Constants.FOOD_PRODUCED, 0);
+		berryBush.setProperty(Constants.FOOD_SOURCE, new BerryBushFoodSource());
 		
-		FoodPropertyUtils.checkFoodSourceExhausted(berryBush);
+		FoodSource foodSource = berryBush.getProperty(Constants.FOOD_SOURCE);
+		foodSource.increaseFoodAmount(100, berryBush, world);
+		foodSource.eat(performer, berryBush, world);
 		assertEquals(1, berryBush.getProperty(Constants.HIT_POINTS).intValue());
 		
-		berryBush.setProperty(Constants.HIT_POINTS, 1);
-		berryBush.setProperty(Constants.FOOD_SOURCE, 0);
-		berryBush.setProperty(Constants.FOOD_PRODUCED, 500);
+		foodSource.increaseFoodAmountToMax(berryBush, world);
+		while(foodSource.hasEnoughFood()) {
+			foodSource.eat(performer, berryBush, world);	
+		}
 		
-		FoodPropertyUtils.checkFoodSourceExhausted(berryBush);
 		assertEquals(0, berryBush.getProperty(Constants.HIT_POINTS).intValue());
-		
-		berryBush.setProperty(Constants.HIT_POINTS, 1);
-		berryBush.setProperty(Constants.FOOD_SOURCE, 200);
-		berryBush.setProperty(Constants.FOOD_PRODUCED, 499);
-		
-		FoodPropertyUtils.checkFoodSourceExhausted(berryBush);
-		assertEquals(1, berryBush.getProperty(Constants.HIT_POINTS).intValue());
 	}
-
+	
+	private WorldObject createPerformer(int id) {
+		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.GROUP, new IdList());
+		performer.setProperty(Constants.X, 0);
+		performer.setProperty(Constants.Y, 0);
+		performer.setProperty(Constants.WIDTH, 1);
+		performer.setProperty(Constants.HEIGHT, 1);
+		performer.setProperty(Constants.ENERGY, 1000);
+		performer.setProperty(Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.GOLD, 1000);
+		performer.setProperty(Constants.ORGANIZATION_GOLD, 0);
+		performer.setProperty(Constants.DEATH_REASON, "");
+		return performer;
+	}
 }

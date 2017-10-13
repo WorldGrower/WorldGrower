@@ -17,7 +17,6 @@ package org.worldgrower.generator;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.FoodPropertyUtils;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.gui.ImageIds;
 
@@ -25,7 +24,7 @@ public class BerryBushImageCalculator {
 
 	public static ImageIds getImageId(WorldObject berryBush, World world) {
 		final ImageIds berryBushImageId;
-		if (FoodPropertyUtils.foodSourceHasEnoughFood(berryBush)) {
+		if (berryBush.getProperty(Constants.FOOD_SOURCE).hasEnoughFood()) {
 			if (isWilting(berryBush)) {
 				berryBushImageId = ImageIds.WILTING_BERRY_BUSH;
 			} else {
