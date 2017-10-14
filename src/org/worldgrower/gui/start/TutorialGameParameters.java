@@ -18,6 +18,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.TreeWoodSource;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
@@ -65,8 +66,8 @@ public class TutorialGameParameters implements GameParameters {
 	}
 
 	@Override
-	public String getGender() {
-		return "male";
+	public Gender getGender() {
+		return Gender.MALE;
 	}
 
 	@Override

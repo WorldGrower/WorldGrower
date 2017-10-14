@@ -34,6 +34,7 @@ import org.worldgrower.attribute.BackgroundImpl;
 import org.worldgrower.attribute.BuildingList;
 import org.worldgrower.attribute.DeathInformation;
 import org.worldgrower.attribute.Demands;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.attribute.ItemCountMap;
@@ -89,15 +90,15 @@ public class CommonerGenerator implements Serializable {
 		int id = world.generateUniqueId();
 		
 		final ImageIds imageId;
-		final String gender;
+		final Gender gender;
 		final String name;
 		boolean isFemale = random.nextFloat() > 0.5f;
 		if (isFemale) {
 			imageId = commonerImageIds.getNextFemaleCommonerImageId();
-			gender = "female";
+			gender = Gender.FEMALE;
 		} else {
 			imageId = commonerImageIds.getNextMaleCommonerImageId();
-			gender = "male";
+			gender = Gender.MALE;
 		}
 		
 		if (parent != null && isPlayerCharacter(parent)) {
@@ -172,7 +173,7 @@ public class CommonerGenerator implements Serializable {
 		return worldObject.getProperty(Constants.ID) == 0;
 	}
 	
-	public static WorldObject createPlayerCharacter(int id, String playerName, String playerProfession, String gender, World world, CommonerGenerator commonerGenerator, WorldObject organization, CharacterAttributes characterAttributes, ImageIds playerCharacterImageId) {
+	public static WorldObject createPlayerCharacter(int id, String playerName, String playerProfession, Gender gender, World world, CommonerGenerator commonerGenerator, WorldObject organization, CharacterAttributes characterAttributes, ImageIds playerCharacterImageId) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		
 		Position playerCharacterPosition = GoalUtils.findOpenNonWaterSpace(5, 5, 1, 1, world);

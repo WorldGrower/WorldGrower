@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.ConditionUtils;
@@ -63,6 +64,6 @@ public class FoodPropertyUtils {
 	}
 	
 	public static List<WorldObject> getMaleCattle(List<WorldObject> ownedCattle) {
-		return ownedCattle.stream().filter(w -> w.getProperty(Constants.GENDER).equals("male")).collect(Collectors.toList());
+		return ownedCattle.stream().filter(w -> w.getProperty(Constants.GENDER) == Gender.MALE).collect(Collectors.toList());
 	}
 }

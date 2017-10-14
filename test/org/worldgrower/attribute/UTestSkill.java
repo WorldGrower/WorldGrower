@@ -70,7 +70,7 @@ public class UTestSkill {
 	
 	private WorldObject createPlayerCharacter(World world, WorldObject organization) {
 		CharacterAttributes characterAttributes = new CharacterAttributes(10, 10, 10, 10, 10, 10);
-		WorldObject playerCharacter = CommonerGenerator.createPlayerCharacter(0, "player", "adventurer" , "female", world, commonerGenerator, organization, characterAttributes, ImageIds.KNIGHT);
+		WorldObject playerCharacter = CommonerGenerator.createPlayerCharacter(0, "player", "adventurer", Gender.FEMALE, world, commonerGenerator, organization, characterAttributes, ImageIds.KNIGHT);
 		return playerCharacter;
 	}
 }

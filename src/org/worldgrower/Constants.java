@@ -31,6 +31,7 @@ import org.worldgrower.attribute.ConditionsProperty;
 import org.worldgrower.attribute.DamageType;
 import org.worldgrower.attribute.DeathInformation;
 import org.worldgrower.attribute.Demands;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.attribute.IdContainer;
 import org.worldgrower.attribute.IdListProperty;
 import org.worldgrower.attribute.IdMapProperty;
@@ -175,7 +176,7 @@ public class Constants {
 	public static final IntProperty MATE_TURN = new IntProperty("mateTurn", 0, null, NULLABLE, ALL_PROPERTIES);
 	public static final IdListProperty CHILDREN = new IdListProperty("children", ALL_PROPERTIES);
 	public static final IdProperty CHILD_BIRTH_ID = new IdProperty("childBirthId", ALL_PROPERTIES);
-	public static final StringProperty GENDER = new StringProperty("gender", NOT_NULLABLE, ALL_PROPERTIES);
+	public static final UnCheckedProperty<Gender> GENDER = new UnCheckedProperty<>("gender", ALL_PROPERTIES);
 	public static final IntProperty PREGNANCY = new IntProperty("pregnancy", null, null, NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty SOCIAL = new IntProperty("social", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final BackgroundProperty BACKGROUND = new BackgroundProperty("background", ALL_PROPERTIES);

@@ -24,6 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.attribute.BuildingType;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.attribute.Prices;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.VampireUtils;
@@ -136,7 +137,7 @@ public class UTestCommonerOnTurn {
 
 	private WorldObject createPlayerCharacter(World world, WorldObject organization) {
 		CharacterAttributes characterAttributes = new CharacterAttributes(10, 10, 10, 10, 10, 10);
-		WorldObject playerCharacter = CommonerGenerator.createPlayerCharacter(0, "player", "adventurer" , "female", world, commonerGenerator, organization, characterAttributes, ImageIds.KNIGHT);
+		WorldObject playerCharacter = CommonerGenerator.createPlayerCharacter(0, "player", "adventurer", Gender.FEMALE, world, commonerGenerator, organization, characterAttributes, ImageIds.KNIGHT);
 		return playerCharacter;
 	}
 	
@@ -151,7 +152,7 @@ public class UTestCommonerOnTurn {
 		WorldObject organization = createVillagersOrganization(world);
 		
 		CharacterAttributes characterAttributes = new CharacterAttributes(10, 10, 10, 10, 10, 10);
-		WorldObject playerCharacter = CommonerGenerator.createPlayerCharacter(7, "player", "adventurer" , "female", world, commonerGenerator, organization, characterAttributes, ImageIds.KNIGHT);
+		WorldObject playerCharacter = CommonerGenerator.createPlayerCharacter(7, "player", "adventurer" , Gender.FEMALE, world, commonerGenerator, organization, characterAttributes, ImageIds.KNIGHT);
 
 		playerCharacter.setProperty(Constants.PREGNANCY, 500);
 		playerCharacter.onTurn(world, new WorldStateChangedListeners());
@@ -166,7 +167,7 @@ public class UTestCommonerOnTurn {
 		WorldObject organization = createVillagersOrganization(world);
 		
 		CharacterAttributes characterAttributes = new CharacterAttributes(10, 10, 10, 10, 10, 10);
-		WorldObject playerCharacter = CommonerGenerator.createPlayerCharacter(7, "player", "adventurer" , "female", world, commonerGenerator, organization, characterAttributes, ImageIds.KNIGHT);
+		WorldObject playerCharacter = CommonerGenerator.createPlayerCharacter(7, "player", "adventurer", Gender.FEMALE, world, commonerGenerator, organization, characterAttributes, ImageIds.KNIGHT);
 
 		playerCharacter.setProperty(Constants.PREGNANCY, 500);
 		playerCharacter.setProperty(Constants.CURSE, Curse.MINOTAUR_CURSE);

@@ -23,6 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.GovernanceOption;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.attribute.BooleanProperty;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.SkillProperty;
@@ -197,7 +198,7 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 	}
 
 	@Override
-	public void fireGenderChanged(WorldObject worldObject, String oldGender, String newGender) {
+	public void fireGenderChanged(WorldObject worldObject, Gender oldGender, Gender newGender) {
 		if (worldObject.equals(playerCharacter)) {
 			String description = " The gender of " + playerCharacter.getProperty(Constants.NAME) + " was changed from " + oldGender + " to " + newGender;
 			MessageDialogUtils.showMessage(description, "Gender Changed", playerCharacter, container, imageInfoReader);

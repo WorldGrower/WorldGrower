@@ -25,6 +25,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.BuildingType;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.generator.CommonerGenerator;
 
@@ -47,10 +48,10 @@ public class UTestChildrenGoal {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createPerformer(world, organization);
-		performer.setProperty(Constants.GENDER, "female");
+		performer.setProperty(Constants.GENDER, Gender.FEMALE);
 		
 		WorldObject target = createPerformer(world, organization);
-		target.setProperty(Constants.GENDER, "male");
+		target.setProperty(Constants.GENDER, Gender.MALE);
 		target.getProperty(Constants.BUILDINGS).add(7, BuildingType.HOUSE);
 		
 		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 1);
@@ -64,10 +65,10 @@ public class UTestChildrenGoal {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createPerformer(world, organization);
-		performer.setProperty(Constants.GENDER, "female");
+		performer.setProperty(Constants.GENDER, Gender.FEMALE);
 		
 		WorldObject target = createPerformer(world, organization);
-		target.setProperty(Constants.GENDER, "male");
+		target.setProperty(Constants.GENDER, Gender.MALE);
 		target.getProperty(Constants.BUILDINGS).add(7, BuildingType.HOUSE);
 		
 		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 1000);
@@ -81,10 +82,10 @@ public class UTestChildrenGoal {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createPerformer(world, organization);
-		performer.setProperty(Constants.GENDER, "female");
+		performer.setProperty(Constants.GENDER, Gender.FEMALE);
 		
 		WorldObject target = createPerformer(world, organization);
-		target.setProperty(Constants.GENDER, "male");
+		target.setProperty(Constants.GENDER, Gender.MALE);
 		target.getProperty(Constants.BUILDINGS).add(7, BuildingType.HOUSE);
 		world.addWorldObject(target);
 		

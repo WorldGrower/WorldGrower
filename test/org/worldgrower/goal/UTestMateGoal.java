@@ -26,6 +26,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.BuildingType;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.history.Turn;
@@ -52,8 +53,8 @@ public class UTestMateGoal {
 		WorldObject target = createCommoner(world, organization);
 		
 		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 1);
-		performer.setProperty(Constants.GENDER, "male");
-		target.setProperty(Constants.GENDER, "female");
+		performer.setProperty(Constants.GENDER, Gender.MALE);
+		target.setProperty(Constants.GENDER, Gender.FEMALE);
 		
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
@@ -68,8 +69,8 @@ public class UTestMateGoal {
 		WorldObject target = createCommoner(world, organization);
 		
 		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 1);
-		performer.setProperty(Constants.GENDER, "male");
-		target.setProperty(Constants.GENDER, "female");
+		performer.setProperty(Constants.GENDER, Gender.MALE);
+		target.setProperty(Constants.GENDER, Gender.FEMALE);
 		
 		world.getHistory().setNextAdditionalValue(1);
 		world.getHistory().actionPerformed(new OperationInfo(performer, target, Conversations.createArgs(Conversations.PROPOSE_MATE_CONVERSATION), Actions.TALK_ACTION), new Turn());
@@ -86,8 +87,8 @@ public class UTestMateGoal {
 		
 		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 900);
 		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, 900);
-		performer.setProperty(Constants.GENDER, "male");
-		target.setProperty(Constants.GENDER, "female");
+		performer.setProperty(Constants.GENDER, Gender.MALE);
+		target.setProperty(Constants.GENDER, Gender.FEMALE);
 		
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
@@ -103,8 +104,8 @@ public class UTestMateGoal {
 		
 		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, -900);
 		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, 900);
-		performer.setProperty(Constants.GENDER, "male");
-		target.setProperty(Constants.GENDER, "female");
+		performer.setProperty(Constants.GENDER, Gender.MALE);
+		target.setProperty(Constants.GENDER, Gender.FEMALE);
 		
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
@@ -118,8 +119,8 @@ public class UTestMateGoal {
 		WorldObject performer = createCommoner(world, organization);
 		WorldObject target = createCommoner(world, organization);
 		
-		performer.setProperty(Constants.GENDER, "male");
-		target.setProperty(Constants.GENDER, "female");
+		performer.setProperty(Constants.GENDER, Gender.MALE);
+		target.setProperty(Constants.GENDER, Gender.FEMALE);
 		world.addWorldObject(target);
 		
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());

@@ -16,6 +16,7 @@ package org.worldgrower.gui.start;
 
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.generator.PlantGenerator;
@@ -31,7 +32,7 @@ public class CustomGameParameters implements GameParameters {
 
 	private final String playerName;
 	private final String playerProfession;
-	private final String gender;
+	private final Gender gender;
 	private final int worldWidth;
 	private final int worldHeight;
 	private final int enemyDensity;
@@ -47,7 +48,7 @@ public class CustomGameParameters implements GameParameters {
 	public CustomGameParameters() {
 		this.playerName = getDefaultUsername();
 		this.playerProfession = "adventurer";
-		this.gender = "male";
+		this.gender = Gender.MALE;
 		this.worldWidth = 100;
 		this.worldHeight = 100;
 		this.enemyDensity = 0;
@@ -70,7 +71,7 @@ public class CustomGameParameters implements GameParameters {
 		}
 	}
 	
-	public CustomGameParameters(String playerName, String playerProfession, String gender, int worldWidth, int worldHeight, int enemyDensity, int villagerCount, int seed, int startTurn, float stoneResourceMultiplier, float oreResourceMultiplier, float goldResourceMultiplier, float oilResourceMultiplier, double waterCutoff) {
+	public CustomGameParameters(String playerName, String playerProfession, Gender gender, int worldWidth, int worldHeight, int enemyDensity, int villagerCount, int seed, int startTurn, float stoneResourceMultiplier, float oreResourceMultiplier, float goldResourceMultiplier, float oilResourceMultiplier, double waterCutoff) {
 		this.playerName = playerName;
 		this.playerProfession = playerProfession;
 		this.gender = gender;
@@ -140,7 +141,7 @@ public class CustomGameParameters implements GameParameters {
 	}
 
 	@Override
-	public String getGender() {
+	public Gender getGender() {
 		return gender;
 	}
 

@@ -22,6 +22,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.curse.Curse;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.BuildingGenerator;
@@ -226,7 +227,7 @@ public class UTestDungeonMaster {
 		WorldObject organization = createVillagersOrganization(world);
 		
 		WorldObject commoner = TestUtils.createIntelligentWorldObject(2, Goals.SOCIALIZE_GOAL);
-		WorldObject playerCharacter = CommonerGenerator.createPlayerCharacter(0, "player", "profession", "male", world, null, organization, new CharacterAttributes(10, 10, 10, 10, 10, 10), ImageIds.KNIGHT);
+		WorldObject playerCharacter = CommonerGenerator.createPlayerCharacter(0, "player", "profession", Gender.MALE, world, null, organization, new CharacterAttributes(10, 10, 10, 10, 10, 10), ImageIds.KNIGHT);
 		playerCharacter.getProperty(Constants.GROUP).addAll(commoner.getProperty(Constants.GROUP));
 		testRunWorldObjectWithMovingTarget(commoner, playerCharacter, dungeonMaster, world);
 	}

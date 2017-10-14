@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.generator.Item;
@@ -48,7 +49,7 @@ public class UTestButcherOwnedCattleGoal {
 			WorldObject cow = createCow(world);
 			cow.setProperty(Constants.CATTLE_OWNER_ID, 2);
 			cow.setProperty(Constants.MEAT_SOURCE, 10);
-			cow.setProperty(Constants.GENDER, i % 2 == 0 ? "male" : "female");
+			cow.setProperty(Constants.GENDER, i % 2 == 0 ? Gender.MALE : Gender.FEMALE);
 		}
 		
 		assertEquals(Actions.BUTCHER_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
@@ -71,7 +72,7 @@ public class UTestButcherOwnedCattleGoal {
 			WorldObject cow = createCow(world);
 			cow.setProperty(Constants.CATTLE_OWNER_ID, 2);
 			cow.setProperty(Constants.MEAT_SOURCE, 10);
-			cow.setProperty(Constants.GENDER, "male");
+			cow.setProperty(Constants.GENDER, Gender.MALE);
 		}
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
@@ -86,7 +87,7 @@ public class UTestButcherOwnedCattleGoal {
 			WorldObject cow = createCow(world);
 			cow.setProperty(Constants.CATTLE_OWNER_ID, 2);
 			cow.setProperty(Constants.MEAT_SOURCE, 1);
-			cow.setProperty(Constants.GENDER, i % 2 == 0 ? "male" : "female");
+			cow.setProperty(Constants.GENDER, i % 2 == 0 ? Gender.MALE : Gender.FEMALE);
 		}
 		
 		assertEquals(null, goal.calculateGoal(performer, world));

@@ -16,6 +16,7 @@ package org.worldgrower.gui.start;
 
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.generator.PlantGenerator;
@@ -30,10 +31,10 @@ public class PlayerCharacterInfo {
 
 	private final String playerName;
 	private final String playerProfession;
-	private final String gender;
+	private final Gender gender;
 	private final ImageIds imageId;
 		
-	public PlayerCharacterInfo(String playerName, String playerProfession, String gender, ImageIds imageId) {
+	public PlayerCharacterInfo(String playerName, String playerProfession, Gender gender, ImageIds imageId) {
 		this.playerName = playerName;
 		this.playerProfession = playerProfession;
 		this.gender = gender;
@@ -48,7 +49,7 @@ public class PlayerCharacterInfo {
 		return playerProfession;
 	}
 
-	public String getGender() {
+	public Gender getGender() {
 		return gender;
 	}
 

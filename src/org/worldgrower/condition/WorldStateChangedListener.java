@@ -20,6 +20,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.GovernanceOption;
 import org.worldgrower.actions.legal.LegalAction;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.creaturetype.CreatureType;
@@ -40,7 +41,7 @@ public interface WorldStateChangedListener {
 	public void lostLeadership(WorldObject worldObject, WorldObject organization);
 	public void skillsDeteriorated(WorldObject worldObject);
 	public void fireAssetsSeized(WorldObject worldObject, List<Integer> buildingIds);
-	public void fireGenderChanged(WorldObject worldObject, String oldGender, String newGender);
+	public void fireGenderChanged(WorldObject worldObject, Gender oldGender, Gender newGender);
 	public void fireCreatureCursed(WorldObject performer, WorldObject target, Curse curse);
 	public void fireCreatureUncursed(WorldObject performer, WorldObject target, Curse curse);
 	public void fireRebellionStarted(WorldObject organization);

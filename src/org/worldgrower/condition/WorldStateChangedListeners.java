@@ -21,6 +21,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.GovernanceOption;
 import org.worldgrower.actions.legal.LegalAction;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.creaturetype.CreatureType;
@@ -113,7 +114,7 @@ public class WorldStateChangedListeners {
 		}
 	}
 
-	public void genderChanged(WorldObject worldObject, String oldGender, String newGender) {
+	public void genderChanged(WorldObject worldObject, Gender oldGender, Gender newGender) {
 		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
 			worldStateChangedListener.fireGenderChanged(worldObject, oldGender, newGender);
 		}

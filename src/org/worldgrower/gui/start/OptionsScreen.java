@@ -32,6 +32,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.attribute.GhostImageIds;
 import org.worldgrower.gui.ExceptionHandler;
 import org.worldgrower.gui.ImageIds;
@@ -261,7 +262,7 @@ public class OptionsScreen {
 						int seed = Integer.parseInt(seedTextField.getText());
 						int startTurn = Integer.parseInt(startTurnTextField.getText());
 						
-						String gender = playerCharacterInfo.getGender();
+						Gender gender = playerCharacterInfo.getGender();
 						
 						float stoneResourceMultiplier = ((ResourceMultiplier)stoneResourceMultipliersComboBox.getSelectedItem()).getMultiplier();
 						float oreResourceMultiplier = ((ResourceMultiplier)oreResourceMultipliersComboBox.getSelectedItem()).getMultiplier();

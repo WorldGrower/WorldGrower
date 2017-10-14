@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.BuildingType;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.goal.GroupPropertyUtils;
@@ -155,11 +156,11 @@ public class UTestVotingPropertyUtils {
 		
 		assertEquals(true, VotingPropertyUtils.canVote(target, villagersOrganization, world));
 		
-		target.setProperty(Constants.GENDER, "male");
+		target.setProperty(Constants.GENDER, Gender.MALE);
 		villagersOrganization.setProperty(Constants.ONLY_FEMALES_CAN_VOTE, true);
 		assertEquals(false, VotingPropertyUtils.canVote(target, villagersOrganization, world));
 		
-		target.setProperty(Constants.GENDER, "female");
+		target.setProperty(Constants.GENDER, Gender.FEMALE);
 		assertEquals(true, VotingPropertyUtils.canVote(target, villagersOrganization, world));
 	}
 	
@@ -171,11 +172,11 @@ public class UTestVotingPropertyUtils {
 		
 		assertEquals(true, VotingPropertyUtils.canVote(target, villagersOrganization, world));
 		
-		target.setProperty(Constants.GENDER, "female");
+		target.setProperty(Constants.GENDER, Gender.FEMALE);
 		villagersOrganization.setProperty(Constants.ONLY_MALES_CAN_VOTE, true);
 		assertEquals(false, VotingPropertyUtils.canVote(target, villagersOrganization, world));
 		
-		target.setProperty(Constants.GENDER, "male");
+		target.setProperty(Constants.GENDER, Gender.MALE);
 		assertEquals(true, VotingPropertyUtils.canVote(target, villagersOrganization, world));
 	}
 	

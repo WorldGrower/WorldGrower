@@ -29,6 +29,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.Demands;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.attribute.GhostImageIds;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.LookDirection;
@@ -124,12 +125,12 @@ public class CreatureGenerator implements Serializable {
 		return new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new BeastOnTurn(this::generateRat), new RatWorldEvaluationFunction());
 	}
 
-	private String generateGender() {
-		final String gender;
+	private Gender generateGender() {
+		final Gender gender;
 		if (random.nextFloat() > 0.5f) {
-			gender = "female";
+			gender = Gender.FEMALE;
 		} else {
-			gender = "male";
+			gender = Gender.MALE;
 		}
 		return gender;
 	}
@@ -261,7 +262,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.DEMANDS, new Demands());
 		properties.put(Constants.CHILDREN, new IdList());
 		properties.put(Constants.SOCIAL, 500);
-		properties.put(Constants.GENDER, "male");
+		properties.put(Constants.GENDER, Gender.MALE);
 		properties.put(Constants.CREATURE_TYPE, CreatureType.MINOTAUR_CREATURE_TYPE);
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.LOOK_DIRECTION, LookDirection.SOUTH);
@@ -307,7 +308,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.DEMANDS, new Demands());
 		properties.put(Constants.CHILDREN, new IdList());
 		properties.put(Constants.SOCIAL, 500);
-		properties.put(Constants.GENDER, "male");
+		properties.put(Constants.GENDER, Gender.MALE);
 		properties.put(Constants.CREATURE_TYPE, CreatureType.GHOST_CREATURE_TYPE);
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.REMAINS_ID, remainsId);
@@ -382,7 +383,7 @@ public class CreatureGenerator implements Serializable {
 	}
 
 	private WorldObject generateFish(int x, int y, int id) {
-		final String gender = generateGender();
+		final Gender gender = generateGender();
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
@@ -424,12 +425,12 @@ public class CreatureGenerator implements Serializable {
 
 	private WorldObject generateCow(int x, int y, int id) {
 		final ImageIds imageId;
-		final String gender;
+		final Gender gender;
 		if (random.nextFloat() > 0.5f) {
-			gender = "female";
+			gender = Gender.FEMALE;
 			imageId = ImageIds.COW;
 		} else {
-			gender = "male";
+			gender = Gender.MALE;
 			imageId = ImageIds.BULL;
 		}
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
@@ -477,14 +478,14 @@ public class CreatureGenerator implements Serializable {
 	
 	private WorldObject generateChicken(int x, int y, int id) {
 		final ImageIds imageId;
-		final String gender;
+		final Gender gender;
 		final String name;
 		if (random.nextFloat() > 0.5f) {
-			gender = "female";
+			gender = Gender.FEMALE;
 			imageId = ImageIds.CHICKEN;
 			name = "chicken";
 		} else {
-			gender = "male";
+			gender = Gender.MALE;
 			imageId = ImageIds.ROOSTER;
 			name = "rooster";
 		}

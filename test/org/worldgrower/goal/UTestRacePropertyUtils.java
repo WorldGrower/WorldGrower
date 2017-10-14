@@ -20,6 +20,7 @@ import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.Curse;
 
@@ -40,15 +41,15 @@ public class UTestRacePropertyUtils {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
 		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
 		
-		performer.setProperty(Constants.GENDER, "male");
-		target.setProperty(Constants.GENDER, "female");
+		performer.setProperty(Constants.GENDER, Gender.MALE);
+		target.setProperty(Constants.GENDER, Gender.FEMALE);
 		
 		assertEquals(true, RacePropertyUtils.canHaveOffspring(performer, target));
 		
-		target.setProperty(Constants.GENDER, "male");
+		target.setProperty(Constants.GENDER, Gender.MALE);
 		assertEquals(false, RacePropertyUtils.canHaveOffspring(performer, target));
 		
-		target.setProperty(Constants.GENDER, "female");
+		target.setProperty(Constants.GENDER, Gender.FEMALE);
 		target.setProperty(Constants.CREATURE_TYPE, CreatureType.GHOUL_CREATURE_TYPE);
 		assertEquals(false, RacePropertyUtils.canHaveOffspring(performer, target));
 	}
@@ -57,8 +58,8 @@ public class UTestRacePropertyUtils {
 	public void testCanHaveOffspringCursed() {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
 		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
-		performer.setProperty(Constants.GENDER, "male");
-		target.setProperty(Constants.GENDER, "female");
+		performer.setProperty(Constants.GENDER, Gender.MALE);
+		target.setProperty(Constants.GENDER, Gender.FEMALE);
 		
 		performer.setProperty(Constants.CURSE, Curse.INFERTILITY_CURSE);
 		assertEquals(false, RacePropertyUtils.canHaveOffspring(performer, target));

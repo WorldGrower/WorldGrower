@@ -28,6 +28,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.BackgroundImpl;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.goal.Goals;
@@ -42,7 +43,7 @@ public class UTestWhyAngryConversation {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BACKGROUND, new BackgroundImpl());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.BACKGROUND, new BackgroundImpl());
 
-		performer.setProperty(Constants.GENDER, "male");
+		performer.setProperty(Constants.GENDER, Gender.MALE);
 		performer.setProperty(Constants.NAME, "performerName");
 		target.setProperty(Constants.NAME, "targetname");
 		
@@ -65,7 +66,7 @@ public class UTestWhyAngryConversation {
 	public void testGetReplyPhrase() {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BACKGROUND, new BackgroundImpl());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.BACKGROUND, new BackgroundImpl());
-		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.GENDER, "female");
+		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.GENDER, Gender.FEMALE);
 		
 		ConversationContext context = new ConversationContext(performer, target, subject, null, null, 0);
 		assertEquals(0, conversation.getReplyPhrase(context).getId());

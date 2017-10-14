@@ -16,6 +16,7 @@ package org.worldgrower.gui.start;
 
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.gui.AdditionalManagedOperationListenerFactory;
@@ -24,7 +25,7 @@ public interface GameParameters {
 
 	public String getPlayerName();
 	public String getPlayerProfession();
-	public String getGender();
+	public Gender getGender();
 	public int getWorldWidth();
 	public int getWorldHeight();
 	public double getWaterCutoff();

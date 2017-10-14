@@ -24,6 +24,7 @@ import org.junit.Test;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.Background;
 import org.worldgrower.attribute.BackgroundImpl;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.ProfessionExplanation;
 import org.worldgrower.goal.Goal;
@@ -60,7 +61,7 @@ public class UTestBackgroundImpl {
 		Background background = new BackgroundImpl();
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createWorldObject(0, "Tom");
-		performer.setProperty(Constants.GENDER, "male");
+		performer.setProperty(Constants.GENDER, Gender.MALE);
 		WorldObject actionTarget = createWorldObject(1, "actionTarget");
 		
 		background.addGoalObstructed(Goals.PROTECT_ONE_SELF_GOAL, performer, actionTarget, Actions.MELEE_ATTACK_ACTION, Args.EMPTY, world);
@@ -76,7 +77,7 @@ public class UTestBackgroundImpl {
 		Background background = new BackgroundImpl();
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createWorldObject(0, "Tom");
-		performer.setProperty(Constants.GENDER, "male");
+		performer.setProperty(Constants.GENDER, Gender.MALE);
 		WorldObject actionTarget = createWorldObject(1, "actionTarget");
 		
 		background.addGoalObstructed(Goals.STEAL_GOAL, performer, actionTarget, Actions.MELEE_ATTACK_ACTION, Args.EMPTY, world);
@@ -132,7 +133,7 @@ public class UTestBackgroundImpl {
 	public void testRemove() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createWorldObject(7, "Tom");
-		performer.setProperty(Constants.GENDER, "male");
+		performer.setProperty(Constants.GENDER, Gender.MALE);
 		WorldObject target = createWorldObject(8, "target");
 		
 		Background background = performer.getProperty(Constants.BACKGROUND);

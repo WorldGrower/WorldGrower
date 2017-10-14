@@ -12,28 +12,20 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.goal;
+package org.worldgrower.attribute;
 
-import static org.junit.Assert.assertTrue;
+public enum Gender {
+	MALE("male"),
+	FEMALE("female");
+	
+	private final String description;
+	
+	private Gender(String description) {
+		this.description = description;
+	}
 
-import org.junit.Test;
-import org.worldgrower.Constants;
-import org.worldgrower.TestUtils;
-import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.Gender;
-import org.worldgrower.condition.WorldStateChangedListeners;
-
-public class UTestGenderPropertyUtils {
-
-	@Test
-	public void testChangeGender() {
-		WorldObject performer = TestUtils.createWorldObject(0, 0, 1, 1);
-		performer.setProperty(Constants.GENDER, Gender.MALE);
-		
-		GenderPropertyUtils.changeGender(performer, new WorldStateChangedListeners());		
-		assertTrue(GenderPropertyUtils.isFemale(performer));
-
-		GenderPropertyUtils.changeGender(performer, new WorldStateChangedListeners());		
-		assertTrue(GenderPropertyUtils.isMale(performer));
+	@Override
+	public String toString() {
+		return description;
 	}
 }

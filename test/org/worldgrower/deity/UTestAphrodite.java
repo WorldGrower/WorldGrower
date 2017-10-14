@@ -23,10 +23,10 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.curse.Curse;
-import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.profession.Professions;
 
@@ -62,10 +62,10 @@ public class UTestAphrodite {
 		for(int i=0; i<20; i++) {
 			WorldObject worldObject = TestUtils.createIntelligentWorldObject(i+10, Constants.DEITY, Deity.ARES);
 			if (i == 0) {
-				worldObject.setProperty(Constants.GENDER, "female");
+				worldObject.setProperty(Constants.GENDER, Gender.FEMALE);
 				worldObject.setProperty(Constants.DEITY, Deity.ARTEMIS);
 			} else {
-				worldObject.setProperty(Constants.GENDER, "male");
+				worldObject.setProperty(Constants.GENDER, Gender.MALE);
 			}
 			
 			world.addWorldObject(worldObject);

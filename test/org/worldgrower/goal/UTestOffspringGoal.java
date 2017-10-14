@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.WorldObjectContainer;
 
@@ -44,8 +45,8 @@ public class UTestOffspringGoal {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		performer.setProperty(Constants.GENDER, "female");
-		target.setProperty(Constants.GENDER, "male");
+		performer.setProperty(Constants.GENDER, Gender.FEMALE);
+		target.setProperty(Constants.GENDER, Gender.MALE);
 		
 		world.addWorldObject(performer);
 		world.addWorldObject(target);

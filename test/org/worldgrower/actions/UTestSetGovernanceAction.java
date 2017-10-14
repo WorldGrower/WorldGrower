@@ -30,6 +30,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
@@ -175,7 +176,7 @@ public class UTestSetGovernanceAction {
 		}
 
 		@Override
-		public void fireGenderChanged(WorldObject worldObject, String oldGender, String newGender) {
+		public void fireGenderChanged(WorldObject worldObject, Gender oldGender, Gender newGender) {
 		}
 
 		@Override

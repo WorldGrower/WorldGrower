@@ -185,7 +185,7 @@ public class BackgroundImpl implements Background, Serializable {
 						angryReasonDescription = angryReason.getAngryReason();
 					}
 					
-					String pronoun = performer.getProperty(Constants.GENDER).equals("female") ? "She" : "He";
+					String pronoun = (performer.getProperty(Constants.GENDER) == Gender.FEMALE) ? "She" : "He";
 					String prefix = firstPerson ? "You were " : (pronoun + " was ");
 					result.add(prefix + angryReasonDescription);
 				}

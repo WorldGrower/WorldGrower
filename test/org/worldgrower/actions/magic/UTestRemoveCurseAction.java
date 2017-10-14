@@ -27,6 +27,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.curse.Curse;
 import org.worldgrower.goal.GenderPropertyUtils;
@@ -49,7 +50,7 @@ public class UTestRemoveCurseAction {
 	public void testExecuteGenderChange() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
-		performer.setProperty(Constants.GENDER, "male");
+		performer.setProperty(Constants.GENDER, Gender.MALE);
 		performer.setProperty(Constants.CURSE, Curse.CHANGE_GENDER_CURSE);
 		
 		action.execute(performer, performer, Args.EMPTY, world);

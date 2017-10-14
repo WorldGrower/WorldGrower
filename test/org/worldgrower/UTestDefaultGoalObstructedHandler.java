@@ -22,6 +22,7 @@ import org.junit.Test;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BrawlListener;
 import org.worldgrower.attribute.BackgroundImpl;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.condition.Condition;
@@ -188,7 +189,7 @@ public class UTestDefaultGoalObstructedHandler {
 	@Test
 	public void testLogToBackground() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GENDER, "male");
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GENDER, Gender.MALE);
 		WorldObject actionTarget = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList());
 		world.addWorldObject(performer);
 		world.addWorldObject(actionTarget);
@@ -203,7 +204,7 @@ public class UTestDefaultGoalObstructedHandler {
 	@Test
 	public void testAlterRelationships() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GENDER, "male");
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GENDER, Gender.MALE);
 		WorldObject actionTarget = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList());
 		world.addWorldObject(performer);
 		world.addWorldObject(actionTarget);

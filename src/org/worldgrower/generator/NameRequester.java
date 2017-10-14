@@ -15,7 +15,8 @@
 package org.worldgrower.generator;
 
 import org.worldgrower.CommonerNameGenerator;
+import org.worldgrower.attribute.Gender;
 
 public interface NameRequester {
-	public String requestName(boolean isFemale, String gender, CommonerNameGenerator commonerNameGenerator);
+	public String requestName(boolean isFemale, Gender gender, CommonerNameGenerator commonerNameGenerator);
 }

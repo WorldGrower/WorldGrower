@@ -17,6 +17,7 @@ package org.worldgrower.gui.start;
 import javax.swing.JFrame;
 
 import org.worldgrower.CommonerNameGenerator;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.generator.NameRequester;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.music.SoundIdReader;
@@ -35,7 +36,7 @@ public class NameRequesterImpl implements NameRequester {
 	}
 
 	@Override
-	public String requestName(boolean isFemale, String gender, CommonerNameGenerator commonerNameGenerator) {
+	public String requestName(boolean isFemale, Gender gender, CommonerNameGenerator commonerNameGenerator) {
 		String defaultName = commonerNameGenerator.getNextCommonerName(isFemale);
 		String textDialogMessage = "Please name newborn " + gender + " child:";
 		String childName = new TextInputDialog(textDialogMessage, defaultName, TextInputDialog.APHA_NUMERIC_INPUT, imageInfoReader, soundIdReader, parentFrame).showMe();

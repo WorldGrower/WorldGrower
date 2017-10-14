@@ -23,6 +23,7 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.attribute.WorldObjectContainer;
@@ -38,8 +39,8 @@ public class UTestSexAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		performer.setProperty(Constants.GENDER, "female");
-		target.setProperty(Constants.GENDER, "male");
+		performer.setProperty(Constants.GENDER, Gender.FEMALE);
+		target.setProperty(Constants.GENDER, Gender.MALE);
 		
 		assertEquals(null, performer.getProperty(Constants.PREGNANCY));
 		action.execute(performer, target, Args.EMPTY, world);
@@ -53,8 +54,8 @@ public class UTestSexAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		performer.setProperty(Constants.GENDER, "female");
-		target.setProperty(Constants.GENDER, "male");
+		performer.setProperty(Constants.GENDER, Gender.FEMALE);
+		target.setProperty(Constants.GENDER, Gender.MALE);
 		performer.setProperty(Constants.CURSE, Curse.INFERTILITY_CURSE);
 		
 		assertEquals(null, performer.getProperty(Constants.PREGNANCY));
@@ -69,8 +70,8 @@ public class UTestSexAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		performer.setProperty(Constants.GENDER, "male");
-		target.setProperty(Constants.GENDER, "female");
+		performer.setProperty(Constants.GENDER, Gender.MALE);
+		target.setProperty(Constants.GENDER, Gender.FEMALE);
 		
 		assertEquals(null, target.getProperty(Constants.PREGNANCY));
 		action.execute(performer, target, Args.EMPTY, world);
@@ -84,8 +85,8 @@ public class UTestSexAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		performer.setProperty(Constants.GENDER, "female");
-		target.setProperty(Constants.GENDER, "female");
+		performer.setProperty(Constants.GENDER, Gender.FEMALE);
+		target.setProperty(Constants.GENDER, Gender.FEMALE);
 		
 		assertEquals(null, target.getProperty(Constants.PREGNANCY));
 		action.execute(performer, target, Args.EMPTY, world);

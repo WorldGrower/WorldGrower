@@ -38,6 +38,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import org.worldgrower.Constants;
+import org.worldgrower.attribute.Gender;
 import org.worldgrower.attribute.GhostImageIds;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.gui.GuiAttributeDescription;
@@ -394,7 +395,7 @@ public class CharacterCustomizationScreen extends JFrame {
 				if (errors.size() == 0) {
 					CharacterCustomizationScreen.this.setVisible(false);
 					
-					String gender = maleRadioButton.isSelected() ? "male" : "female";
+					Gender gender = maleRadioButton.isSelected() ? Gender.MALE : Gender.FEMALE;
 					PlayerCharacterInfo playerCharacterInfo = new PlayerCharacterInfo(playerNameTextField.getText(), playerProfessionTextField.getText(), gender, (ImageIds)cmbImage.getSelectedItem());
 					OptionsScreen window = new OptionsScreen(characterAttributes, playerCharacterInfo, imageInfoReader, soundIdReader, musicPlayer, keyBindings, ghostImageIds, parentFrame);
 					window.setVisible(true);
