@@ -24,8 +24,6 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
-import org.worldgrower.generator.Item;
-import org.worldgrower.generator.TreeType;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -36,23 +34,16 @@ public class CutWoodAction implements ManagedOperation, AnimatedAction {
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int quantity = WoodPropertyUtils.calculateLumberingQuantity(performer);
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), quantity);
-		target.increment(Constants.WOOD_SOURCE, - 50);
+		WorldObject harvestedWood = target.getProperty(Constants.WOOD_SOURCE).harvest(performer, target, world);
 		
-		WoodPropertyUtils.checkWoodSourceExhausted(target);
-		target.setProperty(Constants.IMAGE_ID, TreeType.getTreeImageId(target));
 		SkillUtils.useEnergy(performer, Constants.LUMBERING_SKILL, ENERGY_USE, world.getWorldStateChangedListeners());
+		int quantity = harvestedWood.getProperty(Constants.QUANTITY);
 		world.logAction(this, performer, target, args, quantity + " "+ Constants.WOOD + " added to inventory");
-		
-		if (target.getProperty(Constants.WOOD_SOURCE) == 0) {
-			target.setProperty(Constants.HIT_POINTS, 0);
-		}
 	}
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return WoodPropertyUtils.woodSourceHasEnoughWood(target);
+		return target.hasProperty(Constants.WOOD_SOURCE) && target.getProperty(Constants.WOOD_SOURCE).hasEnoughWood();
 	}
 
 	@Override

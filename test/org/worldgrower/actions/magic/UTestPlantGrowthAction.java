@@ -27,6 +27,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.TreeWoodSource;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.PlantGenerator;
 
@@ -42,18 +43,18 @@ public class UTestPlantGrowthAction {
 		
 		int treeId = PlantGenerator.generateOldTree(0, 0, world);
 		WorldObject tree = world.findWorldObjectById(treeId);
-		assertEquals(200, tree.getProperty(Constants.WOOD_SOURCE).intValue());
+		assertEquals(true, tree.getProperty(Constants.WOOD_SOURCE).hasEnoughWood());
 		
 		action.execute(performer, target, Args.EMPTY, world);
 		
-		assertEquals(500, tree.getProperty(Constants.WOOD_SOURCE).intValue());
+		assertEquals(true, tree.getProperty(Constants.WOOD_SOURCE).hasEnoughWood());
 		
 		assertEquals(5, world.getWorldObjects().size());
-		assertEquals(500, world.getWorldObjects().get(0).getProperty(Constants.WOOD_SOURCE).intValue());
-		assertEquals(50, world.getWorldObjects().get(1).getProperty(Constants.WOOD_SOURCE).intValue());
-		assertEquals(50, world.getWorldObjects().get(2).getProperty(Constants.WOOD_SOURCE).intValue());
-		assertEquals(50, world.getWorldObjects().get(3).getProperty(Constants.WOOD_SOURCE).intValue());
-		assertEquals(50, world.getWorldObjects().get(4).getProperty(Constants.WOOD_SOURCE).intValue());
+		assertEquals(true, world.getWorldObjects().get(0).getProperty(Constants.WOOD_SOURCE).hasEnoughWood());
+		assertEquals(false, world.getWorldObjects().get(1).getProperty(Constants.WOOD_SOURCE).hasEnoughWood());
+		assertEquals(false, world.getWorldObjects().get(2).getProperty(Constants.WOOD_SOURCE).hasEnoughWood());
+		assertEquals(false, world.getWorldObjects().get(3).getProperty(Constants.WOOD_SOURCE).hasEnoughWood());
+		assertEquals(false, world.getWorldObjects().get(4).getProperty(Constants.WOOD_SOURCE).hasEnoughWood());
 	}
 	
 	@Test
@@ -64,7 +65,7 @@ public class UTestPlantGrowthAction {
 		
 		int treeId = PlantGenerator.generateOldTree(0, 0, world);
 		WorldObject tree = world.findWorldObjectById(treeId);
-		assertEquals(200, tree.getProperty(Constants.WOOD_SOURCE).intValue());
+		tree.setProperty(Constants.WOOD_SOURCE, new TreeWoodSource(0));
 		
 		int berryBushId = PlantGenerator.generateBerryBush(0, 0, world);
 		WorldObject berryBush = world.findWorldObjectById(berryBushId);
@@ -84,7 +85,7 @@ public class UTestPlantGrowthAction {
 		
 		action.execute(performer, target, Args.EMPTY, world);
 		
-		assertEquals(500, tree.getProperty(Constants.WOOD_SOURCE).intValue());
+		assertEquals(true, tree.getProperty(Constants.WOOD_SOURCE).hasEnoughWood());
 		assertEquals(true, berryBush.getProperty(Constants.FOOD_SOURCE).hasEnoughFood());
 		assertEquals(500, nightshade.getProperty(Constants.NIGHT_SHADE_SOURCE).intValue());
 		assertEquals(500, cottonPlant.getProperty(Constants.COTTON_SOURCE).intValue());

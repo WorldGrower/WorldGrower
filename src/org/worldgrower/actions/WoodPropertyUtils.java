@@ -19,17 +19,6 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 
 public class WoodPropertyUtils {
-
-	public static void checkWoodSourceExhausted(WorldObject target) {
-		int targetWoodSource = target.getProperty(Constants.WOOD_SOURCE);
-		if (targetWoodSource <= 100 && Constants.WOOD_PRODUCED.isAtMax(target)) {
-			target.setProperty(Constants.HIT_POINTS, 0);
-		}
-	}
-	
-	public static boolean woodSourceHasEnoughWood(WorldObject target) {
-		return (target.hasProperty(Constants.WOOD_SOURCE)) && (target.getProperty(Constants.WOOD_SOURCE) > 50);
-	}
 	
 	public static boolean leftHandContainsWoodCuttingTool(WorldObject performer) {
 		WorldObject leftHand = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);

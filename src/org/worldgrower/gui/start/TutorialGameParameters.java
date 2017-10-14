@@ -17,6 +17,7 @@ package org.worldgrower.gui.start;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.TreeWoodSource;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
@@ -42,7 +43,7 @@ public class TutorialGameParameters implements GameParameters {
 		
 		int treeId = PlantGenerator.generateTree(9, 5, world);
 		WorldObject tree = world.findWorldObjectById(treeId);
-		tree.increment(Constants.WOOD_SOURCE, 1000);
+		tree.setProperty(Constants.WOOD_SOURCE, new TreeWoodSource(1000));
 		
 		int berryBushId = PlantGenerator.generateBerryBush(8, 11, world);
 		WorldObject berryBush = world.findWorldObjectById(berryBushId);

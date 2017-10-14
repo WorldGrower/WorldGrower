@@ -34,11 +34,14 @@ public class UTestCutWoodAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createTree(world);
 		
-		assertEquals(200, target.getProperty(Constants.WOOD_SOURCE).intValue());
+		assertEquals(true, target.getProperty(Constants.WOOD_SOURCE).hasEnoughWood());
+		Actions.CUT_WOOD_ACTION.execute(performer, target, Args.EMPTY, world);
+		Actions.CUT_WOOD_ACTION.execute(performer, target, Args.EMPTY, world);
+		Actions.CUT_WOOD_ACTION.execute(performer, target, Args.EMPTY, world);
 		Actions.CUT_WOOD_ACTION.execute(performer, target, Args.EMPTY, world);
 		
-		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD));
-		assertEquals(150, target.getProperty(Constants.WOOD_SOURCE).intValue());
+		assertEquals(4, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD));
+		assertEquals(false, target.getProperty(Constants.WOOD_SOURCE).hasEnoughWood());
 	}
 	
 	@Test
@@ -46,12 +49,12 @@ public class UTestCutWoodAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createTree(world);
-		target.setProperty(Constants.WOOD_SOURCE, 1);
+		target.setProperty(Constants.WOOD_SOURCE, new TreeWoodSource(50));
 		
 		Actions.CUT_WOOD_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD));
-		assertEquals(0, target.getProperty(Constants.WOOD_SOURCE).intValue());
+		assertEquals(false, target.getProperty(Constants.WOOD_SOURCE).hasEnoughWood());
 		assertEquals(0, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
 	

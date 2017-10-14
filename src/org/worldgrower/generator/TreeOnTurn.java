@@ -18,7 +18,6 @@ import org.worldgrower.Constants;
 import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.WoodPropertyUtils;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.DrownUtils;
 import org.worldgrower.terrain.TerrainResource;
@@ -34,34 +33,18 @@ public class TreeOnTurn implements OnTurn {
 			throw new IllegalStateException("worldObject " + worldObject + " doesn't have conditions property");
 		}
 		
-		increaseWoodAmount(worldObject, world);
+		int woodIncrease = calculateWoodProduced(worldObject, world);
+		worldObject.getProperty(Constants.WOOD_SOURCE).increaseWoodAmount(woodIncrease, worldObject, world);
 		
 		worldObject.getProperty(Constants.CONDITIONS).onTurn(worldObject, world, creatureTypeChangedListeners);
 		DrownUtils.checkForDrowning(worldObject, world);
 	}
 
-	private static void increaseWoodAmount(WorldObject worldObject, World world) {
-		int woodProduced = calculateWoodProduced(worldObject, world);
-		if (!Constants.WOOD_PRODUCED.isAtMax(worldObject)) {
-			worldObject.increment(Constants.WOOD_SOURCE, woodProduced);
-		}
-		worldObject.increment(Constants.WOOD_PRODUCED, woodProduced);
-		WoodPropertyUtils.checkWoodSourceExhausted(worldObject);
-		
-		worldObject.setProperty(Constants.IMAGE_ID, TreeType.getTreeImageId(worldObject));
-	}
-	
 	private static int calculateWoodProduced(WorldObject worldObject, World world) {
 		int x = worldObject.getProperty(Constants.X);
 		int y = worldObject.getProperty(Constants.Y);
 		TerrainType terrainType = world.getTerrain().getTerrainType(x, y);
 		return DEFAULT_WOOD_INCREASE + terrainType.getBonus(TerrainResource.WOOD);
-	}
-	
-	public static void increaseWoodAmountToMax(WorldObject worldObject, World world) {
-		while (!Constants.WOOD_PRODUCED.isAtMax(worldObject)) {
-			increaseWoodAmount(worldObject, world);
-		}
 	}
 	
 	public static String getPercentageWoodBonus(TerrainType terrainType) {

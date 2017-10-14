@@ -32,7 +32,6 @@ import org.worldgrower.generator.CottonPlantOnTurn;
 import org.worldgrower.generator.GrapeVineOnTurn;
 import org.worldgrower.generator.NightShadeOnTurn;
 import org.worldgrower.generator.PlantGenerator;
-import org.worldgrower.generator.TreeOnTurn;
 import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
@@ -55,7 +54,7 @@ public class PlantGrowthAction implements BuildAction, MagicSpell, AnimatedActio
 		List<WorldObject> targets = getAffectedTargets(target, world);
 		for(WorldObject spellTarget : targets) {
 			if (spellTarget.hasProperty(Constants.WOOD_SOURCE)) {
-				TreeOnTurn.increaseWoodAmountToMax(spellTarget, world);
+				spellTarget.getProperty(Constants.WOOD_SOURCE).increaseWoodAmountToMax(spellTarget, world);
 			}
 			if (spellTarget.hasProperty(Constants.FOOD_SOURCE)) {
 				spellTarget.getProperty(Constants.FOOD_SOURCE).increaseFoodAmountToMax(spellTarget, world);

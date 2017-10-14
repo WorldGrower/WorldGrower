@@ -20,6 +20,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.worldgrower.actions.FoodSource;
+import org.worldgrower.actions.WoodSource;
 import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.BackgroundProperty;
@@ -122,7 +123,7 @@ public class Constants {
 	public static final IntProperty FOOD = new IntProperty("food", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty WATER = new IntProperty("water", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty WATER_SOURCE = new IntProperty("waterSource", 0, 2000, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty WOOD_SOURCE = new IntProperty("woodSource", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final UnCheckedProperty<WoodSource> WOOD_SOURCE = new UnCheckedProperty<>("woodSource", ALL_PROPERTIES);
 	public static final IntProperty GRAPE_SOURCE = new IntProperty("grapeSource", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty GRAPE = new IntProperty("grapes", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty WINE = new IntProperty("wine", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
@@ -130,7 +131,6 @@ public class Constants {
 	public static final IntProperty COTTON_SOURCE = new IntProperty("cottonSource", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty COTTON = new IntProperty("cotton", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty MEAT_SOURCE = new IntProperty("meat", 0, 25, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty WOOD_PRODUCED = new IntProperty("woodProduced",0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final IntProperty WOOD = new IntProperty("wood", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final BuildingsListProperty BUILDINGS = new BuildingsListProperty("buildings", ALL_PROPERTIES);

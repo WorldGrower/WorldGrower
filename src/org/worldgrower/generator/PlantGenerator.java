@@ -27,6 +27,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BerryBushFoodSource;
+import org.worldgrower.actions.TreeWoodSource;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.condition.Conditions;
@@ -82,8 +83,7 @@ public class PlantGenerator {
 		properties.put(Constants.Y, y);
 		BuildingDimensions.TREE_TRUNK.addWidthHeight(properties);
 		properties.put(Constants.ID, id);
-		properties.put(Constants.WOOD_SOURCE, 30);
-		properties.put(Constants.WOOD_PRODUCED, 400);
+		properties.put(Constants.WOOD_SOURCE, new TreeWoodSource(30));
 		properties.put(Constants.IMAGE_ID, ImageIds.TRUNK);
 		properties.put(Constants.HIT_POINTS, 15 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 15 * Item.COMBAT_MULTIPLIER);
@@ -169,7 +169,7 @@ public class PlantGenerator {
 	public static int generateOldTree(int x, int y, World world) {
 		int treeId = generateTree(x, y, world);
 		WorldObject tree = world.findWorldObjectById(treeId);
-		tree.setProperty(Constants.WOOD_SOURCE, 200);
+		tree.setProperty(Constants.WOOD_SOURCE, new TreeWoodSource(200));
 		return treeId;
 	}
 	
@@ -190,9 +190,7 @@ public class PlantGenerator {
 		properties.put(Constants.ID, id);
 		properties.put(Constants.TREE_TYPE, treeType);
 		properties.put(Constants.NAME, "tree");
-		int woodSource = Constants.WOOD_SOURCE.normalize((int)(50 * skillBonus));
-		properties.put(Constants.WOOD_SOURCE, woodSource);
-		properties.put(Constants.WOOD_PRODUCED, woodSource);
+		properties.put(Constants.WOOD_SOURCE, new TreeWoodSource((int)(50 * skillBonus)));
 		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.HIT_POINTS, 200 * Item.COMBAT_MULTIPLIER);
@@ -220,9 +218,7 @@ public class PlantGenerator {
 		properties.put(Constants.ID, id);
 		properties.put(Constants.TREE_TYPE, treeType);
 		properties.put(Constants.NAME, "palm tree");
-		int woodSource = Constants.WOOD_SOURCE.normalize((int)(50 * skillBonus));
-		properties.put(Constants.WOOD_SOURCE, woodSource);
-		properties.put(Constants.WOOD_PRODUCED, woodSource);
+		properties.put(Constants.WOOD_SOURCE, new TreeWoodSource((int)(50 * skillBonus)));
 		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.HIT_POINTS, 200 * Item.COMBAT_MULTIPLIER);

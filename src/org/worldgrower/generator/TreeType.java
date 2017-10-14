@@ -2,7 +2,6 @@ package org.worldgrower.generator;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.WoodPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
 public enum TreeType {
@@ -20,7 +19,7 @@ public enum TreeType {
 	}
 	
 	private ImageIds calculateTreeImageId(WorldObject tree) {
-		if (!WoodPropertyUtils.woodSourceHasEnoughWood(tree)) {
+		if (!tree.getProperty(Constants.WOOD_SOURCE).hasEnoughWood()) {
 			return smallImageIds;
 		} else {
 			return normalImageIds;
