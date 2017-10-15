@@ -28,6 +28,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.EggFoodSource;
 import org.worldgrower.attribute.Demands;
 import org.worldgrower.attribute.Gender;
 import org.worldgrower.attribute.GhostImageIds;
@@ -544,6 +545,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.EGG);
 		properties.put(Constants.CONDITIONS, new Conditions());
+		properties.put(Constants.FOOD_SOURCE, new EggFoodSource());
 		properties.put(Constants.PREGNANCY, 0);
 		
 		properties.put(Constants.ARMOR, 10);

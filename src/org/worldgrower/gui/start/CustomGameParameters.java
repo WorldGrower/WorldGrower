@@ -115,6 +115,10 @@ public class CustomGameParameters implements GameParameters {
 		creatureGenerator.generateCow(8, 2, world);
 		creatureGenerator.generateCow(9, 2, world);
 		
+		creatureGenerator.generateChicken(10, 2, world);
+		creatureGenerator.generateChicken(11, 2, world);
+		creatureGenerator.generateChicken(12, 2, world);
+		
 		PlantGenerator.generateTreeTrunk(3, 5, world);
 		PlantGenerator.generateTree(3, 8, world, 1f);
 
