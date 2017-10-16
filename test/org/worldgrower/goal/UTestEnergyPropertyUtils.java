@@ -19,7 +19,10 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
+import org.worldgrower.World;
+import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.generator.BuildingGenerator;
 
 public class UTestEnergyPropertyUtils {
 
@@ -47,5 +50,17 @@ public class UTestEnergyPropertyUtils {
 		
 		EnergyPropertyUtils.increment(performer, 1000);
 		assertEquals(950, performer.getProperty(Constants.ENERGY).intValue());
+	}
+	
+	@Test
+	public void testCalculateTurnsUntilRested() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(1);
+		int houseId = BuildingGenerator.generateHouse(0, 0, world, performer);
+		WorldObject house = world.findWorldObjectById(houseId);
+		assertEquals(0, EnergyPropertyUtils.calculateTurnsUntilRested(performer, house));
+		
+		performer.setProperty(Constants.ENERGY, 0);
+		assertEquals(83, EnergyPropertyUtils.calculateTurnsUntilRested(performer, house));
 	}
 }

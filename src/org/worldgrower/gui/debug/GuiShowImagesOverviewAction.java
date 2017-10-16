@@ -49,7 +49,7 @@ public class GuiShowImagesOverviewAction extends AbstractAction {
 		
 		JTable table = new JTable(new ImageModel(Arrays.asList(ImageIds.values())));
 		table.setBounds(50, 50, 1000, 800);
-		table.setRowHeight(50);
+		table.setRowHeight(100);
 		ImageCellRenderer renderer = new ImageCellRenderer(imageInfoReader);
 		table.setDefaultRenderer(ImageIcon.class, renderer);
 		frame.add(new JScrollPane(table));

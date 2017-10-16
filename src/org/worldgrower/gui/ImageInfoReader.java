@@ -177,6 +177,8 @@ public class ImageInfoReader implements SmallImageTagFactory {
     	Sprites rooster = readRooster();
     	Sprites egg = readEgg();
     	
+    	Sprites kitchen = readKitchen();
+    	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
     	add(ImageIds.BUCKET, objects.getSubImage(10, 10, 1, 1));
@@ -1016,6 +1018,7 @@ public class ImageInfoReader implements SmallImageTagFactory {
 		addCharacter(ImageIds.CHICKEN, chicken, 0, 0, 1, 1);
 		addCharacter(ImageIds.ROOSTER, rooster, 0, 0, 1, 1);
 		add(ImageIds.EGG, egg.getSubImage(1, 3, 1, 1));
+		add(ImageIds.KITCHEN, kitchen.getSubImage(0, 0, 1, 1));
     }
     
     private void createGhostImage(ImageIds newImageId, ImageIds imageId, GhostImageIds ghostImageIds) {
@@ -1682,6 +1685,10 @@ public class ImageInfoReader implements SmallImageTagFactory {
     
     private Sprites readEgg() throws IOException {
     	return readImages("vcoimak.png", 48, 48, 1, 1);
+	}
+    
+    private Sprites readKitchen() throws IOException {
+    	return readImages("aye_kitchen.png", 64, 64, 1, 1);
 	}
     
     private Sprites readSpritesTileMask() throws IOException {
