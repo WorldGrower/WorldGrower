@@ -145,7 +145,6 @@ public enum Item {
 	public static final int COMBAT_MULTIPLIER = 10;
 
 	private static final int DEFAULT_FOOD_VALUE = 1;
-	private static final int COOKED_FOOD_VALUE = 2;
 	
 	private static final String NEWS_PAPER_NAME = "news paper";
 	private static final String IRON_CLAYMORE_NAME = "iron claymore";
@@ -1487,18 +1486,5 @@ public enum Item {
 			}
 		}
 		return resourceItems;
-	}
-	
-	private static final Map<ImageIds, ImageIds> COOKED_IMAGES = new HashMap<>();
-	static {
-		COOKED_IMAGES.put(ImageIds.BERRY, ImageIds.COOKED_BERRIES);
-		COOKED_IMAGES.put(ImageIds.MEAT, ImageIds.COOKED_MEAT);
-		COOKED_IMAGES.put(ImageIds.RAW_FISH, ImageIds.COOKED_FISH);
-		COOKED_IMAGES.put(ImageIds.EGG, ImageIds.COOKED_EGG);
-	}
-	
-	public static void cookFood(WorldObject food) {
-		food.setProperty(Constants.FOOD, COOKED_FOOD_VALUE);
-		food.setProperty(Constants.IMAGE_ID, COOKED_IMAGES.get(food.getProperty(Constants.IMAGE_ID)));
 	}
 }

@@ -53,16 +53,4 @@ public class UTestItem {
 		Item[] sortedItems = Item.getSortedValues();
 		assertEquals(Item.APOTHECARY, sortedItems[0]);
 	}
-	
-	@Test
-	public void testCookFood() {
-		for(Item item : Item.values()) {
-			WorldObject worldObjectItem = item.generate(1f);
-			if (worldObjectItem.hasProperty(Constants.FOOD)) {
-				Item.cookFood(worldObjectItem);
-				assertEquals(2, worldObjectItem.getProperty(Constants.FOOD).intValue());
-				assertNotNull(worldObjectItem.getProperty(Constants.IMAGE_ID));
-			}
-		}
-	}
 }

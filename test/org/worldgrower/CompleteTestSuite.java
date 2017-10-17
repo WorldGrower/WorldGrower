@@ -189,6 +189,7 @@ import org.worldgrower.generator.UTestCreatureGenerator;
 import org.worldgrower.generator.UTestEggOnTurn;
 import org.worldgrower.generator.UTestFiretrapOnTurn;
 import org.worldgrower.generator.UTestFishOnTurn;
+import org.worldgrower.generator.UTestFoodCooker;
 import org.worldgrower.generator.UTestGhostOnTurn;
 import org.worldgrower.generator.UTestIllusionOnTurn;
 import org.worldgrower.generator.UTestItem;
@@ -869,7 +870,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestGhostOnTurn.class,
 	UTestPlantGenerator.class,
 	UTestEggOnTurn.class,
-	UTestConstructKitchenAction.class
+	UTestConstructKitchenAction.class,
+	UTestFoodCooker.class
 })
 public class CompleteTestSuite {
 }
