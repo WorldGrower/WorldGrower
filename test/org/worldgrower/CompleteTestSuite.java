@@ -868,7 +868,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestRemainsOnTurn.class,
 	UTestGhostOnTurn.class,
 	UTestPlantGenerator.class,
-	UTestEggOnTurn.class
+	UTestEggOnTurn.class,
+	UTestConstructKitchenAction.class
 })
 public class CompleteTestSuite {
 }

@@ -228,6 +228,7 @@ public class Actions {
 	
 	public static final VampireBiteAction VAMPIRE_BITE_ACTION = new VampireBiteAction();
 	public static final ConstructBedAction CONSTRUCT_BED_ACTION = new ConstructBedAction();
+	public static final ConstructKitchenAction CONSTRUCT_KITCHEN_ACTION = new ConstructKitchenAction();
 	public static final MarkAsSellableAction MARK_AS_SELLABLE_ACTION = new MarkAsSellableAction();
 	public static final MarkAsNotSellableAction MARK_AS_NOT_SELLABLE_ACTION = new MarkAsNotSellableAction();
 	public static final ConstructTrainingDummyAction CONSTRUCT_TRAINING_DUMMY_ACTION = new ConstructTrainingDummyAction();

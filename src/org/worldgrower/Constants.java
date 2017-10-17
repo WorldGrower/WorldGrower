@@ -207,6 +207,7 @@ public class Constants {
 	public static final BooleanProperty CAN_BE_WORSHIPPED = new BooleanProperty("canBeWorshipped", NOT_NULLABLE ,ALL_PROPERTIES);
 	
 	public static final IntProperty SLEEP_COMFORT = new IntProperty("sleep comfort", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty COOKING_QUALITY = new IntProperty("cooking quality", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final IntProperty SMITH_QUALITY = new IntProperty("smithing", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty FISHING_POLE_QUALITY = new IntProperty("fishing tool", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);

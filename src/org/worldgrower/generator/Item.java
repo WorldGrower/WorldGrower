@@ -78,6 +78,7 @@ public enum Item {
 	COTTON_GLOVES(ItemType.ARMOR), 
 	COTTON_PANTS(ItemType.ARMOR), 
 	BED(ItemType.MISC),
+	KITCHEN(ItemType.MISC),
 	OIL(ItemType.RESOURCE), 
 	FISHING_POLE(ItemType.TOOL), 
 	FISH(ItemType.FOOD), 
@@ -177,6 +178,7 @@ public enum Item {
 	private static final String LEATHER_PANTS_NAME = "leather pants";
 	
 	private static final String BED_NAME = "bed";
+	private static final String KITCHEN_NAME = "kitchen";
 	
 	private static final String STEEL_CLAYMORE_NAME = "steel claymore";
 	private static final String STEEL_AXE_NAME = "steel axe";
@@ -645,6 +647,18 @@ public enum Item {
 			properties.put(Constants.SLEEP_COMFORT, (int)(2 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.BED);
 			properties.put(Constants.LONG_DESCRIPTION, "A bed increases the energy that is restored when sleeping in a house that contains it.");
+			return new WorldObjectImpl(properties);
+		});
+		
+		addItem(Item.KITCHEN, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, KITCHEN_NAME);
+			properties.put(Constants.PRICE, 50);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.WEIGHT, 5);
+			properties.put(Constants.COOKING_QUALITY, (int)(2 * skillBonus));
+			properties.put(Constants.IMAGE_ID, ImageIds.KITCHEN);
+			properties.put(Constants.LONG_DESCRIPTION, "A kitchen allows cooking food");
 			return new WorldObjectImpl(properties);
 		});
 
