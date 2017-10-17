@@ -1019,6 +1019,12 @@ public class ImageInfoReader implements SmallImageTagFactory {
 		addCharacter(ImageIds.ROOSTER, rooster, 0, 0, 1, 1);
 		add(ImageIds.EGG, egg.getSubImage(1, 3, 1, 1));
 		add(ImageIds.KITCHEN, kitchen.getSubImage(0, 0, 1, 1));
+		add(ImageIds.COOKED_BERRIES, sprites420.getSubImage(7, 0, 1, 1));
+		add(ImageIds.COOKED_GRAPES, sprites420.getSubImage(5, 0, 1, 1));
+		add(ImageIds.COOKED_MEAT, sprites420.getSubImage(13, 1, 1, 1));
+		add(ImageIds.COOKED_FISH, sprites420.getSubImage(12, 1, 1, 1));
+		add(ImageIds.COOKED_EGG, sprites420.getSubImage(6, 1, 1, 1));
+		
     }
     
     private void createGhostImage(ImageIds newImageId, ImageIds imageId, GhostImageIds ghostImageIds) {
