@@ -143,6 +143,9 @@ public enum Item {
 	;
 
 	public static final int COMBAT_MULTIPLIER = 10;
+
+	private static final int DEFAULT_FOOD_VALUE = 1;
+	private static final int COOKED_FOOD_VALUE = 2;
 	
 	private static final String NEWS_PAPER_NAME = "news paper";
 	private static final String IRON_CLAYMORE_NAME = "iron claymore";
@@ -426,7 +429,7 @@ public enum Item {
 			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 			properties.put(Constants.NAME, "berries");
 			properties.put(Constants.PRICE, 1);
-			properties.put(Constants.FOOD, 1);
+			properties.put(Constants.FOOD, DEFAULT_FOOD_VALUE);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.IMAGE_ID, ImageIds.BERRY);
 			properties.put(Constants.LONG_DESCRIPTION, "Berries can be harvested and eaten.");
@@ -498,7 +501,7 @@ public enum Item {
 		addItem(Item.MEAT, skillBonus -> {
 			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 			properties.put(Constants.NAME, "meat");
-			properties.put(Constants.FOOD, 1);
+			properties.put(Constants.FOOD, DEFAULT_FOOD_VALUE);
 			properties.put(Constants.PRICE, 1);
 			properties.put(Constants.WEIGHT, 1);
 			properties.put(Constants.SELLABLE, false);
@@ -693,7 +696,7 @@ public enum Item {
 			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 			properties.put(Constants.NAME, "fish");
 			properties.put(Constants.PRICE, 1);
-			properties.put(Constants.FOOD, 1);
+			properties.put(Constants.FOOD, DEFAULT_FOOD_VALUE);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.IMAGE_ID, ImageIds.RAW_FISH);
 			properties.put(Constants.LONG_DESCRIPTION, "fish are used as food.");
@@ -1299,7 +1302,7 @@ public enum Item {
 			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 			properties.put(Constants.NAME, "egg");
 			properties.put(Constants.PRICE, 1);
-			properties.put(Constants.FOOD, 1);
+			properties.put(Constants.FOOD, DEFAULT_FOOD_VALUE);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.IMAGE_ID, ImageIds.EGG);
 			properties.put(Constants.LONG_DESCRIPTION, "Eggs can be harvested and eaten.");
@@ -1484,5 +1487,18 @@ public enum Item {
 			}
 		}
 		return resourceItems;
+	}
+	
+	private static final Map<ImageIds, ImageIds> COOKED_IMAGES = new HashMap<>();
+	static {
+		COOKED_IMAGES.put(ImageIds.BERRY, ImageIds.COOKED_BERRIES);
+		COOKED_IMAGES.put(ImageIds.MEAT, ImageIds.COOKED_MEAT);
+		COOKED_IMAGES.put(ImageIds.RAW_FISH, ImageIds.COOKED_FISH);
+		COOKED_IMAGES.put(ImageIds.EGG, ImageIds.COOKED_EGG);
+	}
+	
+	public static void cookFood(WorldObject food) {
+		food.setProperty(Constants.FOOD, COOKED_FOOD_VALUE);
+		food.setProperty(Constants.IMAGE_ID, COOKED_IMAGES.get(food.getProperty(Constants.IMAGE_ID)));
 	}
 }
