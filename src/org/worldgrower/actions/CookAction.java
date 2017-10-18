@@ -23,66 +23,61 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.FoodCooker;
 import org.worldgrower.gui.ImageIds;
-import org.worldgrower.gui.music.SoundIds;
 
-public class CutWoodAction implements ManagedOperation, AnimatedAction {
+public class CookAction implements ManagedOperation, AnimatedAction {
 
-	private static final int ENERGY_USE = 50;
-	private static final int DISTANCE = 1;
-	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		WorldObject harvestedWood = target.getProperty(Constants.WOOD_SOURCE).harvest(performer, target, world);
+		int indexOfFood = args[0];
+		WorldObject foodToCook = performer.getProperty(Constants.INVENTORY).get(indexOfFood);
 		
-		SkillUtils.useEnergy(performer, Constants.LUMBERING_SKILL, ENERGY_USE, world.getWorldStateChangedListeners());
-		int quantity = harvestedWood.getProperty(Constants.QUANTITY);
-		world.logAction(this, performer, target, args, quantity + " " + Constants.WOOD + " added to inventory");
-	}
-	
-	@Override
-	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return target.hasProperty(Constants.WOOD_SOURCE) && target.getProperty(Constants.WOOD_SOURCE).hasEnoughWood();
+		FoodCooker.cook(foodToCook);
+		
+		world.logAction(this, performer, target, args, foodToCook.getProperty(Constants.NAME) + " added to inventory");
 	}
 
 	@Override
-	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
-		return SkillUtils.hasEnoughEnergy(performer, Constants.LUMBERING_SKILL, ENERGY_USE);
+	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
+		return Reach.evaluateTarget(performer, target, 1);
 	}
 	
 	@Override
-	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, target, DISTANCE);
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		boolean performerOwnsTarget = performer.getProperty(Constants.BUILDINGS).contains(target);
+		boolean targetHasKitchen = target.getProperty(Constants.INVENTORY).getIndexFor(Constants.COOKING_QUALITY) > -1;
+		return performerOwnsTarget && targetHasKitchen;
 	}
 	
 	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, Constants.ENERGY, ENERGY_USE);
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1, "a person can only cook in houses it owns", "a person can only cook with a kitchen");
 	}
 	
 	@Override
 	public String getDescription() {
-		return "remove wood from the target and store it in the inventory";
+		return "cook food to increase its nutritional value";
 	}
-	
-	public boolean hasRequiredEnergy(WorldObject performer) {
-		return performer.getProperty(Constants.ENERGY) >= ENERGY_USE;
-	}
-	
+
 	@Override
 	public boolean requiresArguments() {
-		return false;
+		return true;
 	}
-	
+
+	@Override
+	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
+		return (target.hasProperty(Constants.SLEEP_COMFORT));
+	}
+
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "cutting down the " + target.getProperty(Constants.NAME);
+		return "cooking in " + target.getProperty(Constants.NAME);
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "cut wood";
+		return "cook";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -91,16 +86,12 @@ public class CutWoodAction implements ManagedOperation, AnimatedAction {
 	
 	@Override
 	public ImageIds getImageIds(WorldObject performer) {
-		return ImageIds.WOOD;
+		return ImageIds.COOKING;
 	}
 	
-	public SoundIds getSoundId(WorldObject target) {
-		return SoundIds.CUT_WOOD;
-	}
-
 	@Override
 	public ImageIds getAnimationImageId() {
-		return ImageIds.HORIZONTAL_SLASH;
+		return ImageIds.COOKING_ANIMATION;
 	}
 
 	@Override

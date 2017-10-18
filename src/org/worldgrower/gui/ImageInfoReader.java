@@ -1024,6 +1024,9 @@ public class ImageInfoReader implements SmallImageTagFactory {
 		add(ImageIds.COOKED_FISH, sprites420.getSubImage(12, 1, 1, 1));
 		add(ImageIds.COOKED_EGG, sprites420.getSubImage(6, 1, 1, 1));
 		
+		add(ImageIds.COOKING, tileB.getSubImage(15, 3, 1, 1));
+		createAnimation(ImageIds.COOKING_ANIMATION, ImageIds.COOKING, 10);
+		
     }
     
     private void createGhostImage(ImageIds newImageId, ImageIds imageId, GhostImageIds ghostImageIds) {

@@ -333,6 +333,7 @@ public class Actions {
 	public static final PlantPalmTreeAction PLANT_PALM_TREE_ACTION = new PlantPalmTreeAction();
 	public static final CraftIronTridentAction CRAFT_IRON_TRIDENT_ACTION = new CraftIronTridentAction();
 	public static final CraftSteelTridentAction CRAFT_STEEL_TRIDENT_ACTION = new CraftSteelTridentAction();
+	public static final CookAction COOK_ACTION = new CookAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -577,7 +578,8 @@ public class Actions {
 		CONSTRUCT_SAW_ACTION,
 		PLANT_PALM_TREE_ACTION,
 		CRAFT_IRON_TRIDENT_ACTION,
-		CRAFT_STEEL_TRIDENT_ACTION
+		CRAFT_STEEL_TRIDENT_ACTION,
+		COOK_ACTION
 	));
 	
 	static {
