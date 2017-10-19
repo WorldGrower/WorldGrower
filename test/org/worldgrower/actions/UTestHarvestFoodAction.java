@@ -42,6 +42,20 @@ public class UTestHarvestFoodAction {
 	}
 	
 	@Test
+	public void testExecuteTwice() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createBerryBush(world);
+		
+		target.getProperty(Constants.FOOD_SOURCE).increaseFoodAmount(100, target, world);
+		Actions.HARVEST_FOOD_ACTION.execute(performer, target, Args.EMPTY, world);
+		Actions.HARVEST_FOOD_ACTION.execute(performer, target, Args.EMPTY, world);
+		
+		assertEquals(2, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD));
+		assertEquals(false, target.getProperty(Constants.FOOD_SOURCE).hasEnoughFood());
+	}
+	
+	@Test
 	public void testIsValidTarget() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);

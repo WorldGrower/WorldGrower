@@ -25,6 +25,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.generator.FoodCooker;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class CookAction implements ManagedOperation, AnimatedAction {
 
@@ -92,6 +93,11 @@ public class CookAction implements ManagedOperation, AnimatedAction {
 	@Override
 	public ImageIds getAnimationImageId() {
 		return ImageIds.COOKING_ANIMATION;
+	}
+
+	@Override
+	public SoundIds getSoundId(WorldObject target) {
+		return SoundIds.COOK;
 	}
 
 	@Override

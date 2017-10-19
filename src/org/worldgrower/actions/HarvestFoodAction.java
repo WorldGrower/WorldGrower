@@ -31,11 +31,11 @@ public class HarvestFoodAction implements ManagedOperation, AnimatedAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		WorldObject harvestedFood = target.getProperty(Constants.FOOD_SOURCE).harvest(performer, target, world);
+		HarvestResult harvestResult = target.getProperty(Constants.FOOD_SOURCE).harvest(performer, target, world);
 		SkillUtils.useSkill(performer, Constants.FARMING_SKILL, world.getWorldStateChangedListeners());
 		
-		int quantity = harvestedFood.getProperty(Constants.QUANTITY);
-		world.logAction(this, performer, target, args, quantity + " "+ harvestedFood.getProperty(Constants.NAME) + " added to inventory");
+		int quantity = harvestResult.getQuantity();
+		world.logAction(this, performer, target, args, quantity + " "+ harvestResult.getName() + " added to inventory");
 	}
 
 	@Override

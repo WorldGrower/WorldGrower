@@ -251,6 +251,7 @@ public class GuiMouseListener extends MouseAdapter {
             		addVoteActions(menu, worldObject);
             		addResearchActions(menu, worldObject);
             		addRestActions(menu, worldObject);
+            		addCookAction(menu, worldObject);
             		addScribeMagicSpells(menu, worldObject);
             	}
             	addBarterAction(menu, worldObject);
@@ -487,6 +488,19 @@ public class GuiMouseListener extends MouseAdapter {
 			menu.add(restUntilRestedMenuItem);
 		}
 	}
+	
+	private void addCookAction(JPopupMenu menu, WorldObject worldObject) {
+		if (Actions.COOK_ACTION.isValidTarget(playerCharacter, worldObject, world)) {
+			DefaultActionContainingArgsAction defaultActionContainingArgsAction = new DefaultActionContainingArgsAction(playerCharacter, imageInfoReader, container, Actions.COOK_ACTION, world, dungeonMaster, worldObject, soundIdReader);
+			List<WorldObject> worldObjects = playerCharacter.getProperty(Constants.INVENTORY).getWorldObjectsByFunction(Constants.FOOD, w -> true);
+			JMenuItem cookMenuItem = MenuFactory.createJMenuItem(new ChooseWorldObjectAction(worldObjects, playerCharacter, imageInfoReader, soundIdReader, world, container, dungeonMaster, defaultActionContainingArgsAction, parentFrame), soundIdReader);
+			cookMenuItem.setText("Cook...");
+			cookMenuItem.setEnabled(worldObjects.size() > 0);
+			setMenuIcon(cookMenuItem, ImageIds.COOKING);
+			cookMenuItem.setToolTipText(Actions.COOK_ACTION.getDescription());
+			menu.add(cookMenuItem);
+		}
+	}
 
 	private void addPlayerCharacterInformationMenus(JPopupMenu menu) {
 		JMenuItem characterSheetMenuItem = MenuFactory.createJMenuItem(characterSheetAction, soundIdReader);
@@ -526,7 +540,8 @@ public class GuiMouseListener extends MouseAdapter {
 	private void addIllusionActions(JPopupMenu menu) {
 		IllusionSpell[] buildActions = { Actions.MINOR_ILLUSION_ACTION, Actions.MAJOR_ILLUSION_ACTION };
 		MagicSpell[] illusionActions = { Actions.INVISIBILITY_ACTION };
-		JMenu illusionMenu = addBuildActions(menu, ImageIds.MINOR_ILLUSION_MAGIC_SPELL, "Illusions", buildActions, buildAction -> new ChooseWorldObjectAction((IllusionSpell) buildAction, playerCharacter, imageInfoReader, soundIdReader, world, ((WorldPanel)container), dungeonMaster, new StartBuildModeAction(playerCharacter, imageInfoReader, ((WorldPanel)container), buildAction), parentFrame));
+		
+		JMenu illusionMenu = addBuildActions(menu, ImageIds.MINOR_ILLUSION_MAGIC_SPELL, "Illusions", buildActions, buildAction -> new ChooseWorldObjectAction(getIllusionWorldObjects((IllusionSpell) buildAction), playerCharacter, imageInfoReader, soundIdReader, world, ((WorldPanel)container), dungeonMaster, new StartBuildModeAction(playerCharacter, imageInfoReader, ((WorldPanel)container), buildAction), parentFrame));
 		addActions(illusionMenu, illusionActions);
 		
     	JMenuItem disguiseMenuItem = MenuFactory.createJMenuItem(new GuiDisguiseAction(playerCharacter, imageInfoReader, soundIdReader, world, (WorldPanel)container, dungeonMaster, Actions.DISGUISE_MAGIC_SPELL_ACTION, parentFrame), soundIdReader);
@@ -535,6 +550,10 @@ public class GuiMouseListener extends MouseAdapter {
     	addToolTips(Actions.DISGUISE_MAGIC_SPELL_ACTION, disguiseMenuItem);
     	setMenuIcon(disguiseMenuItem, skillImageIds.getImageFor(Constants.ILLUSION_SKILL));
     	illusionMenu.add(disguiseMenuItem);
+	}
+	
+	private List<WorldObject> getIllusionWorldObjects(IllusionSpell illusionSpell) {
+		return illusionSpell.getIllusionSources(playerCharacter, world);
 	}
 	
 	private void addRestorationActions(JPopupMenu menu) {

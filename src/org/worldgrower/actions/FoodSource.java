@@ -23,7 +23,7 @@ import org.worldgrower.WorldObject;
 public interface FoodSource extends Serializable {
 
 	public void eat(WorldObject performer, WorldObject target, World world);
-	public WorldObject harvest(WorldObject performer, WorldObject target, World world);
+	public HarvestResult harvest(WorldObject performer, WorldObject target, World world);
 	public boolean hasEnoughFood();
 	
 	public void increaseFoodAmount(int foodIncrease, WorldObject target, World world);

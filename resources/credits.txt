@@ -312,3 +312,6 @@ chicken sound by Dann93 at https://freesound.org/people/Dann93/sounds/192035/
 
 kitchen sprites by Ayene at https://forums.rpgmakerweb.com/index.php?threads/ayenes-tiles.27710/
 aye_kitchen.png
+
+cooking sound effect by TinyWorlds at https://opengameart.org/content/boiling-water-loops
+cooking_with_cover_01.wav.gz

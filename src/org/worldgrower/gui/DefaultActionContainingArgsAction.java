@@ -12,50 +12,51 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.gui.chooseworldobject;
+package org.worldgrower.gui;
 
 import java.awt.event.ActionEvent;
-import java.util.List;
 
 import javax.swing.AbstractAction;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
 
+import org.worldgrower.Args;
 import org.worldgrower.DungeonMaster;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.gui.ActionContainingArgs;
-import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.music.SoundIdReader;
+import org.worldgrower.gui.start.Game;
 
-public class ChooseWorldObjectAction extends AbstractAction {
-	private List<WorldObject> worldObjects;
+public class DefaultActionContainingArgsAction extends AbstractAction implements ActionContainingArgs {
+
 	private WorldObject playerCharacter;
-	private ChooseWorldObjectDialog dialog;
 	private ImageInfoReader imageInfoReader;
-	private SoundIdReader soundIdReader;
+	private WorldPanel worldPanel;
+	private ManagedOperation action;
 	private World world;
-	private JComponent parent;
 	private DungeonMaster dungeonMaster;
-	private ActionContainingArgs guiAction;
-	private JFrame parentFrame;
+	private WorldObject target;
+	private SoundIdReader soundIdReader;
+	private int[] args = Args.EMPTY;
 	
-	public ChooseWorldObjectAction(List<WorldObject> worldObjects, WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, JComponent parent, DungeonMaster dungeonMaster, ActionContainingArgs guiAction, JFrame parentFrame) {
+	public DefaultActionContainingArgsAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, WorldPanel worldPanel, ManagedOperation action, World world, DungeonMaster dungeonMaster, WorldObject target, SoundIdReader soundIdReader) {
 		super();
-		this.worldObjects = worldObjects;
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
-		this.soundIdReader = soundIdReader;
+		this.worldPanel = worldPanel;
+		this.action = action;
 		this.world = world;
-		this.parent = parent;
 		this.dungeonMaster = dungeonMaster;
-		this.guiAction = guiAction;
-		this.parentFrame = parentFrame;
+		this.target = target;
+		this.soundIdReader = soundIdReader;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		dialog = new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, soundIdReader, worldObjects, parent, world, dungeonMaster, guiAction, parentFrame);
-		dialog.showMe();
+		Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, action, args, world, dungeonMaster, target, worldPanel, imageInfoReader, soundIdReader);
+	}
+
+	@Override
+	public void setArgs(int[] args) {
+		this.args = args;
 	}
 }
