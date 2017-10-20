@@ -26,7 +26,6 @@ import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -44,12 +43,16 @@ public class ChooseWorldObjectDialog extends AbstractDialog {
 	private JButton okButton;
 	
 	private ActionContainingArgs guiAction;
+	private WorldObject playerCharacter;
+	private WorldObjectMapper worldObjectMapper;
 
-	public ChooseWorldObjectDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, List<WorldObject> disguiseWorldObjects, Component parent, World world, DungeonMaster dungeonMaster, ActionContainingArgs guiAction, JFrame parentFrame) {
+	public ChooseWorldObjectDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, List<WorldObject> disguiseWorldObjects, Component parent, World world, DungeonMaster dungeonMaster, ActionContainingArgs guiAction, JFrame parentFrame, WorldObjectMapper worldObjectMapper) {
 		super(400, 502, imageInfoReader);
 		initializeGui(parent, disguiseWorldObjects, imageInfoReader, soundIdReader, parentFrame);
 		
 		this.guiAction = guiAction;
+		this.playerCharacter = playerCharacter;
+		this.worldObjectMapper = worldObjectMapper;
 		
 		handleActions();
 	}
@@ -84,10 +87,8 @@ public class ChooseWorldObjectDialog extends AbstractDialog {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				WorldObject selectedPerson = personList.getSelectedValue();
-				int selectedId = selectedPerson.getProperty(Constants.ID);
-				
-				guiAction.setArgs(new int[] { selectedId });
+				WorldObject selectedWorldObject = personList.getSelectedValue();
+				guiAction.setArgs(worldObjectMapper.map(playerCharacter, selectedWorldObject));
 				
 				guiAction.actionPerformed(null);		
 				ChooseWorldObjectDialog.this.dispose();

@@ -246,14 +246,14 @@ public final class WorldObjectContainer implements Serializable {
 		return -1;
 	}
 	
-	public boolean contains(WorldObject worldObjectToFind) {
+	public int getIndexFor(WorldObject worldObjectToFind) {
 		for(Entry<WorldObject> entry : worldObjects.int2ObjectEntrySet()) {
 			WorldObject worldObject = entry.getValue();
 			if (worldObject == worldObjectToFind) {
-				return true;
+				return entry.getIntKey();
 			}
 		}
-		return false;
+		return -1;
 	}
 
 	public void removeQuantity(int index, int quantity) {

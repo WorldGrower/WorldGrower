@@ -39,8 +39,9 @@ public class ChooseWorldObjectAction extends AbstractAction {
 	private DungeonMaster dungeonMaster;
 	private ActionContainingArgs guiAction;
 	private JFrame parentFrame;
+	private WorldObjectMapper worldObjectMapper;
 	
-	public ChooseWorldObjectAction(List<WorldObject> worldObjects, WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, JComponent parent, DungeonMaster dungeonMaster, ActionContainingArgs guiAction, JFrame parentFrame) {
+	public ChooseWorldObjectAction(List<WorldObject> worldObjects, WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, JComponent parent, DungeonMaster dungeonMaster, ActionContainingArgs guiAction, JFrame parentFrame, WorldObjectMapper worldObjectMapper) {
 		super();
 		this.worldObjects = worldObjects;
 		this.playerCharacter = playerCharacter;
@@ -51,11 +52,12 @@ public class ChooseWorldObjectAction extends AbstractAction {
 		this.dungeonMaster = dungeonMaster;
 		this.guiAction = guiAction;
 		this.parentFrame = parentFrame;
+		this.worldObjectMapper = worldObjectMapper;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		dialog = new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, soundIdReader, worldObjects, parent, world, dungeonMaster, guiAction, parentFrame);
+		dialog = new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, soundIdReader, worldObjects, parent, world, dungeonMaster, guiAction, parentFrame, worldObjectMapper);
 		dialog.showMe();
 	}
 }

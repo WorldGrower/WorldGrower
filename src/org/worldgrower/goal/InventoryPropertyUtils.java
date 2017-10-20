@@ -39,7 +39,7 @@ public class InventoryPropertyUtils {
 		
 		for(UnCheckedProperty<WorldObject> equipmentSlot : EQUIPMENT_SLOTS) {
 			WorldObject equipmentItem = worldObject.getProperty(equipmentSlot);
-			if (!inventory.contains(equipmentItem)) {
+			if (inventory.getIndexFor(equipmentItem) == -1) {
 				worldObject.setProperty(equipmentSlot, null);
 			}
 		}

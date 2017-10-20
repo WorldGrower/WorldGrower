@@ -62,6 +62,7 @@ import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectAction;
 import org.worldgrower.gui.chooseworldobject.GuiDisguiseAction;
 import org.worldgrower.gui.chooseworldobject.GuiViewCandidatesAction;
 import org.worldgrower.gui.chooseworldobject.GuiVoteAction;
+import org.worldgrower.gui.chooseworldobject.WorldObjectMapper;
 import org.worldgrower.gui.conversation.ConversationFormatterImpl;
 import org.worldgrower.gui.conversation.GuiAskQuestionAction;
 import org.worldgrower.gui.cursor.Cursors;
@@ -493,7 +494,7 @@ public class GuiMouseListener extends MouseAdapter {
 		if (Actions.COOK_ACTION.isValidTarget(playerCharacter, worldObject, world)) {
 			DefaultActionContainingArgsAction defaultActionContainingArgsAction = new DefaultActionContainingArgsAction(playerCharacter, imageInfoReader, container, Actions.COOK_ACTION, world, dungeonMaster, worldObject, soundIdReader);
 			List<WorldObject> worldObjects = playerCharacter.getProperty(Constants.INVENTORY).getWorldObjectsByFunction(Constants.FOOD, w -> true);
-			JMenuItem cookMenuItem = MenuFactory.createJMenuItem(new ChooseWorldObjectAction(worldObjects, playerCharacter, imageInfoReader, soundIdReader, world, container, dungeonMaster, defaultActionContainingArgsAction, parentFrame), soundIdReader);
+			JMenuItem cookMenuItem = MenuFactory.createJMenuItem(new ChooseWorldObjectAction(worldObjects, playerCharacter, imageInfoReader, soundIdReader, world, container, dungeonMaster, defaultActionContainingArgsAction, parentFrame, WorldObjectMapper.INVENTORY_ID), soundIdReader);
 			cookMenuItem.setText("Cook...");
 			cookMenuItem.setEnabled(worldObjects.size() > 0);
 			setMenuIcon(cookMenuItem, ImageIds.COOKING);
@@ -541,7 +542,7 @@ public class GuiMouseListener extends MouseAdapter {
 		IllusionSpell[] buildActions = { Actions.MINOR_ILLUSION_ACTION, Actions.MAJOR_ILLUSION_ACTION };
 		MagicSpell[] illusionActions = { Actions.INVISIBILITY_ACTION };
 		
-		JMenu illusionMenu = addBuildActions(menu, ImageIds.MINOR_ILLUSION_MAGIC_SPELL, "Illusions", buildActions, buildAction -> new ChooseWorldObjectAction(getIllusionWorldObjects((IllusionSpell) buildAction), playerCharacter, imageInfoReader, soundIdReader, world, ((WorldPanel)container), dungeonMaster, new StartBuildModeAction(playerCharacter, imageInfoReader, ((WorldPanel)container), buildAction), parentFrame));
+		JMenu illusionMenu = addBuildActions(menu, ImageIds.MINOR_ILLUSION_MAGIC_SPELL, "Illusions", buildActions, buildAction -> new ChooseWorldObjectAction(getIllusionWorldObjects((IllusionSpell) buildAction), playerCharacter, imageInfoReader, soundIdReader, world, ((WorldPanel)container), dungeonMaster, new StartBuildModeAction(playerCharacter, imageInfoReader, ((WorldPanel)container), buildAction), parentFrame, WorldObjectMapper.WORLD_OBJECT_ID));
 		addActions(illusionMenu, illusionActions);
 		
     	JMenuItem disguiseMenuItem = MenuFactory.createJMenuItem(new GuiDisguiseAction(playerCharacter, imageInfoReader, soundIdReader, world, (WorldPanel)container, dungeonMaster, Actions.DISGUISE_MAGIC_SPELL_ACTION, parentFrame), soundIdReader);

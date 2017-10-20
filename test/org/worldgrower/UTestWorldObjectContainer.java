@@ -183,14 +183,14 @@ public class UTestWorldObjectContainer {
 	}
 	
 	@Test
-	public void testContains() {
+	public void testGetIndexForEquals() {
 		WorldObjectContainer container = new WorldObjectContainer();
 		WorldObject worldObject1 = TestUtils.createWorldObject(1, "Test");
 		container.add(worldObject1);
 		WorldObject worldObject2 = TestUtils.createWorldObject(2, "Test2");
 		
-		assertEquals(true, container.contains(worldObject1));
-		assertEquals(false, container.contains(worldObject2));
+		assertEquals(0, container.getIndexFor(worldObject1));
+		assertEquals(-1, container.getIndexFor(worldObject2));
 	}
 	
 	@Test

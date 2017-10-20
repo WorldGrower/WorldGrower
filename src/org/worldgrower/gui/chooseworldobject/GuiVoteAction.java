@@ -63,7 +63,7 @@ public class GuiVoteAction extends AbstractAction {
 		List<WorldObject> voteWorldObjects = world.findWorldObjects(w -> candidates.contains(w.getProperty(Constants.ID)));
 		
 		ActionContainingArgs guiAction = new GuiAction();
-		dialog = new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, soundIdReader, voteWorldObjects, parent, world, dungeonMaster, guiAction, parentFrame);
+		dialog = new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, soundIdReader, voteWorldObjects, parent, world, dungeonMaster, guiAction, parentFrame, WorldObjectMapper.WORLD_OBJECT_ID);
 		dialog.showMe();
 	}
 	

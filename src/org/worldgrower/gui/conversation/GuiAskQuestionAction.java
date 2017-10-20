@@ -37,6 +37,7 @@ import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectDialog;
+import org.worldgrower.gui.chooseworldobject.WorldObjectMapper;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
 
@@ -139,7 +140,7 @@ public class GuiAskQuestionAction extends AbstractAction implements Answerer {
 
 	@Override
 	public ChooseWorldObjectDialog createChooseWorldObjectsDialog(ActionContainingArgs guiAction, Question question, JDialog parentDialog) {
-		return new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, soundIdReader, getPossibleSubjects(question), parentDialog, world, dungeonMaster, guiAction, parentFrame);
+		return new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, soundIdReader, getPossibleSubjects(question), parentDialog, world, dungeonMaster, guiAction, parentFrame, WorldObjectMapper.WORLD_OBJECT_ID);
 	}
 
 	@Override
