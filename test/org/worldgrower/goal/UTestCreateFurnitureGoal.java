@@ -76,6 +76,29 @@ public class UTestCreateFurnitureGoal {
 		
 		assertEquals(Actions.CONSTRUCT_BED_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
+	
+	@Test
+	public void testCalculateGoalConstructKitchen() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BED.generate(1f), 2);
+		addWorkbench(world, performer);
+		
+		assertEquals(Actions.CONSTRUCT_KITCHEN_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalNothing() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BED.generate(1f), 2);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.KITCHEN.generate(1f), 2);
+		addWorkbench(world, performer);
+		
+		assertEquals(null, goal.calculateGoal(performer, world));
+	}
 
 	private void addWorkbench(World world, WorldObject performer) {
 		int workbenchId = BuildingGenerator.generateWorkbench(0, 0, world, performer);
@@ -89,8 +112,8 @@ public class UTestCreateFurnitureGoal {
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		performer.getProperty(Constants.INVENTORY).add(Item.BED.generate(1f));
-		performer.getProperty(Constants.INVENTORY).add(Item.BED.generate(1f));
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BED.generate(1f));
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BED.generate(1f));
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 	

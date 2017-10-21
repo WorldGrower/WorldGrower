@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.ConstructBedAction;
+import org.worldgrower.actions.ConstructKitchenAction;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.text.FormattableText;
@@ -40,13 +41,23 @@ public class CreateFurnitureGoal implements Goal {
 		if (workbenchId == null) {
 			return Goals.WORKBENCH_GOAL.calculateGoal(performer, world);
 		} else {
-			if (!ConstructBedAction.hasEnoughWood(performer)) {
-				return Goals.WOOD_GOAL.calculateGoal(performer, world);
-			} else {
-				WorldObject workbench = world.findWorldObjectById(workbenchId);
-				return new OperationInfo(performer, workbench, Args.EMPTY, Actions.CONSTRUCT_BED_ACTION);
+			if (!hasEnoughBeds(performer)) {
+				if (!ConstructBedAction.hasEnoughWood(performer)) {
+					return Goals.WOOD_GOAL.calculateGoal(performer, world);
+				} else {
+					WorldObject workbench = world.findWorldObjectById(workbenchId);
+					return new OperationInfo(performer, workbench, Args.EMPTY, Actions.CONSTRUCT_BED_ACTION);
+				}
+			} else if (!hasEnoughKitchens(performer)) {
+				if (!ConstructKitchenAction.hasEnoughWood(performer)) {
+					return Goals.WOOD_GOAL.calculateGoal(performer, world);
+				} else {
+					WorldObject workbench = world.findWorldObjectById(workbenchId);
+					return new OperationInfo(performer, workbench, Args.EMPTY, Actions.CONSTRUCT_KITCHEN_ACTION);
+				}
 			}
 		}
+		return null;
 	}
 
 	@Override
@@ -55,7 +66,15 @@ public class CreateFurnitureGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.BED).size() > 1;
+		return hasEnoughBeds(performer);
+	}
+
+	private boolean hasEnoughBeds(WorldObject performer) {
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.SLEEP_COMFORT) > 1;
+	}
+	
+	private boolean hasEnoughKitchens(WorldObject performer) {
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.COOKING_QUALITY) > 1;
 	}
 	
 	@Override
