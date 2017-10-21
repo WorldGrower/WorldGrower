@@ -51,7 +51,7 @@ public class UTestCarpenterProfession {
 		assertEquals(goals.get(1), Goals.MARK_HOUSE_AS_SELLABLE_GOAL);
 		assertEquals(goals.get(2), Goals.SELL_HOUSE_GOAL);
 		assertEquals(goals.get(3), Goals.CREATE_FURNITURE_GOAL);
-		assertEquals(goals.get(4), Goals.SELL_FURNITURE_GOAL);
+		assertEquals(goals.get(4), Goals.SELL_BEDS_GOAL);
 	}
 
 	@Test

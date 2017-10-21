@@ -91,7 +91,8 @@ public class Goals {
 	public static final MarkBuildingAsSellableGoal MARK_HOUSE_AS_SELLABLE_GOAL = new MarkBuildingAsSellableGoal(BuildingType.HOUSE, ALL_GOALS);
 	public static final MarkBuildingAsSellableGoal MARK_SMITH_AS_SELLABLE_GOAL = new MarkBuildingAsSellableGoal(BuildingType.SMITH, ALL_GOALS);
 	public static final CreateFurnitureGoal CREATE_FURNITURE_GOAL = new CreateFurnitureGoal(ALL_GOALS);
-	public static final SellFurnitureGoal SELL_FURNITURE_GOAL = new SellFurnitureGoal(ALL_GOALS);
+	public static final SellBedsGoal SELL_BEDS_GOAL = new SellBedsGoal(ALL_GOALS);
+	public static final SellKitchensGoal SELL_KITCHENS_GOAL = new SellKitchensGoal(ALL_GOALS);
 	public static final FurnitureGoal FURNITURE_GOAL = new FurnitureGoal(ALL_GOALS);
 	public static final CreateOrPlantWoodGoal CREATE_OR_PLANT_WOOD_GOAL = new CreateOrPlantWoodGoal(ALL_GOALS);
 	public static final TrainGoal TRAIN_GOAL = new TrainGoal(ALL_GOALS);

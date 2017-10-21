@@ -20,19 +20,19 @@ import org.worldgrower.Constants;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
-public class SellFurnitureGoal extends AbstractSellGoal {
+public class SellKitchensGoal extends AbstractSellGoal {
 
-	public SellFurnitureGoal() {
-		super(Constants.SLEEP_COMFORT, 20);
+	public SellKitchensGoal() {
+		super(Constants.COOKING_QUALITY, 20);
 	}
 
-	public SellFurnitureGoal(List<Goal> allGoals) {
+	public SellKitchensGoal(List<Goal> allGoals) {
 		this();
 		allGoals.add(this);
 	}
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_SELL_FURNITURE);
+		return new FormattableText(TextId.GOAL_SELL_KITCHENS);
 	}
 }
