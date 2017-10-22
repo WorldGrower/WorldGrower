@@ -117,6 +117,8 @@ public class GuiMouseListener extends MouseAdapter {
 	private final CommunityOverviewAction communityOverviewAction;
 	private final GuiShowGovernanceAction showGovernanceAction;
 	private final GuiShowBuildingsAction showBuildingsAction;
+	private final GuiShowProductionBuildingsAction showProductionBuildingsAction;
+	private final GuiShowPlantAction showPlantAction;
 	
     public GuiMouseListener(WorldPanel container, WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, KeyBindings keyBindings, JFrame parentFrame) {
 		super();
@@ -140,6 +142,8 @@ public class GuiMouseListener extends MouseAdapter {
 		communityOverviewAction = new CommunityOverviewAction(playerCharacter, imageInfoReader, soundIdReader, world, parentFrame);
 		showGovernanceAction = new GuiShowGovernanceAction(playerCharacter, dungeonMaster, world, container, soundIdReader, parentFrame, imageInfoReader);
 		showBuildingsAction = new GuiShowBuildingsAction();
+		showProductionBuildingsAction = new GuiShowProductionBuildingsAction();
+		showPlantAction = new GuiShowPlantAction();
 		addKeyBindings(keyBindings);
 	}
 
@@ -158,6 +162,8 @@ public class GuiMouseListener extends MouseAdapter {
 		addKeyBindingsFor(communityOverviewAction, keyBindings.getValue(GuiAction.COMMUNITY_OVERVIEW));
 		addKeyBindingsFor(showGovernanceAction, keyBindings.getValue(GuiAction.SHOW_GOVERNANCE));
 		addKeyBindingsFor(showBuildingsAction, keyBindings.getValue(GuiAction.SHOW_BUILDINGS));
+		addKeyBindingsFor(showProductionBuildingsAction, keyBindings.getValue(GuiAction.SHOW_PRODUCTION_BUILDINGS));
+		addKeyBindingsFor(showPlantAction, keyBindings.getValue(GuiAction.SHOW_PLANTS));
 	}
 	
 	private void addKeyBindingsFor(Action action, char binding) {
@@ -533,13 +539,19 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private void addBuildProductionActions(JPopupMenu menu) {
-		BuildActions buildActions = new BuildActions(startBuildMode(), Actions.BUILD_SMITH_ACTION, Actions.BUILD_PAPER_MILL_ACTION, Actions.BUILD_WEAVERY_ACTION, Actions.BUILD_WORKBENCH_ACTION, Actions.BUILD_BREWERY_ACTION, Actions.BUILD_APOTHECARY_ACTION);
-		createBuildActionsSubMenu(menu, ImageIds.HAMMER, "Build production buildings", buildActions);
+		createBuildActionsSubMenu(menu, ImageIds.HAMMER, "Build production buildings", getProductionBuildActions()).setAccelerator((KeyStroke)showProductionBuildingsAction.getValue(Action.ACCELERATOR_KEY));
+	}
+
+	private BuildActions getProductionBuildActions() {
+		return new BuildActions(startBuildMode(), Actions.BUILD_SMITH_ACTION, Actions.BUILD_PAPER_MILL_ACTION, Actions.BUILD_WEAVERY_ACTION, Actions.BUILD_WORKBENCH_ACTION, Actions.BUILD_BREWERY_ACTION, Actions.BUILD_APOTHECARY_ACTION);
 	}
 	
 	private void addPlantActions(JPopupMenu menu) {
-		BuildActions buildActions = new BuildActions(startBuildMode(), Actions.PLANT_BERRY_BUSH_ACTION, Actions.PLANT_GRAPE_VINE_ACTION, Actions.PLANT_TREE_ACTION, Actions.PLANT_COTTON_PLANT_ACTION, Actions.PLANT_NIGHT_SHADE_ACTION, Actions.PLANT_PALM_TREE_ACTION);
-		createBuildActionsSubMenu(menu, ImageIds.BUSH, "Plant", buildActions);
+		createBuildActionsSubMenu(menu, ImageIds.BUSH, "Plant", getPlantActions()).setAccelerator((KeyStroke)showPlantAction.getValue(Action.ACCELERATOR_KEY));
+	}
+
+	private BuildActions getPlantActions() {
+		return new BuildActions(startBuildMode(), Actions.PLANT_BERRY_BUSH_ACTION, Actions.PLANT_GRAPE_VINE_ACTION, Actions.PLANT_TREE_ACTION, Actions.PLANT_COTTON_PLANT_ACTION, Actions.PLANT_NIGHT_SHADE_ACTION, Actions.PLANT_PALM_TREE_ACTION);
 	}
 	
 	private void addIllusionActions(JPopupMenu menu) {
@@ -1034,6 +1046,36 @@ public class GuiMouseListener extends MouseAdapter {
 	private void showBuildingsAction(int x, int y) {
 		JPopupMenu menu = MenuFactory.createJPopupMenu(imageInfoReader);
 		getBuildActions().add(menu);
+		menu.show(container, x, y);
+	}
+	
+	private class GuiShowProductionBuildingsAction extends AbstractAction {
+		@Override
+		public void actionPerformed(ActionEvent actionEvent) {
+			Point location = MouseInfo.getPointerInfo().getLocation();
+			SwingUtilities.convertPointFromScreen(location, container);
+			showProductionBuildingsAction(location.x, location.y);
+		}
+	}
+	
+	private void showProductionBuildingsAction(int x, int y) {
+		JPopupMenu menu = MenuFactory.createJPopupMenu(imageInfoReader);
+		getProductionBuildActions().add(menu);
+		menu.show(container, x, y);
+	}
+	
+	private class GuiShowPlantAction extends AbstractAction {
+		@Override
+		public void actionPerformed(ActionEvent actionEvent) {
+			Point location = MouseInfo.getPointerInfo().getLocation();
+			SwingUtilities.convertPointFromScreen(location, container);
+			showPlantAction(location.x, location.y);
+		}
+	}
+	
+	private void showPlantAction(int x, int y) {
+		JPopupMenu menu = MenuFactory.createJPopupMenu(imageInfoReader);
+		getPlantActions().add(menu);
 		menu.show(container, x, y);
 	}
 }

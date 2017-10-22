@@ -25,6 +25,8 @@ public enum GuiAction {
 	COMMUNITY_OVERVIEW("Show community overview", 'U'),
 	SHOW_GOVERNANCE("Show governance overview", 'G'),
 	SHOW_BUILDINGS("Show Buildings", 'B'),
+	SHOW_PRODUCTION_BUILDINGS("Show Buildings", 'P'),
+	SHOW_PLANTS("Show Buildings", 'L'),
 	;
 	
 	private final String description;
