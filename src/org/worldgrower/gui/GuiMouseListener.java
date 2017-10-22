@@ -328,7 +328,7 @@ public class GuiMouseListener extends MouseAdapter {
 		addDisguiseMenu(miscMenu);
 		
 		addPropertiesMenu(menu, playerCharacter);
-		addBuildActions(menu);
+		createBuildActionsSubMenu(menu);
 		addBuildProductionActions(menu);
 		addPlantActions(menu);
 		addIllusionActions(menu);
@@ -524,26 +524,30 @@ public class GuiMouseListener extends MouseAdapter {
 		menu.add(magicOverviewMenuItem);
 	}
 
-	private void addBuildActions(JPopupMenu menu) {
-		BuildAction[] buildActions = { Actions.BUILD_SHACK_ACTION, Actions.BUILD_HOUSE_ACTION, Actions.BUILD_SHRINE_ACTION, Actions.BUILD_WELL_ACTION, Actions.BUILD_LIBRARY_ACTION, Actions.CREATE_GRAVE_ACTION, Actions.CONSTRUCT_TRAINING_DUMMY_ACTION, Actions.BUILD_JAIL_ACTION, Actions.BUILD_SACRIFICAL_ALTAR_ACTION, Actions.BUILD_ARENA_ACTION, Actions.CONSTRUCT_CHEST_ACTION };
-		addBuildActions(menu, ImageIds.HAMMER, "Build", buildActions);
+	private void createBuildActionsSubMenu(JPopupMenu menu) {
+		createBuildActionsSubMenu(menu, ImageIds.HAMMER, "Build", getBuildActions());
+	}
+
+	private BuildActions getBuildActions() {
+		return new BuildActions(startBuildMode(), Actions.BUILD_SHACK_ACTION, Actions.BUILD_HOUSE_ACTION, Actions.BUILD_SHRINE_ACTION, Actions.BUILD_WELL_ACTION, Actions.BUILD_LIBRARY_ACTION, Actions.CREATE_GRAVE_ACTION, Actions.CONSTRUCT_TRAINING_DUMMY_ACTION, Actions.BUILD_JAIL_ACTION, Actions.BUILD_SACRIFICAL_ALTAR_ACTION, Actions.BUILD_ARENA_ACTION, Actions.CONSTRUCT_CHEST_ACTION);
 	}
 	
 	private void addBuildProductionActions(JPopupMenu menu) {
-		BuildAction[] buildActions = { Actions.BUILD_SMITH_ACTION, Actions.BUILD_PAPER_MILL_ACTION, Actions.BUILD_WEAVERY_ACTION, Actions.BUILD_WORKBENCH_ACTION, Actions.BUILD_BREWERY_ACTION, Actions.BUILD_APOTHECARY_ACTION };
-		addBuildActions(menu, ImageIds.HAMMER, "Build production buildings", buildActions);
+		BuildActions buildActions = new BuildActions(startBuildMode(), Actions.BUILD_SMITH_ACTION, Actions.BUILD_PAPER_MILL_ACTION, Actions.BUILD_WEAVERY_ACTION, Actions.BUILD_WORKBENCH_ACTION, Actions.BUILD_BREWERY_ACTION, Actions.BUILD_APOTHECARY_ACTION);
+		createBuildActionsSubMenu(menu, ImageIds.HAMMER, "Build production buildings", buildActions);
 	}
 	
 	private void addPlantActions(JPopupMenu menu) {
-		BuildAction[] buildActions = { Actions.PLANT_BERRY_BUSH_ACTION, Actions.PLANT_GRAPE_VINE_ACTION, Actions.PLANT_TREE_ACTION, Actions.PLANT_COTTON_PLANT_ACTION, Actions.PLANT_NIGHT_SHADE_ACTION, Actions.PLANT_PALM_TREE_ACTION };
-		addBuildActions(menu, ImageIds.BUSH, "Plant", buildActions);
+		BuildActions buildActions = new BuildActions(startBuildMode(), Actions.PLANT_BERRY_BUSH_ACTION, Actions.PLANT_GRAPE_VINE_ACTION, Actions.PLANT_TREE_ACTION, Actions.PLANT_COTTON_PLANT_ACTION, Actions.PLANT_NIGHT_SHADE_ACTION, Actions.PLANT_PALM_TREE_ACTION);
+		createBuildActionsSubMenu(menu, ImageIds.BUSH, "Plant", buildActions);
 	}
 	
 	private void addIllusionActions(JPopupMenu menu) {
-		IllusionSpell[] buildActions = { Actions.MINOR_ILLUSION_ACTION, Actions.MAJOR_ILLUSION_ACTION };
+		Function<BuildAction, Action> function = buildAction -> new ChooseWorldObjectAction(getIllusionWorldObjects((IllusionSpell) buildAction), playerCharacter, imageInfoReader, soundIdReader, world, ((WorldPanel)container), dungeonMaster, new StartBuildModeAction(playerCharacter, imageInfoReader, ((WorldPanel)container), buildAction), parentFrame, WorldObjectMapper.WORLD_OBJECT_ID);
+		BuildActions buildActions = new BuildActions(function, Actions.MINOR_ILLUSION_ACTION, Actions.MAJOR_ILLUSION_ACTION);
 		MagicSpell[] illusionActions = { Actions.INVISIBILITY_ACTION };
 		
-		JMenu illusionMenu = addBuildActions(menu, ImageIds.MINOR_ILLUSION_MAGIC_SPELL, "Illusions", buildActions, buildAction -> new ChooseWorldObjectAction(getIllusionWorldObjects((IllusionSpell) buildAction), playerCharacter, imageInfoReader, soundIdReader, world, ((WorldPanel)container), dungeonMaster, new StartBuildModeAction(playerCharacter, imageInfoReader, ((WorldPanel)container), buildAction), parentFrame, WorldObjectMapper.WORLD_OBJECT_ID));
+		JMenu illusionMenu = createBuildActionsSubMenu(menu, ImageIds.MINOR_ILLUSION_MAGIC_SPELL, "Illusions", buildActions);
 		addActions(illusionMenu, illusionActions);
 		
     	JMenuItem disguiseMenuItem = MenuFactory.createJMenuItem(new GuiDisguiseAction(playerCharacter, imageInfoReader, soundIdReader, world, (WorldPanel)container, dungeonMaster, Actions.DISGUISE_MAGIC_SPELL_ACTION, parentFrame), soundIdReader);
@@ -611,25 +615,35 @@ public class GuiMouseListener extends MouseAdapter {
 		}
 	}
 	
-	private void addBuildActions(JPopupMenu menu, ImageIds imageId, String menuTitle, BuildAction[] buildActions) {
-		addBuildActions(menu, imageId, menuTitle, buildActions, startBuildMode());
-	}
-
 	private Function<BuildAction, Action> startBuildMode() {
 		return buildAction -> new StartBuildModeAction(playerCharacter, imageInfoReader, ((WorldPanel)container), buildAction);
 	}
 	
-	private JMenu addBuildActions(JPopupMenu menu, ImageIds imageId, String menuTitle, BuildAction[] buildActions, Function<BuildAction, Action> guiActionBuilder) {
+	private JMenu createBuildActionsSubMenu(JPopupMenu menu, ImageIds imageId, String menuTitle, BuildActions buildActions) {
 		JMenu parentMenuItem = MenuFactory.createJMenu(menuTitle, imageId, imageInfoReader, soundIdReader);
 		menu.add(parentMenuItem);
 		
-		for(BuildAction buildAction : buildActions) {
-			addBuildAction(parentMenuItem, buildAction, guiActionBuilder);
-		}
+		buildActions.add(parentMenuItem);
 		return parentMenuItem;
 	}
 
-	private void addBuildAction(JMenu parentMenuItem, BuildAction buildAction, Function<BuildAction, Action> guiActionBuilder) {
+	private class BuildActions {
+		private final BuildAction[] buildActions;
+		private final Function<BuildAction, Action> guiActionBuilder;
+
+		public BuildActions(Function<BuildAction, Action> guiActionBuilder, BuildAction... buildActions) {
+			this.buildActions = buildActions;
+			this.guiActionBuilder = guiActionBuilder;
+		}
+		
+		public void add(JComponent menuItem) {
+			for(BuildAction buildAction : buildActions) {
+				addBuildAction(menuItem, buildAction, guiActionBuilder);
+			}
+		}
+	}
+
+	private void addBuildAction(JComponent parentMenuItem, BuildAction buildAction, Function<BuildAction, Action> guiActionBuilder) {
 		final JMenuItem buildMenuItem;
 		if (canPlayerCharacterPerformBuildAction(buildAction)) {
 			buildMenuItem = MenuFactory.createJMenuItem(guiActionBuilder.apply(buildAction), soundIdReader);
@@ -761,7 +775,7 @@ public class GuiMouseListener extends MouseAdapter {
 		}
 	}
 
-	private JMenuItem createDisabledActionMenuItem(JMenuItem menu, ManagedOperation action) {
+	private JMenuItem createDisabledActionMenuItem(JComponent menu, ManagedOperation action) {
 		String description = action.getSimpleDescription() + "...";
 		JMenuItem menuItem = MenuFactory.createJMenuItem(description, soundIdReader);
 		menuItem.setEnabled(false);
@@ -1019,7 +1033,7 @@ public class GuiMouseListener extends MouseAdapter {
 	
 	private void showBuildingsAction(int x, int y) {
 		JPopupMenu menu = MenuFactory.createJPopupMenu(imageInfoReader);
-		addBuildActions(menu);
+		getBuildActions().add(menu);
 		menu.show(container, x, y);
 	}
 }
