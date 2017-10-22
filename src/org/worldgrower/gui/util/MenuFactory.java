@@ -24,7 +24,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import org.worldgrower.gui.ColorPalette;
+import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.TiledImageJMenu;
 import org.worldgrower.gui.TiledImageJMenuItem;
 import org.worldgrower.gui.TiledImagePopupMenu;
@@ -98,6 +100,12 @@ public class MenuFactory {
 		menu.setCursor(Cursors.CURSOR);
 		addRollOverSoundEffect(menu, soundIdReader);
 		return menu;
+	}
+	
+	public static JMenu createJMenu(String description, ImageIds imageId, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
+		JMenu menuItem = createJMenu(description, imageInfoReader, soundIdReader);
+		SwingUtils.setMenuIcon(menuItem, imageId, imageInfoReader);
+		return menuItem;
 	}
 	
 	public static JCheckBoxMenuItem createJCheckBoxMenuItem(Action action, SoundIdReader soundIdReader) {

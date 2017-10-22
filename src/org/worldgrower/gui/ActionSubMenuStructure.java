@@ -62,12 +62,9 @@ public abstract class ActionSubMenuStructure<T> {
 	}
 	
 	private JMenu createSkillMenu(T actionKey) {
-		JMenu actionMenu;
 		String actionName = getActionKeyDescription(actionKey);
 		actionName = Character.toUpperCase(actionName.charAt(0)) + actionName.substring(1);
-		actionMenu = MenuFactory.createJMenu(actionName, imageInfoReader, soundIdReader);
-		SwingUtils.setMenuIcon(actionMenu, getImageFor(actionKey), imageInfoReader);
-		return actionMenu;
+		return MenuFactory.createJMenu(actionName, getImageFor(actionKey), imageInfoReader, soundIdReader);
 	}
 
 	public abstract boolean isApplicable(ManagedOperation action);

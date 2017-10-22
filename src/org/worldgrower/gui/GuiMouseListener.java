@@ -116,6 +116,7 @@ public class GuiMouseListener extends MouseAdapter {
 	private final ShowCharacterActionsAction showCharacterActionsAction;
 	private final CommunityOverviewAction communityOverviewAction;
 	private final GuiShowGovernanceAction showGovernanceAction;
+	private final GuiShowBuildingsAction showBuildingsAction;
 	
     public GuiMouseListener(WorldPanel container, WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, KeyBindings keyBindings, JFrame parentFrame) {
 		super();
@@ -138,6 +139,7 @@ public class GuiMouseListener extends MouseAdapter {
 		showCharacterActionsAction = new ShowCharacterActionsAction();
 		communityOverviewAction = new CommunityOverviewAction(playerCharacter, imageInfoReader, soundIdReader, world, parentFrame);
 		showGovernanceAction = new GuiShowGovernanceAction(playerCharacter, dungeonMaster, world, container, soundIdReader, parentFrame, imageInfoReader);
+		showBuildingsAction = new GuiShowBuildingsAction();
 		addKeyBindings(keyBindings);
 	}
 
@@ -155,6 +157,7 @@ public class GuiMouseListener extends MouseAdapter {
 		addKeyBindingsFor(showCharacterActionsAction, keyBindings.getValue(GuiAction.SHOW_CHARACTER_ACTIONS));
 		addKeyBindingsFor(communityOverviewAction, keyBindings.getValue(GuiAction.COMMUNITY_OVERVIEW));
 		addKeyBindingsFor(showGovernanceAction, keyBindings.getValue(GuiAction.SHOW_GOVERNANCE));
+		addKeyBindingsFor(showBuildingsAction, keyBindings.getValue(GuiAction.SHOW_BUILDINGS));
 	}
 	
 	private void addKeyBindingsFor(Action action, char binding) {
@@ -319,10 +322,8 @@ public class GuiMouseListener extends MouseAdapter {
 		JPopupMenu menu = MenuFactory.createJPopupMenu(imageInfoReader);
 		addPlayerCharacterInformationMenus(menu);
 		
-		JMenu organizationMenu = MenuFactory.createJMenu("Organization", imageInfoReader, soundIdReader);
-		setMenuIcon(organizationMenu, ImageIds.BLACK_CROSS);
-		JMenu miscMenu = MenuFactory.createJMenu("Miscellaneous", imageInfoReader, soundIdReader);
-		setMenuIcon(miscMenu, ImageIds.INVESTIGATE);
+		JMenu organizationMenu = MenuFactory.createJMenu("Organization", ImageIds.BLACK_CROSS, imageInfoReader, soundIdReader);
+		JMenu miscMenu = MenuFactory.createJMenu("Miscellaneous", ImageIds.INVESTIGATE, imageInfoReader, soundIdReader);
 		
 		addDisguiseMenu(miscMenu);
 		
@@ -598,8 +599,7 @@ public class GuiMouseListener extends MouseAdapter {
 	
 	private void addScribeMagicSpells(JPopupMenu menu, WorldObject worldObject) {
 		if (Actions.getScribeMagicSpellActionFor(Actions.FIRE_BOLT_ATTACK_ACTION).isValidTarget(playerCharacter, worldObject, world)) {
-			JMenu scribeMenu = MenuFactory.createJMenu("Scribe spells", imageInfoReader, soundIdReader);
-			setMenuIcon(scribeMenu, ImageIds.SPELL_BOOK);
+			JMenu scribeMenu = MenuFactory.createJMenu("Scribe spells", ImageIds.SPELL_BOOK, imageInfoReader, soundIdReader);
 			menu.add(scribeMenu);
 			Map<SkillProperty, List<ManagedOperation>> scribeActionsMap = Actions.getScribeMagicSpellActions();
 			List<SkillProperty> skillsList = Actions.getSortedSkillProperties(scribeActionsMap);
@@ -620,9 +620,8 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private JMenu addBuildActions(JPopupMenu menu, ImageIds imageId, String menuTitle, BuildAction[] buildActions, Function<BuildAction, Action> guiActionBuilder) {
-		JMenu parentMenuItem = MenuFactory.createJMenu(menuTitle, imageInfoReader, soundIdReader);
+		JMenu parentMenuItem = MenuFactory.createJMenu(menuTitle, imageId, imageInfoReader, soundIdReader);
 		menu.add(parentMenuItem);
-		setMenuIcon(parentMenuItem, imageId);
 		
 		for(BuildAction buildAction : buildActions) {
 			addBuildAction(parentMenuItem, buildAction, guiActionBuilder);
@@ -696,9 +695,8 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private JMenu addActions(JPopupMenu menu, ImageIds imageId, String menuTitle, ManagedOperation[] actions) {
-		JMenu parentMenuItem = MenuFactory.createJMenu(menuTitle, imageInfoReader, soundIdReader);
+		JMenu parentMenuItem = MenuFactory.createJMenu(menuTitle, imageId, imageInfoReader, soundIdReader);
 		menu.add(parentMenuItem);
-		setMenuIcon(parentMenuItem, imageId);
 		
 		addActions(parentMenuItem, actions);
 		return parentMenuItem;
@@ -823,12 +821,9 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
 	private JMenu createSkillMenu(SkillProperty skillProperty) {
-		JMenu skillMenu;
 		String skillName = skillProperty.getName();
 		skillName = Character.toUpperCase(skillName.charAt(0)) + skillName.substring(1);
-		skillMenu = MenuFactory.createJMenu(skillName, imageInfoReader, soundIdReader);
-		setMenuIcon(skillMenu, skillImageIds.getImageFor(skillProperty));
-		return skillMenu;
+		return MenuFactory.createJMenu(skillName, skillImageIds.getImageFor(skillProperty), imageInfoReader, soundIdReader);
 	}
 
 	private JMenuItem createDisabledMenuItem(ManagedOperation action) {
@@ -1009,9 +1004,22 @@ public class GuiMouseListener extends MouseAdapter {
 		public void actionPerformed(ActionEvent actionEvent) {
 			Point location = MouseInfo.getPointerInfo().getLocation();
 			SwingUtilities.convertPointFromScreen(location, container);
-			int x = location.x;
-			int y = location.y;
-			showPlayerCharacterMenu(x, y);
+			showPlayerCharacterMenu(location.x, location.y);
 		}
+	}
+	
+	private class GuiShowBuildingsAction extends AbstractAction {
+		@Override
+		public void actionPerformed(ActionEvent actionEvent) {
+			Point location = MouseInfo.getPointerInfo().getLocation();
+			SwingUtilities.convertPointFromScreen(location, container);
+			showBuildingsAction(location.x, location.y);
+		}
+	}
+	
+	private void showBuildingsAction(int x, int y) {
+		JPopupMenu menu = MenuFactory.createJPopupMenu(imageInfoReader);
+		addBuildActions(menu);
+		menu.show(container, x, y);
 	}
 }

@@ -226,8 +226,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 		Map<ConversationCategory, List<Question>> questionsMap = answerer.getQuestionPhrases();
 		JPopupMenu popupMenu = MenuFactory.createJPopupMenu(imageInfoReader);
 		for(Entry<ConversationCategory, List<Question>> entry : getQuestions(questionsMap)) {
-			JMenu menu = MenuFactory.createJMenu(entry.getKey().getDescription(), imageInfoReader, soundIdReader);
-			setMenuIcon(menu, entry.getKey().getImageId());
+			JMenu menu = MenuFactory.createJMenu(entry.getKey().getDescription(), entry.getKey().getImageId(), imageInfoReader, soundIdReader);
 			popupMenu.add(menu);
 			
 			List<Question> questions = entry.getValue();

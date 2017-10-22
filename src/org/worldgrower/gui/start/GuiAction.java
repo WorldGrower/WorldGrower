@@ -23,7 +23,9 @@ public enum GuiAction {
 	ASSIGN_ACTION_TO_LEFT_MOUSE("Assign action to left mouse", 'A'),
 	SHOW_CHARACTER_ACTIONS("Show character actions", 'W'),
 	COMMUNITY_OVERVIEW("Show community overview", 'U'),
-	SHOW_GOVERNANCE("Show governance overview", 'G');
+	SHOW_GOVERNANCE("Show governance overview", 'G'),
+	SHOW_BUILDINGS("Show Buildings", 'B'),
+	;
 	
 	private final String description;
 	private final char defaultValue;
