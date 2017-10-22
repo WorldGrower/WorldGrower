@@ -525,7 +525,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
 	private void createBuildActionsSubMenu(JPopupMenu menu) {
-		createBuildActionsSubMenu(menu, ImageIds.HAMMER, "Build", getBuildActions());
+		createBuildActionsSubMenu(menu, ImageIds.HAMMER, "Build", getBuildActions()).setAccelerator((KeyStroke)showBuildingsAction.getValue(Action.ACCELERATOR_KEY));
 	}
 
 	private BuildActions getBuildActions() {

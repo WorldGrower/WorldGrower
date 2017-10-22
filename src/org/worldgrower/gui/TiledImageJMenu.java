@@ -19,12 +19,28 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
 import javax.swing.JMenu;
+import javax.swing.KeyStroke;
 import javax.swing.plaf.PopupMenuUI;
 
 public class TiledImageJMenu extends JMenu {
 
-	private final BufferedImage tileImage;  
+	private final BufferedImage tileImage;
+	private KeyStroke accelerator;
 
+    @Override
+    public KeyStroke getAccelerator() {
+        return accelerator;
+    }
+
+    @Override
+    public void setAccelerator(KeyStroke keyStroke) {
+        KeyStroke oldAccelerator = accelerator;
+        this.accelerator = keyStroke;
+        repaint();
+        revalidate();
+        firePropertyChange("accelerator", oldAccelerator, accelerator);
+    }
+	
     private BufferedImage getTiledImage(ImageInfoReader imageInfoReader) {
     	return (BufferedImage) imageInfoReader.getImage(ImageIds.SCREEN_BACKGROUND, null);
     }  
