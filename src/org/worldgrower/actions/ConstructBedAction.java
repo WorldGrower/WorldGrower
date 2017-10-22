@@ -27,7 +27,7 @@ import org.worldgrower.gui.ImageIds;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
-public class ConstructBedAction implements CraftAction {
+public class ConstructBedAction implements CraftEquipmentAction {
 	private static final int DISTANCE = 1;
 	private static final int WOOD_REQUIRED = 3;
 	
@@ -93,5 +93,15 @@ public class ConstructBedAction implements CraftAction {
 	@Override
 	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.BED;
+	}
+
+	@Override
+	public EquipmentType getEquipmentType() {
+		return EquipmentType.FURNITURE;
+	}
+
+	@Override
+	public Item getItem() {
+		return Item.BED;
 	}
 }

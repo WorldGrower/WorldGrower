@@ -27,7 +27,7 @@ import org.worldgrower.gui.ImageIds;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
-public class ConstructKitchenAction implements CraftAction {
+public class ConstructKitchenAction implements CraftEquipmentAction {
 	private static final int DISTANCE = 1;
 	private static final int WOOD_REQUIRED = 3;
 	
@@ -93,5 +93,15 @@ public class ConstructKitchenAction implements CraftAction {
 	@Override
 	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.KITCHEN;
+	}
+
+	@Override
+	public EquipmentType getEquipmentType() {
+		return EquipmentType.FURNITURE;
+	}
+
+	@Override
+	public Item getItem() {
+		return Item.KITCHEN;
 	}
 }
