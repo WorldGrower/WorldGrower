@@ -117,6 +117,13 @@ public class StartScreen implements SaveGameHandler {
 		UIManager.put("Menu.selectionBackground", menuSelectionBackground);
 		UIManager.put("Menu.selectionForeground", menuSelectionForeground);
 		
+		Color acceleratorForeground = Color.WHITE;
+		Color acceleratorSelectionForeground = Color.BLACK;
+		UIManager.put("MenuItem.acceleratorForeground", acceleratorForeground);
+		UIManager.put("MenuItem.acceleratorSelectionForeground", acceleratorSelectionForeground);
+		
+		UIManager.put("Menu.acceleratorForeground", acceleratorForeground);
+		UIManager.put("Menu.acceleratorSelectionForeground", acceleratorSelectionForeground);
 		
 		Preferences preferences = Preferences.userNodeForPackage(StartScreen.class);
 		loadDefaultSoundOutput(preferences);
