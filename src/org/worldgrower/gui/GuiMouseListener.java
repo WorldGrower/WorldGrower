@@ -315,6 +315,7 @@ public class GuiMouseListener extends MouseAdapter {
 
 			@Override
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+				clearPath();
 			}
 		});
 	}
