@@ -16,43 +16,41 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.ConstructBedAction;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
-public class FurnitureGoal implements Goal {
+public class BedGoal implements Goal {
 
-	public FurnitureGoal(List<Goal> allGoals) {
+	private static final int QUANTITY_TO_BUY = 1;
+	
+	public BedGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		boolean hasInventoryFurniture = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.BED).size() > 0;
-		if (hasInventoryFurniture) {
-			int indexOfFurniture = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.SLEEP_COMFORT);
-			WorldObject target = HousePropertyUtils.getBestHouse(performer, world);
-			if (target != null) {
-				OperationInfo avoidTrappedContainer = ContainerUtils.avoidTrappedContainer(performer, target, world);
-				if (avoidTrappedContainer != null) {
-					return avoidTrappedContainer;
-				}
-				if (LockUtils.performerCanAccessContainer(performer, target)) {
-					return new OperationInfo(performer, target, new int[] { indexOfFurniture }, Actions.PUT_ITEM_INTO_INVENTORY_ACTION);
-				} else {
-					//TODO: how to handle own house is locked?
-					return null;
-				}
+		List<WorldObject> buyTargets = BuySellUtils.findBuyTargets(performer, Constants.SLEEP_COMFORT, QUANTITY_TO_BUY, world);
+		if (buyTargets.size() > 0) {
+			return BuySellUtils.create(performer, buyTargets.get(0), Item.BED, QUANTITY_TO_BUY, world);
+		} else if (ConstructBedAction.hasEnoughWood(performer)) {
+			Integer workbenchId = BuildingGenerator.getWorkbenchId(performer);
+			if (workbenchId == null) {
+				return Goals.WORKBENCH_GOAL.calculateGoal(performer, world);
 			} else {
-				return Goals.HOUSE_GOAL.calculateGoal(performer, world);
+				WorldObject workbench = world.findWorldObjectById(workbenchId);
+				return new OperationInfo(performer, workbench, Args.EMPTY, Actions.CONSTRUCT_BED_ACTION);
 			}
 		} else {
-			return Goals.BED_GOAL.calculateGoal(performer, world);
+			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		}
 	}
 	
@@ -73,18 +71,11 @@ public class FurnitureGoal implements Goal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_FURNITURE);
+		return new FormattableText(TextId.CONSTRUCT_BED);
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		boolean hasInventoryFurniture = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.BED).size() > 0;
-		boolean hasHouseWithBed = HousePropertyUtils.hasHouseWithBed(performer, world);
-		
-		int inventoryFurnitureEvaluation = hasInventoryFurniture ? 1 : 0;
-		int houseWithBed = hasHouseWithBed ? 2 : 0;
-		
-		return inventoryFurnitureEvaluation + houseWithBed;
-		
+		return 0;
 	}
 }
