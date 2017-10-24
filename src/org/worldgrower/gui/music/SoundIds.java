@@ -82,5 +82,6 @@ public enum SoundIds {
 	MAGIC_DROP,
 	PLANT_GROWTH,
 	CHICKEN,
-	COOK
+	COOK,
+	SAW
 }

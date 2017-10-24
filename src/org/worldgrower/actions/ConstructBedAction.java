@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import java.io.ObjectStreamException;
 
 import org.worldgrower.Constants;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -24,6 +25,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
@@ -103,5 +105,10 @@ public class ConstructBedAction implements CraftEquipmentAction {
 	@Override
 	public Item getItem() {
 		return Item.BED;
+	}
+
+	@Override
+	public SoundIds getSoundId(WorldObject target) {
+		return SoundIds.SAW;
 	}
 }

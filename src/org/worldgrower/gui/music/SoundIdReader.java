@@ -92,7 +92,7 @@ public class SoundIdReader {
 		readSound(SoundIds.PLANT_GROWTH, "/sound/qubodupGrowthSpell01_8bit.wav.gz");
 		readSound(SoundIds.CHICKEN, "/sound/192035__dann93__chickens.wav.gz");
 		readSound(SoundIds.COOK, "/sound/cooking_with_cover_01.wav.gz");
-		
+		readSound(SoundIds.SAW, "/sound/402557__anim4tion564__saw.wav.gz");
 	}
 
 	public SoundIdReader(SoundOutput soundOutput, boolean enabled) throws SoundException {

@@ -24,6 +24,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
@@ -103,5 +104,10 @@ public class ConstructKitchenAction implements CraftEquipmentAction {
 	@Override
 	public Item getItem() {
 		return Item.KITCHEN;
+	}
+	
+	@Override
+	public SoundIds getSoundId(WorldObject target) {
+		return SoundIds.SAW;
 	}
 }

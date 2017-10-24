@@ -315,3 +315,6 @@ aye_kitchen.png
 
 cooking sound effect by TinyWorlds at https://opengameart.org/content/boiling-water-loops
 cooking_with_cover_01.wav.gz
+
+saw sound effect by anim4tion564 at https://freesound.org/people/anim4tion564/sounds/402557/
+402557__anim4tion564__saw.wav.gz
