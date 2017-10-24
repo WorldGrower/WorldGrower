@@ -506,7 +506,7 @@ public class GuiMouseListener extends MouseAdapter {
 			cookMenuItem.setText("Cook...");
 			cookMenuItem.setEnabled(worldObjects.size() > 0);
 			setMenuIcon(cookMenuItem, ImageIds.COOKING);
-			cookMenuItem.setToolTipText(Actions.COOK_ACTION.getDescription());
+			addToolTips(Actions.COOK_ACTION, cookMenuItem);
 			menu.add(cookMenuItem);
 		}
 	}
