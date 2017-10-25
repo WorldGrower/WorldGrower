@@ -16,42 +16,23 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
-import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.ConstructBedAction;
-import org.worldgrower.generator.BuildingGenerator;
-import org.worldgrower.generator.Item;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
 public class BedGoal implements Goal {
 
-	private static final int QUANTITY_TO_BUY = 1;
-	
 	public BedGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> buyTargets = BuySellUtils.findBuyTargets(performer, Constants.SLEEP_COMFORT, QUANTITY_TO_BUY, world);
-		if (buyTargets.size() > 0) {
-			return BuySellUtils.create(performer, buyTargets.get(0), Item.BED, QUANTITY_TO_BUY, world);
-		} else if (ConstructBedAction.hasEnoughWood(performer)) {
-			Integer workbenchId = BuildingGenerator.getWorkbenchId(performer);
-			if (workbenchId == null) {
-				return Goals.WORKBENCH_GOAL.calculateGoal(performer, world);
-			} else {
-				WorldObject workbench = world.findWorldObjectById(workbenchId);
-				return new OperationInfo(performer, workbench, Args.EMPTY, Actions.CONSTRUCT_BED_ACTION);
-			}
-		} else {
-			return Goals.WOOD_GOAL.calculateGoal(performer, world);
-		}
+		return FurniturePropertyUtils.calculateGoal(performer, Constants.SLEEP_COMFORT, Actions.CONSTRUCT_BED_ACTION, world);
 	}
 	
 	@Override

@@ -22,8 +22,6 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.ConstructBedAction;
-import org.worldgrower.actions.ConstructKitchenAction;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.text.FormattableText;
@@ -42,14 +40,14 @@ public class CreateFurnitureGoal implements Goal {
 			return Goals.WORKBENCH_GOAL.calculateGoal(performer, world);
 		} else {
 			if (!hasEnoughBeds(performer)) {
-				if (!ConstructBedAction.hasEnoughWood(performer)) {
+				if (!Actions.CONSTRUCT_BED_ACTION.hasEnoughWood(performer)) {
 					return Goals.WOOD_GOAL.calculateGoal(performer, world);
 				} else {
 					WorldObject workbench = world.findWorldObjectById(workbenchId);
 					return new OperationInfo(performer, workbench, Args.EMPTY, Actions.CONSTRUCT_BED_ACTION);
 				}
 			} else if (!hasEnoughKitchens(performer)) {
-				if (!ConstructKitchenAction.hasEnoughWood(performer)) {
+				if (!Actions.CONSTRUCT_KITCHEN_ACTION.hasEnoughWood(performer)) {
 					return Goals.WOOD_GOAL.calculateGoal(performer, world);
 				} else {
 					WorldObject workbench = world.findWorldObjectById(workbenchId);

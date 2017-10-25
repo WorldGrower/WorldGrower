@@ -17,7 +17,6 @@ package org.worldgrower.actions;
 import java.io.ObjectStreamException;
 
 import org.worldgrower.Constants;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -29,7 +28,7 @@ import org.worldgrower.gui.music.SoundIds;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
-public class ConstructBedAction implements CraftEquipmentAction {
+public class ConstructBedAction implements CraftFurnitureAction {
 	private static final int DISTANCE = 1;
 	private static final int WOOD_REQUIRED = 3;
 	
@@ -88,7 +87,8 @@ public class ConstructBedAction implements CraftEquipmentAction {
 		return readResolveImpl();
 	}
 
-	public static boolean hasEnoughWood(WorldObject performer) {
+	@Override
+	public boolean hasEnoughWood(WorldObject performer) {
 		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= WOOD_REQUIRED;
 	}
 	

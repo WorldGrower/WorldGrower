@@ -28,7 +28,7 @@ import org.worldgrower.gui.music.SoundIds;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
-public class ConstructKitchenAction implements CraftEquipmentAction {
+public class ConstructKitchenAction implements CraftFurnitureAction {
 	private static final int DISTANCE = 1;
 	private static final int WOOD_REQUIRED = 3;
 	
@@ -87,7 +87,8 @@ public class ConstructKitchenAction implements CraftEquipmentAction {
 		return readResolveImpl();
 	}
 
-	public static boolean hasEnoughWood(WorldObject performer) {
+	@Override
+	public boolean hasEnoughWood(WorldObject performer) {
 		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= WOOD_REQUIRED;
 	}
 	
