@@ -228,4 +228,5 @@ public class Goals {
 	public static final WantedProfessionGoal WANTED_PROFESSION_GOAL = new WantedProfessionGoal(ALL_GOALS);
 	public static final PlantNightShadeGoal PLANT_NIGHT_SHADE_GOAL = new PlantNightShadeGoal(ALL_GOALS);
 	public static final BedGoal BED_GOAL = new BedGoal(ALL_GOALS);
+	public static final KitchenGoal KITCHEN_GOAL = new KitchenGoal(ALL_GOALS);
 }

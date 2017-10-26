@@ -385,13 +385,13 @@ public class GroupPropertyUtils {
 
 	public static boolean hasMoneyToPayShackTaxes(WorldObject performer, World world) {
 		int performerGold = performer.getProperty(Constants.GOLD);
-		int baseTaxRate = GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.SHACK_TAX_RATE);
+		int baseTaxRate = getVillagersOrganization(world).getProperty(Constants.SHACK_TAX_RATE);
 		return performerGold > baseTaxRate * 3;
 	}
 	
 	public static boolean hasMoneyToPayHouseTaxes(WorldObject performer, World world) {
 		int performerGold = performer.getProperty(Constants.GOLD);
-		int baseTaxRate = GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.HOUSE_TAX_RATE);
+		int baseTaxRate = getVillagersOrganization(world).getProperty(Constants.HOUSE_TAX_RATE);
 		return performerGold > baseTaxRate * 3;
 	}
 	

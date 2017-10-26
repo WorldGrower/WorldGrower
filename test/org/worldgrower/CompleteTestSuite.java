@@ -872,7 +872,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestEggOnTurn.class,
 	UTestConstructKitchenAction.class,
 	UTestFoodCooker.class,
-	UTestCookAction.class
+	UTestCookAction.class,
+	UTestKitchenGoal.class
 })
 public class CompleteTestSuite {
 }

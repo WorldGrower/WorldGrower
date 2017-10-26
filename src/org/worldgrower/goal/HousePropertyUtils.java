@@ -109,6 +109,11 @@ public class HousePropertyUtils {
 		return housesWithBed.size() > 0;
 	}
 	
+	public static boolean hasHouseWithKitchen(WorldObject performer, World world) {
+		List<WorldObject> housesWithBed = performer.getProperty(Constants.BUILDINGS).mapToWorldObjects(world, BuildingType.HOUSE, w -> w.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.KITCHEN).size() > 0);
+		return housesWithBed.size() > 0;
+	}
+	
 	public static OperationInfo createBuyBuildingOperationInfo(WorldObject performer, BuildingType buildingType, World world) {
 		List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.TALK_ACTION, Constants.STRENGTH, w -> hasBuildingForSale(w, buildingType, world), world);
 		if (targets.size() > 0) {

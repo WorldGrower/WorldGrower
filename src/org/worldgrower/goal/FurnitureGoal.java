@@ -21,6 +21,8 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.IntProperty;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
@@ -33,37 +35,56 @@ public class FurnitureGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		boolean hasInventoryFurniture = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.BED).size() > 0;
-		if (hasInventoryFurniture) {
-			int indexOfFurniture = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.SLEEP_COMFORT);
-			WorldObject target = HousePropertyUtils.getBestHouse(performer, world);
-			if (target != null) {
-				OperationInfo avoidTrappedContainer = ContainerUtils.avoidTrappedContainer(performer, target, world);
-				if (avoidTrappedContainer != null) {
-					return avoidTrappedContainer;
-				}
-				if (LockUtils.performerCanAccessContainer(performer, target)) {
-					return new OperationInfo(performer, target, new int[] { indexOfFurniture }, Actions.PUT_ITEM_INTO_INVENTORY_ACTION);
-				} else {
-					//TODO: how to handle own house is locked?
-					return null;
-				}
-			} else {
-				return Goals.HOUSE_GOAL.calculateGoal(performer, world);
-			}
-		} else {
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		int indexOfBed = performerInventory.getIndexFor(Constants.SLEEP_COMFORT);
+		int indexOfKitchen = performerInventory.getIndexFor(Constants.COOKING_QUALITY);
+		int indexOfFurniture = Math.max(indexOfBed, indexOfKitchen);
+		
+		WorldObject house = HousePropertyUtils.getBestHouse(performer, world);
+		if (house == null) {
+			return Goals.HOUSE_GOAL.calculateGoal(performer, world);
+		} else if (indexOfFurniture != -1) {
+			return putItemIntoHouse(performer, indexOfFurniture, house, world);
+		} else if (indexOfBed == -1 && !houseHasFurniture(performer, house, Constants.SLEEP_COMFORT, world)) {
 			return Goals.BED_GOAL.calculateGoal(performer, world);
+		} else if (indexOfKitchen == -1 && !houseHasFurniture(performer, house, Constants.COOKING_QUALITY, world)) {
+			return Goals.KITCHEN_GOAL.calculateGoal(performer, world);
+		} else {
+			return null;
 		}
 	}
-	
+
+	private OperationInfo putItemIntoHouse(WorldObject performer, int indexOfFurniture, WorldObject house, World world) {
+		OperationInfo avoidTrappedContainer = ContainerUtils.avoidTrappedContainer(performer, house, world);
+		if (avoidTrappedContainer != null) {
+			return avoidTrappedContainer;
+		}
+		if (LockUtils.performerCanAccessContainer(performer, house)) {
+			return new OperationInfo(performer, house, new int[] { indexOfFurniture }, Actions.PUT_ITEM_INTO_INVENTORY_ACTION);
+		} else {
+			//TODO: how to handle own house is locked?
+			return null;
+		}
+	}
+
+	private boolean houseHasFurniture(WorldObject performer, WorldObject house, IntProperty property, World world) {
+		return house.getProperty(Constants.INVENTORY).getQuantityFor(property) > 0;
+	}
+
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
-		defaultGoalMetOrNot(performer, world, goalMet, Constants.SLEEP_COMFORT);
+		
+		boolean hasBed = HousePropertyUtils.hasHouseWithBed(performer, world);
+		defaultGoalMetOrNot(performer, world, hasBed, Constants.SLEEP_COMFORT);
+		
+		boolean hasKitchen = HousePropertyUtils.hasHouseWithKitchen(performer, world);
+		defaultGoalMetOrNot(performer, world, hasKitchen, Constants.COOKING_QUALITY);
 	}
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return HousePropertyUtils.hasHouseWithBed(performer, world);
+		return HousePropertyUtils.hasHouseWithBed(performer, world)
+				&& HousePropertyUtils.hasHouseWithKitchen(performer, world);
 	}
 	
 	@Override

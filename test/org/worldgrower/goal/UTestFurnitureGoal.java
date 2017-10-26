@@ -39,25 +39,41 @@ public class UTestFurnitureGoal {
 	@Test
 	public void testCalculateGoalNull() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		createVillagersOrganization(world);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
 	
 	@Test
-	public void testCalculateGoalWood() {
+	public void testCalculateGoalNoHouse() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = createPerformer();
+		WorldObject performer = createPerformer(2);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.STONE.generate(1f), 20);
 		
-		PlantGenerator.generateOldTree(5, 5, world);
+		createVillagersOrganization(world);
 		
-		assertEquals(Actions.CUT_WOOD_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(Actions.BUILD_HOUSE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test
+	public void testCalculateGoalWood() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		
+		addHouse(performer, world);
+		PlantGenerator.generateOldTree(0, 0, world);
+		createVillagersOrganization(world);
+		
+		assertEquals(Actions.CUT_WOOD_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+
+	@Test
 	public void testCalculateGoalBuildWorkbench() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = createPerformer();
+		WorldObject performer = createPerformer(2);
+		createVillagersOrganization(world);
+		addHouse(performer, world);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.STONE.generate(1f), 20);
 		
@@ -67,23 +83,46 @@ public class UTestFurnitureGoal {
 	@Test
 	public void testCalculateGoalConstructBed() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = createPerformer();
+		WorldObject performer = createPerformer(7);
+		world.addWorldObject(performer);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
-		
-		addWorkbench(world, performer);
+		createVillagersOrganization(world);
+		addHouse(performer, world);
+		addWorkbench(performer, world);
 		
 		assertEquals(Actions.CONSTRUCT_BED_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
-	private void addWorkbench(World world, WorldObject performer) {
+	@Test
+	public void testCalculateGoalConstructKitchen() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(7);
+		world.addWorldObject(performer);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
+		createVillagersOrganization(world);
+		WorldObject house = addHouse(performer, world);
+		house.getProperty(Constants.INVENTORY).addQuantity(Item.BED.generate(1f));
+		addWorkbench(performer, world);
+		
+		assertEquals(Actions.CONSTRUCT_KITCHEN_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	private void addWorkbench(WorldObject performer, World world) {
 		int workbenchId = BuildingGenerator.generateWorkbench(0, 0, world, performer);
-		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(workbenchId, BuildingType.WORKBENCH));
+		performer.getProperty(Constants.BUILDINGS).add(workbenchId, BuildingType.WORKBENCH);
+	}
+	
+	private WorldObject addHouse(WorldObject performer, World world) {
+		int houseId = BuildingGenerator.generateHouse(5, 5, world, performer);
+		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
+		
+		return world.findWorldObjectById(houseId);
 	}
 	
 	@Test
 	public void testCalculateGoalPutBedIntoHouseNull() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = createPerformer();
+		WorldObject performer = createPerformer(2);
 		performer.getProperty(Constants.INVENTORY).add(Item.BED.generate(1f));
 		performer.setProperty(Constants.BUILDINGS, new BuildingList());
 		performer.setProperty(Constants.GOLD, 0);
@@ -96,7 +135,7 @@ public class UTestFurnitureGoal {
 	@Test
 	public void testCalculateGoalPutBedIntoHouse() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = createPerformer();
+		WorldObject performer = createPerformer(2);
 		performer.getProperty(Constants.INVENTORY).add(Item.BED.generate(1f));
 		performer.setProperty(Constants.BUILDINGS, new BuildingList());
 		performer.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
@@ -107,23 +146,52 @@ public class UTestFurnitureGoal {
 	}
 	
 	@Test
+	public void testCalculateGoalPutKitchenIntoHouse() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		performer.getProperty(Constants.INVENTORY).add(Item.KITCHEN.generate(1f));
+		performer.setProperty(Constants.BUILDINGS, new BuildingList());
+		performer.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		
+		Actions.BUILD_HOUSE_ACTION.execute(performer, performer, Args.EMPTY, world);
+		WorldObject house = world.getWorldObjects().get(world.getWorldObjects().size() - 1);
+		house.getProperty(Constants.INVENTORY).addQuantity(Item.BED.generate(1f));
+		
+		assertEquals(Actions.PUT_ITEM_INTO_INVENTORY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalFurnitureSet() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.BUILDINGS, new BuildingList());
+		
+		WorldObject house = addHouse(performer, world);
+		house.getProperty(Constants.INVENTORY).addQuantity(Item.BED.generate(1f));
+		house.getProperty(Constants.INVENTORY).addQuantity(Item.KITCHEN.generate(1f));
+		
+		assertEquals(null, goal.calculateGoal(performer, world));
+	}
+	
+	@Test
 	public void testIsGoalMet() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = createPerformer();
+		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.BUILDINGS, new BuildingList());
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		int houseId = BuildingGenerator.generateHouse(5, 5, world, performer);
-		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
-		WorldObject house = world.findWorldObjectById(houseId);
+		WorldObject house = addHouse(performer, world);
 		house.getProperty(Constants.INVENTORY).add(Item.BED.generate(1f));
 		
+		assertEquals(false, goal.isGoalMet(performer, world));
+		
+		house.getProperty(Constants.INVENTORY).add(Item.KITCHEN.generate(1f));
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 	
-	private WorldObject createPerformer() {
-		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+	private WorldObject createPerformer(int id) {
+		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
@@ -132,6 +200,7 @@ public class UTestFurnitureGoal {
 	}
 	
 	private WorldObject createVillagersOrganization(World world) {
+		world.generateUniqueId(); world.generateUniqueId(); world.generateUniqueId();
 		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
 		organization.setProperty(Constants.ID, 1);
 		world.addWorldObject(organization);
