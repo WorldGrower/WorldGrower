@@ -19,6 +19,7 @@ import java.util.Map;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.gui.ImageIds;
 
 public class FoodCooker {
@@ -42,5 +43,17 @@ public class FoodCooker {
 		if (!originalName.startsWith(COOKED_PREFIX)) {
 			food.setProperty(Constants.NAME, COOKED_PREFIX + originalName);
 		}
+	}
+	
+	public static int getIndexOfUncookedFood(WorldObjectContainer inventory) {
+		return inventory.getIndexFor(Constants.FOOD, w -> !isFoodCooked(w));
+	}
+	
+	public static int getIndexOfCookedFood(WorldObjectContainer inventory) {
+		return inventory.getIndexFor(Constants.FOOD, w -> isFoodCooked(w));
+	}
+	
+	private static boolean isFoodCooked(WorldObject food) {
+		return food.getProperty(Constants.FOOD).intValue() == COOKED_FOOD_VALUE;
 	}
 }

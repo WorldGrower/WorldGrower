@@ -23,6 +23,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.generator.FoodCooker;
 import org.worldgrower.personality.PersonalityTrait;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
@@ -40,19 +41,44 @@ public class FoodGoal implements Goal {
 		boolean hasInventoryFood = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD) > 0;
 		
 		if (hasInventoryFood) {
-			int indexOfFood = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.FOOD);
-			return new OperationInfo(performer, performer, new int[] {indexOfFood}, Actions.EAT_FROM_INVENTORY_ACTION);
-		} else {
-			OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, QUANTITY_TO_BUY, world);
-			if (buyOperationInfo != null) {
-				return buyOperationInfo;
+			boolean hasHouseWithKitchen = HousePropertyUtils.hasHouseWithKitchen(performer, world);
+			int indexOfUncookedFood = FoodCooker.getIndexOfUncookedFood(performer.getProperty(Constants.INVENTORY));
+			if (indexOfUncookedFood != -1 && hasHouseWithKitchen) {
+				return cookUncookedFood(performer, world, indexOfUncookedFood);
 			} else {
-				WorldObject eatTarget = GoalUtils.findNearestTarget(performer, Actions.EAT_ACTION, world);
-				if (eatTarget != null && Reach.distance(performer, eatTarget) < 15) {
-					return new OperationInfo(performer, eatTarget, Args.EMPTY, Actions.EAT_ACTION);
-				} else {
-					return Goals.CREATE_FOOD_SOURCES_GOAL.calculateGoal(performer, world);
-				}
+				return eatFoodFromInventory(performer);
+				
+			}
+		} else {
+			return acquireFood(performer, world);
+		}
+	}
+
+	private OperationInfo cookUncookedFood(WorldObject performer, World world, int indexOfUncookedFood) {
+		WorldObject houseWithKitchen = HousePropertyUtils.getHouseWithKitchen(performer, world);
+		return new OperationInfo(performer, houseWithKitchen, new int[] { indexOfUncookedFood }, Actions.COOK_ACTION);
+	}
+
+	private OperationInfo eatFoodFromInventory(WorldObject performer) {
+		int indexOfFood = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.FOOD);
+		int indexOfCookedFood = FoodCooker.getIndexOfCookedFood(performer.getProperty(Constants.INVENTORY));
+		if (indexOfCookedFood != -1) {
+			return new OperationInfo(performer, performer, new int[] {indexOfCookedFood}, Actions.EAT_FROM_INVENTORY_ACTION);
+		} else {
+			return new OperationInfo(performer, performer, new int[] {indexOfFood}, Actions.EAT_FROM_INVENTORY_ACTION);
+		}
+	}
+
+	private OperationInfo acquireFood(WorldObject performer, World world) {
+		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, QUANTITY_TO_BUY, world);
+		if (buyOperationInfo != null) {
+			return buyOperationInfo;
+		} else {
+			WorldObject eatTarget = GoalUtils.findNearestTarget(performer, Actions.EAT_ACTION, world);
+			if (eatTarget != null && Reach.distance(performer, eatTarget) < 15) {
+				return new OperationInfo(performer, eatTarget, Args.EMPTY, Actions.EAT_ACTION);
+			} else {
+				return Goals.CREATE_FOOD_SOURCES_GOAL.calculateGoal(performer, world);
 			}
 		}
 	}

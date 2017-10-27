@@ -110,8 +110,21 @@ public class HousePropertyUtils {
 	}
 	
 	public static boolean hasHouseWithKitchen(WorldObject performer, World world) {
-		List<WorldObject> housesWithBed = performer.getProperty(Constants.BUILDINGS).mapToWorldObjects(world, BuildingType.HOUSE, w -> w.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.KITCHEN).size() > 0);
+		List<WorldObject> housesWithBed = getHousesWithKitchen(performer, world);
 		return housesWithBed.size() > 0;
+	}
+	
+	public static WorldObject getHouseWithKitchen(WorldObject performer, World world) {
+		List<WorldObject> housesWithBed = getHousesWithKitchen(performer, world);
+		if (housesWithBed.size() > 0) {
+			return housesWithBed.get(0);
+		} else {
+			return null;
+		}
+	}
+
+	private static List<WorldObject> getHousesWithKitchen(WorldObject performer, World world) {
+		return performer.getProperty(Constants.BUILDINGS).mapToWorldObjects(world, BuildingType.HOUSE, w -> w.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.KITCHEN).size() > 0);
 	}
 	
 	public static OperationInfo createBuyBuildingOperationInfo(WorldObject performer, BuildingType buildingType, World world) {
