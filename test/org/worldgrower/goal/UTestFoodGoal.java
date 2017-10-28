@@ -72,6 +72,9 @@ public class UTestFoodGoal {
 		FoodCooker.cook(cookedBerries);
 		performer.getProperty(Constants.INVENTORY).addQuantity(cookedBerries);
 		
+		assertEquals(Actions.EAT_FROM_INVENTORY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(1, goal.calculateGoal(performer, world).getArgs()[0]);
+		
 		WorldObject house = addHouse(performer, world);
 		house.getProperty(Constants.INVENTORY).addQuantity(Item.KITCHEN.generate(1f));
 		
