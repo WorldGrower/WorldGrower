@@ -43,10 +43,11 @@ public class FoodGoal implements Goal {
 		if (hasInventoryFood) {
 			boolean hasHouseWithKitchen = HousePropertyUtils.hasHouseWithKitchen(performer, world);
 			int indexOfUncookedFood = FoodCooker.getIndexOfUncookedFood(performer.getProperty(Constants.INVENTORY));
-			if (indexOfUncookedFood != -1 && hasHouseWithKitchen) {
+			int indexOfCookedFood = FoodCooker.getIndexOfCookedFood(performer.getProperty(Constants.INVENTORY));
+			if (indexOfUncookedFood != -1 && hasHouseWithKitchen && indexOfCookedFood == -1) {
 				return cookUncookedFood(performer, world, indexOfUncookedFood);
 			} else {
-				return eatFoodFromInventory(performer);
+				return eatFoodFromInventory(performer, indexOfCookedFood);
 				
 			}
 		} else {
@@ -59,9 +60,9 @@ public class FoodGoal implements Goal {
 		return new OperationInfo(performer, houseWithKitchen, new int[] { indexOfUncookedFood }, Actions.COOK_ACTION);
 	}
 
-	private OperationInfo eatFoodFromInventory(WorldObject performer) {
+	private OperationInfo eatFoodFromInventory(WorldObject performer, int indexOfCookedFood) {
 		int indexOfFood = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.FOOD);
-		int indexOfCookedFood = FoodCooker.getIndexOfCookedFood(performer.getProperty(Constants.INVENTORY));
+		
 		if (indexOfCookedFood != -1) {
 			return new OperationInfo(performer, performer, new int[] {indexOfCookedFood}, Actions.EAT_FROM_INVENTORY_ACTION);
 		} else {

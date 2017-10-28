@@ -23,7 +23,10 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.FoodCooker;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 
@@ -46,6 +49,34 @@ public class UTestFoodGoal {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f));
 		
 		assertEquals(Actions.EAT_FROM_INVENTORY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalCookInventoryFood() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f));
+		
+		WorldObject house = addHouse(performer, world);
+		house.getProperty(Constants.INVENTORY).addQuantity(Item.KITCHEN.generate(1f));
+		
+		assertEquals(Actions.COOK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalEatCookedInventoryFood() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f));
+		WorldObject cookedBerries = Item.BERRIES.generate(1f);
+		FoodCooker.cook(cookedBerries);
+		performer.getProperty(Constants.INVENTORY).addQuantity(cookedBerries);
+		
+		WorldObject house = addHouse(performer, world);
+		house.getProperty(Constants.INVENTORY).addQuantity(Item.KITCHEN.generate(1f));
+		
+		assertEquals(Actions.EAT_FROM_INVENTORY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(1, goal.calculateGoal(performer, world).getArgs()[0]);
 	}
 	
 	@Test
@@ -79,5 +110,12 @@ public class UTestFoodGoal {
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
 		return performer;
+	}
+	
+	private WorldObject addHouse(WorldObject performer, World world) {
+		int houseId = BuildingGenerator.generateHouse(5, 5, world, performer);
+		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
+		
+		return world.findWorldObjectById(houseId);
 	}
 }
