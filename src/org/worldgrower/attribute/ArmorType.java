@@ -1,6 +1,18 @@
 package org.worldgrower.attribute;
 
-public class ArmorType {
-	public static final int LIGHT = 0;
-	public static final int HEAVY = 1;
+import org.worldgrower.Constants;
+
+public enum ArmorType {
+	LIGHT(Constants.LIGHT_ARMOR_SKILL),
+	HEAVY( Constants.HEAVY_ARMOR_SKILL);
+	
+	private final SkillProperty skillProperty;
+	
+	private ArmorType(SkillProperty skillProperty) {
+		this.skillProperty = skillProperty;
+	}
+
+	public SkillProperty getSkillProperty() {
+		return skillProperty;
+	}
 }

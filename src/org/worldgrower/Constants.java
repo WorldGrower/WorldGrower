@@ -23,6 +23,7 @@ import org.worldgrower.actions.FoodSource;
 import org.worldgrower.actions.WoodSource;
 import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.actions.magic.MagicSpell;
+import org.worldgrower.attribute.ArmorType;
 import org.worldgrower.attribute.BackgroundProperty;
 import org.worldgrower.attribute.BooleanProperty;
 import org.worldgrower.attribute.BuildingType;
@@ -168,7 +169,7 @@ public class Constants {
 	
 	public static final UnCheckedProperty<UnCheckedProperty<WorldObject>> EQUIPMENT_SLOT = new UnCheckedProperty<UnCheckedProperty<WorldObject>>("equipmentSlot", ALL_PROPERTIES);
 	public static final BooleanProperty TWO_HANDED_WEAPON = new BooleanProperty("twoHandedWeapon", NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty ARMOR_TYPE = new IntProperty("armorType", 0, 1, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final UnCheckedProperty<ArmorType> ARMOR_TYPE = new UnCheckedProperty<>("armorType", ALL_PROPERTIES);
 	
 	public static final IdListProperty GROUP = new IdListProperty("group", ALL_PROPERTIES);
 	public static final IdMapProperty RELATIONSHIPS = new IdMapProperty("relationships", ALL_PROPERTIES);
