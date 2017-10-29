@@ -25,6 +25,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class ConstructLampAction implements CraftEquipmentAction, AnimatedAction {
 
@@ -107,5 +108,10 @@ public class ConstructLampAction implements CraftEquipmentAction, AnimatedAction
 	@Override
 	public Item getItem() {
 		return Item.LAMP;
+	}
+	
+	@Override
+	public SoundIds getSoundId(WorldObject target) {
+		return SoundIds.SAW;
 	}
 }

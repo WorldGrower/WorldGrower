@@ -25,6 +25,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class ConstructSawAction implements CraftEquipmentAction, AnimatedAction {
 
@@ -112,5 +113,10 @@ public class ConstructSawAction implements CraftEquipmentAction, AnimatedAction 
 	@Override
 	public EquipmentType getEquipmentType() {
 		return EquipmentType.TOOL;
+	}
+	
+	@Override
+	public SoundIds getSoundId(WorldObject target) {
+		return SoundIds.SAW;
 	}
 }

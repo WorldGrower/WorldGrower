@@ -25,6 +25,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class ConstructFishingPoleAction implements CraftEquipmentAction, AnimatedAction {
 
@@ -105,5 +106,10 @@ public class ConstructFishingPoleAction implements CraftEquipmentAction, Animate
 	@Override
 	public Item getItem() {
 		return Item.FISHING_POLE;
+	}
+	
+	@Override
+	public SoundIds getSoundId(WorldObject target) {
+		return SoundIds.SAW;
 	}
 }

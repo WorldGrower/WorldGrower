@@ -25,6 +25,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class ConstructPickAxeAction implements CraftEquipmentAction, AnimatedAction {
 
@@ -112,5 +113,10 @@ public class ConstructPickAxeAction implements CraftEquipmentAction, AnimatedAct
 	@Override
 	public Item getItem() {
 		return Item.PICKAXE;
+	}
+	
+	@Override
+	public SoundIds getSoundId(WorldObject target) {
+		return SoundIds.SAW;
 	}
 }
