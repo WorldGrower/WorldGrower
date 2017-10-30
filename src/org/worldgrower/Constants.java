@@ -79,7 +79,7 @@ public class Constants {
 	public static final IntProperty HEIGHT = new IntProperty("HEIGHT", 1, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty ORIGINAL_WIDTH = new IntProperty("ORIGINAL_WIDTH", 1, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty ORIGINAL_HEIGHT = new IntProperty("ORIGINAL_HEIGHT", 1, null, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty HIT_POINTS = new IntProperty("HP", 0, null, NOT_NULLABLE, ALL_PROPERTIES); // TODO: max = HPmax
+	public static final IntProperty HIT_POINTS = new IntProperty("HP", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty HIT_POINTS_MAX = new IntProperty("HPmax", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty LEVEL = new IntProperty("level", 1, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final StringProperty NAME = new StringProperty("NAME", NOT_NULLABLE, ALL_PROPERTIES);
