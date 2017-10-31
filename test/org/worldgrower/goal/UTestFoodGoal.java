@@ -26,6 +26,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.generator.FoodCooker;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
@@ -80,6 +81,22 @@ public class UTestFoodGoal {
 		
 		assertEquals(Actions.EAT_FROM_INVENTORY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(1, goal.calculateGoal(performer, world).getArgs()[0]);
+	}
+	
+	@Test
+	public void testCalculateGoalButcherTarget() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		
+		int cowId = new CreatureGenerator(performer).generateCow(0, 0, world);
+		WorldObject cow = world.findWorldObjectById(cowId);
+		
+		assertEquals(Actions.PLANT_BERRY_BUSH_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		
+		cow.setProperty(Constants.MEAT_SOURCE, 10);
+		
+		assertEquals(Actions.BUTCHER_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(cow, goal.calculateGoal(performer, world).getTarget());
 	}
 	
 	@Test

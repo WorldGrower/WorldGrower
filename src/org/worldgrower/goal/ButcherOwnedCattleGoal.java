@@ -60,14 +60,9 @@ public class ButcherOwnedCattleGoal implements Goal {
 	}
 
 	private List<WorldObject> getOwnedCattle(WorldObject performer, World world) {
-		return GoalUtils.findNearestTargetsByProperty(performer, Actions.BUTCHER_ACTION, Constants.MEAT_SOURCE, w -> isOwnedCattle(performer, w), world);
+		return GoalUtils.findNearestTargetsByProperty(performer, Actions.BUTCHER_ACTION, Constants.MEAT_SOURCE, w -> CattlePropertyUtils.isOwnedCattle(performer, w), world);
 	}
 
-	private static boolean isOwnedCattle(WorldObject performer, WorldObject w) {
-		return w.getProperty(Constants.CATTLE_OWNER_ID) != null
-				&& w.getProperty(Constants.CATTLE_OWNER_ID) == performer.getProperty(Constants.ID).intValue();
-	}
-	
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
 	}

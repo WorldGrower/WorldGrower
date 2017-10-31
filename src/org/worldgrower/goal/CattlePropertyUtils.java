@@ -13,4 +13,13 @@ public class CattlePropertyUtils {
 		List<WorldObject> ownedCattle = world.findWorldObjectsByProperty(Constants.MEAT_SOURCE, w ->  w.getProperty(Constants.CATTLE_OWNER_ID) != null && w.getProperty(Constants.CATTLE_OWNER_ID).intValue() == id);
 		return ownedCattle;
 	}
+	
+	public static boolean isOwnedCattle(WorldObject performer, WorldObject w) {
+		return w.getProperty(Constants.CATTLE_OWNER_ID) != null
+				&& w.getProperty(Constants.CATTLE_OWNER_ID) == performer.getProperty(Constants.ID).intValue();
+	}
+	
+	public static boolean isOwnedCattle(WorldObject w) {
+		return w.getProperty(Constants.CATTLE_OWNER_ID) != null;
+	}
 }

@@ -23,6 +23,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.generator.CattleOnTurn;
 import org.worldgrower.generator.FoodCooker;
 import org.worldgrower.personality.PersonalityTrait;
 import org.worldgrower.text.FormattableText;
@@ -71,17 +72,23 @@ public class FoodGoal implements Goal {
 	}
 
 	private static final int FOOD_EAT_DISTANCE = 17;
+	private static final int BUTCHER_DISTANCE = 20;
 	
 	private OperationInfo acquireFood(WorldObject performer, World world) {
 		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, QUANTITY_TO_BUY, world);
 		if (buyOperationInfo != null) {
 			return buyOperationInfo;
 		} else {
-			WorldObject eatTarget = GoalUtils.findNearestTarget(performer, Actions.EAT_ACTION, world);
-			if (eatTarget != null && Reach.distance(performer, eatTarget) < FOOD_EAT_DISTANCE) {
-				return new OperationInfo(performer, eatTarget, Args.EMPTY, Actions.EAT_ACTION);
+			List<WorldObject> butcherTargets = GoalUtils.findNearestTargetsByProperty(performer, Actions.BUTCHER_ACTION, Constants.MEAT_SOURCE, w -> !CattlePropertyUtils.isOwnedCattle(w) && CattleOnTurn.cattleIsFullyGrown(w), world);
+			if (butcherTargets.size() > 0 && Reach.distance(performer, butcherTargets.get(0)) < BUTCHER_DISTANCE) {
+				return new OperationInfo(performer, butcherTargets.get(0), Args.EMPTY, Actions.BUTCHER_ACTION);
 			} else {
-				return Goals.CREATE_FOOD_SOURCES_GOAL.calculateGoal(performer, world);
+				List<WorldObject> eatTargets = GoalUtils.findNearestTargetsByProperty(performer, Actions.EAT_ACTION, Constants.FOOD_SOURCE, w -> true, world);
+				if (eatTargets.size() > 0 && Reach.distance(performer, eatTargets.get(0)) < FOOD_EAT_DISTANCE) {
+					return new OperationInfo(performer, eatTargets.get(0), Args.EMPTY, Actions.EAT_ACTION);
+				} else {
+					return Goals.CREATE_FOOD_SOURCES_GOAL.calculateGoal(performer, world);
+				}
 			}
 		}
 	}
