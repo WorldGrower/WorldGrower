@@ -413,7 +413,8 @@ public class Constants {
 				STEEL,
 				BOOTS_LIGHT_ARMOR,
 				SHIRT_LIGHT_ARMOR,
-				PANTS_LIGHT_ARMOR
+				PANTS_LIGHT_ARMOR,
+				COOKING_QUALITY
 				);
 		
 		public boolean contains(ManagedProperty<?> property) {
