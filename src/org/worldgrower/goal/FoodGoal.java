@@ -70,13 +70,15 @@ public class FoodGoal implements Goal {
 		}
 	}
 
+	private static final int FOOD_EAT_DISTANCE = 17;
+	
 	private OperationInfo acquireFood(WorldObject performer, World world) {
 		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, QUANTITY_TO_BUY, world);
 		if (buyOperationInfo != null) {
 			return buyOperationInfo;
 		} else {
 			WorldObject eatTarget = GoalUtils.findNearestTarget(performer, Actions.EAT_ACTION, world);
-			if (eatTarget != null && Reach.distance(performer, eatTarget) < 15) {
+			if (eatTarget != null && Reach.distance(performer, eatTarget) < FOOD_EAT_DISTANCE) {
 				return new OperationInfo(performer, eatTarget, Args.EMPTY, Actions.EAT_ACTION);
 			} else {
 				return Goals.CREATE_FOOD_SOURCES_GOAL.calculateGoal(performer, world);
