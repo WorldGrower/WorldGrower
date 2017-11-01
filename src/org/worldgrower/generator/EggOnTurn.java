@@ -23,7 +23,7 @@ import org.worldgrower.generator.WorldGenerator.AddWorldObjectFunction;
 
 public class EggOnTurn implements OnTurn {
 
-	private static final int PREGNANCY_DURATION = 100;
+	private static final int PREGNANCY_DURATION = 150;
 	
 	private final AddWorldObjectFunction addWorldObjectFunction;
 	

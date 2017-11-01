@@ -17,6 +17,8 @@ package org.worldgrower.creaturetype;
 import java.io.ObjectStreamException;
 import java.util.List;
 
+import org.worldgrower.WorldObject;
+import org.worldgrower.goal.CattlePropertyUtils;
 import org.worldgrower.gui.music.SoundIds;
 
 public class CowCreatureType implements CattleCreatureType {
@@ -57,5 +59,11 @@ public class CowCreatureType implements CattleCreatureType {
 	@Override
 	public SoundIds getSoundId() {
 		return SoundIds.COW;
+	}
+	
+	@Override
+	public boolean canHaveOffSpring(WorldObject performer, WorldObject w) {
+		return CattlePropertyUtils.isOldEnoughToReproduce(performer)
+				&& CattlePropertyUtils.isOldEnoughToReproduce(w);
 	}
 }

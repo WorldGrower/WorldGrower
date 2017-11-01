@@ -19,6 +19,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.worldgrower.WorldObject;
+
 public interface CreatureType extends Serializable {
 	public boolean canTalk();
 	public boolean canMove();
@@ -31,6 +33,10 @@ public interface CreatureType extends Serializable {
 	
 	public default boolean isCattle() {
 		return false;
+	}
+	
+	public default boolean canHaveOffSpring(WorldObject performer, WorldObject w) {
+		return true;
 	}
 	
 	public static final List<CreatureType> ALL_CREATURE_TYPES = new ArrayList<>();
@@ -71,5 +77,4 @@ public interface CreatureType extends Serializable {
 		}
 		throw new IllegalStateException("CreatureType with class " + clazz + " not found");
 	}
-	
 }

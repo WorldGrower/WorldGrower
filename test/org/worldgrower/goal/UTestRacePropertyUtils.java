@@ -19,10 +19,13 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
+import org.worldgrower.World;
+import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.Gender;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.Curse;
+import org.worldgrower.generator.CreatureGenerator;
 
 public class UTestRacePropertyUtils {
 
@@ -52,6 +55,27 @@ public class UTestRacePropertyUtils {
 		target.setProperty(Constants.GENDER, Gender.FEMALE);
 		target.setProperty(Constants.CREATURE_TYPE, CreatureType.GHOUL_CREATURE_TYPE);
 		assertEquals(false, RacePropertyUtils.canHaveOffspring(performer, target));
+	}
+	
+	@Test
+	public void testCanHaveOffspringCow() {
+		World world = new WorldImpl(10, 10, null, null);
+		CreatureGenerator creatureGenerator = new CreatureGenerator(TestUtils.createSkilledWorldObject(2));
+		int performerId = creatureGenerator.generateCow(0, 0, world);
+		int targetId = creatureGenerator.generateCow(0, 0, world);
+		WorldObject performer = world.findWorldObjectById(performerId);
+		WorldObject target = world.findWorldObjectById(targetId);
+		
+		performer.setProperty(Constants.GENDER, Gender.MALE);
+		target.setProperty(Constants.GENDER, Gender.FEMALE);
+		
+		assertEquals(false, RacePropertyUtils.canHaveOffspring(performer, target));
+		
+		performer.setProperty(Constants.MEAT_SOURCE, 10);
+		assertEquals(false, RacePropertyUtils.canHaveOffspring(performer, target));
+
+		target.setProperty(Constants.MEAT_SOURCE, 10);
+		assertEquals(true, RacePropertyUtils.canHaveOffspring(performer, target));
 	}
 	
 	@Test

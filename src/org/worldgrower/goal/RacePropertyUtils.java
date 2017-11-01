@@ -29,8 +29,10 @@ public class RacePropertyUtils {
 	public static boolean canHaveOffspring(WorldObject performer, WorldObject w) {
 		boolean performerIsFertile = performer.getProperty(Constants.CURSE) != Curse.INFERTILITY_CURSE;
 		boolean targetIsFertile = w.getProperty(Constants.CURSE) != Curse.INFERTILITY_CURSE;
+		CreatureType performerRace = performer.getProperty(Constants.CREATURE_TYPE);
 		return !GenderPropertyUtils.hasSameGender(performer, w) 
-				&& RacePropertyUtils.hasSameRace(performer, w) 
+				&& RacePropertyUtils.hasSameRace(performer, w)
+				&& performerRace.canHaveOffSpring(performer, w)
 				&& performerIsFertile 
 				&& targetIsFertile;
 	}
