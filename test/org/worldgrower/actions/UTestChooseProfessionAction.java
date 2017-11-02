@@ -29,7 +29,12 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.ChooseProfessionAction.ProfessionEvaluation;
+import org.worldgrower.attribute.Demands;
 import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.PropertyCountMap;
+import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.profession.Profession;
@@ -292,6 +297,41 @@ public class UTestChooseProfessionAction {
 		professionEvaluationsByParents = ChooseProfessionAction.getProfessionEvaluationsByParents(performer, world);
 		assertEquals(1, professionEvaluationsByParents.size());
 		assertEquals(Professions.BLACKSMITH_PROFESSION, professionEvaluationsByParents.get(0).getProfession());
+	}
+	
+	@Test
+	public void testCalculateSupply() {
+		World world = new WorldImpl(10, 10, null, null);
+		Demands demands = new Demands();
+		assertEquals(0, ChooseProfessionAction.calculateSupply(demands, world).size());
+		
+		demands.add(Constants.FOOD, 10);
+		WorldObject seller = TestUtils.createIntelligentWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		world.addWorldObject(seller);
+		addTenSellableBerries(seller);
+		
+		assertEquals(1, ChooseProfessionAction.calculateSupply(demands, world).size());
+		assertEquals(10, ChooseProfessionAction.calculateSupply(demands, world).count(Constants.FOOD));
+	}
+
+	private void addTenSellableBerries(WorldObject seller) {
+		WorldObject berries = Item.BERRIES.generate(1f);
+		berries.setProperty(Constants.SELLABLE, Boolean.TRUE);
+		seller.getProperty(Constants.INVENTORY).addQuantity(berries, 10);
+	}
+	
+	@Test
+	public void testGetNumberOfMatchingDemands() {
+		World world = new WorldImpl(10, 10, null, null);
+		Demands demands = new Demands();
+		assertEquals(0, ChooseProfessionAction.getNumberOfMatchingDemands(demands, world));
+		
+		demands.add(Constants.FOOD, 10);
+		WorldObject seller = TestUtils.createIntelligentWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		world.addWorldObject(seller);
+		addTenSellableBerries(seller);
+		
+		assertEquals(10, ChooseProfessionAction.getNumberOfMatchingDemands(demands, world));
 	}
 
 	private void createVillagersOrganization(World world) {
