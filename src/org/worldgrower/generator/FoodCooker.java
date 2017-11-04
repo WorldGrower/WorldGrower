@@ -16,6 +16,7 @@ package org.worldgrower.generator;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
@@ -46,11 +47,11 @@ public class FoodCooker {
 	}
 	
 	public static int getIndexOfUncookedFood(WorldObjectContainer inventory) {
-		return inventory.getIndexFor(Constants.FOOD, w -> !isFoodCooked(w));
+		return inventory.getIndexFor(Constants.FOOD, (Function<WorldObject,Boolean>)(w -> !isFoodCooked(w)));
 	}
 	
 	public static int getIndexOfCookedFood(WorldObjectContainer inventory) {
-		return inventory.getIndexFor(Constants.FOOD, w -> isFoodCooked(w));
+		return inventory.getIndexFor(Constants.FOOD, (Function<WorldObject,Boolean>)(w -> isFoodCooked(w)));
 	}
 	
 	private static boolean isFoodCooked(WorldObject food) {
