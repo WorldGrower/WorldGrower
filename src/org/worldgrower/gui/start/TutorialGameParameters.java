@@ -42,9 +42,8 @@ public class TutorialGameParameters implements GameParameters {
 
 		BuildingGenerator.generateSignPost(5, 4, world, "signpost");
 		
-		int treeId = PlantGenerator.generateTree(9, 5, world);
-		WorldObject tree = world.findWorldObjectById(treeId);
-		tree.setProperty(Constants.WOOD_SOURCE, new TreeWoodSource(1000));
+		createTree(9, 3, world);
+		createTree(9, 5, world);
 		
 		int berryBushId = PlantGenerator.generateBerryBush(8, 11, world);
 		WorldObject berryBush = world.findWorldObjectById(berryBushId);
@@ -53,6 +52,12 @@ public class TutorialGameParameters implements GameParameters {
 		int commonerId = commonerGenerator.generateCommoner(0, 10, world, organization, CommonerGenerator.NO_PARENT);
 		WorldObject commoner = world.findWorldObjectById(commonerId);
 		Conditions.addPermanent(commoner, Condition.PARALYZED_CONDITION, world);
+	}
+
+	private void createTree(int x, int y, World world) {
+		int treeId = PlantGenerator.generateTree(x, y, world);
+		WorldObject tree = world.findWorldObjectById(treeId);
+		tree.setProperty(Constants.WOOD_SOURCE, new TreeWoodSource(1000));
 	}
 
 	@Override
